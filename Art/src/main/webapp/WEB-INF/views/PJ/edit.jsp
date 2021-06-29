@@ -8,9 +8,19 @@
 <title>edit</title>
 <link rel="stylesheet" href="resources/css/PJ/edit.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
+	CKEDITOR.replace("cttsIn", {
+		resize_enabled : false,
+		language : "ko",
+		enterMode : "2",
+		width: "1330",
+		height: "500"
+	});
+	
 	$('#btnMenu').click(function() {
 		if ($('.side_bar').css('display') == 'none') {
 			$('.side_bar').slideDown();
