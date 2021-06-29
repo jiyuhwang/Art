@@ -27,7 +27,7 @@ $(document).ready(function() {
 	<div class="hdr">
 		<div class="inner_hdr">
 			<img src="resources/images/PJ/menu.png" id="btnMenu" alt="메뉴"/>
-			<a href="main.html"><img src="resources/images/PJ/art2.png" id="btnLogo" alt="로고" ></a>
+			<a href="main"><img src="resources/images/PJ/art2.png" id="btnLogo" alt="로고" ></a>
 			<img src="resources/images/PJ/look.png" id="btnLook" alt="돋보기">
 		</div>
 		<!-----------------------------------------------------------------header 검색하는 부분  -->
