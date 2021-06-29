@@ -56,15 +56,15 @@ $(document).ready(function() {
 			value="작품등록"></a>
 		<div class="side_bar_menu">
 			<div id="sideBarMenu1">
-				<a href="mygallary.html">나의 작업실</a>
+				<a href="mygallary">나의 작업실</a>
 			</div>
 			<br />
 			<div id="sideBarMenu2">
-				<a href="gallary.html">작품 보러가기</a>
+				<a href="gallary">작품 보러가기</a>
 			</div>
 			<br />
 			<div id="sideBarMenu3">
-				<a href="#">개인정보 수정</a>
+				<a href="profile">개인정보 수정</a>
 			</div>
 		</div>
 		<input type="button" id="btnLot" value="로그아웃">
