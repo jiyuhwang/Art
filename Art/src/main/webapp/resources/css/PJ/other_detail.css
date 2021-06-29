@@ -1,0 +1,598 @@
+@charset "UTF-8";
+
+body {
+	font-size: 0pt;
+	margin: 0;
+	font-family: '돋움';
+}
+
+[type="button"] {
+	cursor: pointer;
+	font-family: '돋움';
+}
+
+.ftr a, .side_bar a, #pfeName2 a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.hdr {
+	margin-top: 20px;
+	position: relative;
+	width: 100%;
+	height: 60px;
+}
+
+#btnMenu {
+	position: absolute;
+	left: 20px;
+	cursor: pointer;
+}
+
+#btnLogo {
+	position: absolute;
+	left: 60px;
+}
+
+#srhW {
+	width: 300px;
+	height: 45px;
+	position: absolute;
+	right: 100px;
+	display: none;
+}
+
+#btnSrh {
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	border: 1px solid #cccccc;
+	outline-style: none;
+}
+
+#btnLike {
+	position: absolute;
+	right: 225px;
+	cursor: pointer;
+}
+
+#likeCnt {
+	position: absolute;
+	font-size: 14pt;
+	top: 2px;
+	right: 200px;
+	font-weight: bold;
+}
+
+#btnComment {
+	position: absolute;
+	top: 2px;
+	right: 155px;
+	cursor: pointer;
+}
+
+#commentCnt {
+	position: absolute;
+	font-size: 14pt;
+	top: 2px;
+	right: 130px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#btnShare {
+	position: absolute;
+	top: 2px;
+	right: 90px;
+	cursor: pointer;
+}
+
+.share_wrap {
+	display: none;
+	position: absolute;
+	width: 270px;
+	height: 80px;
+	border: 1px solid #ccc;
+	top: 60px;
+	right: 40px;
+}
+
+#share {
+	position: absolute;
+	font-size: 10pt;
+	top: 5px;
+	left: 15px;
+}
+
+#shareAddress {
+	position: absolute;
+	top: 40px;
+	left: 15px;
+	font-size: 10pt;
+	width: 190px;
+	border-radius: 5px;
+}
+
+#btnShareAddress {
+	position: absolute;
+	top: 40px;
+	right: 15px;
+	font-size: 10pt;
+	color: white;
+	background-color: #ffad33;
+	padding: 3px 2px;
+	border: 1px solid #ffad33;
+	border-radius: 10px;
+}
+
+#btnDeclation {
+	position: absolute;
+	right: 90px;
+	cursor: pointer;
+}
+
+#btnDot1 {
+	position: absolute;
+	right: 40px;
+	cursor: pointer;
+}
+
+#btnDot2 {
+	position: absolute;
+	right: 40px;
+	cursor: pointer;
+	display: none;
+	
+}
+
+.side_bar {
+	display: none;
+	border: 2px solid gray;
+	background-color: white;
+	width: 300px;
+	height: 630px;
+	position: absolute;
+	top: 65px;
+	left: 40px;
+	z-index: 200;
+	border-radius: 10px;
+}
+
+#btnUod, #btnLot {
+	border: 1px solid #ffad33;
+	color: #ffad33;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 18pt;
+	cursor: pointer;
+	border-radius: 20px;
+	background-color: white;
+}
+
+.pfe {
+	width: 200px;
+	height: 200px;
+	border-radius: 70%;
+	overflow: hidden;
+	position: absolute;
+	top: 50px;
+	left: 48px;
+}
+
+.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#pfeName {
+	position: absolute;
+	width: 300px;
+	height: 20px;
+	text-align: center;
+	top: 260px;
+	font-size: 22pt;
+}
+
+#btnUod {
+	position: absolute;
+	top: 310px;
+	left: 95px;
+}
+
+.side_bar_menu {
+	position: absolute;
+	margin: 330px auto 0px;
+	text-align: center;
+	padding-top: 20px;
+	font-size: 15pt;
+	width: 100%;
+	height: 200px;
+}
+
+#btnLot {
+	position: absolute;
+	top: 550px;
+	left: 95px;
+}
+
+.wrap {
+	position: relative;
+	width: 1330PX;
+	height: 100%;
+	margin-top: 200px;
+	margin: 0 auto;
+}
+
+#cery {
+	font-size: 16pt;
+	margin-top: 100px;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+
+#title {
+	font-size: 30pt;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 10px;
+}
+
+.btn_edit_dee {
+	width: 150px;
+	height: 25px;
+	position: absolute;
+    right: 0;
+    top: 650px;
+}
+
+#btnCttsEdit, #btnCttsDee {
+	font-size: 10pt;
+	color: black;
+	background-color: rgb(239, 239, 239);
+    border-radius: 5px;
+    border: 1px solid rgb(239, 239, 239);
+    padding: 5px;
+}
+
+#btnCttsEdit {
+	background-color: #ffad33;
+	border: 1px solid #ffad33;
+	color: white;
+	margin-right: 5px;
+}
+
+#cmtBntWrap {
+	width: 80px;
+	height: 30px;
+	border: 2px solid #ffad33;
+	border-radius: 20px;
+	display: inline-block;
+	position: absolute;
+	cursor: pointer;
+	/* display: none; */
+	right: 30px;
+}
+
+#cmtBnt {
+	font-size: 12pt;
+	color: #959595;
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	position: absolute;
+	left: 35px;
+	top: 7px;
+}
+
+.pfe2_wrap {
+	width: 1330px;
+	height: 250px;
+	position: relative;
+	margin-bottom: 40px;
+	background-color: #fbfbfb;
+	margin-top: 30px;
+}
+
+.pfe2 {
+	width: 200px;
+	height: 200px;
+	border-radius: 70%;
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: middle;
+	position: absolute;
+	top: 25px;
+	right: 30px;
+}
+
+#share {
+	display: inline-block;
+	top: 10px;
+	right: 30px;
+	position: absolute;
+	right: 30px;
+}
+
+#pfeName2 {
+	font-size: 20pt;
+	color: #333333;
+	display: inline-block;
+	vertical-align: middle;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+}
+
+#pfeIrue {
+	font-size: 10pt;
+	color: #959595;
+	width: 75%;
+	top: 100px;
+	left: 30px;
+	position: absolute;
+}
+
+#cttsDate {
+	font-size: 12pt;
+	color: #d9d9d9;
+	display: inline-block;
+}
+
+#cttsLikeCountWrap {
+	font-size: 10pt;
+	display: inline-block;
+	top: 36px;
+	right: 90px;
+	position: absolute;
+}
+
+#cttsCmtCount {
+	font-size: 10pt;
+	display: inlineblock;
+	top: 36px;
+	right: 26px;
+	position: absolute;
+}
+
+.ctts_wrap {
+	width: 100%;
+	height: 50%;f
+}
+
+#cttsImg {
+	display: block;
+	margin: 120px auto 0;
+}
+
+.ctts {
+	margin-top: 50px;
+	margin-bottom: 150px;
+	display: block;
+	font-size: 12pt;
+}
+
+.tag_wrap {
+	width: 100%;
+	height: 40px;
+	position: relative;
+}
+
+.tag {
+	font-size: 13pt;
+	padding: 5px 12px 5px 5px;
+	background-color: #ffad33;
+	border: 2px solid #ffad33;
+	color: white;
+	border-radius: 20px;
+	margin-right: 7px;
+}
+
+.cmt_wrap {
+	margin-top: 50px;
+	display: none;
+}
+
+#cmtTitle {
+	font-size: 15pt;
+	font-weight: 600;
+	width: 100%;
+	height: 25px;
+	border-bottom: 2px solid gray;
+	margin-bottom: 10px;
+}
+
+#cmtCnt {
+	color: #ffad33;
+}
+
+#cmtWriteW {
+	width: 100%;
+	height: 100px;
+}
+
+#cmtWrite {
+	width: 100%;
+	height: 100%;
+}
+
+#btnCmtUodW {
+	width: 90px;
+	height: 30px;
+	margin-bottom: 50px;
+}
+
+#btnCmtUod {
+	font-size: 13pt;
+	color: white;
+	background-color: #ffad33;
+    border-radius: 5px;
+    border: 1px solid #ffad33;
+    padding: 5px;
+	margin-top: 10px;
+	position: absolute;
+	right: 0;
+	margin-bottom: 30px;
+}
+
+.pfe3 {
+	width: 30px;
+	height: 30px;
+	border-radius: 70%;
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.cmt_form1 {
+	width: 100%;
+	height: 100%;
+	border-top: 1px solid #cccccc;
+	padding: 20px 0;
+}
+
+#cmtName1 {
+	font-size: 10pt;
+	font-weight: 600;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10pt;
+}
+
+#cmtName1 a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.pfe4 {
+	width: 30px;
+	height: 30px;
+	border-radius: 70%;
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#cmt1 {
+	width: 100%;
+	height: 100%;
+	margin-top: 15pt;
+	font-size: 10pt;
+}
+
+#cmt1Date {
+	width: 100%;
+	height: 15px;
+	margin-top: 5pt;
+	font-size: 8pt;
+	color: gray;
+}
+
+#cmtRot {
+	width: 100%;
+	height: 15px;
+	font-size: 8pt;
+	margin-left: 20px;
+}
+
+.btn_ru_cd_w {
+	width: 100%;
+	height: 30px;
+	margin-bottom: 30px;
+}
+
+#btnReplyUod {
+	font-size: 10pt;
+	color: white;
+	background-color: #ffad33;
+    border: 1px solid #ffad33;
+    padding: 5px;
+	border-radius: 5px;
+}
+
+#btnCmtDee {
+	font-size: 10pt;
+	color: white;
+	background-color: #ffad33;
+    border: 1px solid #ffad33;
+    padding: 5px;
+	position: absolute;
+	right: 0;
+	border-radius: 5px;
+}
+
+
+.pitn {
+	font-size: 15pt;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+}
+
+.pitn a {
+	color: black;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+.pitn a.active {
+	/* background-color: black; */
+	border: 1px solid black;
+	font-weight: bold;
+	/* color: white; */
+	border-radius: 5px;
+}
+
+.pitn a:hover:not(.active) {
+	background-color: #ddd;
+	border-radius: 5px;
+}
+
+
+.ftr {
+	width: 100%;
+	height: 150px;
+	background-color: black;
+	position: relative;
+	color: white;
+	margin-top: 200px;
+}
+
+#btnLogo2 {
+	position: absolute;
+	top: 30px;
+	left: 150px;
+}
+
+.ftr_pae {
+	font-size: 12pt;
+	color: white;
+	position: absolute;
+	top: 80px;
+	left: 95px;
+}
+
+#ftr1, #ftr2, #ftr3, #ftr4 {
+	font-size: 10pt;
+	color: white;
+	position: absolute;
+	top: 60px;
+	display: inline-block;
+}
+
+#ftr1 {
+	left: 500px;
+}
+
+#ftr2 {
+	left: 650px;
+}
+
+#ftr3 {
+	left: 780px;
+}
+
+#ftr4 {
+	left: 990px;
+}

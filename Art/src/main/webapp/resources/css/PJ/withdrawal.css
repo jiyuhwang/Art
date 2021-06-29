@@ -1,0 +1,229 @@
+@charset "UTF-8";
+body {
+	margin: 0;
+	font-family: '돋움';
+}
+
+[type="button"] {
+	cursor: pointer;
+	font-family: '돋움';
+}
+
+.ftr a, .side_bar a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.hdr {
+	margin-top: 20px;
+	position: relative;
+	width: 100%;
+	height: 60px;
+}
+
+#btnMenu {
+	position: absolute;
+	left: 40px;
+	cursor: pointer;
+}
+
+#btnLogo {
+	position: absolute;
+	left: 80px;
+}
+
+#srhW {
+	width: 300px;
+	height: 45px;
+	position: absolute;
+	right: 100px;
+	display: none;
+}
+
+#btnSrh {
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	border: 1px solid #cccccc;
+	outline-style: none;
+}
+
+#btnLook {
+	position: absolute;
+	right: 40px;
+	cursor: pointer;
+}
+
+.side_bar {
+	display: none;
+	border: 2px solid gray;
+	background-color: white;
+	width: 300px;
+	height: 630px;
+	position: absolute;
+	top: 65px;
+	left: 40px;
+	z-index: 200;
+	border-radius: 10px;
+}
+
+#btnUod, #btnLot {
+	border: 1px solid #ffad33;
+	color: #ffad33;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 18pt;
+	cursor: pointer;
+	border-radius: 20px;
+	background-color: white;
+}
+
+.pfe {
+	width: 200px;
+	height: 200px;
+	border-radius: 70%;
+	overflow: hidden;
+	position: absolute;
+	top: 50px;
+	left: 48px;
+}
+
+.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#pfeName {
+	position: absolute;
+	width: 300px;
+	height: 20px;
+	text-align: center;
+	top: 260px;
+	font-size: 22pt;
+}
+
+#btnUod {
+	position: absolute;
+	top: 310px;
+	left: 95px;
+}
+
+.side_bar_menu {
+	position: absolute;
+	margin: 330px auto 0px;
+	text-align: center;
+	padding-top: 20px;
+	font-size: 15pt;
+	width: 100%;
+	height: 200px;
+}
+
+#btnLot {
+	position: absolute;
+	top: 550px;
+	left: 95px;
+}
+
+.wrap {
+	width: 1330px;
+	height: 100%;
+	margin: 110px auto;
+}
+
+.btn_menu {
+	width: 300px;
+	height: 800px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 30px;
+}
+
+.alarm:hover, .pvy:hover, .stop:hover, .pfener:hover {
+	background-color: black;
+	color: white;
+	cursor: pointer;
+}
+
+
+.set {
+	width: 190px;
+	height: 50px;
+	font-size: 25pt;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.pfener, .pvy, .stop {
+	width: 190px;
+	height: 50px;
+	font-size: 15pt;
+	font-weight: bold;
+	background-color: white;
+	color: black;
+	border-top: 1px solid #d9d9d9;
+	line-height: 50px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.stop {
+	background-color: black;
+	color: white;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.popup-leave{
+	width: 550px;
+	height: 350px;
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -200px;
+	margin-left: -235px;
+	text-align: center;	
+	border: solid 1px;
+}
+.desc b {
+  font-weight: 400;
+  color: #f44;
+
+}
+.ico_dot{
+   width: 500px;
+   height: 40px;
+   margin: 30px 10px;
+   display:inline-block;
+   
+}
+
+.inp_comm {
+ position:absolute;
+ left:0;
+ top: 1px;
+ z-index: -1;
+ width: 18px;
+ height: 18px;
+ vertical-align: top;
+}
+
+.stopbtn {
+ width: 144px;
+ height: 44px;
+ margin-top: 10px;
+ border-radius: 22px;
+ border:solid 1px #ccc;
+ background-color: #ffad33;
+ 
+}
+
+.desc ul {
+	border: solid 1px #gray;
+}
+
+input[type=checkbox] {
+	width: 15px;
+	height: 15px;
+}

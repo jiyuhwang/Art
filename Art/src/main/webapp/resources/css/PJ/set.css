@@ -1,0 +1,347 @@
+@charset "UTF-8";
+
+body {
+	font-size: 0pt;
+	margin: 0;
+	font-family: '돋움';
+}
+
+[type="button"] {
+	cursor: pointer;
+	font-family: '돋움';
+	background-color: #ffad33;
+	border-color: #ffad33;
+	font-size: 10pt;
+	color: white;
+}
+.side_bar {
+	display: none;
+	border: 2px solid gray;
+	background-color: white;
+	width: 300px;
+	height: 630px;
+	position: absolute;
+	top: 65px;
+	left: 40px;
+	z-index: 200;
+	border-radius: 10px;
+}
+
+#btnUod, #btnLot {
+	border: 1px solid #ffad33;
+	color: #ffad33;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 18pt;
+	cursor: pointer;
+	border-radius: 20px;
+	background-color: white;
+}
+
+.pfe {
+	width: 200px;
+	height: 200px;
+	border-radius: 70%;
+	overflow: hidden;
+	position: absolute;
+	top: 50px;
+	left: 48px;
+}
+
+.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#pfeName {
+	position: absolute;
+	width: 300px;
+	height: 20px;
+	text-align: center;
+	top: 260px;
+	font-size: 22pt;
+}
+
+#btnUod {
+	position: absolute;
+	top: 310px;
+	left: 95px;
+}
+
+.side_bar_menu {
+	position: absolute;
+	margin: 330px auto 0px;
+	text-align: center;
+	padding-top: 20px;
+	font-size: 15pt;
+	width: 100%;
+	height: 200px;
+}
+
+#btnLot {
+	position: absolute;
+	top: 550px;
+	left: 95px;
+}
+
+#psrd, #psrdCheck {
+	width: 96%;
+	height: 50px;
+}
+
+#year, #day {
+	width: 160px;
+	height: 50px;
+}
+
+#month {
+	width: 140px;
+	height: 55px;
+}
+
+#sex {
+	width: 97%;
+	height: 50px;
+}
+
+#email1, #email2 {
+	width: 170px;
+	height: 50px;
+}
+
+#email3, #phone4 {
+	width: 400px;
+	height: 50px;
+	padding: 1px;
+}
+
+#phone1, #phone2, #phone3 {
+	width: 140px;
+	height: 50px;
+	padding: 1px;
+	margin: 0 3px;
+}
+
+#nkmeCheck, #emailCheck {
+	width: 75px;
+	height: 50px;
+}
+
+#emailSend {
+	width: 100px;
+	height: 50px;
+}
+
+.ftr a, .side_bar a, .wrap a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.hdr {
+	margin-top: 20px;
+	position: relative;
+	width: 100%;
+	height: 60px;
+}
+
+#btnMenu {
+	position: absolute;
+	left: 40px;
+	cursor: pointer;
+}
+
+#btnLogo {
+	position: absolute;
+	left: 80px;
+}
+
+#srhW {
+	width: 300px;
+	height: 45px;
+	position: absolute;
+	right: 100px;
+	display: none;
+}
+
+#btnSrh {
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	border: 1px solid #cccccc;
+	outline-style: none;
+}
+#btnLook {
+	position: absolute;
+	right: 40px;
+	cursor: pointer;
+}
+
+.wrap {
+	width: 1330px;
+	height: 100%;
+	margin: 110px auto;
+}
+
+.btn_menu {
+	width: 300px;
+	height: 800px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 30px;
+}
+
+.alarm:hover, .pvy:hover, .stop:hover, .pfener:hover {
+	background-color: black;
+	color: white;
+	cursor: pointer;
+}
+
+.ctt {
+	width: 700px;
+	height: 800px;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 10px;
+/* 	border: 3px solid black;
+ */}
+
+.set {
+	width: 190px;
+	height: 50px;
+	font-size: 25pt;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.pfener, .pvy, .stop {
+	width: 190px;
+	height: 50px;
+	font-size: 15pt;
+	font-weight: bold;
+	background-color: white;
+	color: black;
+	border-top: 1px solid #d9d9d9;
+	line-height: 50px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.pvy {
+	background-color: black;
+	color: white;
+}
+
+.stop {
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.title {
+	width: 100%;
+	height: 50px;
+	font-size: 25pt;
+	font-weight: bold;
+/* 	margin-top: 20px;
+	margin-left: 20px; */
+	margin-bottom: 30px;
+	border-bottom: 1px solid #d9d9d9;
+	color: black;
+}
+
+.table {
+	color: black;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+table {
+	border-top: 1px solid #d9d9d9;
+    border-collapse: collapse;
+}
+
+td, th {
+	border-bottom: 1px solid #d9d9d9;
+	padding: 10px;
+}
+
+th {
+	width: 120px;
+	background-color: #e6e6e6;
+}
+
+td {
+	width: 500px;
+}
+
+.save_ccl {
+	width: 200px;
+	height: 50px;
+	margin: 0 auto;
+}
+
+#btnSave, #btnCcl {
+	padding: 15px;
+	border: 0px;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 50px;
+	font-size: 10pt;
+	display: inline-block;
+	background-color: #e6e6e6;
+	color: black;
+}
+
+#btnSave {
+	margin-right: 15px;
+	background-color: #ffad33;
+	color: white;
+}
+
+.ftr {
+	width: 100%;
+	height: 150px;
+	background-color: black;
+	position: relative;
+	color: white;
+	margin-top: 500px;
+}
+
+#btnLogo2 {
+	position: absolute;
+	top: 30px;
+	left: 150px;
+}
+
+.ftr_pae {
+	font-size: 12pt;
+	color: white;
+	position: absolute;
+	top: 80px;
+	left: 95px;
+}
+
+#ftr1, #ftr2, #ftr3, #ftr4 {
+	font-size: 10pt;
+	color: white;
+	position: absolute;
+	top: 60px;
+	display: inline-block;
+}
+
+#ftr1 {
+	left: 500px;
+}
+
+#ftr2 {
+	left: 650px;
+}
+
+#ftr3 {
+	left: 780px;
+}
+
+#ftr4 {
+	left: 990px;
+}
