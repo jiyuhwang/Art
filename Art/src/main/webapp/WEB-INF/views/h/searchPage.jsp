@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>검색 페이지</title>
-<link rel="stylesheet" type="text/css" href="resources/css/artProject/search_page.css"/>
+<link rel="stylesheet" type="text/css" href="resources/css/h/artProject/search_page.css"/>
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
