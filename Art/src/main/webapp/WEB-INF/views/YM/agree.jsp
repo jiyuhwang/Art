@@ -174,9 +174,8 @@ margin-top: 15px;}
                 </li>
                 <li class="checkBox check04">
                     <ul class="clearfix">
-                        <li>이벤트 등 프로모션 알림 메일 수신(선택</li>
+                        <li></li>
                         <li class="checkBtn">
-                            <input type="checkbox" name="chk">
                         </li>
                     </ul>
  
