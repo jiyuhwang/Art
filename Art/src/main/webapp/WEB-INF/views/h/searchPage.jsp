@@ -27,9 +27,9 @@ $(document).ready(function() {
 <body>
 	<div class="hdr">
 		<div class="inner_hdr">
-			<img src="resources/images/menu.png" id="btnMenu" alt="메뉴"/>
-			<a href="main.html"><img src="resources/images/art2.png" id="btnLogo" alt="로고" ></a>
-			<img src="resources/images/look.png" id="btnLook" alt="돋보기">
+			<img src="resources/images/PJ/menu.png" id="btnMenu" alt="메뉴"/>
+			<a href="main.html"><img src="resources/images/PJ/art2.png" id="btnLogo" alt="로고" ></a>
+			<img src="resources/images/PJ/look.png" id="btnLook" alt="돋보기">
 		</div>
 		<!-----------------------------------------------------------------header 검색하는 부분  -->
 		<div class="input_txt_div">
@@ -51,7 +51,7 @@ $(document).ready(function() {
 	<!-----------------------------------------------------------------사이드바  -->
 	<div class="side_bar">
 		<div class="pfe">
-			<img class="pfe_img" src="resources/images/짱구1.jpg" alt="짱구1"/>
+			<img class="pfe_img" src="resources/images/PJ/짱구1.jpg" alt="짱구1"/>
 		</div>
 		<div id="pfeName">짱구</div>
 		<a href="writing.html"><input type="button" id="btnUod"
@@ -101,7 +101,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<div class="ftr">
-		<a href="main.html"><img src="resources/images/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
+		<a href="main.html"><img src="resources/images/PJ/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 		<div class="ftr_pae">You can be an art writer.</div>
 		<div id="ftr1"><a href="#">관리방침 안내</a></div>
 		<div id="ftr2"><a href="#">도움말 안내</a></div>
