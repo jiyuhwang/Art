@@ -326,25 +326,25 @@ a {
 }
 
 #boxImg1 {
-	background-image: url("../../artProjectImages/짱구1.jpg");
+	background-image: url("../images/PJ/짱구1.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 #boxImg2 {
-	background-image: url("../../artProjectImages/짱구2.jpg");
+	background-image: url("../images/PJ/짱구2.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 #boxImg3 {
-	background-image: url("../../artProjectImages/짱구3.jpg");
+	background-image: url("../images/PJ/짱구3.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 #boxImg4 {
-	background-image: url("../../artProjectImages/짱구4.jpg");
+	background-image: url("../images/PJ/짱구4.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
