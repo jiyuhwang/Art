@@ -18,8 +18,10 @@ $(document).ready(function() {
 		language : "ko",
 		enterMode : "2",
 		width: "1330",
-		height: "500"
+		height: "500",
+		removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
 	});
+	
 	
 	$('#btnMenu').click(function() {
 		if ($('.side_bar').css('display') == 'none') {
