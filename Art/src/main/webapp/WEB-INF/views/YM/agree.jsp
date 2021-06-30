@@ -132,8 +132,7 @@ margin-top: 15px;}
             <ul class="join_box">
                 <li class="checkBox check01">
                     <ul class="clearfix">
-                        <li>이용약관, 개인정보 수집 및 이용,
-                            위치정보 이용약관(선택), 프로모션 안내
+                        <li>이용약관, 개인정보 수집 및 이용, 프로모션 안내
                             메일 수신(선택)에 모두 동의합니다.</li>
                         <li class="checkAllBtn">
                             <input type="checkbox" name="chkAll" id="chk" class="chkAll">
@@ -174,8 +173,8 @@ margin-top: 15px;}
                 </li>
             </ul>
             <ul class="footBtwrap clearfix">
-                <li><button class="fpmgBt1">비동의</button></li>
-                <li><button class="fpmgBt2">동의</button></li>
+                <li><button class="fpmgBt1" type="button">비동의</button></li>
+                <li><button class="fpmgBt2" type="button">동의</button></li>
             </ul>
         </form>
 
