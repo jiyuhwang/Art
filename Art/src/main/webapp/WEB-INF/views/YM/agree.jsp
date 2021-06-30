@@ -173,8 +173,8 @@ margin-top: 15px;}
                 </li>
             </ul>
             <ul class="footBtwrap clearfix">
-                <li><button class="fpmgBt1">비동의</button></li>
-                <li><button class="fpmgBt2">동의</button></li>
+                <li><button class="fpmgBt1" type="button">비동의</button></li>
+                <li><button class="fpmgBt2" type="button">동의</button></li>
             </ul>
         </form>
 
