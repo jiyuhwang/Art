@@ -58,6 +58,7 @@ ul.join_box{
 .checkBox,.checkBox>ul{
 
 	position: relative;
+	margin-bottom: 15px;
 }
 
 .checkBox>ul>li{
@@ -163,22 +164,13 @@ margin-top: 15px;}
                 </li>
                 <li class="checkBox check03">
                     <ul class="clearfix">
-                        <li>위치정보 이용약관 동의(선택)</li>
+                        <li>이벤트 등 프로모션 알림 메일 수신(선택)</li>
                         <li class="checkBtn">
                             <input type="checkbox" name="chk">
                         </li>
                     </ul>
- 
-                    <textarea name="" id="">내용을 입력.
+                 <textarea name="" id="">내용을 입력.
        </textarea>
-                </li>
-                <li class="checkBox check04">
-                    <ul class="clearfix">
-                        <li></li>
-                        <li class="checkBtn">
-                        </li>
-                    </ul>
- 
                 </li>
             </ul>
             <ul class="footBtwrap clearfix">
