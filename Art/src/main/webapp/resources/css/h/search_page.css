@@ -79,31 +79,6 @@ a {
 	border-radius: 10px;
 }
 
-.pfe {
-	width: 200px;
-	height: 200px;
-	border-radius: 70%;
-	overflow: hidden;
-	position: absolute;
-	top: 60px;
-	left: 48px;
-}
-
-.pfe_img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-#pfeName {
-	position: absolute;
-	width: 300px;
-	height: 20px;
-	text-align: center;
-	top: 280px;
-	font-size: 22pt;
-}
-
 #btnUod, #btnLot {
 	border: 1px solid #ffad33;
 	color: #ffad33;
@@ -114,24 +89,53 @@ a {
 	cursor: pointer;
 	border-radius: 20px;
 	background-color: white;
+}
+
+.pfe {
+	width: 200px;
+	height: 200px;
+	border-radius: 70%;
+	overflow: hidden;
 	position: absolute;
-	left: 95px;
+	top: 50px;
+	left: 48px;
+}
+
+.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#pfeName {
+	position: absolute;
+	width: 300px;
+	height: 20px;
+	text-align: center;
+	top: 260px;
+	font-size: 22pt;
 }
 
 #btnUod {
-	top: 320px;
-}
-#btnLot {
-	top: 520px;
+	position: absolute;
+	top: 310px;
+	left: 95px;
 }
 
 .side_bar_menu {
 	position: absolute;
-	margin: 365px 85px;
+	margin: 330px auto 0px;
 	text-align: center;
-	border-top: 1px dashed black;
 	padding-top: 20px;
 	font-size: 15pt;
+	width: 100%;
+	height: 200px;
+}
+
+#btnLot {
+	position: absolute;
+	top: 550px;
+	left: 95px;
 }
 
 #srhTxt {
