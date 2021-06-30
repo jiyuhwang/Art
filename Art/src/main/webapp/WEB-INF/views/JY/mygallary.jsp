@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>other_gallary</title>
-<link rel="stylesheet" href="resources/css/PJ/other_gallary.css">
+<title>mygallary</title>
+<link rel="stylesheet" href="resources/css/JY/mygallary.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -18,28 +18,22 @@ $(document).ready(function() {
 		}
 	})
 	
+	$('#btnGoUod').click(function() {
+		location.href =	"writing";
+	})
+	
 });
-
-	function heart() {
-		var heart = document.getElementById('heart')
-
-		if (heart.src.match("resources/images/PJ/heart.png")) {
-			heart.src = "resources/images/PJ/heart2.png";
-		} else {
-			heart.src = "resources/images/PJ/heart.png";
-		}
-	}
 </script>
 </head>
 <body>
 	<div class="hdr">
-		<img src="resources/images/PJ/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-		<a href="main"><img src="resources/images/PJ/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-		<a href="searchPage"><img src="resources/images/PJ/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
+		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
+		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
+		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
 		<div class="pfe">
-			<img class="pfe_img" src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="300px"
+			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
 				height="300px">
 		</div>
 		<div id="pfeName">짱구</div>
@@ -67,9 +61,8 @@ $(document).ready(function() {
 	</div>
 	<div class="wrap">
 		<div class="pfe_wrap">
-		<img id="heart" src="resources/images/PJ/heart.png" alt="하트" onclick="heart();" width="35px" height="35px">
 			<div class="pfe2">
-				<img class="pfe_img2" src="resources/images/PJ/짱구1.jpg" alt="짱구1"
+				<img class="pfe_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1"
 					width="200px" height="200px">
 			</div>
 			<div id="pfeName2">짱구</div>
@@ -89,43 +82,26 @@ $(document).ready(function() {
 					<label for="glyMenu1">사진작품관</label>
 					<label for="glyMenu2">그림작품관</label>
 					<label for="glyMenu3">영상작품관</label>
+					<input id="btnGoUod" type="button" value="작품 등록하기">
 					<select id="set">
 						<option value="0" selected="selected">최신순</option>
 						<option value="1">좋아요순</option>
 					</select>
 					<div class="gly_menu1_ctt">
 						<div class="pte_wrap">
-							<div class="pte" id="pte1">
-								<img src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="300px" height="300px">
-							</div>
-							<div class="pte" id="pte2">
-								<img src="resources/images/PJ/짱구2.jpg" alt="짱구2" width="300px" height="300px">
-							</div>
-							<div class="pte" id="pte3">
-								<img src="resources/images/PJ/짱구3.jpg" alt="짱구3" width="300px" height="300px">
-							</div>
-							<div class="pte" id="pte4">
-								<img src="resources/images/PJ/짱구4.jpg" alt="짱구4" width="300px" height="300px">
-							</div>
-							<div class="pte" id="pte5">
-								<img src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="300px" height="300px">
-							</div>
-							<div class="pte" id="pte6">
-								<img src="resources/images/PJ/짱구2.jpg" alt="짱구2" width="300px" height="300px">
-							</div>
-							<div class="pte" id="pte7">
-								<img src="resources/images/PJ/짱구3.jpg" alt="짱구3" width="300px" height="300px">
-							</div>
-							<div class="pte" id="pte8">
-								<img src="resources/images/PJ/짱구4.jpg" alt="짱구4" width="300px" height="300px">
-							</div>
-							<div class="pte" id="pte9">
-								<img src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="300px" height="300px">
-							</div>
+							<div class="pte" id="pte1"></div>
+							<div class="pte" id="pte2"></div>
+							<div class="pte" id="pte3"></div>
+							<div class="pte" id="pte4"></div>
+							<div class="pte" id="pte5"></div>
+							<div class="pte" id="pte6"></div>
+							<div class="pte" id="pte7"></div>
+							<div class="pte" id="pte8"></div>
+							<div class="pte" id="pte9"></div>
 						</div>
 					</div>
 
-					<div class="gly_menu2_ctt">addfasd</div>
+					<div class="gly_menu2_ctt"></div>
 					<div class="gly_menu3_ctt"></div>
 				</div>
 			</div>
@@ -138,7 +114,7 @@ $(document).ready(function() {
 	</div>
 	<br />
 	<div class="ftr">
-		<a href="main"><img src="resources/images/PJ/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
+		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 		<div class="ftr_pae">You can be an art writer.</div>
 		<div id="ftr1"><a href="#">관리방침 안내</a></div>
 		<div id="ftr2"><a href="#">도움말 안내</a></div>

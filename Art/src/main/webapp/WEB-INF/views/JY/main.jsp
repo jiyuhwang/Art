@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>main</title>
-<link rel="stylesheet" href="resources/css/PJ/main.css">
+<link rel="stylesheet" href="resources/css/JY/main.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -23,10 +23,10 @@ $(document).ready(function() {
 	function heart() {
 		var heart = document.getElementById('cttHeart');
 
-		if (heart.src.match("resources/images/PJ/heart3.png")) {
-			heart.src = "resources/images/PJ/heart2.png";
+		if (heart.src.match("resources/images/JY/heart3.png")) {
+			heart.src = "resources/images/JY/heart2.png";
 		} else {
-			heart.src = "resources/images/PJ/heart3.png";
+			heart.src = "resources/images/JY/heart3.png";
 		}
 	}
 </script>
@@ -34,13 +34,13 @@ $(document).ready(function() {
 <body>
 	<div class="bnr"></div>
 	<div class="hdr">
-		<img src="resources/images/PJ/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-		<a href="main"><img src="resources/images/PJ/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-		<a href="searchPage"><img src="resources/images/PJ/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
+		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
+		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
+		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
 		<div class="pfe">
-			<img class="pfe_img" src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="475px" height="475px">
+			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="475px" height="475px">
 		</div>
 		<div id="pfeName">짱구</div>
 		<a href="writing"><input type="button" id="btnUod" value="작품등록"></a>
@@ -60,12 +60,12 @@ $(document).ready(function() {
 		<div class="pte_wrap">
 			<div id="pteTitle">사진갤러리</div>
 			<div class="img_wrap">
-				<img src="resources/images/PJ/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
+				<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
 			<div class="pte" id="pte1">
 				<div id="bg">
 					<div id="cttTitle">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 					<div id="cttIn">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
-					<img id="cttHeart" src="resources/images/PJ/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+					<img id="cttHeart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
 					<div id="cttName">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 				</div>
 			</div>
@@ -73,7 +73,7 @@ $(document).ready(function() {
 				<div id="bg">
 					<div id="cttTitle">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 					<div id="cttIn">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
-					<img id="cttHeart" src="resources/images/PJ/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+					<img id="cttHeart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
 					<div id="cttName">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 				</div>
 			</div>
@@ -81,7 +81,7 @@ $(document).ready(function() {
 				<div id="bg">
 					<div id="cttTitle">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 					<div id="cttIn">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
-					<img id="cttHeart" src="resources/images/PJ/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+					<img id="cttHeart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
 					<div id="cttName">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 				</div>
 			</div>
@@ -89,11 +89,11 @@ $(document).ready(function() {
 				<div id="bg">
 					<div id="cttTitle">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 					<div id="cttIn">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
-					<img id="cttHeart" src="resources/images/PJ/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+					<img id="cttHeart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
 					<div id="cttName">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 				</div>
 			</div>
-			<img src="resources/images/PJ/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px"> <br />
+			<img src="resources/images/JY/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px"> <br />
 			</div>	
 			<div class="more">
 				<a href="gallary">더 많은 작품 보러가기 ></a>
@@ -103,7 +103,7 @@ $(document).ready(function() {
 		<div class="dwg_wrap">
 			<div id="dwgTitle">그림갤러리</div>
 			<div class="img_wrap2">
-				<img src="resources/images/PJ/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
+				<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
 				<div class="dwg" id="dwg1">
 					<div id="bg"></div>
 				</div>
@@ -116,7 +116,7 @@ $(document).ready(function() {
 				<div class="dwg" id="dwg4">
 					<div id="bg"></div>
 				</div>
-				<img src="resources/images/PJ/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px">
+				<img src="resources/images/JY/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px">
 			</div>
 				<div class="more">
 					<a href="gallary">더 많은 작품 보러가기 ></a>
@@ -126,12 +126,12 @@ $(document).ready(function() {
 		<div class="video_wrap">
 			<div id="videoTitle">영상갤러리</div>
 			<div class="img_wrap3">
-				<img src="resources/images/PJ/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
+				<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
 				<div class="video" id="video1"></div>
 				<div class="video" id="video2"></div>
 				<div class="video" id="video3"></div>
 				<div class="video" id="video4"></div>
-				<img src="resources/images/PJ/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px">
+				<img src="resources/images/JY/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px">
 			</div>
 				<div class="more">
 					<a href="gallary">더 많은 작품 보러가기 ></a>
@@ -139,7 +139,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<div class="ftr">
-		<a href="main"><img src="resources/images/PJ/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
+		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 		<div class="ftr_pae">You can be an art writer.</div>
 		<div id="ftr1"><a href="#">관리방침 안내</a></div>
 		<div id="ftr2"><a href="#">도움말 안내</a></div>

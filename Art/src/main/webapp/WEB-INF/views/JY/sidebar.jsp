@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>sidebar</title>
-<link rel="stylesheet" href="resources/css/PJ/sidebar.css">
+<link rel="stylesheet" href="resources/css/JY/sidebar.css">
 <script type="text/javascript" src="../script/jquery/jquery-1.12.4.js"></script>
 
 <script type="text/javascript">
@@ -31,14 +31,14 @@
 </head>
 <body>
 <div class="hdr">
-		<img src="resources/images/PJ/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-      	<a href="main"><img src="resources/images/PJ/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
+		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
+      	<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
       	<div id="srhW"><input type="text" id="btnSrh"></div>
-      	<img src="resources/images/PJ/look.png" id="btnLook" alt="돋보기" width="40px" height="40px">
+      	<img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px">
 	</div>
 	<div class="side_bar">
 		<div class="pfe">
-			<img class="pfe_img" src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="300px"
+			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
 				height="300px">
 		</div>
 		<div id="pfeName">짱구</div>

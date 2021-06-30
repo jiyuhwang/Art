@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>gallary</title>
-<link rel="stylesheet" href="resources/css/PJ/gallary.css">
+<link rel="stylesheet" href="resources/css/JY/gallary.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -23,13 +23,13 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="hdr">
-		<img src="resources/images/PJ/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-      	<a href="main"><img src="resources/images/PJ/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-      	<a href="searchPage"><img src="resources/images/PJ/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
+		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
+      	<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
+      	<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
 		<div class="pfe">
-			<img class="pfe_img" src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="300px" height="300px">
+			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px" height="300px">
 		</div>
 		<div id="pfeName">짱구</div>
 		<a href="writing"><input type="button" id="btnUod" value="작품등록"></a>
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		</div>
 	<br />
 	<div class="ftr">
-		<a href="main"><img src="resources/images/PJ/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
+		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 		<div class="ftr_pae">You can be an art writer.</div>
 		<div id="ftr1"><a href="#">관리방침 안내</a></div>
 		<div id="ftr2"><a href="#">도움말 안내</a></div>
