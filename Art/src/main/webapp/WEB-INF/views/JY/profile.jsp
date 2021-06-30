@@ -29,7 +29,6 @@ $(document).ready(function() {
 	$(".stop").on("click", function() {
 		location.href = "withdrawal";
 	});
-	
 });
 </script>
 </head>
