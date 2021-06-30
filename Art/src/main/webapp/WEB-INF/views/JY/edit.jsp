@@ -35,39 +35,8 @@ $(document).ready(function() {
 </head>
 <body>
 	<body>
-	<div class="header">
-		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
-	</div>
-	<div class="side_bar">
-		<div class="profile">
-			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
-				height="300px">
-		</div>
-		<div id="profileName">짱구</div>
-		<a href="writing"><input type="button" id="btnUpload"
-			value="작품등록"></a>
-		<div class="side_bar_menu">
-			<span>--------------</span>
-			<div id="sideBarMenu1">
-				<a href="mygallary">나의 작업실</a>
-			</div>
-			<br />
-			<div id="sideBarMenu2">
-				<a href="gallary">작품 보러가기</a>
-			</div>
-			<br />
-			<div id="sideBarMenu3">
-				<a href="profile">개인정보 수정</a>
-			</div>
-			<br />
-			<div id="sideBarMenu4">
-				<a href="#">공지사항</a>
-			</div>
-		</div>
-		<input type="button" id="btnLogout" value="로그아웃">
-	</div>
+	<c:import url="header.jsp"></c:import>
+	
 	<div class="wrap">
 		<!-- <div id="editPage">작품올리기</div> -->
 		<!-- <div id="glySet">작품관 선택</div>
@@ -101,14 +70,8 @@ $(document).ready(function() {
 			<input id="btnCancel" type="button" value="취소하기">
 		</div>
 	</div>
-	<div class="footer">
-		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
-		<div class="footer_phrase">You can be an art writer.</div>
-		<div id="footer1"><a href="#">관리방침 안내</a></div>
-		<div id="footer2"><a href="#">도움말 안내</a></div>
-		<div id="footer3"><a href="#">회원가입 및 글게시 안내</a></div>
-		<div id="footer4"><a href="#">홈페이지 서비스 안내</a></div>
-	</div>
+	
+	<c:import url="footer.jsp"></c:import>
 </body>
 </body>
 </html>

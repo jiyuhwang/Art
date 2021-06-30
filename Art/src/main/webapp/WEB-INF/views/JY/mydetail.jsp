@@ -152,16 +152,6 @@ function heart() {
 			</div>
 		</div>
 		<br />
-		<!-- <img id="heart" src="resources/images/JY/heart.png" width="30px" height="30px"> -->
-			<!-- <div id="contentsDate">2021.05.11 11:08</div> -->
-			<!-- <div id="contentsLikeCountWrap">
-				<span id="contentsLikeCount1">좋아요</span>
-				<span id="contentsLikeCount2">2</span>
-			</div>
-			<div id="contentscommentCount">
-				<span id="contentscommentCount1">댓글</span>
-				<span id="contentscommentCount2">3</span>
-			</div> -->
 		<div class="comment_wrap">
 			<div id="commentTitle">댓글 <span id="commentCnt2"> 5</span></div>
 			<div id="commentWriteW"><input id="commentWrite" type="text" placeholder="댓글을 남겨보세요."></div>
@@ -246,14 +236,6 @@ function heart() {
 		</div>
 	</div>
 
-
-	<div class="footer">
-		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
-		<div class="footer_phrase">You can be an art writer.</div>
-		<div id="footer1"><a href="#">관리방침 안내</a></div>
-		<div id="footer2"><a href="#">도움말 안내</a></div>
-		<div id="footer3"><a href="#">회원가입 및 글게시 안내</a></div>
-		<div id="footer4"><a href="#">홈페이지 서비스 안내</a></div>
-	</div>
+	<c:import url="footer.jsp"></c:import>
 </body>
 </html>
