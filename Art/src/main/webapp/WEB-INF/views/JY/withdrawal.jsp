@@ -73,24 +73,25 @@ $(document).ready(function() {
 			<div class="pvy">개인정보관리</div>
 			<div class="stop">탈퇴하기</div>
 		</div>
- <div class="main">
-	<div class="popup-leave">
-	 <h1>아트 탈퇴하기</h1>
-	 <div class="desc">
-		 탈퇴하시면 이용 중인 아트가 폐쇄되며
-		 <br>
-		 <b>모든 데이터는 복구가 불가능합니다.</b>
-		 <br>
-		  아래 사항을 확인하신 후에 신중하게 결정해 주세요.
-	 </div>
-	 <span class="ico_dot"> 작성한 글, 작품 모든 정보가 삭제됩니다.<br>작성한 댓글은 사라지지 않으니 미리 확인하시기 바랍니다.</span><br>
-	  <div class="screen_out">
-	   <input type="checkbox"><label > 안내사항을 모두 확인하였으며, 이에 동의합니다.</label>
-	  <br><br>
-	   <input type="button" class="stopbtn" value="탈퇴하기">
-	  </div>
+		<div class="ctt">
+			<div class="title">탈퇴하기</div>
+			<div class="box">
+				 <div class="desc">
+					 탈퇴하시면 이용 중인 아트가 폐쇄되며
+					 <br>
+					 <b>모든 데이터는 복구가 불가능합니다.</b>
+					 <br>
+					  아래 사항을 확인하신 후에 신중하게 결정해 주세요.
+				 </div>
+				 <span class="ico_dot"> 작성한 글, 작품 모든 정보가 삭제됩니다.<br>작성한 댓글은 사라지지 않으니 미리 확인하시기 바랍니다.</span><br>
+				  <div class="screen_out">
+				   <label > 안내사항을 모두 확인하였으며, 이에 동의합니다.</label><input type="checkbox">
+				  <br><br>
+				   <input type="button" class="stopbtn" value="탈퇴하기">
+				  </div>
+			</div>
 	</div><!--popup-leave end  -->
-  </div>
+
 </div><!--body end-->
 </body>
 </html>

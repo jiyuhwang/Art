@@ -97,19 +97,15 @@ $(document).ready(function() {
 		<div class="ctt">
 			<div class="title">개인정보 관리</div>
 			<table cellspacing="0" class="table">
-				<!-- <colgroup>
-					<col width="20%" />
-					<col width="80%" />
-				</colgroup> -->
-				<tr height="50px">
+				<tr>
 					<th>새 비밀번호</th>
 					<td><input id="psrd" type="password" onchange="check_pw()" size="10" maxlength="200"/><br/><span id="check"></span></td>
 				</tr>
-				<tr height="50px">
+				<tr>
 					<th>새비밀번호 확인</th>
 					<td><input id="psrdCheck" type="password" onchange="check_pw()" size="10" maxlength="200"/><br/><span id="check2"></span></td>
 				</tr>
-				<tr height="50px">
+				<tr>
 					<th>생년월일</th>
 					<td>
 						<input id="year" type="text" size="10" maxlength="4" placeholder="년(4자)"/>
@@ -130,7 +126,7 @@ $(document).ready(function() {
 						</select>
 						<input id="day" type="text" size="10" maxlength="2" placeholder="일"/></td>
 				</tr>
-				<tr height="50px">
+				<tr>
 					<th>성별</th>
 					<td>
 						<select id="sex">
@@ -141,7 +137,7 @@ $(document).ready(function() {
 						</select>
 					</td>
 				</tr>
-				<tr height="50px">
+				<tr>
 					<th rowspan="2">이메일</th>
 					<td>
 					<input id="email1" type="text" size="40" maxlength="50"/>
@@ -150,19 +146,28 @@ $(document).ready(function() {
 					<input id="emailSend" type="button" value="인증번호 받기">
 					</td>
 				</tr>
-				<tr height="50px">
+				<tr>
 					<!-- <th>인증번호 확인</th> -->
 					<td>
 						<input id="email3" type="text" disabled="disabled" placeholder="인증번호 입력하세요" size="40" maxlength="50"/>
 						<input id="emailCheck" type="button" value="확인">
 					</td>
 				</tr>
-				<tr height="50px">
-					<th rowspan="2">휴대폰번호</th>
+				<tr>
+					<th>휴대폰번호</th>
 					<td>
 						<input id="phone1" type="text" size="10" maxlength="4"/>
 						- <input id="phone2" type="text" size="10" maxlength="4"/>
 						- <input id="phone3" type="text" size="10" maxlength="4"/>
+					</td>
+				</tr>
+				<tr>
+					<th>정보수신여부</th>
+					<td rowspan="2" >서비스 관련 소식 및 프로모션 메일을
+							<select id="agree">
+								<option value="0" selected="selected">수신합니다.</option>
+								<option value="1">수신하지 않습니다.</option>
+						</select>
 					</td>
 				</tr>
 			</table>

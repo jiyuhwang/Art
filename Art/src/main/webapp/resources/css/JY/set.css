@@ -86,6 +86,12 @@ body {
 	left: 95px;
 }
 
+/*----------------------------------------------------------테이블 */
+
+tr {
+	height: 50px;
+}
+
 #psrd, #psrdCheck {
 	width: 96%;
 	height: 50px;
@@ -132,6 +138,13 @@ body {
 #emailSend {
 	width: 100px;
 	height: 50px;
+}
+
+#agree {
+	width: 148px;
+    height: 30px;
+    margin: 0px 10px;
+    padding-left: 6px;
 }
 
 .ftr a, .side_bar a, .wrap a {
