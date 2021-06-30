@@ -8,7 +8,7 @@ body {
 
 [type="button"] {
 	cursor: pointer;
-	font-family: ''돋움';
+	font-family: '돋움';
 }
 
 .ftr a, .side_bar a {
@@ -131,14 +131,92 @@ body {
 .wrap {
 	position: relative;
 	width: 1330px;
-	height: 1600px;
+	height: 800px;
 	margin: 0 auto;
+}
+
+.pfe_wrap {
+	width: 310px;
+	height: 1100px;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	border: 2px solid #d9d9d9;
+	border-radius: 20px;
+	color: black;
+	margin-top: 110px;
+}
+
+.pfe2 {
+	width: 200px;
+	height: 200px;
+	border-radius: 70%;
+	overflow: hidden;
+	position: absolute;
+	top: 30px;
+	left: 60px;
+}
+
+
+.pfe_img2 {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#pfeName2 {
+	position: absolute;
+	width: 100%;
+	height: 20px;
+	text-align: center;
+	top: 250px;
+	font-size: 20pt;
+}
+
+#pfeLike {
+	position: absolute;
+	width: 100%;
+	height: 15px;
+	text-align: center;
+	top: 290px;
+	font-size: 11pt;
+}
+
+#pfeIrue {
+	position: absolute;
+	width: 100%;
+	height: 705px;
+	text-align: center;
+	top: 330px;
+	font-size: 14pt;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#pfeIrueIn {
+	padding: 0px 10px;
+}
+
+#heart {
+	position: absolute;
+	top: 15px;
+	left: 20px;
+	cursor: pointer;
+}
+
+.gly_wrap {
+	width: 980px;
+	height: 1200px;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	margin-top: 110px;
+	margin-left: 30px;
 }
 
 .gly {
 	width: 100%;
 	position: absolute;
-	margin-top: 120px;
 }
 
 #tabs input:nth-of-type(1), #tabs input:nth-of-type(1) ~ div:nth-of-type(1), #tabs input:nth-of-type(2), #tabs input:nth-of-type(2) ~ div:nth-of-type(2), #tabs input:nth-of-type(3), #tabs input:nth-of-type(3) ~ div:nth-of-type(3) {
@@ -152,7 +230,7 @@ body {
     font-size: 12pt;
     padding:5px;
     text-align:center;
-    width:130px;
+    width: 130px;
     line-height:1.8em;
     font-weight:700;
     border-radius:3px 3px 0 0;
@@ -164,16 +242,15 @@ body {
 #tabs > label:hover {
     cursor:pointer;
 }
-
 #tabs label[for=glyMenu1] {
-    margin-left: 20px;
+    /* margin-left: 20px; */
 }
 #tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), #tabs > label[for=glyMenu1]:hover {
     background-color: #ffad33;
     color:#fff;
 }
 #tabs input:nth-of-type(2):checked ~ label:nth-of-type(2), #tabs > label[for=glyMenu2]:hover {
-    background-color:#ffad33;
+    background-color: #ffad33;
     color:#fff;
 }
 #tabs input:nth-of-type(3):checked ~ label:nth-of-type(3), #tabs > label[for=glyMenu3]:hover {
@@ -182,20 +259,56 @@ body {
 }
 #tabs .gly_menu1_ctt, #tabs .gly_menu2_ctt, #tabs .gly_menu3_ctt {
     padding: 2px;
-    border-top:1px solid #ddd;
-    border-bottom:1px solid #ddd;
-    width: 1280px;
-    height: 1500px;
-    margin-left: 20px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    width: 930px;
+    height: 1200px;
+    /* margin-left: 20px; */
 }
 
 .pte {
 	display: inline-block;
+	margin-bottom: 30px;
+	margin-right: 30px;
 	cursor: pointer;
-	width: 310px;
-	height: 310px;
+	width: 300px;
+	height: 300px;
 	background-repeat: no-repeat;
 	background-size: 100%
+}
+
+#pte1 {
+	background-image: url("../../images/JY/짱구1.jpg");
+}
+
+#pte2 {
+	background-image: url("../../images/JY/짱구2.jpg");
+}
+
+#pte3 {
+	background-image: url("../../images/JY/짱구3.jpg");
+}
+
+#pte4 {
+	background-image: url("../../images/JY/짱구5.jpg");
+}
+
+#pte5 {
+	background-image: url("../../images/JY/짱구3.jpg");
+}
+
+#pte6 {
+	background-image: url("../../images/JY/짱구4.jpg");
+}
+
+#pte7 {
+	background-image: url("../../images/JY/짱구5.jpg");
+}
+#pte8 {
+	background-image: url("../../images/JY/짱구1.jpg");
+}
+#pte9 {
+	background-image: url("../../images/JY/짱구3.jpg");
 }
 
 .pte_wrap {
@@ -203,77 +316,17 @@ body {
 	margin-top: 20px;
 }
 
-#pte1 {
-	background-image: url("../../images/PJ/짱구1.jpg");
-}
-
-#pte2 {
-	background-image: url("../../images/PJ/짱구2.jpg");
-}
-
-#pte3 {
-	background-image: url("../../images/PJ/짱구3.jpg");
-}
-
-#pte4 {
-	background-image: url("../../images/PJ/짱구5.jpg");
-}
-
-#pte5 {
-	background-image: url("../../images/PJ/짱구3.jpg");
-}
-
-#pte6 {
-	background-image: url("../../images/PJ/짱구4.jpg");
-}
-
-#pte7 {
-	background-image: url("../../images/PJ/짱구5.jpg");
-}
-#pte8 {
-	background-image: url("../../images/PJ/짱구1.jpg");
-}
-#pte9 {
-	background-image: url("../../images/PJ/짱구3.jpg");
-}
-#pte10 {
-	background-image: url("../../images/PJ/짱구2.jpg");
-}
-#pte11 {
-	background-image: url("../../images/PJ/짱구5.jpg");
-}
-#pte12 {
-	background-image: url("../../images/PJ/짱구4.jpg");
-}
-#pte13 {
-	background-image: url("../../images/PJ/짱구3.jpg");
-}
-#pte14 {
-	background-image: url("../../images/PJ/짱구1.jpg");
-}
-#pte15 {
-	background-image: url("../../images/PJ/짱구2.jpg");
-}
-#pte16 {
-	background-image: url("../../images/PJ/짱구4.jpg");
-}
-
-.pte_wrap :not(:nth-child(4n)) {
+.pte_wrap :not(:nth-child(3n)) {
 	margin-right: 15px;
-}
-
-.pte {
-	margin-bottom: 15px;
 }
 
 .pte_wrap img:hover {
 	filter: brightness(35%);
 }
 
-
-#set {
-	margin-top: 10px;
-	margin-left: 770px;
+#set {    
+    margin-top: 10px;
+	margin-left: 420px;
 	width: 90px;
     padding: 5px;
     padding-left: 12px;
@@ -289,7 +342,7 @@ body {
 	position: absolute;
 	display: inline-block;
 	font-size: 15pt;
-	left: 490px;
+	left: 290px;
 	bottom: 20px;
 }
 
@@ -300,11 +353,10 @@ body {
 	text-decoration: none;
 }
 
+
 .pitn a.active {
-	/* background-color: black; */
 	border: 1px solid black;
 	font-weight: bold;
-	/* color: white; */
 	border-radius: 5px;
 }
 
@@ -319,7 +371,7 @@ body {
 	background-color: black;
 	position: relative;
 	color: white;
-	margin-top: 400px;
+	margin-top: 750px;
 }
 
 #btnLogo2 {

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>mydetail</title>
-<link rel="stylesheet" href="resources/css/PJ/mydetail.css">
+<link rel="stylesheet" href="resources/css/JY/mydetail.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -82,37 +82,37 @@ $(document).ready(function() {
 function heart() {
 	var heart = document.getElementById('btnLike')
 
-	if (heart.src.match("resources/images/PJ/heart.png")) {
-		heart.src = "resources/images/PJ/heart2.png";
+	if (heart.src.match("resources/images/JY/heart.png")) {
+		heart.src = "resources/images/JY/heart2.png";
 	} else {
-		heart.src = "resources/images/PJ/heart.png";
+		heart.src = "resources/images/JY/heart.png";
 	}
 }
 </script>
 </head>
 <body>
 	<div class="hdr">
-		<img src="resources/images/PJ/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-		<a href="main"><img src="resources/images/PJ/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
+		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
+		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
 		<div id="srhW"><input type="text" id="btnSrh"></div>
-		<img src="resources/images/PJ/heart.png" id="btnLike" onclick="heart();" alt="좋아요" width="25px" height="25px">
+		<img src="resources/images/JY/heart.png" id="btnLike" onclick="heart();" alt="좋아요" width="25px" height="25px">
 		<span id="likeCnt">23</span>
-		<img src="resources/images/PJ/comment2.png" id="btnComment" alt="댓글" width="20px" height="20px">
+		<img src="resources/images/JY/comment2.png" id="btnComment" alt="댓글" width="20px" height="20px">
 		<span id="commentCnt">30</span>
-		<img src="resources/images/PJ/share.png" id="btnShare" alt="공유" width="20px" height="20px">
-		<img src="resources/images/PJ/dot1.png" id="btnDot1" alt="메뉴" width="25px" height="25px">
-		<img src="resources/images/PJ/dot2.png" id="btnDot2" alt="메뉴" width="25px" height="25px">
-		<img src="resources/images/PJ/edit.png" id="btnEdit" alt="수정" width="20px" height="20px">
-		<img src="resources/images/PJ/delete.png" id="btnDelete" alt="삭제" width="25px" height="25px">
+		<img src="resources/images/JY/share.png" id="btnShare" alt="공유" width="20px" height="20px">
+		<img src="resources/images/JY/dot1.png" id="btnDot1" alt="메뉴" width="25px" height="25px">
+		<img src="resources/images/JY/dot2.png" id="btnDot2" alt="메뉴" width="25px" height="25px">
+		<img src="resources/images/JY/edit.png" id="btnEdit" alt="수정" width="20px" height="20px">
+		<img src="resources/images/JY/delete.png" id="btnDelete" alt="삭제" width="25px" height="25px">
 	</div>
 	<div class="share_wrap">
 		<div id="share">아트 글을 공유해보세요.</div>
-		<input type="text" id="shareAddress" value="http://localhost:8090/TestWeb/PJ/NewFile"/>
+		<input type="text" id="shareAddress" value="http://localhost:8090/TestWeb/JY/NewFile"/>
 		<input type="button" id="btnShareAddress" value="Copy"/>
 	</div>
 	<div class="side_bar">
 		<div class="pfe">
-			<img class="pfe_img" src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="300px" height="300px">
+			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px" height="300px">
 		</div>
 		<div id="pfeName">짱구</div>
 		<a href="writing"><input type="button" id="btnUod" value="작품등록"></a>
@@ -130,7 +130,7 @@ function heart() {
 	</div>
 	<div class="wrap">
 		<div class="ctts_wrap">
-			<img id="cttsImg" src="resources/images/PJ/짱구1.jpg" width="700px" height="500px">
+			<img id="cttsImg" src="resources/images/JY/짱구1.jpg" width="700px" height="500px">
 		</div>
 		<div id="cery">사진갤러리</div>
 		<div id="title">스마일 짱구</div>
@@ -147,12 +147,12 @@ function heart() {
 			<i class="tag">#나무</i>		
 			<i class="tag">#공원</i>
 			<div id="cmtBntWrap">
-				<img id="cmt" src="resources/images/PJ/comment.png" width="30px" height="30px">
+				<img id="cmt" src="resources/images/JY/comment.png" width="30px" height="30px">
 				<div id="cmtBnt">댓글</div>
 			</div>
 		</div>
 		<br />
-		<!-- <img id="heart" src="resources/images/PJ/heart.png" width="30px" height="30px"> -->
+		<!-- <img id="heart" src="resources/images/JY/heart.png" width="30px" height="30px"> -->
 			<!-- <div id="cttsDate">2021.05.11 11:08</div> -->
 			<!-- <div id="cttsLikeCountWrap">
 				<span id="cttsLikeCount1">좋아요</span>
@@ -168,7 +168,7 @@ function heart() {
 			<div id="btnCmtUodW"><input type="button" id="btnCmtUod" value="댓글 작성"></div>
 			<div class="cmt_form1">
 				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/PJ/짱구2.jpg" alt="짱구2" width="30px" height="30px">
+					<img class="pfe_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
 				</div>
 				<div id="cmtName1"><a href="other_gallary">짱구</a></div>
 				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
@@ -180,7 +180,7 @@ function heart() {
 			</div>
 			<div class="cmt_form1">
 				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/PJ/짱구3.jpg" alt="짱구3" width="30px" height="30px">
+					<img class="pfe_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
 				</div>
 				<div id="cmtName1"><a href="other_gallary">짱아</a></div>
 				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
@@ -192,7 +192,7 @@ function heart() {
 			</div>
 			<div class="cmt_form1">
 				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/PJ/짱구3.jpg" alt="짱구3" width="30px" height="30px">
+					<img class="pfe_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
 				</div>
 				<div id="cmtName1"><a href="other_gallary">짱아</a></div>
 				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
@@ -204,7 +204,7 @@ function heart() {
 			</div>
 			<div class="cmt_form1">
 				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/PJ/짱구3.jpg" alt="짱구3" width="30px" height="30px">
+					<img class="pfe_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
 				</div>
 				<div id="cmtName1"><a href="other_gallary">짱아</a></div>
 				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
@@ -216,7 +216,7 @@ function heart() {
 			</div>
 			<div class="cmt_form1">
 				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/PJ/짱구3.jpg" alt="짱구3" width="30px" height="30px">
+					<img class="pfe_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
 				</div>
 				<div id="cmtName1"><a href="other_gallary">짱아</a></div>
 				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
@@ -238,9 +238,9 @@ function heart() {
 		</div>
 		<div class="pfe2_wrap">
 			<div class="pfe2">
-				<img class="pfe_img2" src="resources/images/PJ/짱구1.jpg" alt="짱구1" width="40px" height="40px">
+				<img class="pfe_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="40px" height="40px">
 			</div>
-			<!-- <div id="share"><a href="#"><img src="resources/images/PJ/share.png" alt="공유하기" width="20px" height="20px"></a></div> -->
+			<!-- <div id="share"><a href="#"><img src="resources/images/JY/share.png" alt="공유하기" width="20px" height="20px"></a></div> -->
 			<div id="pfeName2"><a href="other_gallary">짱구</a></div>
 			<div id="pfeIrue">소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개</div>
 		</div>
@@ -248,7 +248,7 @@ function heart() {
 
 
 	<div class="ftr">
-		<a href="main"><img src="resources/images/PJ/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
+		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 		<div class="ftr_pae">You can be an art writer.</div>
 		<div id="ftr1"><a href="#">관리방침 안내</a></div>
 		<div id="ftr2"><a href="#">도움말 안내</a></div>

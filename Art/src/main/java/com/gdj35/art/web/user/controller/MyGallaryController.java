@@ -19,98 +19,98 @@ public class MyGallaryController {
 
 	@RequestMapping(value = "/edit")
 	public ModelAndView edit(ModelAndView mav) {
-		mav.setViewName("PJ/edit");
+		mav.setViewName("JY/edit");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/gallary")
 	public ModelAndView gallary(ModelAndView mav) {
-		mav.setViewName("PJ/gallary");
+		mav.setViewName("JY/gallary");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/main")
 	public ModelAndView main(ModelAndView mav) {
-		mav.setViewName("PJ/main");
+		mav.setViewName("JY/main");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/mydetail")
 	public ModelAndView mydetail(ModelAndView mav) {
-		mav.setViewName("PJ/mydetail");
+		mav.setViewName("JY/mydetail");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/mygallary")
 	public ModelAndView mygallary(ModelAndView mav) {
-		mav.setViewName("PJ/mygallary");
+		mav.setViewName("JY/mygallary");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/other_detail")
 	public ModelAndView otherDetail(ModelAndView mav) {
-		mav.setViewName("PJ/other_detail");
+		mav.setViewName("JY/other_detail");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/other_gallary")
 	public ModelAndView otherGllary(ModelAndView mav) {
-		mav.setViewName("PJ/other_gallary");
+		mav.setViewName("JY/other_gallary");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/popup")
 	public ModelAndView popup(ModelAndView mav) {
-		mav.setViewName("PJ/popup");
+		mav.setViewName("JY/popup");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/profile")
 	public ModelAndView profile(ModelAndView mav) {
-		mav.setViewName("PJ/profile");
+		mav.setViewName("JY/profile");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/set")
 	public ModelAndView set(ModelAndView mav) {
-		mav.setViewName("PJ/set");
+		mav.setViewName("JY/set");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/sidebar")
 	public ModelAndView sidebar(ModelAndView mav) {
-		mav.setViewName("PJ/sidebar");
+		mav.setViewName("JY/sidebar");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/sidebar2")
 	public ModelAndView sidebar2(ModelAndView mav) {
-		mav.setViewName("PJ/sidebar2");
+		mav.setViewName("JY/sidebar2");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/withdrawal")
 	public ModelAndView withdrawal(ModelAndView mav) {
-		mav.setViewName("PJ/withdrawal");
+		mav.setViewName("JY/withdrawal");
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/writing")
 	public ModelAndView writing(ModelAndView mav) {
-		mav.setViewName("PJ/writing");
+		mav.setViewName("JY/writing");
 		
 		return mav;
 	}

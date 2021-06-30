@@ -197,11 +197,19 @@ body {
 	padding: 0px 10px;
 }
 
-#heart {
-	position: absolute;
-	top: 15px;
-	left: 20px;
-	cursor: pointer;
+
+#set {
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 90px;
+    padding: 5px;
+    padding-left: 12px;
+    border: 1px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: black;
+    cursor: pointer;
 }
 
 .gly_wrap {
@@ -230,7 +238,7 @@ body {
     font-size: 12pt;
     padding:5px;
     text-align:center;
-    width: 130px;
+    width:130px;
     line-height:1.8em;
     font-weight:700;
     border-radius:3px 3px 0 0;
@@ -278,37 +286,37 @@ body {
 }
 
 #pte1 {
-	background-image: url("../../images/PJ/짱구1.jpg");
+	background-image: url("../../images/JY/짱구1.jpg");
 }
 
 #pte2 {
-	background-image: url("../../images/PJ/짱구2.jpg");
+	background-image: url("../../images/JY/짱구2.jpg");
 }
 
 #pte3 {
-	background-image: url("../../images/PJ/짱구3.jpg");
+	background-image: url("../../images/JY/짱구3.jpg");
 }
 
 #pte4 {
-	background-image: url("../../images/PJ/짱구5.jpg");
+	background-image: url("../../images/JY/짱구5.jpg");
 }
 
 #pte5 {
-	background-image: url("../../images/PJ/짱구3.jpg");
+	background-image: url("../../images/JY/짱구3.jpg");
 }
 
 #pte6 {
-	background-image: url("../../images/PJ/짱구4.jpg");
+	background-image: url("../../images/JY/짱구4.jpg");
 }
 
 #pte7 {
-	background-image: url("../../images/PJ/짱구5.jpg");
+	background-image: url("../../images/JY/짱구5.jpg");
 }
 #pte8 {
-	background-image: url("../../images/PJ/짱구1.jpg");
+	background-image: url("../../images/JY/짱구1.jpg");
 }
 #pte9 {
-	background-image: url("../../images/PJ/짱구3.jpg");
+	background-image: url("../../images/JY/짱구3.jpg");
 }
 
 .pte_wrap {
@@ -324,9 +332,32 @@ body {
 	filter: brightness(35%);
 }
 
+
+#btnGoUod {
+	width: 110px;
+	height: 35px;
+	margin-left: 290px;
+	border: 1px solid #ccc;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	font-weight: bold;
+	border-radius: 5px;
+	background-color: white;
+	padding: 2px;
+	cursor: pointer;
+}
+
+#btnGoUod:hover {
+ 	background-color: #ffad33;
+	color: white;
+}
+
 #set {    
     margin-top: 10px;
-	margin-left: 420px;
+	margin-left: 20px;
 	width: 90px;
     padding: 5px;
     padding-left: 12px;
