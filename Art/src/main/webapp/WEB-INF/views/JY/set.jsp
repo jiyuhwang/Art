@@ -18,11 +18,11 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".pfener").on("click", function() {
+	$(".profile_manage").on("click", function() {
 		location.href = "profile";
 	});
 	
-	$(".pvy").on("click", function() {
+	$(".privacy").on("click", function() {
 		location.href = "set";
 	});
 	
@@ -34,13 +34,13 @@ $(document).ready(function() {
 
 	function check_pw(){
 		 
-        var pw = document.getElementById('psrd').value;
+        var pw = document.getElementById('pw').value;
         /* var SC = ["!","@","#","$","%"];
         var check_SC = 0; */
 
         
-        if(document.getElementById('psrd').value !='' && document.getElementById('psrdCheck').value!=''){
-            if(document.getElementById('psrd').value==document.getElementById('psrdCheck').value){
+        if(document.getElementById('pw').value !='' && document.getElementById('pwCheck').value!=''){
+            if(document.getElementById('pw').value==document.getElementById('pwCheck').value){
                 document.getElementById('check2').innerHTML='비밀번호가 일치합니다.'
                 document.getElementById('check2').style.color='green';
             }
@@ -53,18 +53,18 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<div class="hdr">
+	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
       	<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
       	<img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px">
 	</div>
 	<div class="side_bar">
-		<div class="pfe">
-			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
+		<div class="profile">
+			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
 				height="300px">
 		</div>
-		<div id="pfeName">짱구</div>
-		<a href="writing"><input type="button" id="btnUod"
+		<div id="profileName">짱구</div>
+		<a href="writing"><input type="button" id="btnUpload"
 			value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
@@ -84,26 +84,26 @@ $(document).ready(function() {
 				<a href="#">공지사항</a>
 			</div>
 		</div>
-		<input type="button" id="btnLot" value="로그아웃">
+		<input type="button" id="btnLogout" value="로그아웃">
 	</div>
 	<div class="wrap">
 		<div class="btn_menu">
 			<div class="set">설정</div>
 			<!-- <div class="alarm">알림설정</div> -->
-			<div class="pfener">프로필관리</div>
-			<div class="pvy">개인정보관리</div>
+			<div class="profile_manage">프로필관리</div>
+			<div class="privacy">개인정보관리</div>
 			<div class="stop">탈퇴하기</div>
 		</div>
-		<div class="ctt">
+		<div class="contents">
 			<div class="title">개인정보 관리</div>
 			<table cellspacing="0" class="table">
 				<tr>
 					<th>새 비밀번호</th>
-					<td><input id="psrd" type="password" onchange="check_pw()" size="10" maxlength="200"/><br/><span id="check"></span></td>
+					<td><input id="pw" type="password" onchange="check_pw()" size="10" maxlength="200"/><br/><span id="check"></span></td>
 				</tr>
 				<tr>
 					<th>새비밀번호 확인</th>
-					<td><input id="psrdCheck" type="password" onchange="check_pw()" size="10" maxlength="200"/><br/><span id="check2"></span></td>
+					<td><input id="pwCheck" type="password" onchange="check_pw()" size="10" maxlength="200"/><br/><span id="check2"></span></td>
 				</tr>
 				<tr>
 					<th>생년월일</th>
@@ -171,19 +171,19 @@ $(document).ready(function() {
 					</td>
 				</tr>
 			</table>
-			<div class="save_ccl">
+			<div class="save_cancel">
 				<input id="btnSave" type="button" value="저장하기">
-				<input id="btnCcl" type="button" value="취소하기">
+				<input id="btnCancel" type="button" value="취소하기">
 			</div>
 		</div>
 	</div>
-	<div class="ftr">
+	<div class="footer">
 		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
-		<div class="ftr_pae">You can be an art writer.</div>
-		<div id="ftr1"><a href="#">관리방침 안내</a></div>
-		<div id="ftr2"><a href="#">도움말 안내</a></div>
-		<div id="ftr3"><a href="#">회원가입 및 글게시 안내</a></div>
-		<div id="ftr4"><a href="#">홈페이지 서비스 안내</a></div>
+		<div class="footer_phrase">You can be an art writer.</div>
+		<div id="footer1"><a href="#">관리방침 안내</a></div>
+		<div id="footer2"><a href="#">도움말 안내</a></div>
+		<div id="footer3"><a href="#">회원가입 및 글게시 안내</a></div>
+		<div id="footer4"><a href="#">홈페이지 서비스 안내</a></div>
 	</div>
 </body>
 </html>

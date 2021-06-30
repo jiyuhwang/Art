@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>edit</title>
+<title>writing</title>
 <link rel="stylesheet" href="resources/css/JY/writing.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -13,7 +13,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	CKEDITOR.replace("cttsIn", {
+	CKEDITOR.replace("contentsIn", {
 		resize_enabled : false,
 		language : "ko",
 		enterMode : "2",
@@ -36,18 +36,18 @@ $(document).ready(function() {
 </head>
 <body>
 	<body>
-	<div class="hdr">
+	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
 		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
-		<div class="pfe">
-			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
+		<div class="profile">
+			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
 				height="300px">
 		</div>
-		<div id="pfeName">짱구</div>
-		<a href="writing"><input type="button" id="btnUod"
+		<div id="profileName">짱구</div>
+		<a href="writing"><input type="button" id="btnUpload"
 			value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
@@ -67,7 +67,7 @@ $(document).ready(function() {
 				<a href="#">공지사항</a>
 			</div>
 		</div>
-		<input type="button" id="btnLot" value="로그아웃">
+		<input type="button" id="btnLogout" value="로그아웃">
 	</div>
 	<div class="wrap">
 		<!-- <div id="editPage">작품올리기</div> -->
@@ -87,28 +87,28 @@ $(document).ready(function() {
 		</div>
 		<!-- <div id="title">제목</div> -->
 		<div id="titleInputW"><input id="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
-		<!-- <div id="ctts">작품설명</div> -->
-		<div id="cttsInW"><textarea id="cttsIn" name="cttsIn" cols="80" rows="10" placeholder="작품을 뽐내주세요."></textarea></div>
+		<!-- <div id="contents">작품설명</div> -->
+		<div id="contentsInW"><textarea id="contentsIn" name="contentsIn" cols="80" rows="10" placeholder="작품을 뽐내주세요."></textarea></div>
 		<!-- <div id="tag">태그</div> -->
 		<div id="tagInputW"><input id="tagInput" type="text" value="" placeholder="태그를 입력해주세요.(예 : #구름)"></div>
 		<div id="srt">공개 설정</div>
-		<div id="plcPve">
-			<input name="plc" type="radio" checked="checked" /><label for="plc" id="plc">공개</label>
-			<input name="plc" type="radio" /><label for="pve" id="pve">비공개</label>
+		<div id="publicPrivate">
+			<input name="public" type="radio" checked="checked" /><label for="public" id="public">공개</label>
+			<input name="public" type="radio" /><label for="private" id="private">비공개</label>
 		</div>
 		<br />
-		<div class="save_ccl">
+		<div class="save_cancel">
 			<input id="btnSave" type="button" value="저장하기">
-			<input id="btnCcl" type="button" value="취소하기">
+			<input id="btnCancel" type="button" value="취소하기">
 		</div>
 	</div>
-	<div class="ftr">
+	<div class="footer">
 		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
-		<div class="ftr_pae">You can be an art writer.</div>
-		<div id="ftr1"><a href="#">관리방침 안내</a></div>
-		<div id="ftr2"><a href="#">도움말 안내</a></div>
-		<div id="ftr3"><a href="#">회원가입 및 글게시 안내</a></div>
-		<div id="ftr4"><a href="#">홈페이지 서비스 안내</a></div>
+		<div class="footer_phrase">You can be an art writer.</div>
+		<div id="footer1"><a href="#">관리방침 안내</a></div>
+		<div id="footer2"><a href="#">도움말 안내</a></div>
+		<div id="footer3"><a href="#">회원가입 및 글게시 안내</a></div>
+		<div id="footer4"><a href="#">홈페이지 서비스 안내</a></div>
 	</div>
 </body>
 </body>

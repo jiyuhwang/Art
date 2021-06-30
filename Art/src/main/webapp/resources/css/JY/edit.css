@@ -16,7 +16,7 @@ a {
 	text-decoration: none;
 }
 
-.hdr {
+.header {
 	margin-top: 20px;
 	position: relative;
 	width: 100%;
@@ -34,7 +34,7 @@ a {
 	left: 80px;
 }
 
-#srhW {
+#searchW {
 	width: 300px;
 	height: 45px;
 	position: absolute;
@@ -42,7 +42,7 @@ a {
 	display: none;
 }
 
-#btnSrh {
+#btnSearch {
 	width: 100%;
 	height: 100%;
 	border-radius: 15px;
@@ -69,7 +69,7 @@ a {
 	border-radius: 10px;
 }
 
-#btnUod, #btnLot {
+#btnUpload, #btnLogout {
 	border: 1px solid #ffad33;
 	color: #ffad33;
 	text-align: center;
@@ -81,7 +81,7 @@ a {
 	background-color: white;
 }
 
-.pfe {
+.profile {
 	width: 200px;
 	height: 200px;
 	border-radius: 70%;
@@ -91,13 +91,13 @@ a {
 	left: 48px;
 }
 
-.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
+.profile_img, .profile_img2, .profile_img3, .profile_img4 {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-#pfeName {
+#profileName {
 	position: absolute;
 	width: 300px;
 	height: 20px;
@@ -106,7 +106,7 @@ a {
 	font-size: 22pt;
 }
 
-#btnUod {
+#btnUpload {
 	position: absolute;
 	top: 310px;
 	left: 95px;
@@ -126,7 +126,7 @@ a {
 	margin-top: 10px;
 }  */
 
-#btnLot {
+#btnLogout {
 	position: absolute;
 	top: 550px;
 	left: 95px;
@@ -178,23 +178,23 @@ a {
 	display: inline-block;
 }
 
-#glySet, #title, #ctts, #tag, #srt {
+#gallarySet, #title, #contents, #tag, #secret {
 	font-size: 20pt;
 	font-weight: bold;
 	display: block;
 	/* margin-bottom: 5px; */
 }
 
-#ctts {
+#contents {
 	margin-bottom: 10px;
 }
 
-#cttsInW {
+#contentsInW {
 	width: 1320px;
 	height: 600px;
 }
 
-#cttsIn {
+#contentsIn {
 	width: 1320px;
 	height: 100%;
 	border-radius: 5px;
@@ -204,7 +204,7 @@ a {
 	padding: 10px;
 }
 
-/* #glySet {
+/* #gallarySet {
 	margin-top: 30px;
 	font-family: '돋움';
 } */
@@ -223,7 +223,7 @@ a {
 	text-decoration: none;
 }
 
-#title, #ctts, #tag, #srt {
+#title, #contents, #tag, #secret {
 	margin-top: 50px;
 }
 
@@ -259,29 +259,29 @@ a {
 	border-bottom: 2px solid #ccc;
 }
 
-#srt {
+#secret {
 	margin-bottom: 8px;
 }
 
-#plcPve {
+#publicPrivacy {
 	width: 1320px;
 	height: 30px;
 }
 
-#plc, #pve {
+#public, #privacy {
 	font-size: 17pt;
 	display: inline-block;
 	margin-right: 20px;
 }
 
-.save_ccl {
+.save_cancel {
 	width: 100%;
 	height: 50px;
 	/* margin-left: 30vw; */
 	text-align: center;
 }
 
-#btnSave, #btnCcl {
+#btnSave, #btnCancel {
 	padding: 15px;
 	border: 0px;
 	border-radius: 5px;
@@ -297,7 +297,7 @@ a {
 	color: white;
 }
 
-.ftr {
+.footer {
 	width: 100%;
 	height: 150px;
 	background-color: black;
@@ -312,7 +312,7 @@ a {
 	left: 150px;
 }
 
-.ftr_pae {
+.footer_phrase {
 	font-size: 12pt;
 	color: white;
 	position: absolute;
@@ -320,7 +320,7 @@ a {
 	left: 95px;
 }
 
-#ftr1, #ftr2, #ftr3, #ftr4 {
+#footer1, #footer2, #footer3, #footer4 {
 	font-size: 10pt;
 	color: white;
 	position: absolute;
@@ -328,18 +328,18 @@ a {
 	display: inline-block;
 }
 
-#ftr1 {
+#footer1 {
 	left: 500px;
 }
 
-#ftr2 {
+#footer2 {
 	left: 650px;
 }
 
-#ftr3 {
+#footer3 {
 	left: 780px;
 }
 
-#ftr4 {
+#footer4 {
 	left: 990px;
 }

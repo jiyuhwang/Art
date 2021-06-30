@@ -11,12 +11,12 @@ body {
 	font-family: '돋움';
 }
 
-.ftr a, .side_bar a {
+.footer a, .side_bar a {
 	color: inherit;
 	text-decoration: none;
 }
 
-.hdr {
+.header {
 	margin-top: 20px;
 	position: relative;
 	width: 100%;
@@ -35,7 +35,7 @@ body {
 }
 
 
-#srhW {
+#searchW {
 	width: 300px;
 	height: 45px;
 	position: absolute;
@@ -43,7 +43,7 @@ body {
 	display: none;
 }
 
-#btnSrh {
+#btnSearch {
 	width: 100%;
 	height: 100%;
 	border-radius: 15px;
@@ -70,7 +70,7 @@ body {
 	border-radius: 10px;
 }
 
-#btnUod, #btnLot {
+#btnUpload, #btnLogout {
 	border: 1px solid #ffad33;
 	color: #ffad33;
 	text-align: center;
@@ -82,7 +82,7 @@ body {
 	background-color: white;
 }
 
-.pfe {
+.profile {
 	width: 200px;
 	height: 200px;
 	border-radius: 70%;
@@ -92,13 +92,13 @@ body {
 	left: 48px;
 }
 
-.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
+.profile_img, .profile_img2, .profile_img3, .profile_img4 {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-#pfeName {
+#profileName {
 	position: absolute;
 	width: 300px;
 	height: 20px;
@@ -107,7 +107,7 @@ body {
 	font-size: 22pt;
 }
 
-#btnUod {
+#btnUpload {
 	position: absolute;
 	top: 310px;
 	left: 95px;
@@ -123,7 +123,7 @@ body {
 	height: 200px;
 }
 
-#btnLot {
+#btnLogout {
 	position: absolute;
 	top: 550px;
 	left: 95px;

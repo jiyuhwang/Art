@@ -27,7 +27,7 @@ body {
 	border-radius: 10px;
 }
 
-#btnUod, #btnLot {
+#btnUpload, #btnLogout {
 	border: 1px solid #ffad33;
 	color: #ffad33;
 	text-align: center;
@@ -39,7 +39,7 @@ body {
 	background-color: white;
 }
 
-.pfe {
+.profile {
 	width: 200px;
 	height: 200px;
 	border-radius: 70%;
@@ -49,13 +49,13 @@ body {
 	left: 48px;
 }
 
-.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
+.profile_img, .profile_img2, .profile_img3, .profile_img4 {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-#pfeName {
+#profileName {
 	position: absolute;
 	width: 300px;
 	height: 20px;
@@ -64,7 +64,7 @@ body {
 	font-size: 22pt;
 }
 
-#btnUod {
+#btnUpload {
 	position: absolute;
 	top: 310px;
 	left: 95px;
@@ -80,7 +80,7 @@ body {
 	height: 200px;
 }
 
-#btnLot {
+#btnLogout {
 	position: absolute;
 	top: 550px;
 	left: 95px;
@@ -92,7 +92,7 @@ tr {
 	height: 50px;
 }
 
-#psrd, #psrdCheck {
+#pw, #pwCheck {
 	width: 96%;
 	height: 50px;
 }
@@ -130,7 +130,7 @@ tr {
 	margin: 0 3px;
 }
 
-#nkmeCheck, #emailCheck {
+#nicknameCheck, #emailCheck {
 	width: 75px;
 	height: 50px;
 }
@@ -147,12 +147,12 @@ tr {
     padding-left: 6px;
 }
 
-.ftr a, .side_bar a, .wrap a {
+.footer a, .side_bar a, .wrap a {
 	color: inherit;
 	text-decoration: none;
 }
 
-.hdr {
+.header {
 	margin-top: 20px;
 	position: relative;
 	width: 100%;
@@ -170,7 +170,7 @@ tr {
 	left: 80px;
 }
 
-#srhW {
+#searchW {
 	width: 300px;
 	height: 45px;
 	position: absolute;
@@ -178,7 +178,7 @@ tr {
 	display: none;
 }
 
-#btnSrh {
+#btnSearch {
 	width: 100%;
 	height: 100%;
 	border-radius: 15px;
@@ -205,13 +205,13 @@ tr {
 	margin-right: 30px;
 }
 
-.alarm:hover, .pvy:hover, .stop:hover, .pfener:hover {
+.alarm:hover, .pvy:hover, .stop:hover, .profile_manage:hover {
 	background-color: black;
 	color: white;
 	cursor: pointer;
 }
 
-.ctt {
+.contents {
 	width: 700px;
 	height: 800px;
 	display: inline-block;
@@ -229,7 +229,7 @@ tr {
 	margin-bottom: 30px;
 }
 
-.pfener, .pvy, .stop {
+.profile_manage, .privacy, .stop {
 	width: 190px;
 	height: 50px;
 	font-size: 15pt;
@@ -242,7 +242,7 @@ tr {
 	margin-bottom: 5px;
 }
 
-.pvy {
+.privacy {
 	background-color: black;
 	color: white;
 }
@@ -288,13 +288,13 @@ td {
 	width: 500px;
 }
 
-.save_ccl {
+.save_cancel {
 	width: 200px;
 	height: 50px;
 	margin: 0 auto;
 }
 
-#btnSave, #btnCcl {
+#btnSave, #btnCancel {
 	padding: 15px;
 	border: 0px;
 	border-radius: 5px;
@@ -312,7 +312,7 @@ td {
 	color: white;
 }
 
-.ftr {
+.footer {
 	width: 100%;
 	height: 150px;
 	background-color: black;
@@ -327,7 +327,7 @@ td {
 	left: 150px;
 }
 
-.ftr_pae {
+.footer_phrase {
 	font-size: 12pt;
 	color: white;
 	position: absolute;
@@ -335,7 +335,7 @@ td {
 	left: 95px;
 }
 
-#ftr1, #ftr2, #ftr3, #ftr4 {
+#footer1, #footer2, #footer3, #footer4 {
 	font-size: 10pt;
 	color: white;
 	position: absolute;
@@ -343,18 +343,18 @@ td {
 	display: inline-block;
 }
 
-#ftr1 {
+#footer1 {
 	left: 500px;
 }
 
-#ftr2 {
+#footer2 {
 	left: 650px;
 }
 
-#ftr3 {
+#footer3 {
 	left: 780px;
 }
 
-#ftr4 {
+#footer4 {
 	left: 990px;
 }

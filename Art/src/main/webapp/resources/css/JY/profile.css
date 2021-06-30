@@ -27,7 +27,7 @@ body {
 	border-radius: 10px;
 }
 
-#btnUod, #btnLot {
+#btnUpload, #btnLogout {
 	border: 1px solid #ffad33;
 	color: #ffad33;
 	text-align: center;
@@ -39,7 +39,7 @@ body {
 	background-color: white;
 }
 
-.pfe {
+.profile {
 	width: 200px;
 	height: 200px;
 	border-radius: 70%;
@@ -49,13 +49,13 @@ body {
 	left: 48px;
 }
 
-.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
+.profile_img, .profile_img2, .profile_img3, .profile_img4 {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-#pfeName {
+#profileName {
 	position: absolute;
 	width: 300px;
 	height: 20px;
@@ -64,7 +64,7 @@ body {
 	font-size: 22pt;
 }
 
-#btnUod {
+#btnUpload {
 	position: absolute;
 	top: 310px;
 	left: 95px;
@@ -80,18 +80,18 @@ body {
 	height: 200px;
 }
 
-#btnLot {
+#btnLogout {
 	position: absolute;
 	top: 550px;
 	left: 95px;
 }
 
-.ftr a, .side_bar a, .wrap a {
+.footer a, .side_bar a, .wrap a {
 	color: inherit;
 	text-decoration: none;
 }
 
-.hdr {
+.header {
 	margin-top: 20px;
 	position: relative;
 	width: 100%;
@@ -109,7 +109,7 @@ body {
 	left: 80px;
 }
 
-#srhW {
+#searchW {
 	width: 300px;
 	height: 45px;
 	position: absolute;
@@ -117,7 +117,7 @@ body {
 	display: none;
 }
 
-#btnSrh {
+#btnSearch {
 	width: 100%;
 	height: 100%;
 	border-radius: 15px;
@@ -145,13 +145,13 @@ body {
 	margin-right: 30px;
 }
 
-.alarm:hover, .pvy:hover, .stop:hover, .pfener:hover {
+.alarm:hover, .privacy:hover, .stop:hover, .profile_manage:hover {
 	background-color: black;
 	color: white;
 	cursor: pointer;
 }
 
-.ctt {
+.contents {
 	width: 700px;
 	height: 800px;
 	display: inline-block;
@@ -169,7 +169,7 @@ body {
 	margin-bottom: 30px;
 }
 
-.pfener, .pvy, .stop {
+.profile_manage, .privacy, .stop {
 	width: 190px;
 	height: 50px;
 	font-size: 15pt;
@@ -182,7 +182,7 @@ body {
 	margin-bottom: 5px;
 }
 
-.pfener {
+.profile_manage {
 	background-color: black;
 	color: white;
 }
@@ -204,7 +204,7 @@ body {
 }
 
 
-#pfe_edit {
+#profileEdit {
 	width: 250px;
 	height: 250px;
 	border-radius: 70%;
@@ -213,37 +213,37 @@ body {
 	margin-bottom: 20px;
 }
 
-#pfe_edit_img {
+#profileEditImg {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-#btnPfeUodW {
+#btnProfileUploadW {
 	width: 100%;
 	height: 45px;
 	text-align: center;
 	margin-bottom: 50px;
 }
 
-#btnPfeUod {
+#btnProfileUpload {
 	width: 100px;
 	height: 100%;
 	background-color: #ffad33;
 	border-color: #ffad33;
 }
 
-#nkme {
+#nickname {
 	width: 80%;
 	height: 50px;
 }
 
-#nkme_check {
+#nicknameCheck {
 	width: 17%;
 	height: 50px;
 }
 
-#irue {
+#introduce {
 	width: 100%;
 	height: 500px;
 }
@@ -271,13 +271,13 @@ td {
 	width: 520px;
 }
 
-.save_ccl {
+.save_cancel {
 	width: 200px;
 	height: 50px;
 	margin-left: 45%;
 }
 
-#btnSave, #btnCcl {
+#btnSave, #btnCancel {
 	padding: 15px;
 	border: 0px;
 	border-radius: 5px;
@@ -295,7 +295,7 @@ td {
 	color: white;
 }
 
-.ftr {
+.footer {
 	width: 100%;
 	height: 150px;
 	background-color: black;
@@ -310,7 +310,7 @@ td {
 	left: 150px;
 }
 
-.ftr_pae {
+.footer_phrase {
 	font-size: 12pt;
 	color: white;
 	position: absolute;
@@ -318,7 +318,7 @@ td {
 	left: 95px;
 }
 
-#ftr1, #ftr2, #ftr3, #ftr4 {
+#footer1, #footer2, #footer3, #footer4 {
 	font-size: 10pt;
 	color: white;
 	position: absolute;
@@ -326,18 +326,18 @@ td {
 	display: inline-block;
 }
 
-#ftr1 {
+#footer1 {
 	left: 500px;
 }
 
-#ftr2 {
+#footer2 {
 	left: 650px;
 }
 
-#ftr3 {
+#footer3 {
 	left: 780px;
 }
 
-#ftr4 {
+#footer4 {
 	left: 990px;
 }
