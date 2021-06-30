@@ -116,16 +116,33 @@ margin-top: 15px;}
 .fpmgBt1{
 	
 	background-color: #fff;
-	color:#888
+	color:#888;
+	cursor:pointer;
 }
 
 .fpmgBt2{
 	
 	background-color: #ffad33;
-	color: #fff
+	color: #fff;
+	cursor:pointer;
 }
 
 </style>
+<script type="text/javascript"
+		src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#all").on("click", function() {
+		if($(this).is(" :checked")) {
+			$("#wrap input").prop("checked", true);
+	 } else {	
+		 $("#wrap input").prop("checked", false);
+	 }
+	
+	 checkTxt();
+	}
+}
+</script>
 <body>
 <form action="" id="joinForm">
 		<h1>Art</h1>
@@ -135,7 +152,7 @@ margin-top: 15px;}
                         <li>이용약관, 개인정보 수집 및 이용, 프로모션 안내
                             메일 수신(선택)에 모두 동의합니다.</li>
                         <li class="checkAllBtn">
-                            <input type="checkbox" name="chkAll" id="chk" class="chkAll">
+                            <input type="checkbox" name="chkAll" onclick='selectAll(this)' id="chk" class="chkAll">
                         </li>
                     </ul>
                 </li>
@@ -161,7 +178,7 @@ margin-top: 15px;}
                     <textarea name="" id="">내용을 입력
        </textarea>
                 </li>
-                <li class="checkBox check03">
+                <li class="checkBox check04">
                     <ul class="clearfix">
                         <li>이벤트 등 프로모션 알림 메일 수신(선택)</li>
                         <li class="checkBtn">

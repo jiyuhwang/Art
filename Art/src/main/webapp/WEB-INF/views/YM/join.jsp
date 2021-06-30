@@ -60,6 +60,7 @@ input {
   display: inline-block;
   color: #fff;
   font-size: 14px;
+  cursor:pointer;
   
 }
 
@@ -83,7 +84,8 @@ input {
   background-color: #ffad33;
   border:none;
   font-size:14px;
-  color: #fff
+  color: #fff;
+  cursor:pointer;
 }
 
 .d{
@@ -171,6 +173,7 @@ input {
 	font-size: 25px;
 	color: #fff;
 	border: 0;
+	cursor:pointer;
 }
 
 #cancel{
@@ -180,6 +183,7 @@ input {
 	font-size: 25px;
 	color: #888;
 	border: 0;
+	cursor:pointer;
 }
 </style>
 
