@@ -150,7 +150,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-	<div class="ftr">
+	<div class="footer">
 		<a href="main.html"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 		<div class="ftr_pae">You can be an art writer.</div>
 		<div id="ftr1"><a href="#">관리방침 안내</a></div>
