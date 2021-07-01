@@ -12,14 +12,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	//우측 상단 클릭하면 사이드바 올라가거나 내려가기
-	$('#btnMenu').click(function() {
-		if ($('.side_bar').css('display') == 'none') {
-			$('.side_bar').slideDown();
-		} else {
-			$('.side_bar').slideUp();
-		}
-	})
 
 });//document end
 
