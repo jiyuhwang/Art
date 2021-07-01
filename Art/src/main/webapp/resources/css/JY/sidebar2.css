@@ -27,7 +27,7 @@ a {
 	left: 105px;
 }
 
-#sideBarPae {
+#sideBarPhrase {
 	position: absolute;
 	top: 110px;
 	left: 40px;
@@ -60,7 +60,7 @@ a {
 	font-size: 18pt;
 }
 
-#fgt {
+#forget {
 	position: absolute;
 	bottom:30px;
 	left: 75px;

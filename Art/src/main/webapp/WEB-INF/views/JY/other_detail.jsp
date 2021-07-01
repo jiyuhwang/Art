@@ -26,11 +26,11 @@ $(document).ready(function() {
 		}
 	})
 	
-	$('#cmtBntWrap').click(function() {
-		if ($('.cmt_wrap').css('display') == 'none') {
-			$('.cmt_wrap').show();
+	$('#commentWrap').click(function() {
+		if ($('.comment_wrap').css('display') == 'none') {
+			$('.comment_wrap').show();
 		} else {
-			$('.cmt_wrap').hide();
+			$('.comment_wrap').hide();
 		}
 	})
 	
@@ -60,8 +60,8 @@ $(document).ready(function() {
 	})
 	
 	$('#btnComment, #commentCnt').click(function(){
-			$(".cmt_wrap").show();
-			var offset = $('#cmtBntWrap').offset();
+			$(".comment_wrap").show();
+			var offset = $('#commentWrap').offset();
 
 	        $('html').animate({scrollTop : offset.top}, 400);
 	})
@@ -79,10 +79,10 @@ function heart() {
 </script>
 </head>
 <body>
-	<div class="hdr">
+	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-		<div id="srhW"><input type="text" id="btnSrh"></div>
+		<!-- <div id="srhW"><input type="text" id="btnSrh"></div> -->
 		<img src="resources/images/JY/comment2.png" id="btnComment" alt="댓글" width="20px" height="20px">
 		<span id="commentCnt">30</span>
 		<img src="resources/images/JY/heart.png" id="btnLike" onclick="heart();" alt="좋아요" width="25px" height="25px">
@@ -98,11 +98,11 @@ function heart() {
 		<input type="button" id="btnShareAddress" value="Copy"/>
 	</div>
 	<div class="side_bar">
-		<div class="pfe">
-			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px" height="300px">
+		<div class="profile">
+			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px" height="300px">
 		</div>
-		<div id="pfeName">짱구</div>
-		<a href="writing"><input type="button" id="btnUod" value="작품등록"></a>
+		<div id="profileName">짱구</div>
+		<a href="writing"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
 			<div id="sideBarMenu1"><a href="mygallary">나의 작업실</a></div>
@@ -113,102 +113,92 @@ function heart() {
 			<br />
 			<div id="sideBarMenu4"><a href="#">공지사항</a></div>
 		</div>
-		<input type="button" id="btnLot" value="로그아웃">
+		<input type="button" id="btnLogout" value="로그아웃">
 	</div>
 	<div class="wrap">
-		<div class="ctts_wrap">
-			<img id="cttsImg" src="resources/images/JY/짱구1.jpg" width="700px" height="500px">
+		<div class="contents_wrap">
+			<img id="contentsImg" src="resources/images/JY/짱구1.jpg" width="700px" height="500px">
 		</div>
-		<div id="cery">사진갤러리</div>
+		<div id="category">사진갤러리</div>
 		<div id="title">스마일 짱구</div>
-		<div id="cttsDate">2021.06.28 15:00</div>
+		<div id="contentsDate">2021.06.28 15:00</div>
 		<!-- <div class="btn_edit_dee">
-			<input type="button" id="btnCttsEdit" value="수정하기">
-			<input type="button" id="btnCttsDee" value="삭제하기">
+			<input type="button" id="btncontentsEdit" value="수정하기">
+			<input type="button" id="btncontentsDee" value="삭제하기">
 		</div> -->
 		<br />
 		<br />
-		<div class="ctts">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+		<div class="contents">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
 		<div class="tag_wrap">
 			<i class="tag">#복숭아</i>		
 			<i class="tag">#나무</i>		
 			<i class="tag">#공원</i>
-			<div id="cmtBntWrap">
-				<img id="cmt" src="resources/images/JY/comment.png" width="30px" height="30px">
-				<div id="cmtBnt">댓글</div>
+			<div id="commentWrap">
+				<img id="commentImg" src="resources/images/JY/comment.png" width="30px" height="30px">
+				<div id="comment">댓글</div>
 			</div>
 		</div>
 		<br />
-		<!-- <img id="heart" src="resources/images/JY/heart.png" width="30px" height="30px"> -->
-			<!-- <div id="cttsDate">2021.05.11 11:08</div> -->
-			<!-- <div id="cttsLikeCountWrap">
-				<span id="cttsLikeCount1">좋아요</span>
-				<span id="cttsLikeCount2">2</span>
-			</div>
-			<div id="cttsCmtCount">
-				<span id="cttsCmtCount1">댓글</span>
-				<span id="cttsCmtCount2">3</span>
-			</div> -->
-		<div class="cmt_wrap">
-			<div id="cmtTitle">댓글 <span id="cmtCnt"> 5</span></div>
-			<div id="cmtWriteW"><input id="cmtWrite" type="text" placeholder="댓글을 남겨보세요."></div>
-			<div id="btnCmtUodW"><input type="button" id="btnCmtUod" value="댓글 작성"></div>
-			<div class="cmt_form1">
-				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
+		<div class="comment_wrap">
+			<div id="commentTitle">댓글 <span id="commentCnt2"> 5</span></div>
+			<div id="commentWriteW"><input id="commentWrite" type="text" placeholder="댓글을 남겨보세요."></div>
+			<div id="btnCommentUploadW"><input type="button" id="btnCommentUpload" value="댓글 작성"></div>
+			<div class="comment_form1">
+				<div class="profile3">
+					<img class="profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
 				</div>
-				<div id="cmtName1"><a href="other_gallary">짱구</a></div>
-				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div id="cmt1Date">2021.05.11.12:18 <a id="cmtRot" href="#">신고하기</a></div>
+				<div id="commentName1"><a href="other_gallary">짱구</a></div>
+				<div id="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
+				<div id="comment1Date">2021.05.11.12:18 <a id="commentDeclaration" href="#">신고하기</a></div>
 			</div>
-			<div class="btn_ru_cd_w">
-				<input type="button" id="btnReplyUod" value="답글">
+			<div class="btn_reply_upload_W">
+				<input type="button" id="btnReplyUpload" value="답글">
 			</div>
-			<div class="cmt_form1">
-				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
+			<div class="comment_form1">
+				<div class="profile3">
+					<img class="profile_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
 				</div>
-				<div id="cmtName1"><a href="other_gallary">짱아</a></div>
-				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div id="cmt1Date">2021.05.12.13:20 <a id="cmtRot" href="#">신고하기</a></div>
-				<div class="btn_ru_cd_w">
-					<input type="button" id="btnReplyUod" value="답글">
+				<div id="commentName1"><a href="other_gallary">짱아</a></div>
+				<div id="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
+				<div id="comment1Date">2021.05.12.13:20 <a id="commentDeclaration" href="#">신고하기</a></div>
+				<div class="btn_reply_upload">
+					<input type="button" id="btnReplyUpload" value="답글">
 				</div>
 			</div>
-			<div class="cmt_form1">
-				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
+			<div class="comment_form1">
+				<div class="profile3">
+					<img class="profile_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
 				</div>
-				<div id="cmtName1"><a href="other_gallary">짱아</a></div>
-				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div id="cmt1Date">2021.05.12.13:20 <a id="cmtRot" href="#">신고하기</a></div>
-				<div class="btn_ru_cd_w">
-					<input type="button" id="btnReplyUod" value="답글">
-				</div>
-			</div>
-			<div class="cmt_form1">
-				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
-				</div>
-				<div id="cmtName1"><a href="other_gallary">짱아</a></div>
-				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div id="cmt1Date">2021.05.12.13:20 <a id="cmtRot" href="#">신고하기</a></div>
-				<div class="btn_ru_cd_w">
-					<input type="button" id="btnReplyUod" value="답글">
+				<div id="commentName1"><a href="other_gallary">짱아</a></div>
+				<div id="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
+				<div id="comment1Date">2021.05.12.13:20 <a id="commentDeclaration" href="#">신고하기</a></div>
+				<div class="btn_reply_upload">
+					<input type="button" id="btnReplyUpload" value="답글">
 				</div>
 			</div>
-			<div class="cmt_form1">
-				<div class="pfe3">
-					<img class="pfe_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
+			<div class="comment_form1">
+				<div class="profile3">
+					<img class="profile_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
 				</div>
-				<div id="cmtName1"><a href="other_gallary">짱아</a></div>
-				<div id="cmt1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div id="cmt1Date">2021.05.12.13:20 <a id="cmtRot" href="#">신고하기</a></div>
-				<div class="btn_ru_cd_w">
-					<input type="button" id="btnReplyUod" value="답글">
+				<div id="commentName1"><a href="other_gallary">짱아</a></div>
+				<div id="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
+				<div id="comment1Date">2021.05.12.13:20 <a id="commentDeclaration" href="#">신고하기</a></div>
+				<div class="btn_reply_upload">
+					<input type="button" id="btnReplyUpload" value="답글">
 				</div>
 			</div>
-			<div class="pitn">
+			<div class="comment_form1">
+				<div class="profile3">
+					<img class="profile_img3" src="resources/images/JY/짱구3.jpg" alt="짱구3" width="30px" height="30px">
+				</div>
+				<div id="commentName1"><a href="other_gallary">짱아</a></div>
+				<div id="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
+				<div id="comment1Date">2021.05.12.13:20 <a id="commentDeclaration" href="#">신고하기</a></div>
+				<div class="btn_reply_upload">
+					<input type="button" id="btnReplyUpload" value="답글">
+				</div>
+			</div>
+			<div class="pagination">
 					<a href="#">&laquo;</a>
 					<a href="#" class="active">1</a> 
 					<a href="#">2</a>
@@ -218,24 +208,16 @@ function heart() {
 					<a href="#">&raquo;</a>
 			</div>
 		</div>
-		<div class="pfe2_wrap">
-			<div class="pfe2">
-				<img class="pfe_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="40px" height="40px">
+		<div class="profile2_wrap">
+			<div class="profile2">
+				<img class="profile_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="40px" height="40px">
 			</div>
 			<!-- <div id="share"><a href="#"><img src="resources/images/JY/share.png" alt="공유하기" width="20px" height="20px"></a></div> -->
-			<div id="pfeName2"><a href="other_gallary">짱구</a></div>
-			<div id="pfeIrue">소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개</div>
+			<div id="profileName2"><a href="other_gallary">짱구</a></div>
+			<div id="profileIntroduce">소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개</div>
 		</div>
 	</div>
 
-
-	<div class="ftr">
-		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
-		<div class="ftr_pae">You can be an art writer.</div>
-		<div id="ftr1"><a href="#">관리방침 안내</a></div>
-		<div id="ftr2"><a href="#">도움말 안내</a></div>
-		<div id="ftr3"><a href="#">회원가입 및 글게시 안내</a></div>
-		<div id="ftr4"><a href="#">홈페이지 서비스 안내</a></div>
-	</div>
+	<c:import url="footer.jsp"></c:import>
 </body>
 </html>
