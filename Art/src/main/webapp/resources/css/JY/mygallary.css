@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charselect "UTF-8";
 
 body {
 	font-size: 0pt;
@@ -11,131 +11,14 @@ body {
 	font-family: '돋움';
 }
 
-.ftr a, .side_bar a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.hdr {
-	margin-top: 20px;
-	position: relative;
-	width: 100%;
-	height: 60px;
-}
-
-#btnMenu {
-	position: absolute;
-	left: 40px;
-	cursor: pointer;
-}
-
-#btnLogo {
-	position: absolute;
-	left: 80px;
-}
-
-#srhW {
-	width: 300px;
-	height: 45px;
-	position: absolute;
-	right: 100px;
-	display: none;
-}
-
-#btnSrh {
-	width: 100%;
-	height: 100%;
-	border-radius: 15px;
-	border: 1px solid #cccccc;
-	outline-style: none;
-}
-
-#btnLook {
-	position: absolute;
-	right: 40px;
-	cursor: pointer;
-}
-
-.side_bar {
-	display: none;
-	border: 2px solid gray;
-	background-color: white;
-	width: 300px;
-	height: 630px;
-	position: absolute;
-	top: 65px;
-	left: 40px;
-	z-index: 200;
-	border-radius: 10px;
-}
-
-#btnUod, #btnLot {
-	border: 1px solid #ffad33;
-	color: #ffad33;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 18pt;
-	cursor: pointer;
-	border-radius: 20px;
-	background-color: white;
-}
-
-.pfe {
-	width: 200px;
-	height: 200px;
-	border-radius: 70%;
-	overflow: hidden;
-	position: absolute;
-	top: 50px;
-	left: 48px;
-}
-
-.pfe_img, .pfe_img2, .pfe_img3, .pfe_img4 {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-#pfeName {
-	position: absolute;
-	width: 300px;
-	height: 20px;
-	text-align: center;
-	top: 260px;
-	font-size: 22pt;
-}
-
-#btnUod {
-	position: absolute;
-	top: 310px;
-	left: 95px;
-}
-
-.side_bar_menu {
-	position: absolute;
-	margin: 330px auto 0px;
-	text-align: center;
-	padding-top: 20px;
-	font-size: 15pt;
-	width: 100%;
-	height: 200px;
-}
-
-#btnLot {
-	position: absolute;
-	top: 550px;
-	left: 95px;
-}
-
 .wrap {
 	position: relative;
 	width: 1330px;
-	height: 800px;
+	height: 100%;
 	margin: 0 auto;
 }
 
-.pfe_wrap {
+.profile_wrap {
 	width: 310px;
 	height: 1100px;
 	display: inline-block;
@@ -147,7 +30,7 @@ body {
 	margin-top: 110px;
 }
 
-.pfe2 {
+.profile2 {
 	width: 200px;
 	height: 200px;
 	border-radius: 70%;
@@ -158,13 +41,13 @@ body {
 }
 
 
-.pfe_img2 {
+.profile_img2 {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-#pfeName2 {
+#profileName2 {
 	position: absolute;
 	width: 100%;
 	height: 20px;
@@ -173,7 +56,7 @@ body {
 	font-size: 20pt;
 }
 
-#pfeLike {
+#profileLike {
 	position: absolute;
 	width: 100%;
 	height: 15px;
@@ -182,7 +65,7 @@ body {
 	font-size: 11pt;
 }
 
-#pfeIrue {
+#profileIntroduce {
 	position: absolute;
 	width: 100%;
 	height: 705px;
@@ -193,12 +76,12 @@ body {
 	text-overflow: ellipsis;
 }
 
-#pfeIrueIn {
+#profileIntroduceIn {
 	padding: 0px 10px;
 }
 
 
-#set {
+#select {
 	margin-top: 10px;
 	margin-left: 10px;
 	width: 90px;
@@ -212,7 +95,7 @@ body {
     cursor: pointer;
 }
 
-.gly_wrap {
+.gallary_wrap {
 	width: 980px;
 	height: 1200px;
 	display: inline-block;
@@ -222,7 +105,7 @@ body {
 	margin-left: 30px;
 }
 
-.gly {
+.gallary {
 	width: 100%;
 	position: absolute;
 }
@@ -250,22 +133,22 @@ body {
 #tabs > label:hover {
     cursor:pointer;
 }
-#tabs label[for=glyMenu1] {
+#tabs label[for=gallaryMenu1] {
     /* margin-left: 20px; */
 }
-#tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), #tabs > label[for=glyMenu1]:hover {
+#tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), #tabs > label[for=gallaryMenu1]:hover {
     background-color: #ffad33;
     color:#fff;
 }
-#tabs input:nth-of-type(2):checked ~ label:nth-of-type(2), #tabs > label[for=glyMenu2]:hover {
+#tabs input:nth-of-type(2):checked ~ label:nth-of-type(2), #tabs > label[for=gallaryMenu2]:hover {
     background-color: #ffad33;
     color:#fff;
 }
-#tabs input:nth-of-type(3):checked ~ label:nth-of-type(3), #tabs > label[for=glyMenu3]:hover {
+#tabs input:nth-of-type(3):checked ~ label:nth-of-type(3), #tabs > label[for=gallaryMenu3]:hover {
     background-color: #ffad33;
     color:#fff;
 }
-#tabs .gly_menu1_ctt, #tabs .gly_menu2_ctt, #tabs .gly_menu3_ctt {
+#tabs .gallary_menu1_contents, #tabs .gallary_menu2_contents, #tabs .gallary_menu3_contents {
     padding: 2px;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
@@ -274,7 +157,7 @@ body {
     /* margin-left: 20px; */
 }
 
-.pte {
+.pic {
 	display: inline-block;
 	margin-bottom: 30px;
 	margin-right: 30px;
@@ -285,55 +168,55 @@ body {
 	background-size: 100%
 }
 
-#pte1 {
+#pic1 {
 	background-image: url("../../images/JY/짱구1.jpg");
 }
 
-#pte2 {
+#pic2 {
 	background-image: url("../../images/JY/짱구2.jpg");
 }
 
-#pte3 {
+#pic3 {
 	background-image: url("../../images/JY/짱구3.jpg");
 }
 
-#pte4 {
+#pic4 {
 	background-image: url("../../images/JY/짱구5.jpg");
 }
 
-#pte5 {
+#pic5 {
 	background-image: url("../../images/JY/짱구3.jpg");
 }
 
-#pte6 {
+#pic6 {
 	background-image: url("../../images/JY/짱구4.jpg");
 }
 
-#pte7 {
+#pic7 {
 	background-image: url("../../images/JY/짱구5.jpg");
 }
-#pte8 {
+#pic8 {
 	background-image: url("../../images/JY/짱구1.jpg");
 }
-#pte9 {
+#pic9 {
 	background-image: url("../../images/JY/짱구3.jpg");
 }
 
-.pte_wrap {
+.pic_wrap {
 	position: absolute;
 	margin-top: 20px;
 }
 
-.pte_wrap :not(:nth-child(3n)) {
+.pic_wrap :not(:nth-child(3n)) {
 	margin-right: 15px;
 }
 
-.pte_wrap img:hover {
+.pic_wrap img:hover {
 	filter: brightness(35%);
 }
 
 
-#btnGoUod {
+#btnGoUpload {
 	width: 110px;
 	height: 35px;
 	margin-left: 290px;
@@ -350,12 +233,12 @@ body {
 	cursor: pointer;
 }
 
-#btnGoUod:hover {
+#btnGoUpload:hover {
  	background-color: #ffad33;
 	color: white;
 }
 
-#set {    
+#select {    
     margin-top: 10px;
 	margin-left: 20px;
 	width: 90px;
@@ -369,7 +252,7 @@ body {
     cursor: pointer;
 }
 
-.pitn {
+.pagination {
 	position: absolute;
 	display: inline-block;
 	font-size: 15pt;
@@ -377,7 +260,7 @@ body {
 	bottom: 20px;
 }
 
-.pitn a {
+.pagination a {
 	color: black;
 	float: left;
 	padding: 8px 16px;
@@ -385,60 +268,13 @@ body {
 }
 
 
-.pitn a.active {
+.pagination a.active {
 	border: 1px solid black;
 	font-weight: bold;
 	border-radius: 5px;
 }
 
-.pitn a:hover:not(.active) {
+.pagination a:hover:not(.active) {
 	background-color: #ddd;
 	border-radius: 5px;
-}
-
-.ftr {
-	width: 100%;
-	height: 150px;
-	background-color: black;
-	position: relative;
-	color: white;
-	margin-top: 750px;
-}
-
-#btnLogo2 {
-	position: absolute;
-	top: 30px;
-	left: 150px;
-}
-
-.ftr_pae {
-	font-size: 12pt;
-	color: white;
-	position: absolute;
-	top: 80px;
-	left: 95px;
-}
-
-#ftr1, #ftr2, #ftr3, #ftr4 {
-	font-size: 10pt;
-	color: white;
-	position: absolute;
-	top: 60px;
-	display: inline-block;
-}
-
-#ftr1 {
-	left: 500px;
-}
-
-#ftr2 {
-	left: 650px;
-}
-
-#ftr3 {
-	left: 780px;
-}
-
-#ftr4 {
-	left: 990px;
 }

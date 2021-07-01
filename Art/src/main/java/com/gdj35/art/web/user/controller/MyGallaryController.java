@@ -17,6 +17,20 @@ public class MyGallaryController {
 	@Autowired
 	public IPagingService iPagingService;
 
+	@RequestMapping(value = "/header")
+	public ModelAndView header(ModelAndView mav) {
+		mav.setViewName("JY/header");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/footer")
+	public ModelAndView footer(ModelAndView mav) {
+		mav.setViewName("JY/footer");
+		
+		return mav;
+	}
+	
 	@RequestMapping(value = "/edit")
 	public ModelAndView edit(ModelAndView mav) {
 		mav.setViewName("JY/edit");
