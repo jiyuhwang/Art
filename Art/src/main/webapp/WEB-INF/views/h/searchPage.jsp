@@ -29,7 +29,7 @@ $(document).ready(function() {
 	<c:import url="../JY/header.jsp"></c:import>
 	<div class="input_txt_div">
 		<div id="srhTxt">
-			<form action="searchPage" id="srhForm" method="post">
+			<form action="searchGallaryPage" id="srhForm" method="post">
 			<input type="text" placeholder="검색어를 입력해주세요."/>
 			</form>
 		</div>		
