@@ -12,7 +12,7 @@
 	<div class="side_bar">
 		<img id="sideBarLogo" src="resources/images/JY/art2.png" alt="로고" width="80px"
 			height="50px">
-		<div id="sideBarPae">You can be an art writer.</div>
+		<div id="sideBarPhrase">You can be an art writer.</div>
 		<input type="button" id="btnStart" value="Art 시작하기">
 		<div class="side_bar_menu">
 			<div id="sideBarMenu1">
@@ -23,7 +23,7 @@
 				<a href="gallary">작품 보러가기</a>
 			</div>
 		</div>
-		<div id="fgt">
+		<div id="forget">
 			<a href="#">계정을 잊어버리셨나요?</a>
 		</div>
 	</div>

@@ -121,7 +121,6 @@ margin-top: 15px;}
 }
 
 .fpmgBt2{
-	
 	background-color: #ffad33;
 	color: #fff;
 	cursor:pointer;
