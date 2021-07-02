@@ -7,10 +7,30 @@
 <meta charset="UTF-8">
 <title>작품 검색페이지</title>
 <link rel="stylesheet" type="text/css" href="resources/css/h/search_gallary_page.css"/>
+
+
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	$(".srh_result").hide();//hide all contents
+	$("#srhTab li:first").addClass("tab_selected").show();//active first tab
+	$(".srh_result:first").show();
+	
+	//srhTab클릭했을 때 
+	$("#srhTab").on("click", "li", function(){
+		
+		$("#srhTab li").attr("class", "");
+		$(this).attr("class", "tab_selected");
+		$(".srh_result").hide();
+		
+		var tab = $(this).find("a").attr("href");
+		$(tab).fadeIn("fast");
+		return false;
+		
+	});
+	
 
 	
 });//document end
@@ -19,18 +39,18 @@ $(document).ready(function() {
 </head>
 <body>
 	<c:import url="../JY/header.jsp"></c:import>
-	<div class="input_txt_div">
+	<div class="input_txt_wrap">
 		<div id="srhTxt">
-			<form action="searchPage" id="srhForm" method="post">
+			<form action="searchPage" id="searchForm" method="post">
 			<input type="text" placeholder="검색어를 입력해주세요."/>
 			</form>
 		</div>		
 	</div>
-	<div class="srhTab_div">
+	<div class="search_tab_wrap">
 		<div id="srhTab">
 			<ul>
-				<li class="tab_item1"><a class="tab_item_txt">작품</a></li>
-				<li class="tab_item2"><a class="tab_item_txt">작가</a></li>
+				<li><a href="#tab1">작품</a></li>
+				<li><a href="#tab2">작가</a></li>
 			</ul>
 		</div>
 	</div>
@@ -46,7 +66,7 @@ $(document).ready(function() {
 					</ul>
 				</div>
 			</div>
-			<div class="srh_result">
+			<div id="tab1" class="srh_result">
 				<div class="img_box">
 					<img id="boxImg3" class="box_img"/>
 					<div class="box_img_txt">
@@ -97,6 +117,9 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
+			</div>
+			<div id="tab2" class="srh_result">
+				
 			</div>
 			<!------------------------------------------------------------------------ 페이징 -->
 			<div class="paging_area">
