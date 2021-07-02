@@ -37,4 +37,12 @@ public class MemberController{
 		
 		return mav;
 	}
+	
+	//지유야 이거만 여기다 하마!!
+	@RequestMapping(value="/gongji")
+	public ModelAndView gongji(ModelAndView mav) {
+		
+		mav.setViewName("/HD/gongji");
+		return mav;
+	}
 }
