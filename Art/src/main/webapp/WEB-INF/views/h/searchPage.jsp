@@ -12,14 +12,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	//우측 상단 클릭하면 사이드바 올라가거나 내려가기
-	$('#btnMenu').click(function() {
-		if ($('.side_bar').css('display') == 'none') {
-			$('.side_bar').slideDown();
-		} else {
-			$('.side_bar').slideUp();
-		}
-	})
 
 });//document end
 
@@ -29,7 +21,7 @@ $(document).ready(function() {
 	<c:import url="../JY/header.jsp"></c:import>
 	<div class="input_txt_div">
 		<div id="srhTxt">
-			<form action="searchPage" id="srhForm" method="post">
+			<form action="searchGallaryPage" id="srhForm" method="post">
 			<input type="text" placeholder="검색어를 입력해주세요."/>
 			</form>
 		</div>		
