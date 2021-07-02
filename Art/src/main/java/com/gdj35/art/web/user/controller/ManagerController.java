@@ -20,4 +20,19 @@ public class ManagerController {
 		mav.setViewName("HD/editManager");
 		return mav;
 	}
+
+	@RequestMapping(value="/user_detail(memo)")
+	public ModelAndView user_detailM(ModelAndView mav) {
+		
+		mav.setViewName("HD/user_detail(memo)");
+		return mav;
+	}
+	
+	@RequestMapping(value="/user_detail(post)")
+	public ModelAndView user_detailP(ModelAndView mav) {
+		
+		mav.setViewName("HD/user_detail(post)");
+		return mav;
+	}
+	
 }
