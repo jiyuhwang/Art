@@ -35,7 +35,7 @@ body {
 }
 
 
-#searchW {
+.search_w {
 	width: 300px;
 	height: 45px;
 	position: absolute;
@@ -98,7 +98,7 @@ body {
 	object-fit: cover;
 }
 
-#profileName {
+.profile_name {
 	position: absolute;
 	width: 300px;
 	height: 20px;
