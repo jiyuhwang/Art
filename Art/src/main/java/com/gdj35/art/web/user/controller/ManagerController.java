@@ -62,4 +62,11 @@ public class ManagerController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/reportManage")
+	public ModelAndView reportManage(ModelAndView mav) {
+		
+		mav.setViewName("h/reportManage");
+		return mav;
+	}
+	
 }
