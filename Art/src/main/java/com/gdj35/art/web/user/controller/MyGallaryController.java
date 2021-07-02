@@ -1,8 +1,18 @@
 package com.gdj35.art.web.user.controller;
 
+import java.util.Random;
+
+import javax.mail.internet.MimeMessage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gdj35.art.common.service.IPagingService;
@@ -10,13 +20,15 @@ import com.gdj35.art.web.user.service.IMyGallaryService;
 
 @Controller
 public class MyGallaryController {
-
+	
 	@Autowired
 	public IMyGallaryService iMyGallaryService;
 	
 	@Autowired
 	public IPagingService iPagingService;
 
+	
+	
 	@RequestMapping(value = "/header")
 	public ModelAndView header(ModelAndView mav) {
 		mav.setViewName("JY/header");

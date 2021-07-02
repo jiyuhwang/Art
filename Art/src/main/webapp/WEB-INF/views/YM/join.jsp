@@ -193,7 +193,9 @@ input {
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-
+	$("#updateBtn").on("click", function() {
+		
+	});
 });
 
 function check_pw(){
@@ -213,6 +215,7 @@ function check_pw(){
             document.getElementById('check2').style.color='red';
         }
     }
+    
     
 }
 </script>
@@ -392,7 +395,7 @@ function check_pw(){
 		<input type="button" class="b-1" value="인증번호 ">
 	</div>
 		<span id="id">인증번호</span>
-		<input type="text" class="q" placeholder="인증번호를 입력하세요">
+		<input type="text" class="q" placeholder="인증번호를 입력하세요" disabled="disabled">
 		<input type="button" class="c" value="확인">
 </div>
    <br>
@@ -402,5 +405,6 @@ function check_pw(){
        <input type="button" id="cancel" value="취소">
        <input type="button" id="join"  value="가입">
 	</div>
+	<input type="text" id="check" name="check" value="${param.check}" /><br/>
 </body>
 </html>
