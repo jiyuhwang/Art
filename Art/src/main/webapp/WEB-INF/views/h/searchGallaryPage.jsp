@@ -49,8 +49,8 @@ $(document).ready(function() {
 	<div class="search_tab_wrap">
 		<div id="srhTab">
 			<ul>
-				<li><a href="#tab1">작품</a></li>
-				<li><a href="#tab2">작가</a></li>
+				<li><a href="#tabResult1">작품</a></li>
+				<li><a href="#tabResult2">작가</a></li>
 			</ul>
 		</div>
 	</div>
@@ -66,7 +66,7 @@ $(document).ready(function() {
 					</ul>
 				</div>
 			</div>
-			<div id="tab1" class="srh_result">
+			<div id="tabResult1" class="srh_result">
 				<div class="img_box">
 					<img id="boxImg3" class="box_img"/>
 					<div class="box_img_txt">
@@ -118,7 +118,7 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</div>
-			<div id="tab2" class="srh_result">
+			<div id="tabResult2" class="srh_result">
 				<div class="writer_box">
 					<img id="writerImg1" class="writer_img"/>
 					<div class="writer_box_txt">
