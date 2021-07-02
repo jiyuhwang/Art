@@ -6,6 +6,18 @@
 <meta charset="UTF-8">
 <title>상세페이지(메모)</title>
 <link rel="stylesheet" href="resources/css/HD/user_detail(byBoard).css">
+
+<script type="text/javascript"
+		src="WebContent/script/jquery/jquery-1.12.4.js">
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$(".insideMiddle2").on("click", function () {
+		$(".insideMiddle2").attr();
+	});
+});//document ready end
+
+</script>
 </head>
 <body>
 <div class= "background"></div>
