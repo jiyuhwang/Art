@@ -213,6 +213,7 @@ function check_pw(){
             document.getElementById('check2').style.color='red';
         }
     }
+    
 }
 </script>
 </head>
@@ -227,7 +228,7 @@ function check_pw(){
 	       <input type="text" class="b-2" placeholder="닉네임">
 	<br>    
 		   <span id="id">비밀번호</span>  
-	       <input type="password" class="b-2" id="pw" onchange="check_pw()" placeholder="비밀번호"><br/><span id="check"></span>
+	       <input type="password" class="b-2" id="pw" onchange="check_pw()" placeholder="비밀번호"><br/><span id="check1"></span>
 	<br>  
 		   <span id="id">비밀번호 재확인</span>
 	       <input type="password" class="b-2" id="pwCheck" onchange="check_pw()" placeholder="비밀번호 재확인"><span id="check2"></span>
@@ -383,7 +384,7 @@ function check_pw(){
 		<div class="phone">
 		 <span id="id">휴대전화</span>
 	<br>		
-		<input type="text" class= "phone_number" placeholder="010-****">
+		<input type="text" class= "phone_number" placeholder="010-****-****">
 	</div>
     <div class="email">
 		<span id="id">이메일</span>
