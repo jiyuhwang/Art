@@ -13,4 +13,11 @@ public class ManagerController {
 		mav.setViewName("HD/writingManager");
 		return mav;
 	}
+	
+	@RequestMapping(value="/editManager")
+	public ModelAndView editManager(ModelAndView mav) {
+		
+		mav.setViewName("HD/editManager");
+		return mav;
+	}
 }
