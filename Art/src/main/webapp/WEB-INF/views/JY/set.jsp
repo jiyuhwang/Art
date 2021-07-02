@@ -27,7 +27,7 @@ $(document).ready(function() {
 
 	function check_pw(){
 		 
-        var pw = document.getElementById('pw').value;
+        /* var pw = document.getElementById('pw').value; */
         /* var SC = ["!","@","#","$","%"];
         var check_SC = 0; */
 
@@ -60,7 +60,7 @@ $(document).ready(function() {
 			<table cellspacing="0" class="table">
 				<tr>
 					<th>새 비밀번호</th>
-					<td><input id="pw" type="password" onchange="check_pw()" size="10" maxlength="200"/><br/><span id="check"></span></td>
+					<td><input id="pw" type="password" onchange="check_pw()" size="10" maxlength="200"/></td>
 				</tr>
 				<tr>
 					<th>새비밀번호 확인</th>

@@ -5,16 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
 <style type="text/css">
-
-
 h1 {
 	text-align: center;
 }
 .wrap {
 	text-align: center;
 	width: 600px;	
+	height: 100%;
 	margin: 0 auto;
 	padding: 0;
 	border: 1px solid #e5e5e5;
@@ -60,7 +59,7 @@ input {
   display: inline-block;
   color: #fff;
   font-size: 14px;
-  
+  border-radius: 15px;
 }
 
 .b-2{
@@ -73,6 +72,7 @@ input {
     margin-bottom: 20px;
    
 }
+
 .c { 
   position: relative;
   right:6px;
@@ -83,7 +83,8 @@ input {
   background-color: #ffad33;
   border:none;
   font-size:14px;
-  color: #fff
+  color: #fff;
+  border-radius: 15px;
 }
 
 .d{
@@ -159,7 +160,8 @@ input {
 
 .bottom{
 	 text-align: center;
-	 margin-top: 5px;
+	 margin-top: 20px;
+	 height: 100px;
 }
 
 #join{ 
@@ -171,6 +173,7 @@ input {
 	font-size: 25px;
 	color: #fff;
 	border: 0;
+	border-radius: 20px;
 }
 
 #cancel{
@@ -180,12 +183,41 @@ input {
 	font-size: 25px;
 	color: #888;
 	border: 0;
+	border-radius: 20px;
+}
+
+#check2 {
+	font-size: 11pt;
 }
 </style>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
 
+});
+
+function check_pw(){
+	 
+    var pw = document.getElementById('pw').value;
+    /* var SC = ["!","@","#","$","%"];
+    var check_SC = 0; */
+
+    
+    if(document.getElementById('pw').value !='' && document.getElementById('pwCheck').value!=''){
+        if(document.getElementById('pw').value==document.getElementById('pwCheck').value){
+            document.getElementById('check2').innerHTML='비밀번호가 일치합니다.'
+            document.getElementById('check2').style.color='green';
+        }
+        else{
+            document.getElementById('check2').innerHTML='비밀번호가 일치하지 않습니다.';
+            document.getElementById('check2').style.color='red';
+        }
+    }
+}
+</script>
 </head>
 <body>
-	<h1>회원가입</h1>
+	<h1>Art 회원가입</h1>
 <div class="wrap">
 	<div class="b">
 			<span id="id">아이디</span>
@@ -195,11 +227,11 @@ input {
 	       <input type="text" class="b-2" placeholder="닉네임">
 	<br>    
 		   <span id="id">비밀번호</span>  
-	       <input type="password" class="b-2" placeholder="비밀번호">
+	       <input type="password" class="b-2" id="pw" onchange="check_pw()" placeholder="비밀번호"><br/><span id="check"></span>
 	<br>  
 		   <span id="id">비밀번호 재확인</span>
-	       <input type="password" class="b-2" placeholder="비밀번호 재확인">
-	<br>    
+	       <input type="password" class="b-2" id="pwCheck" onchange="check_pw()" placeholder="비밀번호 재확인"><span id="check2"></span>
+	<br>
 		   <span id="id">이름</span> 
 	       <input type="text" class="b-2" placeholder="이름">
 	<br>  
@@ -355,7 +387,7 @@ input {
 	</div>
     <div class="email">
 		<span id="id">이메일</span>
-		<input type="text" class="d" placeholder="email@gamil.com">			
+		<input type="text" class="d" placeholder="email@gmail.com">			
 		<input type="button" class="b-1" value="인증번호 ">
 	</div>
 		<span id="id">인증번호</span>
