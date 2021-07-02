@@ -27,7 +27,7 @@ $(document).ready(function() {
 		
 		var tab = $(this).find("a").attr("href");
 		$(tab).fadeIn("fast");
-		return false;
+		return false;//이걸 안하면 스크롤이 중간에...
 		
 	});
 	
