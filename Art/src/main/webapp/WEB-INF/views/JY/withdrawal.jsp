@@ -52,8 +52,7 @@ $(document).ready(function() {
 				   <input type="button" class="stopbtn" value="탈퇴하기">
 				  </div>
 			</div>
-		</div><!--popup-leave end  -->
-	
+		</div>
 	</div>
 	
 	<c:import url="footer.jsp"></c:import>

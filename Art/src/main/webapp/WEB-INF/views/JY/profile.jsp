@@ -31,17 +31,16 @@ $(document).ready(function() {
 	<div class="wrap">
 		<div class="btn_menu">
 			<div class="set">설정</div>
-			<!-- <div class="alarm">알림설정</div> -->
 			<div class="profile_manage">프로필관리</div>
 			<div class="privacy">개인정보관리</div>
 			<div class="stop">탈퇴하기</div>
 		</div>
 		<div class="contents">
 			<div class="title">프로필 관리</div>
-			<div id="profileEdit">
+			<div class="profile_edit">
 				<img id="profileEditImg" src="resources/images/JY/짱구5.jpg" alt="프로필사진" width="300px" height="300px">
 		    </div>
-		    <div id="btnProfileUploadW"><input id="btnProfileUpload" type="button" value="첨부하기"></div>
+		    <div class="btn_profile_upload_w"><input id="btnProfileUpload" type="button" value="첨부하기"></div>
 		    
 			<table cellspacing="0" class="table">
 				<tr height="50px">

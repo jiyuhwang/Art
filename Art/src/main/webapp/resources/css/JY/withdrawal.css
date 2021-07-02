@@ -86,21 +86,21 @@ body {
 
 }
 .ico_dot{
-   width: 500px;
-   height: 40px;
-   margin: 30px 10px;
-   display:inline-block;
+	width: 500px;
+	height: 40px;
+	margin: 30px 10px;
+	display:inline-block;
    
 }
 
 .inp_comm {
- position:absolute;
- left:0;
- top: 1px;
- z-index: -1;
- width: 18px;
- height: 18px;
- vertical-align: top;
+	 position:absolute;
+	 left:0;
+	 top: 1px;
+	 z-index: -1;
+	 width: 18px;
+	 height: 18px;
+	 vertical-align: top;
 }
 
 .stopbtn {
