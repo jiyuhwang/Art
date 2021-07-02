@@ -35,4 +35,31 @@ public class ManagerController {
 		return mav;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value="/gallaryManage")
+	public ModelAndView gallaryManage(ModelAndView mav) {
+		
+		mav.setViewName("h/gallaryManage");
+		return mav;
+	}
+	
 }

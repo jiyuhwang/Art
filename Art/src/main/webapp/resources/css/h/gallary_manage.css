@@ -1,0 +1,312 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+
+a { text-decoration: none; color: inherit;}
+img { border: 0px; }
+ul { list-style: none;}
+.font-red { color: red;}
+/* ----------------------------------------------------초기화 */
+
+.side_bar{
+	width: 200px;
+	height: 940px;
+	background-color: #6C7A89;
+	display: inline-block;
+	box-shadow: 5px 5px 5px grey;
+}
+.blank{
+	height : 60px;
+}
+.member_manage{
+	height : 60px;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+}
+
+.member_manage:hover{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+	z-index: 1;
+	position: relative;
+}
+.gallary_manage{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+}
+
+.report_manage{
+	height : 60px;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+}
+
+.report_manage:hover{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+	z-index: 1;/* 이게 왜 안될까요 무슨일이까요 */
+	position: relative;
+}
+
+/* ----------------------------------------------------메인시작 */
+.main {
+	background-color: #E0E7E9;
+}
+
+#c {
+	background-color: white; 
+}
+
+table {
+	text-decoration: none;
+	border-collapse: collapse;
+	text-align: center;
+	border-bottom: 1px solid black;
+	font-size: 10pt;
+	width: 1500px;
+}
+
+table th {
+	font-size: 10pt;
+	border-top: 0.5px solid black;
+	background-color: #cccccc;
+	padding: 3px;
+	height: 30px;
+}
+
+table td{
+	padding : 5px;
+}
+
+.ctts{
+	display: inline-block;
+	width : 1500px;
+	height : 490px;
+	position: absolute;
+	margin-left: 100px;
+}
+.blank2 {
+	display: block;
+	vertical-align : top;
+	width : 100%;
+	height : 60px;
+}
+.menu_tab_wrap {
+	display: block;
+	vertical-align : top;
+	width : 100%;
+	height : 60px;
+}
+
+.menu_tab {
+	display: inline-block;
+	height: 54px;
+	width : 120px;
+	vertical-align: -4px;
+}
+
+.menu_tab:hover {
+	display: inline-block;
+	height: 54px;
+	width : 120px;
+	vertical-align: 0px;
+}
+
+.tab1{
+	display : inline-block;
+	height: 60px;
+	width : 120px;
+	background-color: #0C4A60;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	border-radius: 3px;
+	box-shadow: 5px 2px 2px grey;
+	color: white;
+	position: relative;
+}
+.tab2{
+	display : inline-block;
+	height: 54px;
+	width : 120px;
+	background-color: #6C7A89;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 50px;
+	border-radius: 3px;
+	position: relative;
+	color: white;
+	margin-left: 6px;
+}
+
+.tab2:hover{
+	display : inline-block;
+	height: 60px;
+	width : 120px;
+	background-color: #0C4A60;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	border-radius: 3px;
+	box-shadow: 5px 0px 2px grey;
+	position: relative;
+	color: white;
+	cursor: pointer;
+}
+
+.tab3{
+	display : inline-block;
+	height: 54px;
+	width : 120px;
+	background-color: #6C7A89;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 50px;
+	border-radius: 3px;
+	position: relative;
+	color: white;
+	margin-left: 2px;
+}
+
+.tab3:hover{
+	display : inline-block;
+	height: 60px;
+	width : 120px;
+	background-color: #0C4A60;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	border-radius: 3px;
+	box-shadow: 5px 0px 2px grey;
+	position: relative;
+	color: white;
+	cursor: pointer;
+}
+
+.tab4{
+	display : inline-block;
+	height: 54px;
+	width : 120px;
+	background-color: #6C7A89;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 50px;
+	border-radius: 3px;
+	position: relative;
+	color: white;
+	margin-left: 2px;
+}
+
+.tab4:hover{
+	display : inline-block;
+	height: 60px;
+	width : 120px;
+	background-color: #0C4A60;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	border-radius: 3px;
+	box-shadow: 5px 0px 2px grey;
+	position: relative;
+	color: white;
+	cursor: pointer;
+}
+
+.menu_txt_wrap { /* 게시글 목록, 댓글목록 아래 빈칸  top에 회색선 준 것*/
+	position: relative;
+	display: block;
+	height : 60px;
+	width : 1500px;
+	border-top : 2px solid  #cccccc;
+	vertical-align: top;
+}
+
+.menu_txt {
+	position: absolute;
+	width : 100%;
+	height : 100%;
+	background-color: #EEEEEE;
+	margin-top: 10px;
+	font-size: 12px;
+	vertical-align: middle;
+	
+}
+
+.menu_txt>span {
+		vertical-align: middle;
+		margin-left: 10px;
+}
+
+.search_flag_div {/* 회원분류.. 등 검색 분류 있는 곳  */
+	display : inline-block;
+	width : 100%;
+	height : 60px;
+	font-size: 15pt;
+}
+
+.search_flag {
+	margin-top: 20px;
+}
+
+.date_srh {
+	display: inline-block;
+	
+}
+.button_wrap{/* 저장 삭제 있는 div */
+	width : 100%;
+	height: 30px;
+	font-size: 2px;
+	text-align: right;
+	margin-bottom: 10px;
+	
+}
+
+.result-table {
+	height: 550px;
+	overflow: auto;
+}
+
+.ded {
+	background-color: #9E9E9E;
+	text-decoration: line-through;
+	
+}
+
+select, input{/*입력칸 넓히기  */
+	padding: 5px;
+}

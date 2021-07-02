@@ -8,6 +8,10 @@
 <title>약관동의</title>
 </head>
 <style type="text/css">
+[type="button"] {
+	cursor: pointer;
+}
+
 h1 {
 	font-size: 70px;
 	margin-top: 30px;
@@ -93,8 +97,8 @@ ul.join_box{
 }
 
 .footBtwrap{
-
-margin-top: 15px;}
+	margin-top: 15px;
+}
 .footBtwrap>li{
 
 	float: left;
@@ -113,15 +117,28 @@ margin-top: 15px;}
 	border: none;
 }
 
+.footBtwrap_clearfix {
+	margin-top: 20px;
+	text-align: center;
+}
+
 .fpmgBt1{
-	
+	width: 150px;
+	height: 60px;
 	background-color: #fff;
-	color:#888
+	color:#888;
+	display: inline-block;
+	border: none;
+	margin-right: 20px;
 }
 
 .fpmgBt2{
+	width: 150px;
+	height: 60px;
 	background-color: #ffad33;
-	color: #fff
+	color: #fff;
+	display: inline-block;
+	border: none;
 }
 
 </style>
@@ -142,7 +159,7 @@ margin-top: 15px;}
                     <ul class="clearfix">
                         <li>이용약관 동의(필수)</li>
                         <li class="checkBtn">
-                            <input type="checkbox" name="chk"> 
+                            <input type="checkbox" name="check"> 
                         </li>
                     </ul>
                     <textarea name="" id="">내용을 입력
@@ -153,7 +170,7 @@ margin-top: 15px;}
                     <ul class="clearfix">
                         <li>개인정보 수집 및 이용에 대한 안내(필수)</li>
                         <li class="checkBtn">
-                            <input type="checkbox" name="chk">
+                            <input type="checkbox" name="check">
                         </li>
                     </ul>
  
@@ -164,17 +181,18 @@ margin-top: 15px;}
                     <ul class="clearfix">
                         <li>이벤트 등 프로모션 알림 메일 수신(선택)</li>
                         <li class="checkBtn">
-                            <input type="checkbox" name="chk">
+                            <input type="checkbox" name="check" value="0">
                         </li>
                     </ul>
                  <textarea name="" id="">내용을 입력.
        </textarea>
                 </li>
             </ul>
-            <ul class="footBtwrap clearfix">
-                <li><button class="fpmgBt1" type="button">비동의</button></li>
-                <li><button class="fpmgBt2" type="button">동의</button></li>
-            </ul>
+            <div class="footBtwrap_clearfix">
+                <input type="button" class="fpmgBt1" type="button" value="비동의">
+                <input type="button" class="fpmgBt2" type="button" value="동의">
+                
+            </div>
         </form>
 
 </body>
