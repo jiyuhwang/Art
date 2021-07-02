@@ -18,35 +18,147 @@ $(document).ready(function() {
 	
 	<div class="wrap">
 		<div class="gallary">
-			<div id="tabs">
+			<div class="tabs">
 				<input id="gallaryMenu1" type="radio" name="tab" checked="checked" />
 				<input id="gallaryMenu2" type="radio" name="tab" />
 				<input id="gallaryMenu3" type="radio" name="tab" />
 				<label for="gallaryMenu1">사진작품관</label>
 				<label for="gallaryMenu2">그림작품관</label>
 				<label for="gallaryMenu3">영상작품관</label>
-				<select id="set">
+				<select class="select">
 					<option value="0" selected="selected">최신순</option>
 					<option value="1">좋아요순</option>
 				</select>
 				<div class="gallary_menu1_contents">
-					<div class="picture_wrap">
-						<div class="picture" id="picture1"></div>
-						<div class="picture" id="picture2"></div>
-						<div class="picture" id="picture3"></div>
-						<div class="picture" id="picture4"></div>
-						<div class="picture" id="picture5"></div>
-						<div class="picture" id="picture6"></div>
-						<div class="picture" id="picture7"></div>
-						<div class="picture" id="picture8"></div>
-						<div class="picture" id="picture9"></div>
-						<div class="picture" id="picture10"></div>
-						<div class="picture" id="picture11"></div>
-						<div class="picture" id="picture12"></div>
-						<div class="picture" id="picture13"></div>
-						<div class="picture" id="picture14"></div>
-						<div class="picture" id="picture15"></div>
-						<div class="picture" id="picture16"></div>
+					<div class="pic_wrap">
+							<div class="pic" id="pic1">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic2">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic3">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic4">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic5">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic6">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic7">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic8">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic9">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic10">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic11">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic12">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic13">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic14">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic15">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
+							<div class="pic" id="pic16">
+								<div class="bg">
+									<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+									<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+									<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+									<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+								</div>
+							</div>
 					</div>
 				</div>
 				<div class="gallary_menu2_contents"></div>
@@ -55,7 +167,7 @@ $(document).ready(function() {
 		</div>
 		<div class="pagination">
 			<a href="#">&laquo;</a> <a href="#" class="active">1</a> <a href="#">2</a>
-			<a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a>
+			<a href="#">3</a> <a href="#">4</a> <a href="#">5</a>
 			<a href="#">&raquo;</a>
 		</div>
 	</div>

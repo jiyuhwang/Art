@@ -42,55 +42,55 @@ $(document).ready(function() {
 		<div class="profile">
 			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="475px" height="475px">
 		</div>
-		<div id="profileName">짱구</div>
+		<div class="profile_name">짱구</div>
 		<a href="writing"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
-			<div id="sideBarMenu1"><a href="mygallary">나의 작업실</a></div>
+			<div class="side_bar_menu1"><a href="mygallary">나의 작업실</a></div>
 			<br />
-			<div id="sideBarMenu2"><a href="gallary">작품 보러가기</a></div>
+			<div class="side_bar_menu2"><a href="gallary">작품 보러가기</a></div>
 			<br />
-			<div id="sideBarMenu3"><a href="profile">개인정보 수정</a></div>
+			<div class="side_bar_menu3"><a href="profile">개인정보 수정</a></div>
 			<br />
-			<div id="sideBarMenu4"><a href="#">공지사항</a></div>
+			<div class="side_bar_menu4"><a href="#">공지사항</a></div>
 		</div>
 		<input type="button" id="btnLogout" value="로그아웃">
 	</div>
 	<div class="wrap">
 		<div class="pic_wrap">
-			<div id="picTitle">사진갤러리</div>
+			<div class="pic_title">사진갤러리</div>
 			<div class="img_wrap">
 				<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
 			<div class="pic" id="pic1">
-				<div id="bg">
-					<div id="contentsTitle">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
-					<div id="contentsIn">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
-					<img id="contentsHeart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
-					<div id="contentsName">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+				<div class="bg">
+					<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+					<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+					<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+					<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 				</div>
 			</div>
 			<div class="pic" id="pic2">
-				<div id="bg">
-					<div id="contentsTitle">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
-					<div id="contentsIn">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
-					<img id="contentsHeart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
-					<div id="contentsName">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+				<div class="bg">
+					<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+					<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+					<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+					<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 				</div>
 			</div>
 			<div class="pic" id="pic3">
-				<div id="bg">
-					<div id="contentsTitle">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
-					<div id="contentsIn">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
-					<img id="contentsHeart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
-					<div id="contentsName">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+				<div class="bg">
+					<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+					<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+					<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+					<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 				</div>
 			</div>
 			<div class="pic" id="pic4">
-				<div id="bg">
-					<div id="contentsTitle">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
-					<div id="contentsIn">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
-					<img id="contentsHeart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
-					<div id="contentsName">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+				<div class="bg">
+					<div class="contents_title">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
+					<div class="contents_in">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+					<img class="contents_heart" src="resources/images/JY/heart3.png" alt="하트" onclick="heart();" width="40px" height="40px">
+					<div class="contents_name">짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구짱구</div>
 				</div>
 			</div>
 			<img src="resources/images/JY/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px"> <br />
@@ -101,7 +101,7 @@ $(document).ready(function() {
 		</div>
 		<br />
 		<div class="drawing_wrap">
-			<div id="drawingTitle">그림갤러리</div>
+			<div class="drawing_title">그림갤러리</div>
 			<div class="img_wrap2">
 				<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
 				<div class="drawing" id="drawing1">
@@ -124,7 +124,7 @@ $(document).ready(function() {
 		</div>
 		<br />
 		<div class="video_wrap">
-			<div id="videoTitle">영상갤러리</div>
+			<div class="video_title">영상갤러리</div>
 			<div class="img_wrap3">
 				<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
 				<div class="video" id="video1"></div>

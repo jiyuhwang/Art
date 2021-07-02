@@ -39,24 +39,24 @@
 			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
 				height="300px">
 		</div>
-		<div id="profileName">짱구</div>
+		<div class="profile_name">짱구</div>
 		<a href="writing"><input type="button" id="btnUpload"
 			value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
-			<div id="sideBarMenu1">
+			<div class="side_bar_menu1">
 				<a href="mygallary">나의 작업실</a>
 			</div>
 			<br />
-			<div id="sideBarMenu2">
+			<div class="side_bar_menu2">
 				<a href="gallary">작품 보러가기</a>
 			</div>
 			<br />
-			<div id="sideBarMenu3">
+			<div class="side_bar_menu3">
 				<a href="profile">개인정보 수정</a>
 			</div>
 			<br />
-			<div id="sideBarMenu4">
+			<div class="side_bar_menu4">
 				<a href="#">공지사항</a>
 			</div>
 		</div>

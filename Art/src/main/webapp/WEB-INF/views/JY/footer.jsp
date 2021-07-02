@@ -29,7 +29,7 @@
 	left: 95px;
 }
 
-#footer1, #footer2, #footer3, #footer4 {
+.footer1, .footer2, .footer3, .footer4 {
 	font-size: 10pt;
 	color: white;
 	position: absolute;
@@ -37,19 +37,19 @@
 	display: inline-block;
 }
 
-#footer1 {
+.footer1 {
 	left: 500px;
 }
 
-#footer2 {
+.footer2 {
 	left: 650px;
 }
 
-#footer3 {
+.footer3 {
 	left: 780px;
 }
 
-#footer4 {
+.footer4 {
 	left: 990px;
 }
 </style>
@@ -63,10 +63,10 @@
 	<div class="footer">
 		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 		<div class="footer_phrase">You can be an art writer.</div>
-		<div id="footer1"><a href="#">관리방침 안내</a></div>
-		<div id="footer2"><a href="#">도움말 안내</a></div>
-		<div id="footer3"><a href="#">회원가입 및 글게시 안내</a></div>
-		<div id="footer4"><a href="#">홈페이지 서비스 안내</a></div>
+		<div class="footer1"><a href="#">관리방침 안내</a></div>
+		<div class="footer2"><a href="#">도움말 안내</a></div>
+		<div class="footer3"><a href="#">회원가입 및 글게시 안내</a></div>
+		<div class="footer4"><a href="#">홈페이지 서비스 안내</a></div>
 	</div>
 </body>
 </html>

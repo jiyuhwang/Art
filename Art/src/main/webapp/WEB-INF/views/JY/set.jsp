@@ -51,7 +51,6 @@ $(document).ready(function() {
 	<div class="wrap">
 		<div class="btn_menu">
 			<div class="set">설정</div>
-			<!-- <div class="alarm">알림설정</div> -->
 			<div class="profile_manage">프로필관리</div>
 			<div class="privacy">개인정보관리</div>
 			<div class="stop">탈퇴하기</div>
@@ -71,7 +70,7 @@ $(document).ready(function() {
 					<th>생년월일</th>
 					<td>
 						<input id="year" type="text" size="10" maxlength="4" placeholder="년(4자)"/>
-						<select id="month">
+						<select class="month">
 								<option value="0" selected="selected">월</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -91,7 +90,7 @@ $(document).ready(function() {
 				<tr>
 					<th>성별</th>
 					<td>
-						<select id="sex">
+						<select class="sex">
 								<option value="0" selected="selected">성별</option>
 								<option value="1">남자</option>
 								<option value="1">여자</option>
@@ -109,7 +108,6 @@ $(document).ready(function() {
 					</td>
 				</tr>
 				<tr>
-					<!-- <th>인증번호 확인</th> -->
 					<td>
 						<input id="email3" type="text" disabled="disabled" placeholder="인증번호 입력하세요" size="40" maxlength="50"/>
 						<input id="emailCheck" type="button" value="확인">
@@ -126,9 +124,9 @@ $(document).ready(function() {
 				<tr>
 					<th>정보수신여부</th>
 					<td rowspan="2" >서비스 관련 소식 및 프로모션 메일을
-							<select id="agree">
-								<option value="0" selected="selected">수신합니다.</option>
-								<option value="1">수신하지 않습니다.</option>
+						<select class="agree">
+							<option value="0" selected="selected">수신합니다.</option>
+							<option value="1">수신하지 않습니다.</option>
 						</select>
 					</td>
 				</tr>
