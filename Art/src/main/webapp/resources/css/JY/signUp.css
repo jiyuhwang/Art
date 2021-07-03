@@ -9,6 +9,10 @@
 	font-size: 8pt;
 }
 
+[type="button"] {
+	cursor: pointer;
+}
+
 /* 화면 전체 렙 */
 .wrapper{
 	width: 600px;
@@ -245,12 +249,25 @@
 }
 
 .birth_select {
-    text-align: center;
     margin-top: 10px;
-    padding-left: 35px;
+    padding-left: 10px;
     height: 40px;
     width: 160px;
     border: none;
+    margin-left: 10px;
+    color: #808080;
+}
+
+#birthYear, #birthDay {
+    margin-top: 10px;
+    padding-left: 10px;
+    height: 40px;
+    width: 140px;
+    border: none;
+    font-size: 10pt;
+}
+#birthDay {
+	margin-left: 10px;
 }
 
 /* 메일 영역 */

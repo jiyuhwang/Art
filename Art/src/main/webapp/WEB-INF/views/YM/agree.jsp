@@ -47,7 +47,7 @@ a{
 	clear: both;
 }
 
-#joinForm{
+#agreeForm{
 	width: 450px;
 	margin: 0 auto;
 }
@@ -160,13 +160,13 @@ $(document).ready(function() {
 	
 	
 	$("#btnOk").on("click", function() {
-			$("#joinForm").submit();
+			$("#agreeForm").submit();
 		
 	});
 });
 </script>
 <body>
-<form action="sign_up" method="post" id="joinForm">
+<form action="signUp" method="post" id="agreeForm">
 		<h2>Art</h2>
             <ul class="join_box">
                 <li class="checkbox">
@@ -247,7 +247,7 @@ $(document).ready(function() {
                     <ul class="clear_fix">
                         <li>이벤트 등 프로모션 알림 메일 수신(선택)</li>
                         <li class="check_btn">
-                            <input type="checkbox" class="check" name="check" value="0">
+                            <input type="checkbox" class="check" name="eventAgree" value="0">
                         </li>
                     </ul>
                  <div class="text">
@@ -276,7 +276,7 @@ $(document).ready(function() {
             <div class="button_wrap">
                 <input type="button" id="btnNo" value="취소">
                 <input type="button" id="btnOk" value="확인"> 
-            </div>
+            </div>            
         </form>
      
 </body>

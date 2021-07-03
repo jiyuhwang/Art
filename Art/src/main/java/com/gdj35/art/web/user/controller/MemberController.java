@@ -1,5 +1,7 @@
 package com.gdj35.art.web.user.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -12,9 +14,11 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj35.art.common.service.IPagingService;
 import com.gdj35.art.web.user.service.IMemberService;
 
@@ -81,11 +85,37 @@ public class MemberController{
 	    }
 
 	
-	@RequestMapping(value = "/sign_up")
-	public ModelAndView sign_up(ModelAndView mav) {
-		mav.setViewName("JY/sign_up");
+	@RequestMapping(value = "/signUp")
+	public ModelAndView signUp(ModelAndView mav) {
+		mav.setViewName("JY/signUp");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/signUps",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String signUps(@RequestParam HashMap<String, String> params) throws Throwable{
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iMemberService.addUser(params);
+			if(cnt > 0) {		
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
+		return mapper.writeValueAsString(modelMap);
 	}
 	
 	
