@@ -7,11 +7,12 @@
 	position: absolute;
 	left : 0;
 	top : 0;
+	z-index: 10;
 }
-table th{
+.Pmain table th{
 	background-color: #cccccc;
 }
-.main{
+.Pmain{
 	width : 900px;
 	height : 900px;
 	background-color: #E0E7E9;
@@ -22,27 +23,27 @@ table th{
 	top: 50%;
 	margin-left : -450px;
 	margin-top : -450px;
-	z-index: 1000;
 	border-radius: 7px;
+	z-index: 10;
 }
-.topBar{
+ .Pmain .topBar{
 	width : 100%;
 	height : 25px;
 	background-color: rgba;
 }
-.blank{
+ .Pmain .blank{
 	width : 97%;
 	height : 100%;
 	background-color: rgba;
 }
-.profile{
+ .Pmain .profile{
 	width : 300px;
 	height : 425px;
 	background-color: rgba;
 	text-align: center;
 	display: inline-block;
 }
-.pBox{
+ .Pmain .pBox{
 	width : 180px;
 	height :210px;
 	margin : 0 auto;
@@ -50,13 +51,13 @@ table th{
 	display: block;
 	font-size: 0px;
 }
-.img{
+ .Pmain .img{
 	width : 180px;
 	height: 180px;
 	background-color: rgba;
 	
 }
-.pName{
+ .Pmain .pName{
 	margin-top : 50px;
 	padding : 15px 0px;
 	text-align: center;
@@ -66,32 +67,32 @@ table th{
 	border: none;
 	background-color: inherit;
 }
-.cButtonB{
+ .Pmain .cButtonB{
 	width : 160px;
 	height : 20px;
 	background-color: rgba;
 	display: inline-block;
 }
-.cButtonc{
+ .Pmain .cButtonc{
 	width : 20px;
 	height : 20px;
 	background-color: rgba;
 	vertical-align: top;
 	display: inline-block;
 }
-.cButtonI{
+ .Pmain .cButtonI{
 	width : 100%;
 	height:100%;
 	cursor: pointer;
 }
-.writeBox{
+ .Pmain .writeBox{
 	width : 600px;
 	height :425px;
 	background-color: rgba;
 	display: inline-block; 
 	vertical-align: top;
 }
-.blank1{
+ .Pmain .blank1{
 	width : 600px;
 	height :60px;
 	background-color: rgba;
@@ -99,7 +100,7 @@ table th{
 	vertical-align: top;
 	font-size: 30pt;
 }
-.writeBoxI{
+ .Pmain .writeBoxI{
 	width : 600px;
 	height : 340px;
 	display: inline-block;
@@ -107,17 +108,17 @@ table th{
 	background-color: rgba;
 	font-size: 5px;
 }
-input, span{
+.Pmain input, span{
 	font-size: 12pt;
 	text-align: center;
 	padding : 3px 0px;
 	margin-top: 40px;
 	border: none;
 }
-.leftBox{
+ .Pmain .leftBox{
 	margin-left: 20px;
 }
-.smallBox{
+ .Pmain .smallBox{
 	width : 280px;;
 	height : 200px;
 	background-color: rgba;
@@ -125,25 +126,25 @@ input, span{
 	vertical-align: top;
 	font-size: 5px;
 }
-.MsmallBox{
+ .Pmain .MsmallBox{
 	width :100%;
 	height : 55px;
 	font-size: 12pt;
 	line-height: 80px;
 }
-.introduce_box{
+ .Pmain .introduce_box{
 	height: 165px;
 	width: 550px;
 	background-color: inherit;
 }
-.sogea{
+ .Pmain .sogea{
 	background-color: inherit;
 	height: 30px;
 	width : inherit;
 	font-size: 12pt;
 	line-height: 20px;	
 }
-.sogea_box{
+ .Pmain .sogea_box{
 	width: inherit;
 	height: 135px;
 	border: 1px solid rgb(191, 191, 191);
@@ -154,7 +155,7 @@ input, span{
 	word-wrap: break-word;
 }
 
-.informing{
+ .Pmain .informing{
 	 width: 80px;
 	 height: inherit;
 	 background-color: inherit;
@@ -162,7 +163,7 @@ input, span{
 	 display: inline-block;
 	 padding-bottom: 30px;	
 }
-.content_box{
+ .Pmain .content_box{
 	border-bottom: 1px solid gray;
 	width: 170px;
 	height: inherit;
@@ -170,7 +171,7 @@ input, span{
 	vertical-align: top;
 	text-align: center;
 }
-button{
+.Pmain button{
 	width : 80px;
 	height : 100%;
 	border-radius: 3px;
@@ -178,57 +179,57 @@ button{
 	position: relative;
 	border: none;
 }
-.insideMiddle1{
+ .Pmain .insideMiddle1{
 	box-shadow: 4px 4px 5px grey;
 	z-index: 2;
 	position: relative;
 	background-color: #0C4A60;
 	color: white;
 }
-.insideMiddle2:hover{
+ .Pmain .insideMiddle2:hover{
 	box-shadow: 4px 4px 5px grey;
 	z-index: 2;
 	position: relative;
 	background-color: #0C4A60;
 	color: white;
 }
-.middleSection{
+ .Pmain .middleSection{
 	width: 100%;
 	height : 50px;
 	display: inline-block;
 }
-.brick{
+ .Pmain .brick{
 	width : 40px;
 	height : 100%;
 	display: inline-block;
 	vertical-align: top;
 }
-.underLine{
+ .Pmain .underLine{
 	width : 650px;
 	height : 100%;
 	border-bottom: 1px solid black;
 	display: inline-block;
 	vertical-align: top;
 }
-.boxForB{
+ .Pmain .boxForB{
 	width : 100%;
 	height :350px;
 	background-color: #E0E7E9;
 	/* 810 320  */
 }
-.topOfBox{
+ .Pmain .topOfBox{
 	font-size : 0px;
 	width : 810px;
 	height : 70px;
 	margin: 0 auto;
 }
-.searchBox{
+ .Pmain .searchBox{
 	width: 100%;
 	height: 40px;
 	display: inline-block;
 	font-size: 4px;
 }
-.searchBox > input{
+ .Pmain .searchBox > input{
 	width : 140px;
 	height : 33px;
 	display: inline-block;
@@ -236,51 +237,51 @@ button{
 	position: relative;
 	margin: 0;
 }
-select{
+.Pmain select{
 	width : 80px;
 	height: 40px;
 	border: none;
 	background-color: inherit;
 }
-.searchBox > button {
+ .Pmain .searchBox > button {
 	width : 60px;
 	margin-left: 3px;
 }
-.boxForBoard{
+ .Pmain .boxForBoard{
 	width: 800px;
 	height: 320px;
 	background-color: white;
 	margin: 0 auto;
 	overflow: auto;
 }
-.boxForBoard::-webkit-scrollbar{
+ .Pmain .boxForBoard::-webkit-scrollbar{
 	display: none;
 	}
-.blank2{
+ .Pmain .blank2{
 	display: inline-block;
 	vertical-align: top;
 	width : 300px;
 	height : 100%;
 	background-color: rgba;
 }
-table{
+.Pmain table{
 	width:800px;
 	/*height : 300px; */
 	font-size: 10pt;
 	border-collapse: collapse;
 	 text-align: center;
 }
-table th{
+.Pmain table th{
 	 border-bottom: 1px solid black;
 	 border-top: 1px solid black;
 	 height : 40px;
 }
-table tr{
+.Pmain table tr{
 	border-bottom: 1px solid black;
 	 border-top: 1px solid black;
 	 height : 30px;
 }
-.check{
+ .Pmain .check{
 	margin : 0;
 }
 	

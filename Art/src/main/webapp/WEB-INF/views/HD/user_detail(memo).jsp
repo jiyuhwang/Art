@@ -38,7 +38,7 @@ $(document).ready(function () {
 </head>
 <body>
 <div class= "background"></div>
-<div class ="main">
+<div class ="Pmain">
 	<div class ="topBar">
 		<div class ="blank"></div>
 	</div>

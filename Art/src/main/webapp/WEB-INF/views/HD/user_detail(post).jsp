@@ -6,10 +6,38 @@
 <meta charset="UTF-8">
 <title>상세페이지(작품)</title>
 <link rel="stylesheet" href="resources/css/HD/user_detail(byBoard).css">
+<script type="text/javascript"
+		src="resources/script/jquery/jquery-1.12.4.min.js">
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$("#insideMiddle2").on("click", function () {
+		if($("#insideMiddle2").attr("class") != "insideMiddle1"){
+			$("#insideMiddle2").attr("class","insideMiddle1")
+			$("#insideMiddle1").attr("class","insideMiddle2")
+		}else{
+			$("#insideMiddle2").attr("class","insideMiddle1")
+			$("#insideMiddle1").attr("class","insideMiddle2")
+		}
+	});
+	$("#insideMiddle1").on("click", function () {
+		if($("#insideMiddle1").attr("class") != "insideMiddle1"){
+			$("#insideMiddle1").attr("class","insideMiddle1")
+			$("#insideMiddle2").attr("class","insideMiddle2")
+		}else{
+			$("#insideMiddle1").attr("class","insideMiddle1")
+			$("#insideMiddle2").attr("class","insideMiddle2")
+		}
+	});
+	
+	
+});//document ready end
+
+</script>
 </head>
 <body>
 <div class= "background"></div>
-<div class ="main">
+<div class ="Pmain">
 	<div class ="topBar">
 		<div class ="blank"></div>
 	</div>
@@ -66,8 +94,8 @@
 	
 	<div class ="middleSection">
 		<div class = "brick"></div>
-		<button class ="insideMiddle1">작품</button>
-		<button class ="insideMiddle2">메모</button>
+		<button class ="insideMiddle1" id="insideMiddle1">작품</button>
+		<button class ="insideMiddle2" id="insideMiddle2">메모</button>
 		<div class = "underLine"></div>
 	</div>
 	<div class ="boxForB">

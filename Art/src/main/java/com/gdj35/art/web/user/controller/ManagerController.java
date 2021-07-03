@@ -35,6 +35,13 @@ public class ManagerController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/user_board")
+	public ModelAndView user_board(ModelAndView mav) {
+		
+		mav.setViewName("HD/user_board");
+		return mav;
+	}
+	
 	
 	
 	
