@@ -47,7 +47,7 @@ public class MemberController{
 	        logger.info("인증번호 " + checkNum);
 	        
 	        /* 이메일 보내기 */
-	        String setFrom = "wldb2568@naver.com";
+	        String setFrom = "artproject21@naver.com";
 	        String toMail = email;
 	        String title = "Art 회원가입 인증 이메일 입니다.";
 	        String content = 
