@@ -16,4 +16,14 @@ public class MemberDao implements IMemberDao{
 		return sqlSession.insert("User.addUser", params);
 	}
 
+	@Override
+	public int idCheck(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.idCheck", params);
+	}
+
+	@Override
+	public int nicknameCheck(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.nicknameCheck", params);
+	}
+
 }

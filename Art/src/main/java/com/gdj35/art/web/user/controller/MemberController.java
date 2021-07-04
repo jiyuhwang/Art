@@ -118,6 +118,58 @@ public class MemberController{
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "/idCheck",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String idCheck(@RequestParam HashMap<String, String> params) throws Throwable{
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iMemberService.idCheck(params);
+			if(cnt > 0) {		
+				modelMap.put("msg", "exist");
+			} else {
+				modelMap.put("msg", "none");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "/nicknameCheck",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String nicknameCheck(@RequestParam HashMap<String, String> params) throws Throwable{
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iMemberService.nicknameCheck(params);
+			if(cnt > 0) {		
+				modelMap.put("msg", "exist");
+			} else {
+				modelMap.put("msg", "none");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	
 	
 	@RequestMapping(value = "/agree")

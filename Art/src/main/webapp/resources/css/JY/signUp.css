@@ -13,6 +13,12 @@
 	cursor: pointer;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 /* 화면 전체 렙 */
 .wrapper{
 	width: 600px;
@@ -52,13 +58,12 @@
     font-weight: bold;
 }
 .id_input_box{
-	width: 77%;
+	width: 100%;
 	height: 40px;
 	border: 0;
 	outline: none;
     border-bottom: 2px solid #e5e5e5;
 	font-size: 17px;
-    float: left;
 }
 #idInput{
 	width: 100%;
@@ -68,7 +73,7 @@
 	outline: none;
 }
 
-#btnIdCheck {
+/* #btnIdCheck {
     width: 80px;
 	height: 40px;
     background-color: #ffad33;
@@ -81,6 +86,23 @@
     line-height: 40px;
     text-align: center;
     cursor: pointer;
+} */
+
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1{
+	color : green;
+	display : none;
+}
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2{
+	color : red;
+	display : none;
+}
+
+/* 내용 입력 안했을 경우 */
+.id_input_re_3{
+	color : red;
+	display : none;
 }
 
 /* 닉네임 영역 */
@@ -94,13 +116,12 @@
     font-weight: bold;
 }
 .nickname_input_box{
-	width: 77%;
+	width: 100%;
 	height: 40px;
 	border: 0;
 	outline: none;
     border-bottom: 2px solid #e5e5e5;
 	font-size: 17px;
-    float: left;
 }
 #nicknameInput{
 	width: 100%;
@@ -110,7 +131,7 @@
 	outline: none;
 }
 
-#btnNicknameCheck {
+/* #btnNicknameCheck {
     width: 80px;
 	height: 40px;
     background-color: #ffad33;
@@ -123,6 +144,23 @@
     line-height: 40px;
     text-align: center;
     cursor: pointer;
+} */
+
+/* 중복닉네임 존재하지 않는경우 */
+.nickname_input_re_1{
+	color : green;
+	display : none;
+}
+/* 중복닉네임 존재하는 경우 */
+.nickname_input_re_2{
+	color : red;
+	display : none;
+}
+
+/* 내용 입력 안했을 경우 */
+.nickname_input_re_3{
+	color : red;
+	display : none;
 }
 
 /* 비밀번호 영역 */
@@ -130,28 +168,39 @@
 	width: 100%;
     margin-top: 20px;
 }
+
 .pw_name{
 	font-size: 15px;
     font-weight: bold;
 }
+
 .pw_input_box{
 	width: 100%;
-	height: 30px;
-}
-#pwInput{
-	width: 500px;
 	height: 40px;
 	border: 0;
 	outline: none;
     border-bottom: 2px solid #e5e5e5;
 	font-size: 17px;
-	margin-top: 10px;
+}
+
+#pwInput{
+	width: 100%;
+	height: 100%;
+	border: none;
+	font-size: 17px;
+	outline: none;
+}
+
+/* 내용 입력 안했을 경우 */
+.pw_input_re_3{
+	color : red;
+	display : none;
 }
 
 /* 비밀번호 확인 영역 */
 .pwck_wrap{
 	width: 100%;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 .pwck_name{
 	font-size: 15px;
@@ -159,45 +208,60 @@
 }
 .pwck_input_box{
 	width: 100%;
-	height: 30px;
-}
-#pwckInput{
-	width: 500px;
 	height: 40px;
 	border: 0;
 	outline: none;
     border-bottom: 2px solid #e5e5e5;
 	font-size: 17px;
-	margin-top: 10px;
+}
+#pwckInput{
+	width: 100%;
+	height: 100%;
+	border: none;
+	font-size: 17px;
+	outline: none;
+}
+
+/* 내용 입력 안했을 경우 */
+.pwck_input_re_3{
+	color : red;
+	display : none;
 }
 
 /* 이름 영역 */
-.user_wrap{
+.name_wrap{
 	width: 100%;
     margin-top: 40px;
 }
-.user_name{
+.name{
 	font-size: 15px;
     font-weight: bold;
 }
-.user_input_box{
+.name_input_box{
 	width: 100%;
-	height: 30px;
-}
-#userInput{
-	width: 500px;
-	height: 30px;
+	height: 40px;
 	border: 0;
 	outline: none;
     border-bottom: 2px solid #e5e5e5;
 	font-size: 17px;
-	margin-top: 10px;
+}
+#nameInput{
+	width: 100%;
+	height: 100%;
+	border: none;
+	font-size: 17px;
+	outline: none;
+}
+
+.name_input_re_3{
+	color : red;
+	display : none;
 }
 
 /* 성별 영역 */
 .sex_wrap{
 	width: 100%;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 .sex_name{
 	font-size: 15px;
@@ -205,7 +269,7 @@
 }
 .sex_input_box{
 	width: 100%;
-	height: 30px;
+	height: 40px;
 	font-size: 17px;
 	margin-top: 10px;
 }
@@ -221,22 +285,29 @@
 }
 .phone_input_box{
 	width: 100%;
-	height: 30px;
-}
-#phoneInput{
-	width: 500px;
 	height: 40px;
 	border: 0;
 	outline: none;
     border-bottom: 2px solid #e5e5e5;
 	font-size: 17px;
-	margin-top: 10px;
+}
+#phoneInput{
+	width: 100%;
+	height: 100%;
+	border: none;
+	font-size: 17px;
+	outline: none;
+}
+
+.phone_input_re_3{
+	color : red;
+	display : none;
 }
 
 /* 생년월일 영역 */
 .birth_wrap{
 	width: 100%;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 .birth_name{
 	font-size: 15px;
@@ -270,6 +341,10 @@
 	margin-left: 10px;
 }
 
+.birth_input_re_3{
+	color : red;
+	display : none;
+}
 /* 메일 영역 */
 .mail_wrap{
 	width: 100%;
@@ -339,6 +414,10 @@
     cursor: pointer;
 }
 
+.mail_input_re_3{
+	color : red;
+	display : none;
+}
 
 /* 가입하기 버튼 */
 .join_button_wrap{
@@ -367,8 +446,4 @@
 }
 .incorrect{
     color : red;
-}
-
-#check1, #check2 {
-	font-size: 9pt;
 }
