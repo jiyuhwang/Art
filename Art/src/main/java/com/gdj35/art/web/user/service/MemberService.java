@@ -26,4 +26,9 @@ public class MemberService implements IMemberService{
 	public int nicknameCheck(HashMap<String, String> params) throws Throwable {
 		return iMemberDao.nicknameCheck(params);
 	}
+
+	@Override
+	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.getUser(params);
+	}
 }

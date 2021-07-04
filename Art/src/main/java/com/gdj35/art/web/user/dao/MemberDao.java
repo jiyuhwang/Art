@@ -26,4 +26,9 @@ public class MemberDao implements IMemberDao{
 		return sqlSession.selectOne("User.nicknameCheck", params);
 	}
 
+	@Override
+	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.getUser", params);
+	}
+
 }

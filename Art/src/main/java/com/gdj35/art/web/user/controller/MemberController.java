@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -192,6 +193,37 @@ public class MemberController{
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "/Logins",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8") // 오타 절대 금지
+	@ResponseBody // Spring에 View임을 제시
+	public String Logins(HttpSession session, 
+						  @RequestParam HashMap<String, String> params) throws Throwable {
+	
+	ObjectMapper mapper = new ObjectMapper();
+
+	Map<String, Object> modelMap = new HashMap<String, Object>();
+	
+	// mPw의 값을 암호화 후 mPw로 넣겠다.
+	//params.put("mPw", Utils.encryptAES128(params.get("mPw")));
+	
+	//System.out.println(Utils.decryptAES128(params.get("mPw")));
+	
+	HashMap<String, String> data = iMemberService.getUser(params);
+	
+	if(data != null) {
+		session.setAttribute("userNo", data.get("USER_NO"));
+		session.setAttribute("userNickname", data.get("USER_NICKNAME"));
+		modelMap.put("resMsg", "success");
+	} else {
+		modelMap.put("resMsg", "failed");
+	}
+	
+	return mapper.writeValueAsString(modelMap);
+	}
+	
+	
 	
 	//지유야 이거만 여기다 하마!!
 	@RequestMapping(value="/gongji")

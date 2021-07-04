@@ -10,4 +10,6 @@ public interface IMemberDao {
 
 	public int nicknameCheck(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable;
+
 }

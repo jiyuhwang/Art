@@ -21,4 +21,11 @@
       FROM USERS
       WHERE USER_NICKNAME = #{userNickname}
 	</select>
+	
+	<select id="getUser" parameterType="hashmap" resultType="hashmap">
+		SELECT USER_NO, USER_NICKNAME
+		FROM USERS
+		WHERE USER_ID = #{userId}
+		AND PW = #{userPw}
+	</select>
 </mapper>
