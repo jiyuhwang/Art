@@ -46,5 +46,10 @@ public class MemberDao implements IMemberDao{
 		return sqlSession.selectOne("User.getUser2", params);
 	}
 
+	@Override
+	public int outUser(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("User.outUser", params);
+	}
+
 
 }

@@ -10,7 +10,48 @@
 <link rel="stylesheet" href="resources/css/JY/set.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+var code = "";                //이메일전송 인증번호 저장위한 코드
+
 $(document).ready(function() {
+	
+	$("#emailSend").click(function(){
+	    
+		  var email = $("#email").val();            // 입력한 이메일
+		  var checkBox = $("#email3");        // 인증번호 입력란
+		  var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+		    
+		    $.ajax({
+		        
+		        type:"GET",
+		        url:"mailCheck?email=" + email,
+		        success:function(data){
+		            
+		            //console.log("data : " + data);
+		        	checkBox.attr("disabled",false);
+		        	boxWrap.attr("id", "mail_check_input_box_true");
+		        	code = data;
+		        }
+		                
+		  });
+	});
+	
+	$("#emailSend").on("click", function(){
+	    
+	    alert("이메일 인증번호가 전송되었습니다.");
+	    $("#mailCheckInput").val(""); 
+	});
+	
+	$("#emailCheck").on("click", function(){
+	    
+	    var inputCode = $("#email3").val();        // 입력코드      
+	    
+	    if(inputCode == code){                            // 일치할 경우
+	        alert("인증번호가 일치합니다.");        
+	    } else {                                            // 일치하지 않을 경우
+	        alert("인증번호를 다시 확인해주세요.");
+	    }    
+	    
+	});
 	
 	$(".profile_manage").on("click", function() {
 		location.href = "profile";
@@ -24,7 +65,7 @@ $(document).ready(function() {
 		location.href = "withdrawal";
 	});
 	
-$("#btnSave").on("click", function(){
+	$("#btnSave").on("click", function(){
 	    
 		if($("#pw").val() == "") {
 			$("#pw").focus();
@@ -46,7 +87,11 @@ $("#btnSave").on("click", function(){
 			$("#day").focus();
 		} else if($("#email").val() == "") {
 			$("#email").focus();
-		} else {
+		} else if($("#email").val() != "${data.MAIL}" && $("#email3").val() != code) {
+			alert("이메일을 인증해주세요.")
+		} else if($("#email3").val() != code) {
+			alert("이메일 인증번호가 틀립니다.")
+		}  else {
 			
 			var params= $("#setForm").serialize();
 		

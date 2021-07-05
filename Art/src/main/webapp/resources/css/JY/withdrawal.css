@@ -131,3 +131,67 @@ input[type=checkbox] {
 	width: 15px;
 	height: 15px;
 }
+
+/* ------------- */
+
+.background{
+	width : 100%;
+	height : 100%;
+	background-color: black;
+	opacity: 0.4;
+	position: absolute;
+	left : 0;
+	top : 0;
+	display: none;
+}
+.main{
+	width : 400px;
+	height: 300px;
+	background-color: #E0E7E9;
+	position: absolute;
+	left : 50%;
+	top: 50%;
+	margin-left : -180px;
+	margin-top : -190px;
+	font-size: 15pt;
+	display: none;
+}
+.topBlank{
+	height: 90px;
+	width: 100%;
+	background-color: RGBA;
+}
+.middleBlank{
+	width : 100%;
+	height: 250px;
+	background-color: Rgba;
+	margin : 0 auto;
+	text-align: center;
+}
+.main input{
+	width : 250px;
+	height : 30px;
+	padding : 5px;
+}
+.title2{
+	width : 100%;
+	height: 50px;
+	font-size: 15pt;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 70px;
+}
+
+.main button{
+	width:150px;
+	height: 45px;
+	border-radius: 9px;
+	font-size: 15pt;
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+}
+.main button:hover{
+	background-color: #ffad33;
+	color: white;
+}

@@ -84,6 +84,10 @@ body {
 	color: black;
 }
 
+#profileImg2 {
+	display: none;
+}
+
 
 .profile_edit {
 	width: 250px;
@@ -100,18 +104,28 @@ body {
 	object-fit: cover;
 }
 
-.btn_profile_upload_w {
-	width: 100%;
+.btn_profile_upload_w, .btn_profile_delete_w {
+	width: 100px;
 	height: 45px;
 	text-align: center;
 	margin-bottom: 50px;
+	display: inline-block;
 }
 
-#btnProfileUpload {
+.btn_profile_upload_w {
+	margin-left: 35%;
+}
+
+.btn_profile_delete_w {
+	margin-left: 3%;
+}
+
+#btnProfileUpload, #btnProfileDelete {
 	width: 100px;
 	height: 100%;
 	background-color: #ffad33;
 	border-color: #ffad33;
+	display: inline-block;
 }
 
 #nickname {

@@ -242,6 +242,32 @@ public class MemberController{
 		return mav;
 	}
 	
+	@RequestMapping(value = "/withdrawals", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String withdrawals(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		try {
+			int cnt = iMemberService.outUser(params);
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+		
+		session.invalidate();
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	@RequestMapping(value = "/profile")
 	public ModelAndView profile(HttpSession session,
 								@RequestParam HashMap<String, String> params,
@@ -273,14 +299,15 @@ public class MemberController{
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		/*
-		 * session.setAttribute("sUserNickname", params.get("userNickname"));
-		 * session.setAttribute("sUserIntroduce", params.get("userIntroduce"));
-		 */
+		
+		session.setAttribute("sUserProfileImg", params.get("profileImg"));
+		session.setAttribute("sUserNickname", params.get("userNickname"));
+		session.setAttribute("sUserIntroduce", params.get("userIntroduce"));
+		
 
-		int cnt = iMemberService.updateProfile(params);
 
 		try {
+			int cnt = iMemberService.updateProfile(params);
 			if (cnt > 0) {
 				modelMap.put("msg", "success");
 			} else {
@@ -337,10 +364,9 @@ public class MemberController{
 		 * session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
 		 */
 		
-		int cnt = iMemberService.updateSet(params);
 
 		try {
-
+			int cnt = iMemberService.updateSet(params);
 			if (cnt > 0) {
 				modelMap.put("msg", "success");
 			} else {
@@ -368,6 +394,14 @@ public class MemberController{
 	public ModelAndView idcheck(ModelAndView mav) {
 		
 		mav.setViewName("YM/idcheck");
+		return mav;
+	}
+	
+
+	@RequestMapping(value="/passwordcheck")
+	public ModelAndView passwordcheck(ModelAndView mav) {
+		
+		mav.setViewName("YM/passwordcheck");
 		return mav;
 	}
 }

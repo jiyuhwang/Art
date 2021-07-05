@@ -170,9 +170,20 @@ a {
 		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
-		<div class="profile">
-			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="475px" height="475px">
-		</div>
+	
+		<c:choose>
+				<c:when test="${empty sUserProfileImg}">
+					<div class="profile">
+						<img class="profile_img" src="resources/images/JY/who.png" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:when>
+				<c:otherwise>
+					<div class="profile">
+						<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:otherwise>
+		</c:choose>
+		
 		<div class="profile_name">${sUserNickname}</div>
 		<a href="writing"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">

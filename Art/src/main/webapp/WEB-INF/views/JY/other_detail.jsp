@@ -106,9 +106,9 @@ function heart() {
 	</div>
 	<div class="side_bar">
 		<div class="profile">
-			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px" height="300px">
+			<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="짱구1" width="300px" height="300px">
 		</div>
-		<div class="profile_name">짱구</div>
+		<div class="profile_name">${sUserNickname}</div>
 		<a href="writing"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
