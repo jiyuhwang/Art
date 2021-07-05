@@ -1,6 +1,5 @@
 package com.gdj35.art.web.user.controller;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj35.art.common.bean.PagingBean;
+import com.gdj35.art.common.service.IPagingService;
 import com.gdj35.art.web.user.service.IManagerService;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Controller
 public class ManagerController {
+	
+	@Autowired
+	public IPagingService iPagingService;
 	
 	@Autowired
 	public IManagerService iManagerService;
@@ -52,8 +57,47 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value="/user_board")
-	public ModelAndView user_board(ModelAndView mav) {
+	public ModelAndView user_board(ModelAndView mav,
+									@RequestParam HashMap<String,String> params) throws Throwable {
+		 
+		System.out.println(params);
+		int page=1;
+		System.out.println(params.get("page"));
 		
+		
+		 if(params.get("page") != null) { 
+			 page= Integer.parseInt(params.get("page"));
+		  }
+		 
+		System.out.println(page);
+		//Total count를 가져온다 T
+		int cnt = iManagerService.getTCnt(params);
+		System.out.println("===> cnt " + cnt);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 13, 10);
+		
+		System.out.println(pb.getEndPcount());
+		
+		if(pb.getEndPcount() ==page) {
+			page = page -1;
+		}
+		
+		int endP = pb.getEndPcount();
+		
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+		
+		System.out.println(params);
+		
+		//Main list를 가져온다. 그래서 M으로 지정
+		List<HashMap<String,String>> list = 
+					iManagerService.getMList(params);
+		
+		
+		System.out.println(list);
+		System.out.println(page);
+		mav.addObject("page", page);
+		mav.addObject("endP", endP);
+		mav.addObject("list", list);
 		mav.addObject("now", "member");
 		mav.setViewName("HD/user_board");
 		return mav;

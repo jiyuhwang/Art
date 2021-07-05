@@ -10,14 +10,24 @@ import com.gdj35.art.web.user.dao.IManagerDao;
 
 @Service
 public class ManagerService implements IManagerService {
-	
 	@Autowired
 	public IManagerDao iManagerDao;
+
+	@Override
+	public List<HashMap<String, String>> getMList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getMList(params);
+	}
+
+	@Override
+	public int getTCnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getTCnt(params);
+	}
 	
-	@Autowired
+	@Override
 	public List<HashMap<String, String>> PList(HashMap<String, String> params) throws Throwable{
 		return iManagerDao.PList(params);
 	}
-	;
-
+	
 }
