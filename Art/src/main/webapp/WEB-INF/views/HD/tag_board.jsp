@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,21 +8,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>태그 관리자</title>
-    <link rel="stylesheet" href="./tagMange.css">
+    <link rel="stylesheet" href="resources/css/HD/tag_board.css">
+    <link rel="stylesheet" href="resources/css/HD/managerSide.css"/>
+	<script type="text/javascript"
+			src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+			var now ='${now}';
+			console.log(now);
+			$('.'+now).attr("id","active");
+			
+			$(".side").on("click","div", function () {
+				if($(this).attr("id") != "active"){
+					$('.'+ now).attr("id","");
+					if($(this).attr("class") == "member"){
+						location.href = "user_board";
+						$(".member").attr("id","active");
+					}else if($(this).attr("class") == "tag"){
+						location.href = "tag_board";
+						$(".tag").attr("id","active");
+					}else if($(this).attr("class") == "product"){
+						location.href = "product_board";
+						$(".product").attr("id","active");
+					}else if($(this).attr("class") == "warning"){
+						location.href = "warning_board";
+						$(".warning").attr("id","active");
+					}else if($(this).attr("class") == "gong"){
+						location.href = "gong_board";
+						$(".gong").attr("id","active");
+					}
+				}
+				
+			});
+		});
+	</script>
 </head>
 <body>
     <div class="wrapper">
 
     
     <div class="content">
-        <div class ="side">
-            <div class ="blank"></div>
-            <div class ="product">회원관리</div>
-            <div class ="member">태그관리</div>
-            <div class ="product">작품관리</div>
-            <div class ="warning">신고관리</div>
-            <div class ="warning">공지사항</div>
-         </div>
+       <c:import url="managerSide.jsp"></c:import>
         <div class ="main">
             
             <div class ="blank2"></div>

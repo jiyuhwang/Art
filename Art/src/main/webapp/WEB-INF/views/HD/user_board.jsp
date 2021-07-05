@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="resources/css/HD/login.css"/>
 <link rel="stylesheet" href="resources/css/HD/user_detail(byBoard).css">
 <link rel="stylesheet" href="resources/css/HD/email.css"/>
+<link rel="stylesheet" href="resources/css/HD/managerSide.css"/>
+
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
@@ -44,22 +46,34 @@ $(document).ready( function () {
 		})
 	});//end email_btn
 	
-	$(".member").attr("class","active");
+//side 클릭시 변경 script
+	var now ='${now}';
+	console.log(now);
+	$('.'+now).attr("id","active");
 	
 	$(".side").on("click","div", function () {
-		if($(this).attr("class") == "member"){
-			location.href = "user_board";
-		}else if($(this).attr("class") == "tag"){
-			location.href = "tag_board";
-		}else if($(this).attr("class") == "product"){
-			location.href = "gallaryManage";;
-		}else if($(this).attr("class") == "warning"){
-			location.href = "reportManage";
-		}else if($(this).attr("class") == "gong"){
-			location.href = "gong_board";
-			
+		if($(this).attr("id") != "active"){
+			$('.'+ now).attr("id","");
+			if($(this).attr("class") == "member"){
+				location.href = "user_board";
+				$(".member").attr("id","active");
+			}else if($(this).attr("class") == "tag"){
+				location.href = "tag_board";
+				$(".tag").attr("id","active");
+			}else if($(this).attr("class") == "product"){
+				location.href = "product_board";
+				$(".product").attr("id","active");
+			}else if($(this).attr("class") == "warning"){
+				location.href = "warning_board";
+				$(".warning").attr("id","active");
+			}else if($(this).attr("class") == "gong"){
+				location.href = "gong_board";
+				$(".gong").attr("id","active");
+			}
 		}
+		
 	});
+	//side 클릭시 변경 script
 });
 	
 
@@ -71,7 +85,7 @@ $(document).ready( function () {
 
 </div>
 <div class="content">
-<c:import url="managerSide.jsp"></c:import>
+	<c:import url="managerSide.jsp"></c:import>
 <div class ="main">
 		
 		<div> </div>
