@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 관리</title>
+<style type="text/css">
+tbody tr:hover {
+	background-color: #f2f2f2;
+}
+</style>
 <link rel="stylesheet" href="resources/css/h/gallary_manage.css"/>
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
@@ -128,13 +133,13 @@ $(document).ready(function(){
 			html +="<td><input type=\"checkbox\"></td>";
 			html +="<td>" + no + "</td>";
 			html +="<td>" + d.POST_NO + "</td>";
-			html +="<td>" + d.CATEGORY_NO + "</td>";
+			html +="<td>" + d.CATEGORY_NAME + "</td>";
 			html +="<td>" + d.TITLE + "</td>";
 			html +="<td>" + d.NAME + "</td>";
 			html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
 			html +="<td>" + d.R_DATE + "</td>";
 			html +="<td>" + d.VIEWS + "</td>";
-			html +="<td>좋아요수</td>";
+			html +="<td>" + d.CNT + "</td>";
 			html +="</tr>";
 		}                             
 		
