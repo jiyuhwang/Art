@@ -1,16 +1,5 @@
 @charset "UTF-8";
 
-.side_bar {
-	border: 2px solid gray;
-	background-color: white;
-	width: 300px;
-	height: 630px;
-	position: relative;
-	font-family: '돋움';
-	z-index: 200;
-	border-radius: 10px;
-}
-
 [type="button"] {
 	cursor: pointer;
 	font-family: '돋움';
@@ -19,6 +8,57 @@
 a {
 	color: inherit;
 	text-decoration: none;
+}
+
+.banner {
+	width: 100%;
+	height: 70px;
+	background-color: skyblue;
+}
+
+.header {
+	margin-top: 20px;
+	position: relative;
+	width: 100%;
+	height: 60px;
+}
+
+#btnMenu {
+	position: absolute;
+	left: 40px;
+	cursor: pointer;
+}
+
+#btnLogo {
+	position: absolute;
+	left: 80px;
+}
+
+#btnSearch {
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	border: 1px solid #cccccc;
+	outline-style: none;
+}
+
+#btnLook {
+	position: absolute;
+	right: 40px;
+	cursor: pointer;
+}
+
+.side_bar {
+	display: none;
+	border: 2px solid gray;
+	background-color: white;
+	width: 300px;
+	height: 630px;
+	position: absolute;
+	top: 65px;
+	left: 40px;
+	z-index: 900;
+	border-radius: 10px;
 }
 
 #sideBarLogo {

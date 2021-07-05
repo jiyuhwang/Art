@@ -6,13 +6,19 @@
 <meta charset="UTF-8">
 <title>header</title>
 <style type="text/css">
+
 body {
 	font-size: 0pt;
 	margin: 0;
 	font-family: '돋움';
 }
 
-.footer a, .side_bar a {
+[type="button"] {
+	cursor: pointer;
+	font-family: '돋움';
+}
+
+a {
 	color: inherit;
 	text-decoration: none;
 }
@@ -33,14 +39,6 @@ body {
 #btnLogo {
 	position: absolute;
 	left: 80px;
-}
-
-#searchW {
-	width: 300px;
-	height: 45px;
-	position: absolute;
-	right: 100px;
-	display: none;
 }
 
 #btnSearch {
@@ -66,11 +64,27 @@ body {
 	position: absolute;
 	top: 65px;
 	left: 40px;
-	z-index: 200;
+	z-index: 900;
 	border-radius: 10px;
 }
 
-#btnUpload, #btnLogout {
+#sideBarLogo {
+	position: absolute;
+	top: 50px;
+	left: 105px;
+}
+
+.side_bar_phrase {
+	position: absolute;
+	top: 110px;
+	left: 40px;
+	font-size: 15pt;
+}
+
+#btnStart {
+	position: absolute;
+	top: 170px;
+	left: 80px;
 	border: 1px solid #ffad33;
 	color: #ffad33;
 	text-align: center;
@@ -82,51 +96,23 @@ body {
 	background-color: white;
 }
 
-.profile {
-	width: 200px;
-	height: 200px;
-	border-radius: 70%;
-	overflow: hidden;
-	position: absolute;
-	top: 50px;
-	left: 48px;
-}
-
-.profile_img, .profile_img2, .profile_img3, .profile_img4 {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-.profile_name {
-	position: absolute;
-	width: 300px;
-	height: 20px;
-	text-align: center;
-	top: 260px;
-	font-size: 22pt;
-}
-
-#btnUpload {
-	position: absolute;
-	top: 310px;
-	left: 95px;
-}
-
 .side_bar_menu {
 	position: absolute;
-	margin: 330px auto 0px;
+	top: 230px;
+	left: 70px;
 	text-align: center;
-	padding-top: 20px;
-	font-size: 15pt;
-	width: 100%;
-	height: 200px;
+	border-top: 1px dashed black;
+	margin-top: 20px;
+	padding-top: 30px;
+	font-size: 18pt;
 }
 
-#btnLogout {
+.forget {
 	position: absolute;
-	top: 550px;
-	left: 95px;
+	bottom:30px;
+	left: 75px;
+	text-decoration: underline;
+	font-size: 10pt;
 }
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
@@ -142,17 +128,8 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#btnLogout").on("click", function() {
-		$.ajax({
-			url: "Logout",
-			type: "post",
-			success: function(res) {
-
-			},
-			error: function(request, status, error) {
-				console.log(error);
-			}
-		});
+	$('#btnStart').click(function() {
+		location.href = "login";
 	});
 });
 </script>
@@ -164,32 +141,22 @@ $(document).ready(function() {
 		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
-		<div class="profile">
-			<img class="profile_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
-				height="300px">
-		</div>
-		<div class="profile_name">${sUserNickname}</div>
-		<a href="writing"><input type="button" id="btnUpload"
-			value="작품등록"></a>
+		<img id="sideBarLogo" src="resources/images/JY//art2.png" alt="로고" width="80px"
+			height="50px">
+		<div class="side_bar_phrase">You can be an art writer.</div>
+		<input type="button" id="btnStart" value="Art 시작하기">
 		<div class="side_bar_menu">
-			<span>--------------</span>
 			<div class="side_bar_menu1">
-				<a href="mygallary">나의 작업실</a>
+				<a href="main.html">Art 홈</a>
 			</div>
 			<br />
 			<div class="side_bar_menu2">
-				<a href="gallary">작품 보러가기</a>
-			</div>
-			<br />
-			<div class="side_bar_menu3">
-				<a href="profile">개인정보 수정</a>
-			</div>
-			<br />
-			<div class="side_bar_menu4">
-				<a href="gongji">공지사항</a>
+				<a href="gallary.html">작품 보러가기</a>
 			</div>
 		</div>
-		<input type="button" id="btnLogout" value="로그아웃">
+		<div class="forget">
+			<a href="#">계정을 잊어버리셨나요?</a>
+		</div>
 	</div>
 </body>
 </html>

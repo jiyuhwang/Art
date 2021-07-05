@@ -172,7 +172,6 @@ public class MemberController{
 	}
 	
 	
-	
 	@RequestMapping(value = "/agree")
 	public ModelAndView agree(ModelAndView mav) {
 		mav.setViewName("YM/agree");
@@ -213,16 +212,114 @@ public class MemberController{
 	HashMap<String, String> data = iMemberService.getUser(params);
 	
 	if(data != null) {
-		session.setAttribute("userNo", data.get("USER_NO"));
-		session.setAttribute("userNickname", data.get("USER_NICKNAME"));
+		session.setAttribute("sUserNo", data.get("USER_NO"));
+		session.setAttribute("sUserId", data.get("USER_ID"));
+		session.setAttribute("sUserNickname", data.get("USER_NICKNAME"));
+		session.setAttribute("sUserPw", data.get("PW"));
+		session.setAttribute("sUserProfileImg", data.get("PROFILE_IMG_PATH"));
+		session.setAttribute("sUserName", data.get("NAME"));
+		session.setAttribute("sUserPhone", data.get("PHONE_NO"));
+		session.setAttribute("sUserSex", data.get("SEX"));
+		session.setAttribute("sUserBirth", data.get("BIRTHDAY"));
+		session.setAttribute("sUserMail", data.get("MAIL"));
+		session.setAttribute("sUserIntroduce", data.get("INTRODUCE"));
+		session.setAttribute("sUserEventAgree", data.get("EVENT_AGREEMENT"));
 		modelMap.put("resMsg", "success");
 	} else {
 		modelMap.put("resMsg", "failed");
 	}
 	
-	return mapper.writeValueAsString(modelMap);
+		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "/Logout")
+	public ModelAndView Logout(HttpSession session, ModelAndView mav) {
+
+		session.invalidate();
+		
+		mav.setViewName("redirect:main");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/profile")
+	public ModelAndView profile(ModelAndView mav) {
+
+		mav.setViewName("JY/profile");
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/profiles", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String profiles(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		session.setAttribute("sUserNickname", params.get("userNickname"));
+		session.setAttribute("sUserIntroduce", params.get("userIntroduce"));
+
+		int cnt = iMemberService.updateProfile(params);
+
+		try {
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	@RequestMapping(value = "/set")
+	public ModelAndView set(ModelAndView mav) throws Throwable {
+
+		mav.setViewName("JY/set");
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/sets", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String sets(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		
+		session.setAttribute("sUserPw", params.get("userPw"));
+		session.setAttribute("sUserName", params.get("userName"));
+		session.setAttribute("sUserSex", params.get("gender"));
+		session.setAttribute("sUserBirth", params.get("birthYear") + '-' + params.get("birthMonth") + '-' + params.get("birthDay"));
+		session.setAttribute("sUserPhone", params.get("userPhone"));
+		session.setAttribute("sUserMail", params.get("userMail"));
+		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
+		
+
+		try {
+			int cnt = iMemberService.updateSet(params);
+
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
 	
 	
 	//지유야 이거만 여기다 하마!!

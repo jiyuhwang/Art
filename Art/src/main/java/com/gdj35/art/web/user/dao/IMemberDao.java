@@ -12,4 +12,8 @@ public interface IMemberDao {
 
 	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable;
 
+	public int updateProfile(HashMap<String, String> params) throws Throwable;
+
+	public int updateSet(HashMap<String, String> params) throws Throwable;
+
 }

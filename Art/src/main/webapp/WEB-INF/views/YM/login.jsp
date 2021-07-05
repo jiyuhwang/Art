@@ -62,7 +62,7 @@ a {
 			} else {
 				// form의 data를 문자열로 전환
 				var params = $("#loginForm").serialize();
-				
+				console.log(params);
 				// ajax
 				$.ajax({
 					url: "Logins", // 접속 주소
@@ -73,7 +73,9 @@ a {
 						if(res.resMsg == "success") {
 							location.href = "main";
 						} else {
-							alert("아이디 또는 비밀번호가 일치하지 않습니다.")
+							$('.incorrect').html("아이디 또는 비밀번호가 일치하지 않습니다.");
+							$('.incorrect').css("color", "red");
+							$('.incorrect').css("text-align", "left");
 						}
 					},
 					error: function(request, status, error) { // 실패 시 다음 함수 실행
@@ -92,6 +94,8 @@ a {
 	         <input type="text" placeholder="아이디" id="userId" name="userId">
 	   <br><br>            
 		     <input type="password" placeholder="비밀번호" id="userPw" name="userPw">
+	   <br><br>
+	   		 <span class="incorrect"></span>
 	   <br><br>
 	         <input type="button" id="btnLogin" value="로그인하기">
 	   <br><br>

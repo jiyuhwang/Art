@@ -31,4 +31,15 @@ public class MemberService implements IMemberService{
 	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable {
 		return iMemberDao.getUser(params);
 	}
+
+	@Override
+	public int updateProfile(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.updateProfile(params);
+	}
+
+	@Override
+	public int updateSet(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.updateSet(params);
+	}
+
 }

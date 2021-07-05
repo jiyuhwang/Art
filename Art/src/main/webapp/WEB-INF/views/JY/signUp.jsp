@@ -295,7 +295,7 @@ $(document).ready(function() {
 			$("#nameInput").focus();
 		} else if($("#phoneInput").val() == "") {
 			$("#phoneInput").focus();
-		} else if($("#birthYear").val() == "" || $("select[name=birthMonth]").val() == '월' || $('#birthDay').val() == "") {
+		} else if($("#birthYear").val() == "") {
 			$("#birthYear").focus();
 		} else if($("select[name=birthMonth]").val() == '월') {
 			$(".birth_select").focus();
@@ -418,7 +418,7 @@ function check_pw(){
 			<div class="phone_wrap">
 				<div class="phone_name">휴대폰번호</div>
 				<div class="phone_input_box">
-					<input type="number" id="phoneInput" name="userPhone"  placeholder="010-****-****">
+					<input type="number" id="phoneInput" name="userPhone" placeholder="010-****-****">
 				</div>
 				<span class="phone_input_re_3">필수 정보입니다.</span>
 			</div>

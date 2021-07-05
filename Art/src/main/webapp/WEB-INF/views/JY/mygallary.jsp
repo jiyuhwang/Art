@@ -27,7 +27,7 @@ $(document).ready(function() {
 				<img class="profile_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1"
 					width="200px" height="200px">
 			</div>
-			<div class="profile_name2">짱구</div>
+			<div class="profile_name2">${sUserNickname}</div>
 			<div class="profile_like">좋아요수
 				<span class="profile_like_cnt">30</span>
 			</div>
