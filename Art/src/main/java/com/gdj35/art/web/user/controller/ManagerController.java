@@ -20,4 +20,31 @@ public class ManagerController {
 		mav.setViewName("HD/editManager");
 		return mav;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value="/gallaryManage")
+	public ModelAndView gallaryManage(ModelAndView mav) {
+		
+		mav.setViewName("h/gallaryManage");
+		return mav;
+	}
+	
 }

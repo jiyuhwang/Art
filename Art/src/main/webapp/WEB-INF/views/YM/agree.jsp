@@ -140,7 +140,6 @@ $(document).ready(function() {
 	
 	 checkTxt();
 	}
-}
 </script>
 <body>
 <form action="" id="joinForm">
@@ -193,6 +192,5 @@ $(document).ready(function() {
                 <li><button class="fpmgBt2" type="button">동의</button></li>
             </ul>
         </form>
-
 </body>
 </html>

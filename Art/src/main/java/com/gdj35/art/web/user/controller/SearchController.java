@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gdj35.art.common.service.IPagingService;
 
 @Controller
-public class HyeonController {
+public class SearchController {
 	
 	@Autowired
 	public IPagingService iPagingService;

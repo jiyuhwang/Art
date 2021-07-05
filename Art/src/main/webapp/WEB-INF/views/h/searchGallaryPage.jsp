@@ -27,7 +27,7 @@ $(document).ready(function() {
 		
 		var tab = $(this).find("a").attr("href");
 		$(tab).fadeIn("fast");
-		return false;
+		return false;//이걸 안하면 스크롤이 중간에...
 		
 	});
 	
@@ -119,6 +119,33 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div id="tab2" class="srh_result">
+				<div class="writer_box">
+					<img id="writerImg1" class="writer_img"/>
+					<div class="writer_box_txt">
+						<div class="writer_name"><h5>나는 작가다.</h5></div>
+						<div class="writer_introduce">
+							<span> 소개입니다.</span>
+						</div>
+					</div>
+				</div>
+				<div class="writer_box">
+					<img id="writerImg2" class="writer_img"/>
+					<div class="writer_box_txt">
+						<div class="writer_name"><h5>작가님.</h5></div>
+						<div class="writer_introduce">
+							<span> 소개입니다.</span>
+						</div>
+					</div>
+				</div>
+				<div class="writer_box">
+					<img id="writerImg3" class="writer_img"/>
+					<div class="writer_box_txt">
+						<div class="writer_name"><h5>뇽뇽.</h5></div>
+						<div class="writer_introduce">
+							<span> 소개입니다.</span>
+						</div>
+					</div>
+				</div>
 				
 			</div>
 			<!------------------------------------------------------------------------ 페이징 -->
