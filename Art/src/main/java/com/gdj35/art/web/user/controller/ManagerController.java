@@ -1,11 +1,27 @@
 package com.gdj35.art.web.user.controller;
 
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj35.art.web.user.service.IManagerService;
+
 
 @Controller
 public class ManagerController {
+	
+	@Autowired
+	public IManagerService iManagerService;
 	
 	@RequestMapping(value="/writingManager")
 	public ModelAndView writinerManager(ModelAndView mav) {
@@ -76,6 +92,27 @@ public class ManagerController {
 		mav.setViewName("h/gallaryManage");
 		return mav;
 	}
+	
+	
+	@RequestMapping(value="/entire",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String entire(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		//목록취득
+		List<HashMap<String, String>> list = iManagerService.PList(params);
+		
+		modelMap.put("list", list);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/reportManage")
 	public ModelAndView reportManage(ModelAndView mav) {
