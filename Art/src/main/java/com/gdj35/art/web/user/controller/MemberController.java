@@ -401,7 +401,7 @@ public class MemberController{
 	@RequestMapping(value="/passwordcheck")
 	public ModelAndView passwordcheck(ModelAndView mav) {
 		
-		mav.setViewName("YM/idcheck");
+		mav.setViewName("YM/passwordcheck");
 		return mav;
 	}
 }
