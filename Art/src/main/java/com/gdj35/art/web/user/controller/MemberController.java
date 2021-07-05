@@ -243,11 +243,19 @@ public class MemberController{
 	}
 	
 	@RequestMapping(value = "/profile")
-	public ModelAndView profile(HttpSession session, ModelAndView mav) {
+	public ModelAndView profile(HttpSession session,
+								@RequestParam HashMap<String, String> params,
+								ModelAndView mav) throws Throwable {
+		params.put("userNo", String.valueOf(session.getAttribute("sUserNo")));
+		
+		HashMap<String, String> data = iMemberService.getUser2(params);
+		
+		mav.addObject("data", data);
 		
 		if(session.getAttribute("sUserNo") != null) {
 
 			mav.setViewName("JY/profile");
+			
 			
 		} else {
 			
@@ -265,8 +273,10 @@ public class MemberController{
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		session.setAttribute("sUserNickname", params.get("userNickname"));
-		session.setAttribute("sUserIntroduce", params.get("userIntroduce"));
+		/*
+		 * session.setAttribute("sUserNickname", params.get("userNickname"));
+		 * session.setAttribute("sUserIntroduce", params.get("userIntroduce"));
+		 */
 
 		int cnt = iMemberService.updateProfile(params);
 
@@ -286,8 +296,15 @@ public class MemberController{
 	}
 
 	@RequestMapping(value = "/set")
-	public ModelAndView set(HttpSession session, ModelAndView mav) throws Throwable {
-
+	public ModelAndView set(HttpSession session,
+							@RequestParam HashMap<String, String> params,
+							ModelAndView mav) throws Throwable {
+		
+		params.put("userNo", String.valueOf(session.getAttribute("sUserNo")));
+		
+		HashMap<String, String> data = iMemberService.getUser2(params);
+		
+		mav.addObject("data", data);
 		if(session.getAttribute("sUserNo") != null) {
 
 			mav.setViewName("JY/set");
@@ -309,17 +326,20 @@ public class MemberController{
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
 		
-		session.setAttribute("sUserPw", params.get("userPw"));
-		session.setAttribute("sUserName", params.get("userName"));
-		session.setAttribute("sUserSex", params.get("gender"));
-		session.setAttribute("sUserBirth", params.get("birthYear") + '-' + params.get("birthMonth") + '-' + params.get("birthDay"));
-		session.setAttribute("sUserPhone", params.get("userPhone"));
-		session.setAttribute("sUserMail", params.get("userMail"));
-		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
+		/*
+		 * session.setAttribute("sUserPw", params.get("userPw"));
+		 * session.setAttribute("sUserName", params.get("userName"));
+		 * session.setAttribute("sUserSex", params.get("gender"));
+		 * session.setAttribute("sUserBirth", params.get("birthYear") + '-' +
+		 * params.get("birthMonth") + '-' + params.get("birthDay"));
+		 * session.setAttribute("sUserPhone", params.get("userPhone"));
+		 * session.setAttribute("sUserMail", params.get("userMail"));
+		 * session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
+		 */
 		
+		int cnt = iMemberService.updateSet(params);
 
 		try {
-			int cnt = iMemberService.updateSet(params);
 
 			if (cnt > 0) {
 				modelMap.put("msg", "success");
