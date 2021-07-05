@@ -15,13 +15,19 @@ body {
 	color: white;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 /*----------------------------------------------------------테이블 */
 
 tr {
 	height: 50px;
 }
 
-#pw, #pwCheck {
+#pw, #pwCheck, #name {
 	width: 96%;
 	height: 50px;
 }
@@ -38,11 +44,12 @@ tr {
 
 .sex {
 	width: 97%;
-	height: 50px;
+	height: 30px;
+	padding-top: 10px;
 }
 
-#email1, #email2 {
-	width: 170px;
+#email {
+	width: 370px;
 	height: 50px;
 }
 
@@ -52,11 +59,9 @@ tr {
 	padding: 1px;
 }
 
-#phone1, #phone2, #phone3 {
-	width: 140px;
+#phone {
+	width: 96%;
 	height: 50px;
-	padding: 1px;
-	margin: 0 3px;
 }
 
 #nicknameCheck, #emailCheck {

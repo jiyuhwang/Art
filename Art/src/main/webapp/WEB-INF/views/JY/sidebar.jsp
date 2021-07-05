@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>sidebar</title>
 <link rel="stylesheet" href="resources/css/JY/sidebar.css">
+
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -29,7 +30,7 @@
 </script>
 </head>
 <body>
-<div class="header">
+	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
 		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>

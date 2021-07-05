@@ -1,0 +1,289 @@
+
+.background{
+	width : 100%;
+	height : 100%;
+	background-color: black;
+	opacity: 0.4;
+	position: absolute;
+	left : 0;
+	top : 0;
+	z-index: 10;
+	display: none;
+}
+.Pmain table th{
+	background-color: #cccccc;
+}
+.Pmain{
+	width : 900px;
+	height : 900px;
+	background-color: #E0E7E9;
+	display: inline-block;
+	font-size: 0px;
+	position: absolute;
+	left : 50%;
+	top: 50%;
+	margin-left : -450px;
+	margin-top : -450px;
+	border-radius: 7px;
+	z-index: 10;
+	display: none;
+}
+.Pmain .topBar{
+	width : 100%;
+	height : 25px;
+	background-color: rgba;
+}
+.Pmain .blank{
+	width : 97%;
+	height : 100%;
+	background-color: rgba;
+}
+.Pmain .profile{
+	width : 300px;
+	height : 425px;
+	background-color: rgba;
+	text-align: center;
+	display: inline-block;
+}
+.Pmain .pBox{
+	width : 180px;
+	height :210px;
+	margin : 0 auto;
+	padding-top: 60px;
+	display: block;
+	font-size: 0px;
+}
+.Pmain .img{
+	width : 180px;
+	height: 180px;
+	background-color: rgba;
+	
+}
+.Pmain .pName{
+	margin-top : 50px;
+	padding : 15px 0px;
+	text-align: center;
+	font-size: 14pt;
+	font-weight: bold;
+	border-radius: 9px;
+	border: none;
+	background-color: inherit;
+}
+.Pmain .cButtonB{
+	width : 160px;
+	height : 20px;
+	background-color: rgba;
+	display: inline-block;
+}
+.Pmain .cButtonc{
+	width : 20px;
+	height : 20px;
+	background-color: rgba;
+	vertical-align: top;
+	display: inline-block;
+}
+.Pmain .cButtonI{
+	width : 100%;
+	height:100%;
+	cursor: pointer;
+}
+.Pmain .writeBox{
+	width : 600px;
+	height :425px;
+	background-color: rgba;
+	display: inline-block; 
+	vertical-align: top;
+}
+.Pmain .blank1{
+	width : 600px;
+	height :60px;
+	background-color: rgba;
+	display: inline-block; 
+	vertical-align: top;
+	font-size: 30pt;
+}
+.Pmain .writeBoxI{
+	width : 600px;
+	height : 340px;
+	display: inline-block;
+	vertical-align: top;
+	background-color: rgba;
+	font-size: 5px;
+}
+.Pmain input, span{
+	font-size: 12pt;
+	text-align: center;
+	padding : 3px 0px;
+	margin-top: 40px;
+	border: none;
+}
+.Pmain .leftBox{
+	margin-left: 20px;
+}
+.Pmain .smallBox{
+	width : 280px;;
+	height : 200px;
+	background-color: rgba;
+	display: inline-block;
+	vertical-align: top;
+	font-size: 5px;
+}
+.Pmain .MsmallBox{
+	width :100%;
+	height : 55px;
+	font-size: 12pt;
+	line-height: 80px;
+}
+.Pmain .introduce_box{
+	height: 165px;
+	width: 550px;
+	background-color: inherit;
+}
+.Pmain .sogea{
+	background-color: inherit;
+	height: 30px;
+	width : inherit;
+	font-size: 12pt;
+	line-height: 20px;	
+}
+.Pmain .sogea_box{
+	width: inherit;
+	height: 135px;
+	border: 1px solid rgb(191, 191, 191);
+	background-color: inherit;
+	font-size: 12pt;
+	box-sizing: border-box;
+	overflow: auto;
+	word-wrap: break-word;
+}
+
+.Pmain .informing{
+	 width: 80px;
+	 height: inherit;
+	 background-color: inherit;
+	 text-align: center;
+	 display: inline-block;
+	 padding-bottom: 30px;	
+}
+.Pmain .content_box{
+	border-bottom: 1px solid gray;
+	width: 170px;
+	height: inherit;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+}
+.Pmain button{
+	width : 80px;
+	height : 100%;
+	border-radius: 3px;
+	z-index: 1;
+	position: relative;
+	border: none;
+}
+.Pmain .insideMiddle1{
+	box-shadow: 4px 4px 5px grey;
+	z-index: 2;
+	position: relative;
+	background-color: #0C4A60;
+	color: white;
+}
+.Pmain .insideMiddle2:hover{
+	box-shadow: 4px 4px 5px grey;
+	z-index: 2;
+	position: relative;
+	background-color: #0C4A60;
+	color: white;
+}
+.Pmain .middleSection{
+	width: 100%;
+	height : 50px;
+	display: inline-block;
+}
+.Pmain .brick{
+	width : 40px;
+	height : 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+.Pmain .underLine{
+	width : 650px;
+	height : 100%;
+	border-bottom: 1px solid black;
+	display: inline-block;
+	vertical-align: top;
+}
+.Pmain .boxForB{
+	width : 100%;
+	height :350px;
+	background-color: #E0E7E9;
+	/* 810 320  */
+}
+.Pmain .topOfBox{
+	font-size : 0px;
+	width : 810px;
+	height : 70px;
+	margin: 0 auto;
+}
+.Pmain .searchBox{
+	width: 100%;
+	height: 40px;
+	display: inline-block;
+	font-size: 4px;
+}
+.Pmain .searchBox > input{
+	width : 140px;
+	height : 33px;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	margin: 0;
+}
+.Pmain select{
+	width : 80px;
+	height: 40px;
+	border: none;
+	background-color: inherit;
+}
+.Pmain .searchBox > button {
+	width : 60px;
+	margin-left: 3px;
+}
+.Pmain .boxForBoard{
+	width: 800px;
+	height: 320px;
+	background-color: white;
+	margin: 0 auto;
+	overflow: auto;
+}
+.Pmain .boxForBoard::-webkit-scrollbar{
+	display: none;
+	}
+.Pmain .blank2{
+	display: inline-block;
+	vertical-align: top;
+	width : 300px;
+	height : 100%;
+	background-color: rgba;
+}
+.Pmain table{
+	width:800px;
+	/*height : 300px; */
+	font-size: 10pt;
+	border-collapse: collapse;
+	 text-align: center;
+}
+.Pmain table th{
+	 border-bottom: 1px solid black;
+	 border-top: 1px solid black;
+	 height : 40px;
+}
+.Pmain table tr{
+	border-bottom: 1px solid black;
+	 border-top: 1px solid black;
+	 height : 30px;
+}
+.Pmain .check{
+	margin : 0;
+}
+	
