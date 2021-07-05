@@ -243,9 +243,16 @@ public class MemberController{
 	}
 	
 	@RequestMapping(value = "/profile")
-	public ModelAndView profile(ModelAndView mav) {
+	public ModelAndView profile(HttpSession session, ModelAndView mav) {
+		
+		if(session.getAttribute("sUserNo") != null) {
 
-		mav.setViewName("JY/profile");
+			mav.setViewName("JY/profile");
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
 
 		return mav;
 	}
@@ -279,9 +286,16 @@ public class MemberController{
 	}
 
 	@RequestMapping(value = "/set")
-	public ModelAndView set(ModelAndView mav) throws Throwable {
+	public ModelAndView set(HttpSession session, ModelAndView mav) throws Throwable {
 
-		mav.setViewName("JY/set");
+		if(session.getAttribute("sUserNo") != null) {
+
+			mav.setViewName("JY/set");
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
 
 		return mav;
 	}
