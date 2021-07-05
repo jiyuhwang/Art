@@ -27,8 +27,7 @@ public class ManagerDao implements IManagerDao {
 	
 		@Override
 	public List<HashMap<String, String>> PList(HashMap<String, String> params) throws Throwable {
-		
-		return sqlSession.selectList("Admin.PList", params);
+		return sqlSession.selectList("Manager.PList", params);
 	}
 	
 	

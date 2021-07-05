@@ -13,6 +13,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	//사이드바 해당 메뉴 고정시키기
+	$(".report").attr("id", "active");
+	
 	//전체체크하면 전체적으로 체크되게 하기
 	$("#checkAll").on("click", function(){
 		if($(this).is(":checked")){
@@ -55,9 +58,7 @@ $(document).ready(function(){
 		alert("준비중입니다.");
 	});
 	
-	//사이드바 고정시키기
-	$(".side_bar div div").attr("class", "manage");
-	$("#report").attr("class", "manage_selected");
+
 	
 	
 	
@@ -87,7 +88,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="main">
-	<c:import url="managerSidebar.jsp"></c:import>
+	<c:import url="../HD/managerSide.jsp"></c:import>
 	<div class ="ctts">
 			<!------------------------------게시글 신고 관리  -->
 		<div class ="blank2"></div>

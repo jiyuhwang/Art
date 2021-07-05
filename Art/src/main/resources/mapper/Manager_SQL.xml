@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Admin">
+<mapper namespace="Manager">
 
 	<select id="getMList" resultType="hashmap" parameterType="hashmap">
 		SELECT * 
@@ -39,7 +39,7 @@
 	<select id="PList" parameterType="hashmap" resultType="hashmap">
 		SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME,
 				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YY-MM-DD') AS R_DATE,
-				P.VIEWS, DECODE(L.CNT, NULL, 0, L.CNT) AS CNT
+				P.VIEWS, DECODE(L.CNT, NULL, 0, L.CNT) AS CNT, P.EXPLAIN
 		FROM ((POST P LEFT OUTER JOIN USERS U
 		           				 ON P.USER_NO = U.USER_NO)
 		    LEFT OUTER JOIN POST_CATEGORY PC
@@ -49,7 +49,39 @@
 		          										 ON L.POST_NO = P.POST_NO 
 		               									 GROUP BY P.POST_NO) L
 		         		  ON P.POST_NO = L.POST_NO
-		WHERE P.DEL = 1 AND P.VISIBILITY = 0
+		WHERE 1 = 1
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchFlag == 0">
+					AND R_DATE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 1">
+					AND R_DATE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 2">
+					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 3">
+					AND P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 4">
+					AND U.NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 5">
+					AND P.POST_NO LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 6">
+					AND PC.CATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 7">
+					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
+					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlage == 8">
+					AND R_DATE LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
 		ORDER BY P.POST_NO DESC
 	</select>
 
