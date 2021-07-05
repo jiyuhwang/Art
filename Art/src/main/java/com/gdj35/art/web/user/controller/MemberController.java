@@ -370,4 +370,12 @@ public class MemberController{
 		mav.setViewName("YM/idcheck");
 		return mav;
 	}
+	
+
+	@RequestMapping(value="/passwordcheck")
+	public ModelAndView passwordcheck(ModelAndView mav) {
+		
+		mav.setViewName("YM/idcheck");
+		return mav;
+	}
 }
