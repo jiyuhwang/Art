@@ -20,12 +20,12 @@ public class CommonProperties {
 	 * 파일 업로드
 	 */
 	//파일 업로드 경로
-	public static final String FILE_UPLOAD_PATH = "C:\\MyWork\\workspace"
-				+ "\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0"
-				+ "\\wtpwebapps\\SampleSpringBlank\\resources\\upload";
+	public static final String FILE_UPLOAD_PATH = "C:\\MyWork\\workspace\\.metadata"
+												+ "\\.plugins\\org.eclipse.wst.server.core"
+												+ "\\tmp0\\wtpwebapps\\Art\\resources\\upload";
 	
 	//허용파일 확장자
-	public static final String FILE_EXT = "xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|tld|txt|pdf|zip|alz|7z";
+	public static final String FILE_EXT = "xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|tld|txt|pdf|zip|alz|7z|ico|mp4|avi";
 	public static final String IMG_EXT = "jpg|jpeg|png|gif|bmp";
 	
 	/**

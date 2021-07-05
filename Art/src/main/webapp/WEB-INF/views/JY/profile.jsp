@@ -23,6 +23,11 @@ $(document).ready(function() {
 		location.href = "withdrawal";
 	});
 	
+	$("#btnProfileDelete").on("click", function() {
+		$('#profileImg').val("");
+		$("#profileEditImg").attr("src", "resources/images/JY/who.png");
+	});
+	
 	$("#btnNicknameCheck").on("click", function(){
 				
 		var userNickname= $("#nickname").serialize();
@@ -64,6 +69,8 @@ $(document).ready(function() {
 				alert("닉네임을 입력해주세요.");
 				$("#nickname").focus();
 				return false; // ajaxForm 실행 불가
+			} if($("#profileEditImg").attr("src") == "resources/images/JY/who.png") {
+				$('#profileImg').val("");
 			}
 		},
 		success : function(res) {
@@ -105,7 +112,42 @@ $(document).ready(function() {
 		}); // ajaxForm End
 
 		fileForm.submit();
-	});	// addBtn click End
+	});	// btnSave click End
+	
+
+	$("#profileImg2").on("change", function() {
+			
+			var fileForm = $("#fileForm");
+			
+	
+			fileForm.ajaxForm({
+				beforeSubmit : function() {
+				
+	
+			},
+			success : function(res) {
+				if(res.result = "SUCCESS") {
+					 // 올라간 파일명 저장
+					 if(res.fileName.length > 0) {
+						 $("#profileImg").val(res.fileName[0]);
+					 }
+					  
+					$("#profileEditImg").attr("src", "resources/upload/" + $('#profileImg').val());
+		 
+					
+					} else {
+						alert("파일업로드 중 문제 발생");
+					}
+				},
+				error : function() {
+					alert("파일업로드 중 문제 발생");
+				} 
+			}); // ajaxForm End
+	
+			fileForm.submit();
+		});	// btnProfileUpload click End
+			
+	
 }); // document ready End
 </script>
 </head>
@@ -134,11 +176,23 @@ $(document).ready(function() {
 		</div>
 		<div class="contents">
 			<div class="title">프로필 관리</div>
-			<div class="profile_edit">
-				<img id="profileEditImg" src="resources/images/JY/짱구5.jpg" alt="프로필사진" width="300px" height="300px">
-		    </div>
+			
+			<c:choose>
+				<c:when test="${empty sUserProfileImg}">
+					<div class="profile_edit">
+						<img id="profileEditImg" src="resources/images/JY/who.png" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:when>
+				<c:otherwise>
+					<div class="profile_edit">
+						<img id="profileEditImg" src="resources/upload/${data.PROFILE_IMG_PATH}" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:otherwise>
+			</c:choose>
+	    
 		    <div class="btn_profile_upload_w"><input id="btnProfileUpload" type="button" value="첨부하기"></div>
-		    <input type="hidden" name="profileImg" id="profileImg" />
+		    <div class="btn_profile_delete_w"><input id="btnProfileDelete" type="button" value="삭제하기"></div>
+		    <input type="hidden" name="profileImg" id="profileImg" value="${data.PROFILE_IMG_PATH}"/>   
 		    
 			<table cellspacing="0" class="table">
 				<tr height="50px">

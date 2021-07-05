@@ -27,6 +27,7 @@
 		FROM USERS
 		WHERE USER_ID = #{userId}
 		AND PW = #{userPw}
+		AND OUT_DATE IS NULL
 	</select>
 	
 	<update id="updateProfile" parameterType="hashmap">
@@ -44,5 +45,10 @@
 		FROM USERS
 		WHERE USER_NO = #{userNo}
 	</select>
+
+	<update id="outUser" parameterType="hashmap">
+		UPDATE USERS SET OUT_DATE = SYSDATE
+		WHERE USER_NO = #{userNo}
+	</update>
 
 </mapper>
