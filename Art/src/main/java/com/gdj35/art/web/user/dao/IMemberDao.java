@@ -20,4 +20,6 @@ public interface IMemberDao {
 
 	public int outUser(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> idFind(HashMap<String, String> params) throws Throwable;
+
 }

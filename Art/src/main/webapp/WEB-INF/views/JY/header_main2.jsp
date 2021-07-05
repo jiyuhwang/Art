@@ -126,6 +126,16 @@ a {
 			}
 		});
 		
+		$(document).mouseup(function (e){
+
+			var container = $(".side_bar");
+
+			if( container.has(e.target).length === 0)
+
+			container.slideUp();
+
+		});
+		
 		$('#btnStart').click(function() {
 			location.href = "login";
 		});
