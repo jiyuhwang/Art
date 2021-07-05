@@ -27,15 +27,27 @@
 		FROM USERS
 		WHERE USER_ID = #{userId}
 		AND PW = #{userPw}
+		AND OUT_DATE IS NULL
 	</select>
 	
 	<update id="updateProfile" parameterType="hashmap">
-		UPDATE USERS SET USER_NICKNAME = #{userNickname}, INTRODUCE = #{userIntroduce}
+		UPDATE USERS SET PROFILE_IMG_PATH = #{profileImg}, USER_NICKNAME = #{userNickname}, INTRODUCE = #{userIntroduce}
 		WHERE USER_NO = #{userNo}
 	</update>
 	
 	<update id="updateSet" parameterType="hashmap">
 		UPDATE USERS SET PW = #{userPw}, NAME = #{userName}, BIRTHDAY = #{birthYear}||'-'||#{birthMonth}||'-'||#{birthDay}, PHONE_NO = #{userPhone}, SEX = #{gender}, MAIL = #{userMail}, EVENT_AGREEMENT = #{userEventAgree}
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<select id="getUser2" parameterType="hashmap" resultType="hashmap">
+		SELECT USER_NO, USER_ID, USER_NICKNAME, PW, PROFILE_IMG_PATH, NAME, SEX, BIRTHDAY, PHONE_NO, MAIL, INTRODUCE, EVENT_AGREEMENT
+		FROM USERS
+		WHERE USER_NO = #{userNo}
+	</select>
+
+	<update id="outUser" parameterType="hashmap">
+		UPDATE USERS SET OUT_DATE = SYSDATE
 		WHERE USER_NO = #{userNo}
 	</update>
 

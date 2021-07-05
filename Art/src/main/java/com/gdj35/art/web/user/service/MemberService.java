@@ -42,4 +42,14 @@ public class MemberService implements IMemberService{
 		return iMemberDao.updateSet(params);
 	}
 
+	@Override
+	public HashMap<String, String> getUser2(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.getUser2(params);
+	}
+
+	@Override
+	public int outUser(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.outUser(params);
+	}
+
 }

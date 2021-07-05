@@ -14,7 +14,14 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<c:import url="header.jsp"></c:import>
+	<c:choose>
+		<c:when test="${empty sUserNo}">
+			<c:import url="header2.jsp"></c:import>
+		</c:when>
+		<c:otherwise>
+			<c:import url="header.jsp"></c:import>
+		</c:otherwise>
+	</c:choose>
 	
 	<div class="wrap">
 		<div class="gallary">

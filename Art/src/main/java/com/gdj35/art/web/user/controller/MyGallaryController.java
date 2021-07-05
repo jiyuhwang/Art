@@ -50,13 +50,26 @@ public class MyGallaryController {
 
 		return mav;
 	}
-
+	
+	
 	@RequestMapping(value = "/edit")
-	public ModelAndView edit(ModelAndView mav) {
-		mav.setViewName("JY/edit");
+	public ModelAndView edit(HttpSession session, ModelAndView mav) throws Throwable {
+
+		
+		if(session.getAttribute("sUserNo") != null) {
+
+			mav.setViewName("JY/edit");
+			
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
 
 		return mav;
 	}
+	
+	
 
 	@RequestMapping(value = "/gallary")
 	public ModelAndView gallary(ModelAndView mav) {
@@ -71,13 +84,24 @@ public class MyGallaryController {
 
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/mydetail")
-	public ModelAndView mydetail(ModelAndView mav) {
-		mav.setViewName("JY/mydetail");
+	public ModelAndView mydetail(HttpSession session, ModelAndView mav) throws Throwable {
+
+		
+		if(session.getAttribute("sUserNo") != null) {
+
+			mav.setViewName("JY/mydetail");
+			
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
 
 		return mav;
 	}
+	
 
 	@RequestMapping(value = "/mygallary")
 	public ModelAndView mygallary(ModelAndView mav) {
@@ -123,16 +147,38 @@ public class MyGallaryController {
 		return mav;
 	}
 
+	
 	@RequestMapping(value = "/withdrawal")
-	public ModelAndView withdrawal(ModelAndView mav) {
-		mav.setViewName("JY/withdrawal");
+	public ModelAndView withdrawal(HttpSession session, ModelAndView mav) throws Throwable {
+
+		
+		if(session.getAttribute("sUserNo") != null) {
+
+			mav.setViewName("JY/withdrawal");
+			
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
 
 		return mav;
 	}
 
+	
 	@RequestMapping(value = "/writing")
-	public ModelAndView writing(ModelAndView mav) {
-		mav.setViewName("JY/writing");
+	public ModelAndView writing(HttpSession session, ModelAndView mav) throws Throwable {
+
+		
+		if(session.getAttribute("sUserNo") != null) {
+
+			mav.setViewName("JY/writing");
+			
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
 
 		return mav;
 	}

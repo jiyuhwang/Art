@@ -139,7 +139,7 @@ $(document).ready(function() {
 		
 	});
 	
-	$(".check").on("click", function() {
+	$("#checkAll").on("click", function() {
 		if($("input[name='check']:checked").length == 3) {
 		$("#checkAll").prop("checked", true);
 		} else {
@@ -149,8 +149,8 @@ $(document).ready(function() {
 	});
 
 	$(".join_box").on("click", "[type='checkbox']", function() {
-		if($(".join_box [type='checkbox']").length
-						== $(".join_box [type='checkbox']:checked").length) {
+		if($(".check_btn [type='checkbox']").length
+						== $(".check_btn [type='checkbox']:checked").length) {
 			$("#checkAll").prop("checked", true);
 		} else {
 			$("#checkAll").prop("checked", false);
