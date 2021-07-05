@@ -18,4 +18,6 @@ public interface IMemberService {
 
 	public HashMap<String, String> getUser2(HashMap<String, String> params) throws Throwable;
 
+	public int outUser(HashMap<String, String> params) throws Throwable;
+
 }

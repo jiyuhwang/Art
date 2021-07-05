@@ -72,12 +72,12 @@ button:hover{
 <body>
 <div class = "background"></div>
 <div class = "main">
-<div class = "topBlank"></div>
-<div class = "middleBlank">
-	<div class = "title">취소하시겠습니까?<br/>변경사항이 저장되지 않을 수 있습니다.</div>
-	<button class ="a1">cancel</button>
-	<button class ="a2">ok</button>
-</div>
+	<div class = "topBlank"></div>
+		<div class = "middleBlank">
+			<div class = "title">탈퇴하시겠습니까?<br/>변경사항이 저장되지 않을 수 있습니다.</div>
+			<button class ="a1">cancel</button>
+			<button class ="a2">ok</button>
+		</div>
 </div>
 </body>
 </html>

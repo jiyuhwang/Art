@@ -73,7 +73,7 @@ a {
 						if(res.resMsg == "success") {
 							location.href = "main";
 						} else {
-							$('.incorrect').html("아이디 또는 비밀번호가 일치하지 않습니다.");
+							$('.incorrect').html("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다");
 							$('.incorrect').css("color", "red");
 							$('.incorrect').css("text-align", "left");
 						}

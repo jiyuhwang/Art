@@ -12,31 +12,41 @@
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	//---------------------------------------데이터 가져오기
+	loadPostList();
+
+	
+	
+	
+	
 	
 	//전체체크하면 전체적으로 체크되게 하기
 	$("#checkAll").on("click", function(){
 		if($(this).is(":checked")){
-			$(".result_table input").prop("checked", true);
-			$(".result_table input").attr("id", "c");
+			$("#tableTr input").prop("checked", true);
 		} else {
-			$(".result_table input").attr("id", "");
-			$(".result_table input").prop("checked", false);
+			$("#tableTr input").prop("checked", false);
 		}
 	});//checkAll
 	
 	
 	//하나라도 체크 풀면 전체체크박스 해제되기
 	$(".result_table").on("click", "[type='checkbox']", function(){
-		if($(".result_table [type='checkbox']").length
-				== $(".result_table [type='checkbox']:checked").length){
+		if($("#tableTr [type='checkbox']").length
+				== $("#tableTr [type='checkbox']:checked").length){
 			$("#checkAll").prop("checked", true);
-			$(".result_table input").attr("id", "c");
 		} else {
 			$("#checkAll").prop("checked", false);
 		}
+		
+		//console.log($(".result_table [type='checkbox']").length);
+		//console.log($("#tableTr [type='checkbox']:checked").length);
 	});
 	
-	//클릭시 색상 변하기.............미완성
+	//체크다하면 전체체크되게
+	
+	
+/* 	//클릭시 색상 변하기.............미완성
 	$(".result_table").on("click", "tr", function(){
 		if( $(this).attr("id") == "c"){
 			$("#c [type='checkbox']").prop("checked", false);
@@ -47,7 +57,11 @@ $(document).ready(function(){
 			$("#c [type='checkbox']").prop("checked", true);
 		}
 			
-	});
+	}); */
+
+	
+	
+	
 	
 	
 	//검색버튼 누르면 준비중입니다 알람
@@ -55,7 +69,7 @@ $(document).ready(function(){
 		alert("준비중입니다.");
 	});
 	
-	//사이드바 고정시키기
+	//사이드바 해당 메뉴 고정시키기
 	$(".side_bar div div").attr("class", "manage");
 	$("#gallary").attr("class", "manage_selected");
 	
@@ -77,6 +91,73 @@ $(document).ready(function(){
 		return false;//이걸 안하면 스크롤이 중간에...
 		
 	});
+	
+	
+	
+	
+	
+	
+	//-------------------------------------------------------ajax실행
+	function loadPostList(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "entire",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(result){
+				
+				drawList(result.list);
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
+	
+	//-------------------------------------------------------목록그리기
+	function drawList(list){
+		var html = "";
+		var no = 0;
+		++no;
+	
+		for(var d of list){         
+			html +="<tr name=\"" + d.POST_NO + "\">";
+			html +="<td><input type=\"checkbox\"></td>";
+			html +="<td>" + no + "</td>";
+			html +="<td>" + d.POST_NO + "</td>";
+			html +="<td>" + d.CATEGORY_NO + "</td>";
+			html +="<td>" + d.TITLE + "</td>";
+			html +="<td>" + d.NAME + "</td>";
+			html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
+			html +="<td>" + d.R_DATE + "</td>";
+			html +="<td>" + d.VIEWS + "</td>";
+			html +="<td>좋아요수</td>";
+			html +="</tr>";
+		}                             
+		
+		$("tbody").html(html);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 });//ready
@@ -135,10 +216,19 @@ $(document).ready(function(){
 			</div>
 		</div>
 		<div class="button_wrap">
-			<input type="button" value="저장" class="btn_notyet"/>
 			<input type="button" value="복원" class="btn_notyet"/>
 			<input type="button" value="삭제" class="btn_notyet"/>
 		</div>
+		<!-----------------------------------------------------------테이블 -->
+		<form action="#" id="actionForm" method="post" >
+			<input type="hidden" id="postNo" name="pmo"/>
+		
+		
+		
+		
+		</form>
+		
+		
 		<div class="result_table" id="tabResult1">
 			<table class="table1" >
 				<colgroup>
@@ -153,7 +243,8 @@ $(document).ready(function(){
 						<col width="4%"/>
 						<col width="4%"/>
 					</colgroup>
-				<tr>
+				<thead>	
+				<tr id="tableTh">
 					<th>
 					<input type="checkbox" id="checkAll"> 
 					</th>
@@ -167,196 +258,10 @@ $(document).ready(function(){
 					<th>조회수</th>
 					<th>추천수</th>
 				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>10</td>
-					<td>1243</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">작품을 올려봅니다. 추천부탁드려요!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>9</td>
-					<td>1242</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option selected="selected">사진</option>
-							<option>그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">사진은 이렇게 찍어야  예술입니다!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>2</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>8</td>
-					<td>1241</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">작품을 올려봅니다. 추천부탁드려요!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>7</td>
-					<td>1240</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">작품을 올려봅니다. 추천부탁드려요!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>6</td>
-					<td>1239</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">작품을 올려봅니다. 추천부탁드려요!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
-				<tr class="deleted_row">
-					<td><input type="checkbox"> </td>
-					<td>5</td>
-					<td>1238</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">이래도 삭제안당하면 운영자 바보다ㅋㅋ</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>4</td>
-					<td>1237</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">작품을 올려봅니다. 추천부탁드려요!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>3</td>
-					<td>1236</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">작품을 올려봅니다. 추천부탁드려요!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>2</td>
-					<td>1235</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">작품을 올려봅니다. 추천부탁드려요!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"> </td>
-					<td>1</td>
-					<td>1234</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option>사진</option>
-							<option selected="selected">그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">작품을 올려봅니다. 추천부탁드려요!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>1</td>
-					<td>0</td>
-				</tr>
+				</thead>
+				<tbody>
+				
+				</tbody>
 			</table>
 		</div>	
 		<div class="result_table" id="tabResult2">
@@ -387,7 +292,7 @@ $(document).ready(function(){
 					<th>조회수</th>
 					<th>추천수</th>
 				</tr>
-				<tr>
+				<tr id="tableTr">
 					<td><input type="checkbox"> </td>
 					<td>9</td>
 					<td>1242</td>
