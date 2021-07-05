@@ -147,7 +147,7 @@ $(document).ready(function() {
 			url: "Logout",
 			type: "post",
 			success: function(res) {
-
+				location.href = "main";
 			},
 			error: function(request, status, error) {
 				console.log(error);

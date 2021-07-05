@@ -25,8 +25,14 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<body>
-	<c:import url="header.jsp"></c:import>
+	<c:choose>
+		<c:when test="${empty sUserNo}">
+			<c:import url="header2.jsp"></c:import>
+		</c:when>
+		<c:otherwise>
+			<c:import url="header.jsp"></c:import>
+		</c:otherwise>
+	</c:choose>
 	
 	<div class="wrap">
 		<div class="upload_wrap">
@@ -59,6 +65,5 @@ $(document).ready(function() {
 	</div>
 	
 	<c:import url="footer.jsp"></c:import>
-</body>
 </body>
 </html>

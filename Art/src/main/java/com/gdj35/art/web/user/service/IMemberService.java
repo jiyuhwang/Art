@@ -16,4 +16,6 @@ public interface IMemberService {
 
 	public int updateSet(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> getUser2(HashMap<String, String> params) throws Throwable;
+
 }
