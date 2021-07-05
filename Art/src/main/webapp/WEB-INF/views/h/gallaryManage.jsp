@@ -120,9 +120,10 @@ $(document).ready(function(){
 	function drawList(list){
 		var html = "";
 		var no = 0;
-		++no;
+		
 	
-		for(var d of list){         
+		for(var d of list){
+			++no;
 			html +="<tr name=\"" + d.POST_NO + "\">";
 			html +="<td><input type=\"checkbox\"></td>";
 			html +="<td>" + no + "</td>";
