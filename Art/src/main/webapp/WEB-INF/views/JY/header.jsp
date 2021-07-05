@@ -67,7 +67,7 @@ body {
 	position: absolute;
 	top: 65px;
 	left: 40px;
-	z-index: 200;
+	z-index: 900;
 	border-radius: 10px;
 }
 
@@ -141,6 +141,16 @@ $(document).ready(function() {
 		} else {
 			$('.side_bar').slideUp();
 		}
+	});
+	
+	$(document).mouseup(function (e){
+
+		var container = $(".side_bar");
+
+		if( container.has(e.target).length === 0)
+
+		container.slideUp();
+
 	});
 	
 	$("#btnLogout").on("click", function() {

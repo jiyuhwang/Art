@@ -18,6 +18,16 @@ $(document).ready(function() {
 		}
 	})
 	
+	$(document).mouseup(function (e){
+
+		var container = $(".side_bar");
+	
+		if( container.has(e.target).length === 0)
+	
+		container.slideUp();
+
+	});
+	
 	$('#btnShare').click(function() {
 		if ($('.share_wrap').css('display') == 'none') {
 			$('.share_wrap').show();

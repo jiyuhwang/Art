@@ -100,8 +100,8 @@ a {
 	         <input type="button" id="btnLogin" value="로그인하기">
 	   <br><br>
 			<a href="agree">회원가입</a> |
-			<a href="#">아이디찾기</a> |
-			<a href="#">비밀번호 찾기 </a>                   
+			<a href="idfind">아이디찾기</a> |
+			<a href="passwordfind">비밀번호 찾기 </a>                   
 	</div>
 </form>
 </body>

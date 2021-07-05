@@ -74,8 +74,23 @@ $(document).ready( function () {
 		
 	});
 	//side 클릭시 변경 script
-});
 	
+	if(${endP} > parseInt($("#page").val())){
+		$(".main3-table").scroll(function () {
+			 var scrollT = $(this).scrollTop();
+			 var scrollH = $(this).height();
+			 var contentH = $("table").height();
+				 if(scrollT + scrollH +1 >= contentH){
+					  var d= parseInt($("#page").val());
+					  $("#page").val(d+1);
+					  $("#userForm").submit();
+					  console.log(parseInt($("#page").val()));
+				 	}
+		});
+				}
+	 
+});
+//document end
 
 </script>
 </head>
@@ -88,7 +103,8 @@ $(document).ready( function () {
 	<c:import url="managerSide.jsp"></c:import>
 <div class ="main">
 		
-		<div> </div>
+<form action="user_board" id="userForm" method="post" >
+		<input type="hidden" id="page" name="page" value= ${ page}>
 		<div class ="blank2"></div>
 		
 		<div class ="bigClass">
@@ -133,6 +149,7 @@ $(document).ready( function () {
 			<input type="button" value="등록"/>
 			<input type="button" value="이메일" id="email_btn"/>
 		</div>
+</form>		
 		<div class="main3-table">
 			<table>
 				<colgroup>
@@ -168,214 +185,25 @@ $(document).ready( function () {
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<c:forEach var="data" items="${list}">
+				<tr name="${data.RNUM}">
 					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
+					<td>${data.RNUM}</td>
+					<td>${data.USER_NO}</td>
+					<td>${data.NAME}</td>
+					<td>${data.USER_ID}</td>
+					<td>${data.USER_NICKNAME}</td>
+					<td>${data.SEX}</td>
+					<td>${data.BIRTHDAY}(만${data.OLD}세)</td>
+					<td>${data.PHONE_NO}</td>
+					<td>${data.MAIL}</td>
+					<td>${data.JOIN_DATE}</td>
 					<td><input type="button" value="수정"/>
 						<input type="button" value="삭제" class="delete_btn"/>
 					</td>
 				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="ex_chk"> </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>남</td>
-					<td>2021-05-07(35)</td>
-					<td>010-0000-0000</td>
-					<td>wjdfka954@naver.com</td>
-					<td>2021-05-04</td>
-					<td><input type="button" value="수정"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
+				</c:forEach>
+				
 			</tbody>
 			</table>
 		</div>

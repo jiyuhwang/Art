@@ -5,6 +5,12 @@ import java.util.List;
 
 public interface IManagerDao {
 
+	public List<HashMap<String, String>> getMList(HashMap<String, String> params) throws Throwable;
+
+	public int getTCnt(HashMap<String, String> params) throws Throwable;
+
+	
+
 	public List<HashMap<String, String>> PList(HashMap<String, String> params) throws Throwable;
 
 }

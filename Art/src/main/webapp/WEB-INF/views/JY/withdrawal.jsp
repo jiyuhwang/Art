@@ -9,7 +9,10 @@
 <link rel="stylesheet" href="resources/css/JY/withdrawal.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function() {
+	$('.background').hide();
+	$('.main').hide();
 	
 	
 	$('.profile_manage').on("click", function() {
@@ -25,46 +28,59 @@ $(document).ready(function() {
 	});
 	
 	
+	$('.background').on("click", function() {
+		$('.background').hide();
+		$('.main').hide();
+		$('#pwCheck').val("");
+	});
+	
 	$(".stopbtn").on("click", function() {
 		
 
 		if($('#out').is(":checked") == false){
 			alert("위 항목에 동의해주세요.")
 		} else {
-			$('.background').css('display', 'inline-block');
-			$('.main').css('display', 'inline-block');
+			$('.background').show();
+			$('.main').show();
 		}		
 	});
 	
 	$('.a1').on("click", function() {
 		$('.background').hide();
 		$('.main').hide();
+		$('#pwCheck').val("");
 	});
 	
 	$('.a2').on("click", function() {
-		alert("탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
-		
-		var params= $("#outForm").serialize();
-		
-		$.ajax({
-			url: "withdrawals", // 접속 주소
-			type: "post", // 전송 방식: get, post
-			dataType: "json", // 받아올 데이터 형태
-			data: params, // 보낼 데이터(문자열 형태)
-			success: function(res) { // 성공 시 다음 함수 실행
-				if(res.msg == "success") {
-					location.href = "main";
-				} else if(res.msg == "failed") {
-					alert("탈퇴에 실패하였습니다.");
-				} else {
-					alert("탈퇴 중 문제가 발생하였습니다.")
+		if($('#pwCheck').val() == "") {
+			alert("비밀번호를 입력해주세요.");
+		} else if($('#pwCheck').val() != "${sUserPw}") {
+			alert("비밀번호가 틀립니다.");
+		} else {
+			alert("탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
+			
+			var params= $("#outForm").serialize();
+			
+			$.ajax({
+				url: "withdrawals", // 접속 주소
+				type: "post", // 전송 방식: get, post
+				dataType: "json", // 받아올 데이터 형태
+				data: params, // 보낼 데이터(문자열 형태)
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						location.href = "main";
+					} else if(res.msg == "failed") {
+						alert("탈퇴에 실패하였습니다.");
+					} else {
+						alert("탈퇴 중 문제가 발생하였습니다.")
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
 				}
-			},
-			error: function(request, status, error) { // 실패 시 다음 함수 실행
-				console.log(error);
-			}
-		});
-  	});
+			});
+		}
+	});
 
 });
 </script>
@@ -113,7 +129,8 @@ $(document).ready(function() {
 	<div class = "main">
 		<div class = "topBlank"></div>
 			<div class = "middleBlank">
-				<div class = "title2">정말 탈퇴하시겠습니까?</div>
+				<div class = "title2">비밀번호를 입력해주세요.</div>
+				<input type="password" id="pwCheck" value=""/>
 				<button class ="a1">cancel</button>
 				<button class ="a2">ok</button>
 			</div>

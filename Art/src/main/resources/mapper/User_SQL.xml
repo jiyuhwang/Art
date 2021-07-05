@@ -50,5 +50,12 @@
 		UPDATE USERS SET OUT_DATE = SYSDATE
 		WHERE USER_NO = #{userNo}
 	</update>
+	
+	<select id="idFind" parameterType="hashmap" resultType="hashmap">
+		SELECT USER_NO, USER_ID, USER_NICKNAME, PW
+		FROM USERS
+		WHERE NAME = #{userName}
+		AND MAIL = #{userMail}
+	</select>
 
 </mapper>
