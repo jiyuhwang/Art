@@ -70,6 +70,19 @@ table th:hover{
 	font-style: 고딕;
 	cursor: pointer;
 }
+.active{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+}
 .tag{
 	height : 60px;
 	background-color: RGBA;
@@ -260,6 +273,7 @@ table th:hover{
 .main1-1>span {
 		vertical-align: middle;
 		margin-left: 10px;
+		font-size:12px;
 }
 
 .font-red {

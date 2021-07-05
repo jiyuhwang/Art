@@ -55,6 +55,10 @@ $(document).ready(function(){
 		alert("준비중입니다.");
 	});
 	
+	//사이드바 고정시키기
+	$(".side_bar div div").attr("class", "manage");
+	$("#gallary").attr("class", "manage_selected");
+	
 	
 	//처음화면에 그릴 때
 	$(".result_table").hide();//hide all contents

@@ -38,10 +38,18 @@ public class ManagerController {
 	@RequestMapping(value="/user_board")
 	public ModelAndView user_board(ModelAndView mav) {
 		
+		mav.addObject("now", "member");
 		mav.setViewName("HD/user_board");
 		return mav;
 	}
 	
+	@RequestMapping(value="/gong_board")
+	public ModelAndView gong_board(ModelAndView mav) {
+		
+		mav.addObject("now", "gong");
+		mav.setViewName("HD/gong_board");
+		return mav;
+	}
 	
 	
 	
