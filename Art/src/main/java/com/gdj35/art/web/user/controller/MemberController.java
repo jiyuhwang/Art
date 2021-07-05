@@ -336,11 +336,18 @@ public class MemberController{
 	}
 	
 	
-	//지유야 이거만 여기다 하마!!
+	//지유야 이거만 여기다 하마!! 악어!
 	@RequestMapping(value="/gongji")
 	public ModelAndView gongji(ModelAndView mav) {
 		
 		mav.setViewName("/HD/gongji");
+		return mav;
+	}
+	
+	@RequestMapping(value="/idcheck")
+	public ModelAndView idcheck(ModelAndView mav) {
+		
+		mav.setViewName("YM/idcheck");
 		return mav;
 	}
 }
