@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="resources/css/HD/user_board.css"/>
 <link rel="stylesheet" href="resources/css/HD/login.css"/>
 <link rel="stylesheet" href="resources/css/HD/user_detail(byBoard).css">
+<link rel="stylesheet" href="resources/css/HD/email.css"/>
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
@@ -16,6 +17,7 @@
 		src="resources/script/HD/user_detailP.js"></script>
 <script type="text/javascript">
 $(document).ready( function () {
+		
 	 $(".delete_btn").on("click", function () {
 		 $(".PmainL, .PbackgroundL").show();
 		
@@ -25,13 +27,38 @@ $(document).ready( function () {
 	});//deletbtn end
 	
 	
-	$("tr").on("dblclick", function () {
+	$("tbody tr").on("dblclick", function () {
 		$(".Pmain, .background").show();
 		
 		$(".background").on("click", function () {
 			$(".Pmain, .background").hide();
 		})
 		
+	});//end dblclick
+	
+	$("#email_btn").on("click", function () {
+		$(".PmainM, .PbackgroundM").show();
+		
+		$("#cancel_btnM").on("click", function () {
+			$(".PmainM, .PbackgroundM").hide();
+		})
+	});//end email_btn
+	
+	$(".member").attr("class","active");
+	
+	$(".side").on("click","div", function () {
+		if($(this).attr("class") == "member"){
+			location.href = "user_board";
+		}else if($(this).attr("class") == "tag"){
+			location.href = "tag_board";
+		}else if($(this).attr("class") == "product"){
+			location.href = "gallaryManage";;
+		}else if($(this).attr("class") == "warning"){
+			location.href = "reportManage";
+		}else if($(this).attr("class") == "gong"){
+			location.href = "gong_board";
+			
+		}
 	});
 });
 	
@@ -39,26 +66,13 @@ $(document).ready( function () {
 </script>
 </head>
 <body>
-<div>
-	<c:import url="login.jsp"></c:import>
-</div>
 
-<div>
-	<c:import url="user_detail(post).jsp"></c:import>
-</div>
 <div class="header">
 
 </div>
 <div class="content">
-	<div class ="side">
-		<div class ="blank"></div>
-		<div class ="member">회원관리</div>
-		<div class ="tag">태그관리</div>
-		<div class ="product">작품관리</div>
-		<div class ="warning">신고관리</div>
-		<div class ="gong">공지사항</div>
-	 </div>
-	<div class ="main">
+<c:import url="managerSide.jsp"></c:import>
+<div class ="main">
 		
 		<div> </div>
 		<div class ="blank2"></div>
@@ -103,7 +117,7 @@ $(document).ready( function () {
 		</div>
 		<div class="main3">
 			<input type="button" value="등록"/>
-			<input type="button" value="이메일"/>
+			<input type="button" value="이메일" id="email_btn"/>
 		</div>
 		<div class="main3-table">
 			<table>
@@ -354,6 +368,16 @@ $(document).ready( function () {
 		<div class ="status"> 전체 : 100명</div>
 	</div>
 
+</div>
+<div>
+	<c:import url="login.jsp"></c:import>
+</div>
+
+<div>
+	<c:import url="user_detail(post).jsp"></c:import>
+</div>
+<div>
+	<c:import url="email(send).jsp"></c:import>
 </div>
 </body>
 </html>
