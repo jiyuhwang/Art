@@ -7,29 +7,37 @@
 <meta charset="UTF-8">
 <title>공지사항 관리 페이지</title>
 <link rel="stylesheet" href="resources/css/HD/gong_board.css"/>
+<link rel="stylesheet" href="resources/css/HD/managerSide.css"/>
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$(".gong").attr("class","active");
+		
+		var now ='${now}';
+		console.log('.'+now);
+		$('.'+now).attr("id","active");
 		
 		$(".side").on("click","div", function () {
-			if($(this).attr("class") == "member"){
-				location.href = "user_board";
-				$(".member").attr("class","active");
-			}else if($(this).attr("class") == "tag"){
-				location.href = "tag_board";
-				$(".tag").attr("class","active");
-			}else if($(this).attr("class") == "product"){
-				location.href = "product_board";
-				$(".product").attr("class","active");
-			}else if($(this).attr("class") == "warning"){
-				location.href = "warning_board";
-				$(".warning").attr("class","active");
-			}else if($(this).attr("class") == "gong"){
-				location.href = "gong_board";
-				$(".gong").attr("class","active");
+			if($(this).attr("id") != "active"){
+				$('.'+ now).attr("id","");
+				if($(this).attr("class") == "member"){
+					location.href = "user_board";
+					$(".member").attr("id","active");
+				}else if($(this).attr("class") == "tag"){
+					location.href = "tag_board";
+					$(".tag").attr("id","active");
+				}else if($(this).attr("class") == "product"){
+					location.href = "product_board";
+					$(".product").attr("id","active");
+				}else if($(this).attr("class") == "warning"){
+					location.href = "warning_board";
+					$(".warning").attr("id","active");
+				}else if($(this).attr("class") == "gong"){
+					location.href = "gong_board";
+					$(".gong").attr("id","active");
+				}
 			}
+			
 		});
 	}); // document end
 </script>

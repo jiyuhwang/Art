@@ -51,6 +51,13 @@ public class ManagerController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/tag_board")
+	public ModelAndView tag_board(ModelAndView mav) {
+		
+		mav.addObject("now", "tag");
+		mav.setViewName("HD/tag_board");
+		return mav;
+	}
 	
 	
 	
