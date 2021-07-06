@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사이드바 c:import</title>
+<title>관리자사이드</title>
 <style type="text/css">
 body {
 	margin: 0;
@@ -16,35 +16,27 @@ a { text-decoration: none; color: inherit;}
 img { border: 0px; }
 ul { list-style: none;}
 .font-red { color: red;}
-/* ----------------------------------------------------초기화 */
-
-.side_bar{
+.side{
 	width: 200px;
 	height: 940px;
 	background-color: #6C7A89;
 	display: inline-block;
 	box-shadow: 5px 5px 5px grey;
 }
-.blank {
+.blank{
 	height : 60px;
+	background-color: RGBA;
 }
-.member_manage{
+.member{
 	height : 60px;
+	background-color: RGBA;
 	font-size: 15pt;
 	text-align: center;
 	line-height: 60px;
 	cursor: pointer;
 }
 
-.manage{
-	height : 60px;
-	font-size: 15pt;
-	text-align: center;
-	line-height: 60px;
-	cursor: pointer;
-}
-
-.manage_selected ,.manage_selected:hover, .manage_selected:active {
+.member:hover{
 	height : 60px;
 	background-color: #0C4A60;
 	font-style: bold;
@@ -56,48 +48,157 @@ ul { list-style: none;}
 	color: white;
 	font-style: 고딕;
 	cursor: pointer;
-	z-index: 1;/* 이게 왜 안될까요 무슨일이까요 */
 	position: relative;
 }
 
+#active{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+}
+.tag{
+	height : 60px;
+	background-color: RGBA;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+}
+.tag:hover{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+	position: relative;
+}
+.gallary{
+	height : 60px;
+	background-color: RGBA;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+}
+
+.gallary:hover{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+	position: relative;
+}
+
+.report{
+	height : 60px;
+	background-color: RGBA;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+}
+
+.report:hover{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+	position: relative;
+}
+.gong{
+	height : 60px;
+	background-color: RGBA;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+}
+.gong:hover{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+	position: relative;
+}
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	//사이드바 메뉴
-/* 	$("#member").on("click", function(){
-		location.href = "#";
-	}); */
+	$(".member").on("click", function(){
+		location.href = "user_board";
+	});
 	
-	$("#gallary").on("click", function(){
+	$(".tag").on("click", function(){
+		location.href = "tag_board";
+	});
+	
+	$(".gallary").on("click", function(){
 		location.href = "gallaryManage";
 	});
 	
-	$("#report").on("click", function(){
+	$(".report").on("click", function(){
 		location.href = "reportManage";
 	});
 	
-	//사이드바 클릭했을 때
-	$(".side_bar").on("click", "div", function(){
-		
-		$(".side_bar div div").attr("class", "manage");
-		$(this).attr("class", "manage_selected");
-		
+	$(".gong").on("click", function(){
+		location.href = "gong_board";
 	});
 	
+	$(".side div").on("click", function(){
+		if(this.attr("class") != blank){
+			$("div").attr("id", "");
+			this.attr("id", "active");
+		}
+	});
 
-	
 });//document end
 </script>
 </head>
 <body>
-	<div class="side_bar">
-		<div class="blank"></div>
-		<div id="member" class="manage">회원관리</div>
-		<div id="gallary" class="manage">작품관리</div>
-		<div id="report" class="manage">신고관리</div>
+	 <div class="side">
+		<div class="blank" id=""></div>
+		<div class="member" id="">회원관리</div>
+		<div class="tag" id="">태그관리</div>
+		<div class="gallary" id="">작품관리</div>
+		<div class="report" id="">신고관리</div>
+		<div class="gong" id="">공지사항</div>
 	 </div>
 </body>
 </html>
