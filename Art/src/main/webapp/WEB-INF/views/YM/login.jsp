@@ -91,7 +91,7 @@ a {
 <form action="#" id="loginForm">
 	<div class = "wrap">
 	     <div class="login"><h1>Art 로그인</h1></div>
-	         <input type="text" placeholder="아이디" id="userId" name="userId">
+	         <input type="text" placeholder="아이디" id="userId" name="userId" value="${param.id}">
 	   <br><br>            
 		     <input type="password" placeholder="비밀번호" id="userPw" name="userPw">
 	   <br><br>
