@@ -237,6 +237,12 @@ $(document).ready(function() {
 			$("#idFindForm").submit();
 		}
 	});
+	
+	$(".cancel").on("click", function() {
+		location.href="login";
+	
+});
+	
 });
 </script>
 </head>
