@@ -104,7 +104,7 @@
 						and endFlag != null and endFlag != ''">
 					AND P.REGISTER_DATE &lt;=  #{endFlag}
 				</when>
-					<when test="startFlag == null and startFlag == ''
+					<when test="startFlag != null and startFlag != ''
 						and endFlag != null and endFlag != ''">
 					AND P.REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
 				</when>
