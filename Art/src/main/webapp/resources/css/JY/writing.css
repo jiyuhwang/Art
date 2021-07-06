@@ -35,6 +35,14 @@ a {
 	text-align: center;
 }
 
+#postFile {
+	display: none;
+}
+
+#uploadFile {
+	z-index: 500;
+}
+
 #upload {
 	position: absolute;
 	width: 100px;

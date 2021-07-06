@@ -24,7 +24,8 @@ public interface IMemberService {
 
 	public HashMap<String, String> pwFind(HashMap<String, String> params) throws Throwable;
 
-	public int updatePw(HashMap<String, String> params) throws Throwable;;
+	public int updatePw(HashMap<String, String> params) throws Throwable;
+	
 
 
 }

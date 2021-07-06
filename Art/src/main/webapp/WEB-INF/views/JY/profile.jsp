@@ -32,6 +32,7 @@ $(document).ready(function() {
 				
 		var userNickname= $("#nickname").serialize();
 		
+		
 		$.ajax({
 			url : "nicknameCheck",
 			type : "post",
@@ -43,7 +44,7 @@ $(document).ready(function() {
 				} else if(res.msg == "none") {
 					alert("사용가능한 닉네임입니다.");
 				} else {
-					alert("작성 중 문제가 발생하였습니다.")
+					alert("수정 중 문제가 발생하였습니다.")
 				}
 			},
 			error: function(request, status, error) { // 실패 시 다음 함수 실행
@@ -95,7 +96,7 @@ $(document).ready(function() {
 							} else if(res.msg == "failed") {
 								alert("수정에 실패하였습니다.")
 							} else {
-								alert("수정 중 문제가 발생하였습니다.")
+								alert("닉네임이 존재합니다. 다른 닉네임을 입력해주세요.")
 							}
 						},
 						error: function(request, status, error) { // 실패 시 다음 함수 실행
