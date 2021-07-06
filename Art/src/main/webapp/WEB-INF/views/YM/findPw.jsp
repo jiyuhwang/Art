@@ -39,7 +39,7 @@ body {
 }
 
 .idfind{
-	margin-left: 390px;
+	margin-left: calc(50% - 450px);
 }
 
 .idfind:hover, .pwfind:hover {
