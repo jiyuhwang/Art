@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아이디</title>
 <style type="text/css">
 
 .wrap {
@@ -98,6 +98,7 @@
 
 
 </style>
+<title>아이디</title>
 </head>
 <body>
 	<div class="wrap">
@@ -119,7 +120,6 @@
 	 </div>
 	</div>
 	</div>
-<form>
-</form>
+
 </body>
 </html>

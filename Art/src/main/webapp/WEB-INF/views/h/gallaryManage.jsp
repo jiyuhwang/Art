@@ -18,8 +18,8 @@ tbody tr:hover {
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	if("${param.srhFlag}" != ""){
-		$("#srhFlag").val("${param.srhFlag}");
+	if("${param.searchFlag}" != ""){
+		$("#searchFlag").val("${param.searchFlag}");
 	}
 	
 	if("${param.srhYearFlag}" != ""){
@@ -42,6 +42,8 @@ $(document).ready(function(){
 	//검색시
 	$("#searchBtn").on("click", function(){
 		$("#searchOldTxt").val($("#searchTxt").val());
+		console.log($("#startFlag").val());
+		console.log($("#endFlag").val());
 		loadPostList();
 	});
 	
@@ -105,10 +107,6 @@ $(document).ready(function(){
 	$(".gallary").attr("class", "manage_selected");
 	
 	
-	//처음화면에 그릴 때
-	$(".result_table").hide();//hide all contents
-	$(".menu_tab_wrap div:first").attr("class", "tab_selected").show();//active first tab
-	$(".result_table:first").show();
 	
 	//menuTab클릭했을 때 
 	$(".menu_tab_wrap").on("click", "div", function(){
@@ -199,7 +197,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="main">
-	<c:import url="../HD/managerSide.jsp"></c:import>
+	<c:import url="managerSidebar.jsp"></c:import>
 	<div class ="ctts">
 <!------------------------------게시글 신고 관리  -->
 		<div class ="blank2"></div>
@@ -219,22 +217,22 @@ $(document).ready(function(){
 		</div>
 <!-----------------------------------------------데이터 전송  -->
 <form action="#" id="actionForm" method="post" >
-			<input type="hidden" id="postNo" name="pmo"/>
-		
-		
-		
-		
+	<input type="hidden" id="postNo" name="pmo"/>
+	<input type="hidden" id="start"/>
+	<input type="hidden"/>
+	
 		<div class ="search_flag_div">
 			<div class="search_flag">
 				<label>회원분류</label>
 				<select name="srhYearFlag" id="srhYearFlag">
-					<option value="0"> 전체회원</option>
+					<option value="0"> 올해회원</option>
 					<option value="1"> 작년회원</option>
+					<option value="3" selected="selected"> 전체회원</option>
 				</select>
 				<label>검색분류</label>
-				<select name="srhFlag" id="srhFlag">
-					<option value="2">제목</option>
-					<option value="3" selected="selected">내용</option>
+				<select name="searchFlag" id="searchFlag">
+					<option value="2" selected="selected">제목</option>
+					<option value="3">내용</option>
 					<option value="4">작성자</option>
 					<option value="5">번호</option>
 					<option value="6">분류</option>
@@ -245,9 +243,9 @@ $(document).ready(function(){
 				<input type="text" name="searchTxt" id="searchTxt" value="${param.searchTxt}" placeholder="검색어를 입력해주세요."/>
 				<div class="date_srh">
 					<label>날짜분류</label>
-						<input type="date">
+						<input type="date" id="startFlag" name="startFlag">
 						<span> ~ </span>
-						<input type="date">
+						<input type="date" id="endFlag" name="endFlag" min="2021-01-01">
 						<input type="button" value="검색" id="searchBtn"/>
 						<input type="button" value="삭제제외" class="btn_notyet"/>
 						<input type="button" value="삭제포함" class="btn_notyet"/>
@@ -289,123 +287,12 @@ $(document).ready(function(){
 					<th>닉네임(아이디)</th>
 					<th>작성일</th>
 					<th>조회수</th>
-					<th>추천수</th>
+					<th>좋아요수</th>
 				</tr>
 				</thead>
-				<tbody>
-				
-				</tbody>
+				<tbody></tbody>
 			</table>
 		</div>	
-		<div class="result_table" id="tabResult2">
-			<table class="table2">
-				<colgroup>
-					<col width="2%"/>
-					<col width="3%"/>
-					<col width="4%"/>
-					<col width="4%"/>
-					<col width="40%"/>
-					<col width="8%"/>
-					<col width="10%"/>
-					<col width="10%"/>
-					<col width="4%"/>
-					<col width="4%"/>
-				</colgroup>
-				<tr>
-					<th>
-					<input type="checkbox" id="checkAll"> 
-					</th>
-					<th>번호</th>
-					<th>글번호</th>
-					<th>게시판</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>닉네임(아이디)</th>
-					<th>작성일</th>
-					<th>조회수</th>
-					<th>추천수</th>
-				</tr>
-				<tr id="tableTr">
-					<td><input type="checkbox"> </td>
-					<td>9</td>
-					<td>1242</td>
-					<td>
-						<select>
-							<option>게시판</option>
-							<option selected="selected">사진</option>
-							<option>그림</option>
-							<option>영상</option>
-						</select>
-					</td>
-					<td><a href="#">사진은 이렇게 찍어야  예술입니다!</a></td>
-					<td>김철민</td>
-					<td>닉네임(example)</td>
-					<td>2021-05-15</td>
-					<td>2</td>
-					<td>0</td>
-				</tr>
-			</table>
-		</div>	
-		<div class="result_table" id="tabResult3">
-			<table class="table3">
-				<colgroup>
-					<col width="2%"/>
-					<col width="3%"/>
-					<col width="4%"/>
-					<col width="4%"/>
-					<col width="40%"/>
-					<col width="8%"/>
-					<col width="10%"/>
-					<col width="10%"/>
-					<col width="4%"/>
-					<col width="4%"/>
-				</colgroup>
-				<tr>
-					<th>
-					<input type="checkbox" id="checkAll"> 
-					</th>
-					<th>번호</th>
-					<th>글번호</th>
-					<th>게시판</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>닉네임(아이디)</th>
-					<th>작성일</th>
-					<th>조회수</th>
-					<th>추천수</th>
-				</tr>
-			</table>
-		</div>
-		<div class="result_table" id="tabResult4">
-			<table class="table4">
-				<colgroup>
-					<col width="2%"/>
-					<col width="3%"/>
-					<col width="4%"/>
-					<col width="4%"/>
-					<col width="40%"/>
-					<col width="8%"/>
-					<col width="10%"/>
-					<col width="10%"/>
-					<col width="4%"/>
-					<col width="4%"/>
-				</colgroup>
-				<tr>
-					<th>
-					<input type="checkbox" id="checkAll"> 
-					</th>
-					<th>번호</th>
-					<th>글번호</th>
-					<th>게시판</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>닉네임(아이디)</th>
-					<th>작성일</th>
-					<th>조회수</th>
-					<th>추천수</th>
-				</tr>
-			</table>
-		</div>
 	</div>
 </div>
 </body>

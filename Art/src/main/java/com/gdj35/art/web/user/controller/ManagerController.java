@@ -104,8 +104,11 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value="/gong_board")
-	public ModelAndView gong_board(ModelAndView mav) {
+	public ModelAndView gong_board(ModelAndView mav) throws Throwable {
+		List<HashMap<String,String>> list = 
+				iManagerService.getGList();
 		
+		mav.addObject("list", list);
 		mav.addObject("now", "gong");
 		mav.setViewName("HD/gong_board");
 		return mav;
@@ -119,24 +122,7 @@ public class ManagerController {
 		return mav;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//현이꺼
 	@RequestMapping(value="/gallaryManage")
 	public ModelAndView gallaryManage(ModelAndView mav) {
 		
@@ -144,7 +130,7 @@ public class ManagerController {
 		return mav;
 	}
 	
-	
+	//지유꺼
 	@RequestMapping(value="/entire",
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
@@ -164,7 +150,7 @@ public class ManagerController {
 	
 	
 	
-	
+	//현이꺼
 	@RequestMapping(value="/reportManage")
 	public ModelAndView reportManage(ModelAndView mav) {
 		

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Manager">
-
+<mapper namespace="Manager"><!-- namespace - 클래스명과 동일 -->
+	<!-- id - 메소드명과 동일 -->
+	<!-- resultType : row 1줄의 형태를 지정 -->
+	<!-- 쿼리 작성 시 ;이 들어가면 실행되지 않음 -->
 	<select id="getMList" resultType="hashmap" parameterType="hashmap">
 		SELECT * 
 		FROM (  SELECT ROW_NUMBER() OVER (ORDER BY USER_NO DESC) AS RNUM, 
@@ -35,8 +37,7 @@
 	
 	
 	
-	
-	<select id="getPostList" parameterType="hashmap" resultType="hashmap">
+<select id="getPostList" parameterType="hashmap" resultType="hashmap">
 		SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME,
 				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YY-MM-DD') AS R_DATE,
 				P.VIEWS, DECODE(L.CNT, NULL, 0, L.CNT) AS CNT, P.EXPLAIN
@@ -50,13 +51,23 @@
 		               									 GROUP BY P.POST_NO) L
 		         		  ON P.POST_NO = L.POST_NO
 		WHERE 1 = 1
+		<if test="srhYearFlag == 0 or srhYearFlag == 1">
+			<choose>
+					<when test="srhYearFlag == 0">
+						AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+					</when>
+					<when test="srhYearFlag == 1">
+						AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
+					</when>
+			</choose>
+		</if>
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchFlag == 0">
-					AND R_DATE LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
 				</when>
 				<when test="searchFlag == 1">
-					AND R_DATE LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
 				</when>
 				<when test="searchFlag == 2">
 					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
@@ -77,19 +88,28 @@
 					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
 					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
 				</when>
-				<when test="searchFlage == 8">
-					AND R_DATE LIKE '%' || #{searchTxt} || '%'
+				<when test="searchFlag == 8">
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
+		<if test="startFlag != null and startFlag != ''
+				or endFlag != null and endFlag != ''">
+			<choose>
+				<when test="startFlag != null and startFlag != ''
+						and endFlag == null and endFlag == ''">
+				AND P.REGISTER_DATE &gt;= #{startFlag}
+				</when>
+				<when test="startFlag == null and startFlag == ''
+						and endFlag != null and endFlag != ''">
+					AND P.REGISTER_DATE &lt;=  #{endFlag}
+				</when>
+					<when test="startFlag != null and startFlag != ''
+						and endFlag != null and endFlag != ''">
+					AND P.REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
 				</when>
 			</choose>
 		</if>
 		ORDER BY P.POST_NO DESC
 	</select>
-
-
-
-
-
-
-
-
 </mapper>

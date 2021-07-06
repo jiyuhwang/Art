@@ -116,22 +116,24 @@
 					<th>삭제여부</th>
 					<th>수정/삭제</th>
 				</tr>
-				<tr>
-					<td>
-                        <input type="checkbox" id="ex_chk"> 
-                    </td>
-					<td>20</td>
-					<td>1234</td>
-					<td>홍길동</td>
-					<td>dfjg234</td>
-					<td>닉네임2(example)</td>
-					<td>5</td>
-					<td>2021-06-30</td>
-					<td>o</td>
-					<td><input type="button" value="수정"/>
-                        <input type="button" value="삭제"/></td>
-					
-				</tr>
+				<c:forEach var="data" items=list>
+					<tr>
+						<td>
+	                        <input type="checkbox" id="ex_chk"> 
+	                    </td>
+						<td>20</td>
+						<td>1234</td>
+						<td>홍길동</td>
+						<td>dfjg234</td>
+						<td>닉네임2(example)</td>
+						<td>5</td>
+						<td>2021-06-30</td>
+						<td>o</td>
+						<td><input type="button" value="수정"/>
+	                        <input type="button" value="삭제"/></td>
+						
+					</tr>
+				</c:forEach>
 				<tr>
 					<td>
                         <input type="checkbox" id="ex_chk"> 
