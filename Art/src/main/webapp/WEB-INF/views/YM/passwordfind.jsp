@@ -7,12 +7,15 @@
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
 <style type="text/css">
+body {
+	margin: 0;
+}
 .wrap {
 	width: 460px;
 	height: 500px;
 	margin: 0 auto;
 	padding: 30px;
-	margin-top: 100px;
+	margin-top: 80px;
 	border: solid 1px;
 	text-align: center;
 	border: 1px solid #e5e5e5;
@@ -103,13 +106,55 @@
 	border-radius: 10px;
 }
 
+.top2 {
+	background-color: #ffad33;
+	height: 80px;
+	padding-top: 50px;
+}
+
+
+.idfind, .pwfind {
+	font-size: 12pt;
+    padding:5px;
+    text-align:center;
+    width:200px;
+    margin-top:5px;
+    line-height:65px;
+    font-weight:700;
+    border-radius:3px 3px 0 0;
+    background: white;
+    color: black;
+    border-width:1px 1px 0;
+    cursor: pointer;
+    border: none;
+}
+
+.idfind{
+	margin-left: calc(50% - 250px);
+}
+
+.idfind:hover, .pwfind:hover {
+	background-color: #ff9900;
+}
+
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 var code = ""; 
 $(document).ready(function() {
+	
+	$(".pwfind").on("click", function(){
+		    
+			location.href = "passwordfind";   
+	});
+	
+	
+	$(".idfind").on("click", function(){
+	    
+		location.href = "idfind";   
+	});	
 
-$("#emailSend").click(function(){
+	$("#emailSend").click(function(){
 		if($.trim($("#userId").val()) == "") {
 			alert("이름을 입력해주세요.");
 			$("#userId").focus();
@@ -171,6 +216,11 @@ $("#emailSend").click(function(){
 	    
 	});
 	
+	$(".cancel").on("click", function() {
+		location.href="login";
+	
+});
+	
 	
 	$(".check").on("click", function() {
 		if($.trim($("#userId").val()) == "") {
@@ -196,16 +246,15 @@ $("#emailSend").click(function(){
 		     		console.log(data);
 		        	code = data;
 		        	$('#pw').val(code);
-					alert($("#pw").val());
 		        	$("#pwFindForm").attr("action", "findPw");
 					$("#pwFindForm").submit();
+					
+					
 		        }
 		                
 		  });
 
-        	
-        	
-		}
+    	}
 	});
 });
 </script>
@@ -213,6 +262,10 @@ $("#emailSend").click(function(){
 <body>
 <form action="#" id="pwFindForm" method="post">
 <input type="hidden" id="pw" name="pw" >
+<div class="top2">
+	<input type="button" class="idfind" value="아이디 찾기">
+	<input type="button" class="pwfind" value="비밀번호 찾기">	
+</div>
 <div class="wrap">
 	<div class="a"><h1>비밀번호 찾기</h1></div>
 	<div class="c"><h2>이메일 인증</h2></div>
