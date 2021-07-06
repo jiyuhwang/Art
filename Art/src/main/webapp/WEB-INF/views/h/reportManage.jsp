@@ -88,7 +88,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="main">
-	<c:import url="../HD/managerSide.jsp"></c:import>
+	<c:import url="managerSidebar.jsp"></c:import>
 	<div class ="ctts">
 			<!------------------------------게시글 신고 관리  -->
 		<div class ="blank2"></div>

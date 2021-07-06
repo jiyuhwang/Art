@@ -130,6 +130,7 @@ $("#emailSend").click(function(){
 					if(res.resMsg == "success") {
 					  alert("이메일 인증번호가 전송되었습니다.")
 				      $("#checkMail").val(""); 
+					  $("#userId2").val(res.data.USER_ID);
 					  var email = $("#userMail").val();            // 입력한 이메일
 					  var checkBox = $("#checkMail");        // 인증번호 입력란
 					  
@@ -140,15 +141,14 @@ $("#emailSend").click(function(){
 					        url:"mailCheck?email=" + email,
 					        success:function(data){
 					            
-					            //console.log("data : " + data);
 					        	checkBox.attr("disabled",false);
-					        	//boxWrap.attr("id", "mail_check_input_box_true");
 					        	code = data;
 					        }
 					                
 					  });
+					  
 					} else if(res.resMsg == "failed") {
-						alert("일치하는 회원정보가 없습니다.");
+						alert("탈퇴한 회원이거나 일치하는 회원정보가 없습니다.");
 					} else {
 						alert("로딩 중 문제 발생");
 					}
@@ -158,28 +158,6 @@ $("#emailSend").click(function(){
 				}
 			});
 		}
-		
-		
-		
-		/* alert("이메일 인증번호가 전송되었습니다.");
-	      $("#checkMail").val(""); 
-		  var email = $("#userMail").val();            // 입력한 이메일
-		  var checkBox = $("#checkMail");        // 인증번호 입력란
-		  
-		    
-		    $.ajax({
-		        
-		        type:"GET",
-		        url:"mailCheck2?email=" + email,
-		        success:function(data){
-		            
-		            //console.log("data : " + data);
-		        	checkBox.attr("disabled",false);
-		        	//boxWrap.attr("id", "mail_check_input_box_true");
-		        	code = data;
-		        }
-		                
-		  }); */
 	});
 	
 	$("#emailCheck").on("click", function(){
@@ -210,14 +188,15 @@ $("#emailSend").click(function(){
 		} else {
 			$("#idFindForm").attr("action", "findId");
 			$("#idFindForm").submit();
-			/* location.href = "findId"; */
 		}
 	});
 });
 </script>
 </head>
 <body>
-<form action="#" id="idFindForm">
+<form action="#" id="idFindForm" method="post">
+<input type="hidden" id="userId2" name="userId2" >
+
 <div class="wrap">
 	<div class="a"><h1>아이디 찾기</h1></div>
 	<div class="c"><h2>이메일 인증</h2></div>
