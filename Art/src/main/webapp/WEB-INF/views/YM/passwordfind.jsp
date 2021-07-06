@@ -171,6 +171,11 @@ $("#emailSend").click(function(){
 	    
 	});
 	
+	$(".cancel").on("click", function() {
+		location.href="login";
+	
+});
+	
 	
 	$(".check").on("click", function() {
 		if($.trim($("#userId").val()) == "") {
@@ -203,9 +208,7 @@ $("#emailSend").click(function(){
 		                
 		  });
 
-        	
-        	
-		}
+    	}
 	});
 });
 </script>
