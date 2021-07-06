@@ -242,6 +242,51 @@ public class MemberController{
 		return mav;
 	}
 	
+	
+	@RequestMapping(value = "/idfinds",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody public String idfinds(@RequestParam HashMap<String, String> params) throws Throwable{
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		HashMap<String, String> data = iMemberService.idFind(params);
+		
+		modelMap.put("data", data);
+		
+		System.out.println(data);
+	
+		if(data != null) { // 사용자 정보가 있음
+		
+			modelMap.put("resMsg", "success");
+		} else { // 사용자 정보가 없음
+			modelMap.put("resMsg", "failed");
+		}
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	@RequestMapping(value = "/withdrawal")
+	public ModelAndView withdrawal(HttpSession session, ModelAndView mav) throws Throwable {
+
+		
+		if(session.getAttribute("sUserNo") != null) {
+
+			mav.setViewName("JY/withdrawal");
+			
+			session.getAttribute("sUserPw");
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
+
+		return mav;
+	}
+	
 	@RequestMapping(value = "/withdrawals", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String withdrawals(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
@@ -390,18 +435,30 @@ public class MemberController{
 		return mav;
 	}
 	
-	@RequestMapping(value="/idcheck")
-	public ModelAndView idcheck(ModelAndView mav) {
+	@RequestMapping(value="/idfind")
+	public ModelAndView idfind(ModelAndView mav) {
 		
-		mav.setViewName("YM/idcheck");
+		mav.setViewName("YM/idfind");
+		return mav;
+	}
+	
+	@RequestMapping(value="/findId")
+	public ModelAndView findId(@RequestParam HashMap<String, String> params,
+								ModelAndView mav) throws Throwable {
+		
+		HashMap<String, String> data = iMemberService.idFind(params);
+		
+		mav.addObject("data", data);
+		
+		mav.setViewName("YM/findId");
 		return mav;
 	}
 	
 
-	@RequestMapping(value="/passwordcheck")
+	@RequestMapping(value="/passwordfind")
 	public ModelAndView passwordcheck(ModelAndView mav) {
 		
-		mav.setViewName("YM/passwordcheck");
+		mav.setViewName("YM/passwordfind");
 		return mav;
 	}
 }

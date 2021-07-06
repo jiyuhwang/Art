@@ -26,8 +26,8 @@ public class ManagerService implements IManagerService {
 	}
 	
 	@Override
-	public List<HashMap<String, String>> PList(HashMap<String, String> params) throws Throwable{
-		return iManagerDao.PList(params);
+	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable{
+		return iManagerDao.getPostList(params);
 	}
 
 	@Override

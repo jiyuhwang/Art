@@ -6,14 +6,46 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 관리</title>
+<style type="text/css">
+tbody tr:hover {
+	background-color: #f2f2f2;
+}
+</style>
 <link rel="stylesheet" href="resources/css/h/gallary_manage.css"/>
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	if("${param.srhFlag}" != ""){
+		$("#srhFlag").val("${param.srhFlag}");
+	}
+	
+	if("${param.srhYearFlag}" != ""){
+		$("#srhYearFlag").val("${param.srhYearFlag}");
+	}
+	
 	//---------------------------------------데이터 가져오기
 	loadPostList();
+	
+	//사이드바 해당 메뉴 고정시키기
+	$(".gallary").attr("id", "active");
+	
+	
+	//상세보기
+	$("tbody").on("click", "tr", function(){
+		$("#postNo").value($(this).attr("name"));
+		confirm("상세페이지로 이동합니다.");
+	});
+	
+	//검색시
+	$("#searchBtn").on("click", function(){
+		$("#searchOldTxt").val($("#searchTxt").val());
+		loadPostList();
+	});
+	
+	
 
 	
 	
@@ -70,8 +102,7 @@ $(document).ready(function(){
 	});
 	
 	//사이드바 해당 메뉴 고정시키기
-	$(".side_bar div div").attr("class", "manage");
-	$("#gallary").attr("class", "manage_selected");
+	$(".gallary").attr("class", "manage_selected");
 	
 	
 	//처음화면에 그릴 때
@@ -120,20 +151,21 @@ $(document).ready(function(){
 	function drawList(list){
 		var html = "";
 		var no = 0;
-		++no;
+		
 	
-		for(var d of list){         
+		for(var d of list){
+			++no;
 			html +="<tr name=\"" + d.POST_NO + "\">";
 			html +="<td><input type=\"checkbox\"></td>";
 			html +="<td>" + no + "</td>";
 			html +="<td>" + d.POST_NO + "</td>";
-			html +="<td>" + d.CATEGORY_NO + "</td>";
+			html +="<td>" + d.CATEGORY_NAME + "</td>";
 			html +="<td>" + d.TITLE + "</td>";
 			html +="<td>" + d.NAME + "</td>";
 			html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
 			html +="<td>" + d.R_DATE + "</td>";
 			html +="<td>" + d.VIEWS + "</td>";
-			html +="<td>좋아요수</td>";
+			html +="<td>" + d.CNT + "</td>";
 			html +="</tr>";
 		}                             
 		
@@ -167,9 +199,9 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="main">
-	<c:import url="managerSidebar.jsp"></c:import>
+	<c:import url="../HD/managerSide.jsp"></c:import>
 	<div class ="ctts">
-			<!------------------------------게시글 신고 관리  -->
+<!------------------------------게시글 신고 관리  -->
 		<div class ="blank2"></div>
 		
 		<div class="menu_tab_wrap">
@@ -185,31 +217,38 @@ $(document).ready(function(){
 				<span><span class="font-red">데이터가 많은 경우</span> 느려질 수 있습니다.</span>
 			</div>
 		</div>
+<!-----------------------------------------------데이터 전송  -->
+<form action="#" id="actionForm" method="post" >
+			<input type="hidden" id="postNo" name="pmo"/>
+		
+		
+		
+		
 		<div class ="search_flag_div">
 			<div class="search_flag">
 				<label>회원분류</label>
-				<select>
-					<option> 전체회원</option>
-					<option> 작년회원</option>
+				<select name="srhYearFlag" id="srhYearFlag">
+					<option value="0"> 전체회원</option>
+					<option value="1"> 작년회원</option>
 				</select>
 				<label>검색분류</label>
-				<select>
-					<option value="title">제목</option>
-					<option selected="selected">내용</option>
-					<option value="writer">작성자</option>
-					<option value="number">번호</option>
-					<option value="content">분류</option>
-					<option value="repoter">제목+내용</option>
-					<option value="process">작성일</option>
+				<select name="srhFlag" id="srhFlag">
+					<option value="2">제목</option>
+					<option value="3" selected="selected">내용</option>
+					<option value="4">작성자</option>
+					<option value="5">번호</option>
+					<option value="6">분류</option>
+					<option value="7">제목+내용</option>
+					<option value="8">작성일</option>
 				</select>
-			     <input type="text" placeholder="검색어를 입력해주세요.">
-			     <input type="button" value="검색" class="btn_notyet"/>
+				<input type="hidden" id="searchOldTxt" value="${param.searchTxt}"/>
+				<input type="text" name="searchTxt" id="searchTxt" value="${param.searchTxt}" placeholder="검색어를 입력해주세요."/>
 				<div class="date_srh">
 					<label>날짜분류</label>
 						<input type="date">
 						<span> ~ </span>
 						<input type="date">
-						<input type="button" value="검색" class="btn_notyet"/>
+						<input type="button" value="검색" id="searchBtn"/>
 						<input type="button" value="삭제제외" class="btn_notyet"/>
 						<input type="button" value="삭제포함" class="btn_notyet"/>
 				</div>
@@ -219,14 +258,8 @@ $(document).ready(function(){
 			<input type="button" value="복원" class="btn_notyet"/>
 			<input type="button" value="삭제" class="btn_notyet"/>
 		</div>
+</form>
 		<!-----------------------------------------------------------테이블 -->
-		<form action="#" id="actionForm" method="post" >
-			<input type="hidden" id="postNo" name="pmo"/>
-		
-		
-		
-		
-		</form>
 		
 		
 		<div class="result_table" id="tabResult1">

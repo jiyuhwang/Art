@@ -147,6 +147,16 @@ a {
 			}
 		});
 		
+		$(document).mouseup(function (e){
+
+			var container = $(".side_bar");
+
+			if( container.has(e.target).length === 0)
+
+			container.slideUp();
+
+		});
+		
 		$("#btnLogout").on("click", function() {
 			$.ajax({
 				url: "Logout",

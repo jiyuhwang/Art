@@ -147,23 +147,7 @@ public class MyGallaryController {
 		return mav;
 	}
 
-	
-	@RequestMapping(value = "/withdrawal")
-	public ModelAndView withdrawal(HttpSession session, ModelAndView mav) throws Throwable {
 
-		
-		if(session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/withdrawal");
-			
-			
-		} else {
-			
-			mav.setViewName("redirect:main");
-		}
-
-		return mav;
-	}
 
 	
 	@RequestMapping(value = "/writing")
