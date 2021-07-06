@@ -56,5 +56,15 @@ public class MemberDao implements IMemberDao{
 		return sqlSession.selectOne("User.idFind", params);
 	}
 
+	@Override
+	public HashMap<String, String> pwFind(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.pwFind", params);
+	}
+
+	@Override
+	public int updatePw(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("User.updatePw", params);
+	}
+
 
 }
