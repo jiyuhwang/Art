@@ -167,7 +167,9 @@ public class MyGallaryController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/writes", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/writes",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String writes(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 

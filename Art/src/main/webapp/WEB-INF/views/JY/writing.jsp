@@ -22,75 +22,55 @@ $(document).ready(function() {
 		removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
 	});
 	
-
 	
 	$("#upload").on("click", function () {
 		$("#postFile").click();
 	});
 	
-	
-	$("#btnSave").on("click", function() {
-		
-		var fileForm = $("#fileForm");
-		
 
-		fileForm.ajaxForm({
-			beforeSubmit : function() {
+	$("#btnSave").on("click", function(){
+		
+		$("#contentsIn").val(CKEDITOR.instances['contentsIn'].getData());
+
+		if($("#uploadFile").attr("src") == "") {
+			alert("작품을 올려주세요");
+			return false;// ajaxForm 실행 불가
+		} else if($("select[name=category]").val() == '0') {
+			alert("작품 카테고리를 선택해주세요.");
+			$(".select").focus();
+			return false;
+		} else if($("#titleInput").val() == "") {
+			$("#titleInput").focus();
+			return false;
+		} else if($("#contentsIn").val() == "") {
+			$("#contentsIn").focus();
+			return false;
+		} else {
 			
-			if($("#uploadFile").attr("src") == "") {
-				alert("작품을 올려주세요");
-				return false; // ajaxForm 실행 불가
-			} else if($("select[name=category]").val() == '0') {
-				alert("작품 카테고리를 선택해주세요.");
-				$(".select").focus();
-				return false;
-			} else if($("#titleInput").val() == "") {
-				$("#titleInput").focus();
-				return false;
-			} else if($("#contentsIn").val() == "") {
-				$("#contentsIn").focus();
-				return false;
-			} 
-		},
-		success : function(res) {
-			if(res.result = "SUCCESS") {
-				 // 올라간 파일명 저장
-				 if(res.fileName.length > 0) {
-					 $("#postFile2").val(res.fileName[0]);
-				 }
-	
-					 var params= $("#writeForm").serialize();
-					
-					$.ajax({
-						url: "writes", // 접속 주소
-						type: "post", // 전송 방식: get, post
-						dataType: "json", // 받아올 데이터 형태
-						data: params, // 보낼 데이터(문자열 형태)
-						success: function(res) { // 성공 시 다음 함수 실행
-						    if(res.msg == "success") {
-						    	alert("정상적으로 작품 등록되었습니다.");
-						    	location.href = "main";
-							} else if(res.msg == "failed") {
-								alert("작품 등록에 실패하였습니다.")
-							} else {
-								alert("작성 중 문제가 발생하였습니다.")
-							}
-						},
-						error: function(request, status, error) { // 실패 시 다음 함수 실행
-							console.log(error);
-							}
-						});
-				} else {
-					alert("파일업로드 중 문제 발생");
+			var params= $("#writeForm").serialize();
+			
+			$.ajax({
+				url: "writes", // 접속 주소
+				type: "post", // 전송 방식: get, post
+				dataType: "json", // 받아올 데이터 형태
+				data: params, // 보낼 데이터(문자열 형태)
+				success: function(res) { // 성공 시 다음 함수 실행
+				    if(res.msg == "success") {
+				    	alert("정상적으로 작품 등록되었습니다.");
+				    	location.href = "main";
+					} else if(res.msg == "failed") {
+						alert("작품 등록에 실패하였습니다.");
+					} else {
+						alert("작성 중 문제가 발생하였습니다.");
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
 				}
-			},
-			error : function() {
-				alert("파일업로드 중 문제 발생");
-			} 
-		}); // ajaxForm End
-
-		fileForm.submit();
-	});	// btnSave click End
+			});
+	  	}
+	    
+	});
 	
 
 	$("#postFile").on("change", function() {
