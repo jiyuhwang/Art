@@ -36,7 +36,7 @@
 	
 	
 	
-	<select id="PList" parameterType="hashmap" resultType="hashmap">
+	<select id="getPostList" parameterType="hashmap" resultType="hashmap">
 		SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME,
 				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YY-MM-DD') AS R_DATE,
 				P.VIEWS, DECODE(L.CNT, NULL, 0, L.CNT) AS CNT, P.EXPLAIN

@@ -156,7 +156,7 @@ public class ManagerController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		//목록취득
-		List<HashMap<String, String>> list = iManagerService.PList(params);
+		List<HashMap<String, String>> list = iManagerService.getPostList(params);
 		
 		modelMap.put("list", list);
 		return mapper.writeValueAsString(modelMap);

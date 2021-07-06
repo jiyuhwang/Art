@@ -26,7 +26,7 @@ public class ManagerDao implements IManagerDao {
 	}
 	
 		@Override
-	public List<HashMap<String, String>> PList(HashMap<String, String> params) throws Throwable {
+	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("Manager.PList", params);
 	}
 	

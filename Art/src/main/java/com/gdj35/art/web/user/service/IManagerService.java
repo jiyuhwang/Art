@@ -10,5 +10,5 @@ public interface IManagerService {
 	int getTCnt(HashMap<String, String> params) throws Throwable;
 	
 
-	public List<HashMap<String, String>> PList(HashMap<String, String> params) throws Throwable;
+	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable;
 }
