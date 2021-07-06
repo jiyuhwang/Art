@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="resources/css/HD/login.css"/>
 <link rel="stylesheet" href="resources/css/HD/user_detail(byBoard).css">
 <link rel="stylesheet" href="resources/css/HD/email.css"/>
-<link rel="stylesheet" href="resources/css/HD/managerSide.css"/>
+<!-- <link rel="stylesheet" href="resources/css/HD/managerSide.css"/> -->
 
 
 <script type="text/javascript"
@@ -88,7 +88,7 @@ $(document).ready( function () {
 	});
 	//side 클릭시 변경 script
 	
-	if(${endP} > parseInt($("#page").val())){
+ /* 	if("${endP}" > parseInt($("#page").val())){
 		$(".main3-table").scroll(function () {
 			 var scrollT = $(this).scrollTop();
 			 var scrollH = $(this).height();
@@ -100,8 +100,18 @@ $(document).ready( function () {
 					  console.log(parseInt($("#page").val()));
 				 	}
 		});
-				}
-	}	 
+				} */
+	/* console.log(parseInt($("#page").val()));
+	$(window).scroll(function () { 
+		   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+		      //Add something at the end of the page
+		      
+		      var d = parseInt($("#page").val()) + 1;
+		      $("#page").attr("value", d);
+		      $("#userForm").submit();
+		   }
+		}); */
+		 
 });
 //document end
 

@@ -105,10 +105,11 @@ public class ManagerController {
 	
 	@RequestMapping(value="/gong_board")
 	public ModelAndView gong_board(ModelAndView mav) throws Throwable {
-		List<HashMap<String,String>> list = 
-				iManagerService.getGList();
-		
-		mav.addObject("list", list);
+		/*
+		 * List<HashMap<String,String>> list = iManagerService.getGList();
+		 * 
+		 * mav.addObject("list", list);
+		 */
 		mav.addObject("now", "gong");
 		mav.setViewName("HD/gong_board");
 		return mav;
