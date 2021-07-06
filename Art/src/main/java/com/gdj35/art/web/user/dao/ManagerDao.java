@@ -28,8 +28,13 @@ public class ManagerDao implements IManagerDao {
 		@Override
 	public List<HashMap<String, String>> PList(HashMap<String, String> params) throws Throwable {
 		
-		return sqlSession.selectList("Admin.PList", params);
+		return sqlSession.selectList("Manager.PList", params);
 	}
-	
+
+	@Override
+	public List<HashMap<String, String>> getGList() throws Throwable {
+		return sqlSession.selectList("Manager.getGList");
+	}
+
 	
 }

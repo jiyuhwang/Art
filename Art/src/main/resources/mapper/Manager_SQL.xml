@@ -20,7 +20,8 @@
 		FROM USERS
 		WHERE 1=1
 	</select>
-	
+
+
 	<select id="PList" parameterType="hashmap" resultType="hashmap">
 		SELECT P.POST_NO, P.CATEGORY_NO, P.TITLE, U.USER_NICKNAME AS NICKNAME,
 			U.USER_ID, U.NAME, U.USER_ID,
@@ -29,12 +30,4 @@
 	            ON P.USER_NO = U.USER_NO
 		WHERE P.DEL = 1 AND P.VISIBILITY = 0
 	</select>
-
-
-
-
-
-
-
-
 </mapper>

@@ -28,7 +28,7 @@ $(document).ready( function () {
 		}); 
 	});//deletbtn end
 	
-	
+	//---------------------------------------------- 더블 클릭 상세보기
 	$("tbody tr").on("dblclick", function () {
 		$(".Pmain, .background").show();
 		
@@ -38,6 +38,7 @@ $(document).ready( function () {
 		
 	});//end dblclick
 	
+	//----------------------------------------------이메일 띄우기
 	$("#email_btn").on("click", function () {
 		$(".PmainM, .PbackgroundM").show();
 		
@@ -45,6 +46,18 @@ $(document).ready( function () {
 			$(".PmainM, .PbackgroundM").hide();
 		})
 	});//end email_btn
+	
+	//---------------------------------------------------전체선택 기능
+	$("#all_check").on("click", function () {
+		if($("#all_check").prop("checked")){
+			$("input[type=checkbox]").prop("checked",true);
+		}else{
+			
+			$("input[type=checkbox]").prop("checked",false);
+		}
+	});
+	
+	
 	
 //side 클릭시 변경 script
 	var now ='${now}';
@@ -88,7 +101,7 @@ $(document).ready( function () {
 				 	}
 		});
 				}
-	 
+	}	 
 });
 //document end
 
@@ -169,7 +182,7 @@ $(document).ready( function () {
 			<thead>
 				<tr>
 					<th>
-					<input type="checkbox" id="ex_chk"> 
+					<input type="checkbox" id="all_check"> 
 					</th>
 					<th>번호</th>
 					<th>회원번호</th>
@@ -187,7 +200,7 @@ $(document).ready( function () {
 			<tbody>
 				<c:forEach var="data" items="${list}">
 				<tr name="${data.RNUM}">
-					<td><input type="checkbox" id="ex_chk"> </td>
+					<td><input type="checkbox"> </td>
 					<td>${data.RNUM}</td>
 					<td>${data.USER_NO}</td>
 					<td>${data.NAME}</td>
