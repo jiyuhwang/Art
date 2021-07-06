@@ -52,7 +52,7 @@ $(document).ready( function () {
 		if($("#all_check").prop("checked")){
 			$("input[type=checkbox]").prop("checked",true);
 		}else{
-			
+			13
 			$("input[type=checkbox]").prop("checked",false);
 		}
 	});
