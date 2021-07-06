@@ -50,7 +50,7 @@ table th:hover{
 .main{
 	display: inline-block;
 	width : 1500px;
-	height : 490px;
+	height : 940px;
 	position: absolute;
 	background-color: RGBA;
 	margin-left: 100px;
@@ -178,7 +178,6 @@ table th:hover{
 	overflow: auto;
 }
 .status{
-	width : 99%;
 	height : 20px;
 	background-color: #6C7A89;
 	margin-top: 5px;
@@ -186,6 +185,12 @@ table th:hover{
 	line-height: 20px;
 	padding-left: 10px;
 	border-radius: 5px;
+}
+
+#pagingWrap{
+	font-size: 15pt;
+	text-align: center;
+	margin-top: 12px;
 }
 
 select, input{

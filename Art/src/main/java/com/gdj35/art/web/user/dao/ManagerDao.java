@@ -36,5 +36,11 @@ public class ManagerDao implements IManagerDao {
 	
 	}
 
+	@Override
+	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Manager.getUser",params);
+	}
+
 	
 }

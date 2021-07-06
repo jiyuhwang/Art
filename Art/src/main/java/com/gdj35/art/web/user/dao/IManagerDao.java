@@ -15,4 +15,6 @@ public interface IManagerDao {
 
 	public List<HashMap<String, String>> getGList() throws Throwable;
 
+	public HashMap<String, String> getUser(HashMap<String, String> params)throws Throwable;
+
 }

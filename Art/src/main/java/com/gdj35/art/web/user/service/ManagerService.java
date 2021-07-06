@@ -35,5 +35,11 @@ public class ManagerService implements IManagerService {
 		// TODO Auto-generated method stub
 		return iManagerDao.getGList();
 	}
+
+	@Override
+	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getUser(params);
+	}
 	
 }
