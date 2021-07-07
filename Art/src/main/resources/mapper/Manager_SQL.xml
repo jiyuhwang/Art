@@ -110,6 +110,34 @@
 				</when>
 			</choose>
 		</if>
-		ORDER BY P.POST_NO DESC
+		ORDER BY P.REGISTER_DATE DESC
 	</select>
+	
+	
+	
+	
+	
+	<select id="getUserDetail" parameterType="hashmap" resultType="hashmap">
+		SELECT P.POST_NO, P.POST_FILE, C.CATEGORY_NAME, P.TITLE,
+				P.REGISTER_DATE, P.EXPLAIN, U.USER_NICKNAME, U.PROFILE_IMG_PATH,
+				U.INTRODUCE, N.TAGS
+		FROM ((POST P INNER JOIN USERS U
+                    ON P.USER_NO = U.USER_NO)
+        	INNER JOIN POST_CATEGORY C
+                  ON P.CATEGORY_NO = C.CATEGORY_NO)
+            LEFT OUTER JOIN (SELECT PT.POST_NO, LISTAGG(TAG_NAME, ',') WITHIN GROUP(ORDER BY T.TAG_NO) AS TAGS
+                             FROM POST_TAG PT INNER JOIN TAG T
+							                        ON PT.TAG_NO = T.TAG_NO
+							                        	GROUP BY PT.POST_NO) N
+                        ON P.POST_NO = N.POST_NO
+		
+		
+		WHERE P.POST_NO = #{postNo}
+		ORDER BY P.REGISTER_DATE DESC
+	</select>
+	
+	
+	
+	
+	
 </mapper>

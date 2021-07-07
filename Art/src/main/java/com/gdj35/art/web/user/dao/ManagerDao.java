@@ -25,15 +25,45 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.selectOne("Manager.getTCnt",params);
 	}
 	
-		@Override
-	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectList("Manager.getPostList", params);
-	}
 
 	@Override
 	public List<HashMap<String, String>> getGList() throws Throwable {
 		return sqlSession.selectList("Manager.getGList");
 	
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Manager.getPostList", params);
+	}
+	
+	@Override
+	public HashMap<String, String> getUserDetail(HashMap<String, String> params) throws Throwable {		
+		return sqlSession.selectOne("Manager.getUserDetail", params);
 	}
 
 	

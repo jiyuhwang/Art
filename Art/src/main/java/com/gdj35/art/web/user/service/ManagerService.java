@@ -25,15 +25,22 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getTCnt(params);
 	}
 	
-	@Override
-	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable{
-		return iManagerDao.getPostList(params);
-	}
 
 	@Override
 	public List<HashMap<String, String>> getGList() throws Throwable {
 		// TODO Auto-generated method stub
 		return iManagerDao.getGList();
+	}
+
+	
+	@Override
+	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable{
+		return iManagerDao.getPostList(params);
+	}
+	
+	@Override
+	public HashMap<String, String> getUserDetail(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.getUserDetail(params);
 	}
 	
 }
