@@ -42,6 +42,8 @@ public class ManagerService implements IManagerService {
 	@Override
 	public HashMap<String, String> getUserDetail(HashMap<String, String> params) throws Throwable {
 		return iManagerDao.getUserDetail(params);
+		
+	}
 
 	@Override
 	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable {
