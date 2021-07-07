@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Post"><!-- namespace - 클래스명과 동일 -->
+	<!-- id - 메소드명과 동일 -->
+	<!-- resultType : row 1줄의 형태를 지정 -->
+	<!-- 쿼리 작성 시 ;이 들어가면 실행되지 않음 -->
+	
+	<insert id="addPost" parameterType="hashmap">
+		INSERT INTO POST(POST_NO, USER_NO, CATEGORY_NO, TITLE, EXPLAIN, POST_FILE, VISIBILITY, REGISTER_DATE)
+		VALUES(#{postNo}, #{userNo}, #{category}, #{title}, #{explain}, #{postFile2}, #{public_privacy}, SYSDATE)
+	</insert>
+	
+	<select id="getNum" resultType="Integer">
+     	SELECT POST_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<select id="getTag" parameterType="hashmap" resultType="hashmap">
+     	SELECT TAG_NO
+		FROM TAG
+		WHERE TAG_NAME = #{tag}
+	</select>
+	
+	<insert id="addTag" parameterType="hashmap">
+		INSERT INTO TAG(TAG_NO, TAG_NAME)
+		VALUES(TAG_SEQ.NEXTVAL, #{tagArt[i]})
+	</insert>
+	
+	<insert id="addMiddleTag" parameterType="hashmap">
+		INSERT INTO POST_TAG(POST_NO, TAG_NO)
+		VALUES(#{postNo}, #{TagNo})
+	</insert>
+	
+
+
+</mapper>

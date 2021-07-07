@@ -32,6 +32,7 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getGList();
 	}
 
+
 	
 	@Override
 	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable{
@@ -41,6 +42,12 @@ public class ManagerService implements IManagerService {
 	@Override
 	public HashMap<String, String> getUserDetail(HashMap<String, String> params) throws Throwable {
 		return iManagerDao.getUserDetail(params);
+
+	@Override
+	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getUser(params);
+
 	}
 	
 }

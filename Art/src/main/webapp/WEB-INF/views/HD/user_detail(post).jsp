@@ -63,8 +63,8 @@
 	
 	<div class ="middleSection">
 		<div class = "brick"></div>
-		<button class ="insideMiddle1" id="insideMiddle1">작품</button>
-		<button class ="insideMiddle2" id="insideMiddle2">메모</button>
+		<input type="button" class ="insideMiddle1" id="insideMiddle1" value="작품">
+		<input type="button" class ="insideMiddle2" id="insideMiddle2" value="메모">
 		<div class = "underLine"></div>
 	</div>
 	<div class ="boxForB">
@@ -77,15 +77,15 @@
 					<option>저거</option>
 				</select>
 				<input type="text" placeholder="검색어를 입력하세요" style="font-size:10pt;">
-				<button>검색</button>
+				<input type="button" value="검색" class="btnDP">
 				<div class = "blank2"></div>
-				<button>등록</button>
-				<button>수정</button>
-				<a herf ="http://localhost:8090/TestWeb/HTML/cssproject.html/remove.html"></a><button>삭제</button></a>
+				<input type="button" value="수정" class="btnDP">
+				<input type="button" value="삭제" class="btnDP">
 			</div>
 		</div>
-		<div class ="boxForBoard">
+<div class ="boxForBoard">
 		<table>
+		<thead>
 			<tr>
 				<th>
 				<input class = "check" type="checkbox" id="ex_chk"> 
@@ -98,6 +98,8 @@
 				<th> 신고</th>
 				<th> 설명</th>
 			</tr>
+		</thead>
+		<tbody>
 			<tr>
 				<td>
 				<input class = "check" type="checkbox" id="ex_chk"> 
@@ -218,6 +220,7 @@
 				<td> 신고</td>
 				<td> 설명</td>
 			</tr>
+		</tbody>
 		</table>
 		</div>
 	</div>

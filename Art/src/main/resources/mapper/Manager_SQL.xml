@@ -12,7 +12,7 @@
 		        TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE),BIRTHDAY) / 12) as old
 		        FROM USERS
 		        WHERE 1=1)
-		WHERE RNUM BETWEEN 1 AND ${endCnt}
+		WHERE RNUM BETWEEN ${startCnt} AND ${endCnt}
 	</select>
 
 	<select id="getTCnt" resultType="Integer" parameterType="hashmap">
@@ -21,7 +21,13 @@
 		WHERE 1=1
 	</select>
 	
-	
+	<select id="getUser" resultType="hashmap" parameterType="hashmap">
+		SELECT NAME, CASE WHEN SEX=0 THEN '남' ELSE '여' END AS SEX
+		        ,USER_NO, BIRTHDAY, PHONE_NO,MAIL,INTRODUCE
+				FROM(SELECT NAME, SEX, USER_NO, BIRTHDAY, PHONE_NO, MAIL,INTRODUCE
+					    FROM USERS
+					    WHERE USER_NO=${userNo})
+	</select>
 	
 	
 	

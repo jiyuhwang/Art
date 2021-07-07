@@ -1,6 +1,7 @@
 package com.gdj35.art.web.user.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -165,5 +166,40 @@ public class MyGallaryController {
 		}
 
 		return mav;
+	}
+	
+	@RequestMapping(value = "/writes",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String writes(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		int num = iMyGallaryService.getNum();
+		
+		params.put("postNo", Integer.toString(num));
+		
+		System.out.println(params.get("tag"));
+		
+				
+		try {
+			int cnt = iMyGallaryService.addPost(params);
+			
+			System.out.println(params);
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
 	}
 }

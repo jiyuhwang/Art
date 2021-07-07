@@ -120,7 +120,7 @@ ul.join_box{
 	background-color: #ffad33;
 	color: #fff;
 	display: inline-block;
-	border: none;
+	border: none;	
 	float: left;
 }
 </style>
@@ -161,6 +161,10 @@ $(document).ready(function() {
 	
 	$("#btnOk").on("click", function() {
 			$("#agreeForm").submit();
+		
+	});
+	$("#btnNo").on("click", function() {
+			location.href="login";
 		
 	});
 });

@@ -354,6 +354,15 @@ public class MemberController {
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "/NewFile")
+	public ModelAndView NewFile(ModelAndView mav) {
+
+		mav.setViewName("JY/NewFile");
+
+		
+		return mav;
+	}
 
 	@RequestMapping(value = "/profiles", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -412,16 +421,14 @@ public class MemberController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		/*
-		 * session.setAttribute("sUserPw", params.get("userPw"));
-		 * session.setAttribute("sUserName", params.get("userName"));
-		 * session.setAttribute("sUserSex", params.get("gender"));
-		 * session.setAttribute("sUserBirth", params.get("birthYear") + '-' +
-		 * params.get("birthMonth") + '-' + params.get("birthDay"));
-		 * session.setAttribute("sUserPhone", params.get("userPhone"));
-		 * session.setAttribute("sUserMail", params.get("userMail"));
-		 * session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
-		 */
+		
+		session.setAttribute("sUserPw", params.get("userPw"));
+		session.setAttribute("sUserName", params.get("userName"));
+		session.setAttribute("sUserSex", params.get("gender"));
+		session.setAttribute("sUserPhone", params.get("userPhone"));
+		session.setAttribute("sUserMail", params.get("userMail"));
+		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
+		
 
 		try {
 			int cnt = iMemberService.updateSet(params);
@@ -478,7 +485,6 @@ public class MemberController {
 
 	@RequestMapping(value = "/findId")
 	public ModelAndView findId(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
-
 
 		mav.setViewName("YM/findId");
 		return mav;
