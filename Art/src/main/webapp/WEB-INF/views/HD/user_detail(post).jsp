@@ -71,19 +71,19 @@
 		<div class ="topOfBox">
 			<div class ="topBar"></div>
 			<div class ="searchBox">
-				<select>
-					<option>선택없음</option>
-					<option>이거</option>
-					<option>저거</option>
+				<select id="searchGbn">
+					<option value="0">선택없음</option>
+					<option value="1">제목</option>
+					<option value="2">태그</option>
 				</select>
-				<input type="text" placeholder="검색어를 입력하세요" style="font-size:10pt;">
-				<input type="button" value="검색" class="btnDP">
+				<input type="text" placeholder="검색어를 입력하세요" style="font-size:10pt;" class="searchTxt">
+				<input type="button" value="검색" class="btnDP" id="searchBtn">
 				<div class = "blank2"></div>
-				<input type="button" value="수정" class="btnDP">
-				<input type="button" value="삭제" class="btnDP">
+				<input type="button" value="수정" class="btnDP" id="updateBtn">
+				<input type="button" value="삭제" class="btnDP" id="deleteBtn">
 			</div>
 		</div>
-<div class ="boxForBoard">
+		<div class ="boxForBoard">
 		<table>
 		<thead>
 			<tr>

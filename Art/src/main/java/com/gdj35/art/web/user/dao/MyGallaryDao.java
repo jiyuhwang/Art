@@ -13,6 +13,8 @@ public class MyGallaryDao implements IMyGallaryDao{
 
 	@Override
 	public int addPost(HashMap<String, String> params) throws Throwable {
+		
+		
 		return sqlSession.insert("Post.addPost", params);
 	}
 }

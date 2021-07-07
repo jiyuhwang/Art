@@ -111,6 +111,9 @@ public class ManagerController {
 		HashMap<String,String> user
 		=iManagerService.getUser(params);
 		
+		/*
+		 * List<HashMap<String,String>> list = iManagerService.getPostList();
+		 */
 		
 		modelMap.put("user", user);
 		
