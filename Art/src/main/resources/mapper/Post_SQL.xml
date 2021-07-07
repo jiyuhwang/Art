@@ -7,7 +7,27 @@
 	
 	<insert id="addPost" parameterType="hashmap">
 		INSERT INTO POST(POST_NO, USER_NO, CATEGORY_NO, TITLE, EXPLAIN, POST_FILE, VISIBILITY, REGISTER_DATE)
-		VALUES(POST_SEQ.NEXTVAL, #{userNo}, #{category}, #{title}, #{explain}, #{postFile2}, #{public_privacy}, SYSDATE)
+		VALUES(#{postNo}, #{userNo}, #{category}, #{title}, #{explain}, #{postFile2}, #{public_privacy}, SYSDATE)
+	</insert>
+	
+	<select id="getNum" resultType="Integer">
+     	SELECT POST_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<select id="getTag" parameterType="hashmap" resultType="hashmap">
+     	SELECT TAG_NO
+		FROM TAG
+		WHERE TAG_NAME = #{tag}
+	</select>
+	
+	<insert id="addTag" parameterType="hashmap">
+		INSERT INTO TAG(TAG_NO, TAG_NAME)
+		VALUES(TAG_SEQ.NEXTVAL, #{tagArt[i]})
+	</insert>
+	
+	<insert id="addMiddleTag" parameterType="hashmap">
+		INSERT INTO POST_TAG(POST_NO, TAG_NO)
+		VALUES(#{postNo}, #{TagNo})
 	</insert>
 	
 

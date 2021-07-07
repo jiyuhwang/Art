@@ -6,4 +6,7 @@ public interface IMyGallaryService {
 
 	public int addPost(HashMap<String, String> params) throws Throwable;
 
+	public int getNum() throws Throwable;
+
+
 }

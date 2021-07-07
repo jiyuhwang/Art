@@ -7,12 +7,60 @@
 <meta charset="UTF-8">
 <title>writing</title>
 <link rel="stylesheet" href="resources/css/JY/writing.css">
+
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
+function enterValue(){
+		
+		var tagSpan = document.createElement('span');
+		var x = document.createElement('span');	
+		var xMark = 'x';
+		var result = document.getElementById('tag');
+		var input = document.getElementById('tagId');
+		tagSpan.className='badge';
+		x.setAttribute( 'onclick', 'removeTag()' );
+		x.className='xClass';
+
+				
+		var content =  document.getElementById('tagId');
+		var string = content.value;
+		var string2 = string.trim();
+		var string3 = string2.replace("," , "");
+		
+		
+		
+		if(string3 !== ""){
+			tagSpan.append(string3);  
+			x.append(xMark);
+			tagSpan.append(x);
+			result.append(tagSpan);  			
+			input.value = null;		
+		}else if(string3 == string){}
+
+	}
+	
+	function removeTag(){
+		var listSpan = document.getElementById("tag");
+		listSpan.removeChild(listSpan.childNodes[0]);
+	}
+
+
+
+
+
 $(document).ready(function() {
+		
+	
+	$("#btnCancel").on("click", function () {
+		var Text = $( '.badge' ).text();
+		var Tag = Text.split('x');
+		$('#tag2').val(Tag);
+		console.log($('#tag2').val());
+	});
+	
 	CKEDITOR.replace("contentsIn", {
 		resize_enabled : false,
 		language : "ko",
@@ -32,6 +80,11 @@ $(document).ready(function() {
 		
 		$("#contentsIn").val(CKEDITOR.instances['contentsIn'].getData());
 
+		var Text = $( '.badge' ).text();
+		var Tag = Text.split('x');
+		$('#tag2').val(Tag);
+		console.log($('#tag2').val());
+		
 		if($("#uploadFile").attr("src") == "") {
 			alert("작품을 올려주세요");
 			return false;// ajaxForm 실행 불가
@@ -46,6 +99,8 @@ $(document).ready(function() {
 			$("#contentsIn").focus();
 			return false;
 		} else {
+			
+
 			
 			var params= $("#writeForm").serialize();
 			
@@ -112,6 +167,7 @@ $(document).ready(function() {
 		<input type="file" name="postFile" id="postFile" />
 </form>
 <form action="#" id="writeForm" method="post">
+<input type="hidden" id="tag2" name="tag" value="">
 	<c:choose>
 		<c:when test="${empty sUserNo}">
 			<c:import url="header2.jsp"></c:import>
@@ -139,7 +195,10 @@ $(document).ready(function() {
 		<div class="title_input_w"><input name="title" id="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
 		<div class="contents_in_w"><textarea id="contentsIn" name="explain" cols="80" rows="10" placeholder="작품을 뽐내주세요."></textarea></div>
 
-		<div class="tag_input_w"><input id="tagInput" type="text" name="tag" placeholder="태그를 입력해주세요.(예 : #구름)"></div>
+		<div class="tag_input_w">
+			<input id="tagId" type="text" placeholder="태그 입력 후 스페이스나 엔터를 눌러주세요."  onkeyup="if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}"/>
+			<div id="tag" class="tagsinput"></div>
+		</div>
 		<div class="secret">공개 설정</div>
 		<div class="public_privacy">
 			<input name="public_privacy" value="0" type="radio" checked="checked" /><label id="public">공개</label>
