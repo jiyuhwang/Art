@@ -14,6 +14,16 @@ public class MyGallaryService implements IMyGallaryService{
 
 	@Override
 	public int addPost(HashMap<String, String> params) throws Throwable {
+		
 		return iMyGallaryDao.addPost(params);
 	}
+
+	@Override
+	public int getNum() throws Throwable {
+		return iMyGallaryDao.getNum();
+	}
+	
+
+
+	
 }

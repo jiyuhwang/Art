@@ -1,6 +1,7 @@
 package com.gdj35.art.web.user.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -177,8 +178,17 @@ public class MyGallaryController {
 		
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
+		int num = iMyGallaryService.getNum();
+		
+		params.put("postNo", Integer.toString(num));
+		
+		System.out.println(params.get("tag"));
+		
+				
 		try {
 			int cnt = iMyGallaryService.addPost(params);
+			
+			System.out.println(params);
 			if (cnt > 0) {
 				modelMap.put("msg", "success");
 			} else {

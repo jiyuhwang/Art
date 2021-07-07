@@ -32,18 +32,21 @@ $(document).ready(function(){
 	//사이드바 해당 메뉴 고정시키기
 	$(".gallary").attr("id", "active");
 	
+	//메뉴탭 고정시키기
+	$(".menu_tab_wrap div:first-child").attr("class", "tab_selected");
+	
 	
 	//상세보기
 	$("tbody").on("click", "tr", function(){
-		$("#postNo").value($(this).attr("name"));
+		$("#postNo").val($(this).attr("pno"));
 		confirm("상세페이지로 이동합니다.");
+		$("#actionForm").attr("action", "detailPopup");
+		$("#actionForm").submit();
 	});
 	
 	//검색시
 	$("#searchBtn").on("click", function(){
 		$("#searchOldTxt").val($("#searchTxt").val());
-		console.log($("#startFlag").val());
-		console.log($("#endFlag").val());
 		loadPostList();
 	});
 	
@@ -145,6 +148,27 @@ $(document).ready(function(){
 		});
 	}
 	
+	function loadDetail(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "detailPopup",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(result){
+				
+				drawData(result.data);
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
+	
+	
+	
+	
 	//-------------------------------------------------------목록그리기
 	function drawList(list){
 		var html = "";
@@ -153,7 +177,7 @@ $(document).ready(function(){
 	
 		for(var d of list){
 			++no;
-			html +="<tr name=\"" + d.POST_NO + "\">";
+			html +="<tr pno=\"" + d.POST_NO + "\" id=\"#tableTr\">";
 			html +="<td><input type=\"checkbox\"></td>";
 			html +="<td>" + no + "</td>";
 			html +="<td>" + d.POST_NO + "</td>";
@@ -169,7 +193,55 @@ $(document).ready(function(){
 		
 		$("tbody").html(html);
 	}
-
+	
+	//-------------------------------------------------------상세보기그리기
+	function drawData(data){
+		var html = "";
+		
+		
+		for(var d of data){
+			html +="<div class=\"wrap\">";
+			html +="<div class=\"contents_wrap\">";
+			html +="<img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" width=\"700px\" height=\"500px\">";
+			html +="</div>";
+			html +="<div class=\"category\">"+ d.CATEGORY_NAME +"</div>";
+			html +="<div class=\"title\">"+ d.TITLE +"</div>";
+			html +="<div class=\"contents_date\">"+ d.REGISTER_DATE +"</div>";
+			html +="<br/>";
+			html +="<br/>";
+			html +="<div class=\"contents\">"+ d.EXPLAIN +"</div>";
+			html +="<div class=\"tag_wrap\">";
+			
+			
+			if(d.TAGS != null){
+				var tags = d.TAGS;
+				var tagSplit = tags.split(",");
+					
+				for(var i=0; i<tagSplit.lenth; i++){
+					html +="<i class=\"tag\">#"+ tagSplit[i] +"</i>";
+				}
+				
+			}
+			
+			
+			
+			html +="<div class=\"comment_wrap1\">";
+			html +="<img class=\"comment_img\" src=\"resources/images/JY/comment.png\" width=\"30px\" height=\"30px\">";
+			html +="<div class=\"comment\">댓글</div>";
+			html +="</div>";
+			html +="</div><br/>";
+			html +="<div class=\"profile2_wrap\">";
+			html +="<div class=\"profile2\">";
+			html +="<img class=\"profile_img2\" src=\"resources/images/JY/짱구1.jpg\" alt=\"짱구1\" width=\"40px\" height=\"40px\">";
+			html +=${data.PROFILE_IMG_PATH} +"</div>";
+			html +="<div class=\"profile_name2\">"+ d.USER_NICKNAME +"</div>";
+			html +="<div class=\"profile_introduce\">"+ d.INTRODUCE +"</div>";
+			html +="</div>                                                                                              ";
+			html +="</div>                                                                                              ";
+		}
+		
+		$("tbody").html(html);
+	}
 	
 	
 	
@@ -217,7 +289,7 @@ $(document).ready(function(){
 		</div>
 <!-----------------------------------------------데이터 전송  -->
 <form action="#" id="actionForm" method="post" >
-	<input type="hidden" id="postNo" name="pmo"/>
+	<input type="hidden" id="postNo" name="postNo"/>
 	<input type="hidden" id="start"/>
 	<input type="hidden"/>
 	

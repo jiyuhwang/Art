@@ -141,7 +141,19 @@ public class ManagerController {
 		return mav;
 	}
 	
-	//현이꺼
+	
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	//----------------------------------------------현
+	//회원관리
 	@RequestMapping(value="/gallaryManage")
 	public ModelAndView gallaryManage(ModelAndView mav) {
 		
@@ -149,7 +161,8 @@ public class ManagerController {
 		return mav;
 	}
 	
-	//현이꺼
+
+	//회원관리 전체 게시글 보기
 	@RequestMapping(value="/entire",
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
@@ -169,7 +182,30 @@ public class ManagerController {
 	
 	
 	
-	//현이꺼
+	
+	
+	
+	//회원관리 테이블 클릭시 해당 게시글로 이동
+	@RequestMapping(value= {"/detailPopup"})
+	public ModelAndView detailPopup(
+		@RequestParam HashMap<String, String> params,
+		ModelAndView mav) throws Throwable {
+		if(params.get("postNo") != null) {
+			HashMap<String, String> data = iManagerService.getUserDetail(params);
+						
+			mav.addObject("data", data);
+			mav.setViewName("h/detailPopup");
+			
+		} else {
+			mav.setViewName("redirect:entire");
+		}
+
+		return mav;
+	}
+	
+	
+	
+	//신고관리 페이지
 	@RequestMapping(value="/reportManage")
 	public ModelAndView reportManage(ModelAndView mav) {
 		

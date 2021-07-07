@@ -6,4 +6,7 @@ public interface IMyGallaryDao {
 
 	public int addPost(HashMap<String, String> params) throws Throwable;
 
+	public int getNum() throws Throwable;
+
+
 }

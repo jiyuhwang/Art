@@ -354,6 +354,15 @@ public class MemberController {
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "/NewFile")
+	public ModelAndView NewFile(ModelAndView mav) {
+
+		mav.setViewName("JY/NewFile");
+
+		
+		return mav;
+	}
 
 	@RequestMapping(value = "/profiles", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
