@@ -142,7 +142,6 @@ input[type=checkbox] {
 	position: absolute;
 	left : 0;
 	top : 0;
-	display: none;
 }
 .main{
 	width : 400px;
@@ -154,7 +153,6 @@ input[type=checkbox] {
 	margin-left : -180px;
 	margin-top : -190px;
 	font-size: 15pt;
-	display: none;
 }
 .topBlank{
 	height: 90px;
@@ -179,7 +177,7 @@ input[type=checkbox] {
 	font-size: 15pt;
 	font-weight: bold;
 	text-align: center;
-	margin-bottom: 70px;
+	margin-bottom: 20px;
 }
 
 .main button{
@@ -190,6 +188,7 @@ input[type=checkbox] {
 	font-weight: bold;
 	cursor: pointer;
 	border: none;
+	margin-top: 20px;
 }
 .main button:hover{
 	background-color: #ffad33;

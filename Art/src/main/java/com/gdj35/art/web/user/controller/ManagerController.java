@@ -60,52 +60,71 @@ public class ManagerController {
 	public ModelAndView user_board(ModelAndView mav,
 									@RequestParam HashMap<String,String> params) throws Throwable {
 		 
-		System.out.println(params);
 		int page=1;
-		System.out.println(params.get("page"));
 		
 		
 		 if(params.get("page") != null) { 
 			 page= Integer.parseInt(params.get("page"));
 		  }
 		 
-		System.out.println(page);
 		//Total count를 가져온다 T
 		int cnt = iManagerService.getTCnt(params);
-		System.out.println("===> cnt " + cnt);
 		
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 13, 10);
-		
-		System.out.println(pb.getEndPcount());
-		
-		if(pb.getEndPcount() ==page) {
-			page = page -1;
-		}
-		
-		int endP = pb.getEndPcount();
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
 		
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		
-		System.out.println(params);
 		
 		//Main list를 가져온다. 그래서 M으로 지정
 		List<HashMap<String,String>> list = 
 					iManagerService.getMList(params);
 		
+		/*
+		 * HashMap<String,String> user =iManagerService.getUser(params);
+		 */
 		
 		System.out.println(list);
-		System.out.println(page);
+		System.out.println(params);
+		/* mav.addObject("user", user); */
+		mav.addObject("cnt", cnt);
+		mav.addObject("pb", pb);
 		mav.addObject("page", page);
-		mav.addObject("endP", endP);
 		mav.addObject("list", list);
 		mav.addObject("now", "member");
 		mav.setViewName("HD/user_board");
 		return mav;
 	}
 	
-	@RequestMapping(value="/gong_board")
-	public ModelAndView gong_board(ModelAndView mav) {
+	
+	@RequestMapping(value = "/user_datailP",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String user_datailP(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
 		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println(params);
+		// 목록취득
+		HashMap<String,String> user
+		=iManagerService.getUser(params);
+		
+		
+		modelMap.put("user", user);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	@RequestMapping(value="/gong_board")
+	public ModelAndView gong_board(ModelAndView mav) throws Throwable {
+		/*
+		 * List<HashMap<String,String>> list = iManagerService.getGList();
+		 * 
+		 * mav.addObject("list", list);
+		 */
 		mav.addObject("now", "gong");
 		mav.setViewName("HD/gong_board");
 		return mav;
@@ -119,24 +138,7 @@ public class ManagerController {
 		return mav;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//현이꺼
 	@RequestMapping(value="/gallaryManage")
 	public ModelAndView gallaryManage(ModelAndView mav) {
 		
@@ -144,7 +146,7 @@ public class ManagerController {
 		return mav;
 	}
 	
-	
+	//현이꺼
 	@RequestMapping(value="/entire",
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
@@ -156,7 +158,7 @@ public class ManagerController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		//목록취득
-		List<HashMap<String, String>> list = iManagerService.PList(params);
+		List<HashMap<String, String>> list = iManagerService.getPostList(params);
 		
 		modelMap.put("list", list);
 		return mapper.writeValueAsString(modelMap);
@@ -164,7 +166,7 @@ public class ManagerController {
 	
 	
 	
-	
+	//현이꺼
 	@RequestMapping(value="/reportManage")
 	public ModelAndView reportManage(ModelAndView mav) {
 		

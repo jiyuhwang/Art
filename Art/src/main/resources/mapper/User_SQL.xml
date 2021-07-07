@@ -50,5 +50,26 @@
 		UPDATE USERS SET OUT_DATE = SYSDATE
 		WHERE USER_NO = #{userNo}
 	</update>
+	
+	<select id="idFind" parameterType="hashmap" resultType="hashmap">
+		SELECT USER_NO, USER_ID, USER_NICKNAME, PW
+		FROM USERS
+		WHERE NAME = #{userName}
+		AND MAIL = #{userMail}
+		AND OUT_DATE IS NULL
+	</select>
+	
+	<select id="pwFind" parameterType="hashmap" resultType="hashmap">
+		SELECT USER_NO, USER_ID, USER_NICKNAME, PW
+		FROM USERS
+		WHERE USER_ID = #{userId}
+		AND MAIL = #{userMail}
+		AND OUT_DATE IS NULL
+	</select>
+	
+	<update id="updatePw" parameterType="hashmap">
+		UPDATE USERS SET PW = #{pw}
+		WHERE USER_ID = #{userId}
+	</update>
 
 </mapper>

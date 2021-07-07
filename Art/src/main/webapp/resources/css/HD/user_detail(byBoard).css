@@ -173,13 +173,14 @@
 	vertical-align: top;
 	text-align: center;
 }
-.Pmain button{
+.Pmain .insideMiddle1,.insideMiddle2{
 	width : 80px;
 	height : 100%;
 	border-radius: 3px;
 	z-index: 1;
 	position: relative;
 	border: none;
+	
 }
 .Pmain .insideMiddle1{
 	box-shadow: 4px 4px 5px grey;
@@ -187,6 +188,8 @@
 	position: relative;
 	background-color: #0C4A60;
 	color: white;
+	width:80px;
+	height: 50px;
 }
 .Pmain .insideMiddle2:hover{
 	box-shadow: 4px 4px 5px grey;
@@ -212,6 +215,7 @@
 	border-bottom: 1px solid black;
 	display: inline-block;
 	vertical-align: top;
+	margin-top: 40px;
 }
 .Pmain .boxForB{
 	width : 100%;
@@ -262,9 +266,13 @@
 .Pmain .blank2{
 	display: inline-block;
 	vertical-align: top;
-	width : 300px;
+	width : 375px;
 	height : 100%;
 	background-color: rgba;
+}
+.Pmain .btnDP{
+	width: 50px;
+	height: 30px;
 }
 .Pmain table{
 	width:800px;

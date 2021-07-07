@@ -32,6 +32,7 @@ $(document).ready(function() {
 				
 		var userNickname= $("#nickname").serialize();
 		
+		
 		$.ajax({
 			url : "nicknameCheck",
 			type : "post",
@@ -43,7 +44,7 @@ $(document).ready(function() {
 				} else if(res.msg == "none") {
 					alert("사용가능한 닉네임입니다.");
 				} else {
-					alert("작성 중 문제가 발생하였습니다.")
+					alert("수정 중 문제가 발생하였습니다.")
 				}
 			},
 			error: function(request, status, error) { // 실패 시 다음 함수 실행
@@ -57,62 +58,6 @@ $(document).ready(function() {
 		$("#profileImg2").click();
 	});
 	
-	$("#btnSave").on("click", function() {
-		
-		var fileForm = $("#fileForm");
-		
-
-		fileForm.ajaxForm({
-			beforeSubmit : function() {
-			
-			if($.trim($("#nickname").val()) == "") {
-				alert("닉네임을 입력해주세요.");
-				$("#nickname").focus();
-				return false; // ajaxForm 실행 불가
-			} if($("#profileEditImg").attr("src") == "resources/images/JY/who.png") {
-				$('#profileImg').val("");
-			}
-		},
-		success : function(res) {
-			if(res.result = "SUCCESS") {
-				 // 올라간 파일명 저장
-				 if(res.fileName.length > 0) {
-					 $("#profileImg").val(res.fileName[0]);
-				 }
-	
-					 var params= $("#profileForm").serialize();
-					
-					$.ajax({
-						url: "profiles", // 접속 주소
-						type: "post", // 전송 방식: get, post
-						dataType: "json", // 받아올 데이터 형태
-						data: params, // 보낼 데이터(문자열 형태)
-						success: function(res) { // 성공 시 다음 함수 실행
-						    if(res.msg == "success") {
-						    	alert("회원정보 수정이 완료되었습니다.");
-								$("#profileForm").attr("action", "profile");
-								$("#profileForm").submit();
-							} else if(res.msg == "failed") {
-								alert("수정에 실패하였습니다.")
-							} else {
-								alert("수정 중 문제가 발생하였습니다.")
-							}
-						},
-						error: function(request, status, error) { // 실패 시 다음 함수 실행
-							console.log(error);
-							}
-						});
-				} else {
-					alert("파일업로드 중 문제 발생");
-				}
-			},
-			error : function() {
-				alert("파일업로드 중 문제 발생");
-			} 
-		}); // ajaxForm End
-
-		fileForm.submit();
-	});	// btnSave click End
 	
 
 	$("#profileImg2").on("change", function() {
@@ -133,8 +78,7 @@ $(document).ready(function() {
 					 }
 					  
 					$("#profileEditImg").attr("src", "resources/upload/" + $('#profileImg').val());
-		 
-					
+	
 					} else {
 						alert("파일업로드 중 문제 발생");
 					}
@@ -146,7 +90,45 @@ $(document).ready(function() {
 	
 			fileForm.submit();
 		});	// btnProfileUpload click End
+		
+
+		
+	$("#btnSave").on("click", function(){
+		if($.trim($("#nickname").val()) == "") {
+			alert("닉네임을 입력해주세요.");
+			$("#nickname").focus();
+			return false; // ajaxForm 실행 불가
+		} else if($("#profileEditImg").attr("src") == "resources/images/JY/who.png") {
+			$('#profileImg').val("");
+			return false;
+		} else {
 			
+			var params= $("#profileForm").serialize();
+			
+			$.ajax({
+				url: "profiles", // 접속 주소
+				type: "post", // 전송 방식: get, post
+				dataType: "json", // 받아올 데이터 형태
+				data: params, // 보낼 데이터(문자열 형태)
+				success: function(res) { // 성공 시 다음 함수 실행
+				    if(res.msg == "success") {
+				    	alert("회원정보 수정이 완료되었습니다.");
+						$("#profileForm").attr("action", "profile");
+						$("#profileForm").submit();
+					} else if(res.msg == "failed") {
+						alert("수정에 실패하였습니다.");
+					} else {
+						alert("닉네임이 존재합니다. 다른 닉네임을 입력해주세요.");
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+	  	}
+	    
+	});
+				
 	
 }); // document ready End
 </script>

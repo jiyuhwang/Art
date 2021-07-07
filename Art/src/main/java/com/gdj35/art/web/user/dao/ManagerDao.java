@@ -26,10 +26,21 @@ public class ManagerDao implements IManagerDao {
 	}
 	
 		@Override
-	public List<HashMap<String, String>> PList(HashMap<String, String> params) throws Throwable {
-		
-		return sqlSession.selectList("Admin.PList", params);
+	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Manager.getPostList", params);
 	}
+
+	@Override
+	public List<HashMap<String, String>> getGList() throws Throwable {
+		return sqlSession.selectList("Manager.getGList");
 	
+	}
+
+	@Override
+	public HashMap<String, String> getUser(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Manager.getUser",params);
+	}
+
 	
 }

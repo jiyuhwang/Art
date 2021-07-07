@@ -52,4 +52,19 @@ public class MemberService implements IMemberService{
 		return iMemberDao.outUser(params);
 	}
 
+	@Override
+	public HashMap<String, String> idFind(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.idFind(params);
+	}
+
+	@Override
+	public HashMap<String, String> pwFind(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.pwFind(params);
+	}
+
+	@Override
+	public int updatePw(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.updatePw(params);
+	}
+
 }

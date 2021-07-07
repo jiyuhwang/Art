@@ -91,7 +91,7 @@ a {
 <form action="#" id="loginForm">
 	<div class = "wrap">
 	     <div class="login"><h1>Art 로그인</h1></div>
-	         <input type="text" placeholder="아이디" id="userId" name="userId">
+	         <input type="text" placeholder="아이디" id="userId" name="userId" value="${param.id}">
 	   <br><br>            
 		     <input type="password" placeholder="비밀번호" id="userPw" name="userPw">
 	   <br><br>
@@ -100,8 +100,8 @@ a {
 	         <input type="button" id="btnLogin" value="로그인하기">
 	   <br><br>
 			<a href="agree">회원가입</a> |
-			<a href="#">아이디찾기</a> |
-			<a href="#">비밀번호 찾기 </a>                   
+			<a href="idfind">아이디찾기</a> |
+			<a href="passwordfind">비밀번호 찾기 </a>                   
 	</div>
 </form>
 </body>

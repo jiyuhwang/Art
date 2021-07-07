@@ -38,7 +38,7 @@ $(document).ready(function() {
 	$("#emailSend").on("click", function(){
 	    
 	    alert("이메일 인증번호가 전송되었습니다.");
-	    $("#mailCheckInput").val(""); 
+	    $("#email3").val(""); 
 	});
 	
 	$("#emailCheck").on("click", function(){

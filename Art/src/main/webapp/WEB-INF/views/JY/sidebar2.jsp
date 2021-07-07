@@ -42,11 +42,11 @@
 		<input type="button" id="btnStart" value="Art 시작하기">
 		<div class="side_bar_menu">
 			<div class="side_bar_menu1">
-				<a href="main.html">Art 홈</a>
+				<a href="main">Art 홈</a>
 			</div>
 			<br />
 			<div class="side_bar_menu2">
-				<a href="gallary.html">작품 보러가기</a>
+				<a href="gallary">작품 보러가기</a>
 			</div>
 		</div>
 		<div class="forget">
