@@ -14,15 +14,15 @@
      	SELECT POST_SEQ.NEXTVAL FROM DUAL
 	</select>
 	
-	<select id="getTag" parameterType="hashmap" resultType="hashmap">
+	<select id="getTag" parameterType="String" resultType="hashmap">
      	SELECT TAG_NO
 		FROM TAG
-		WHERE TAG_NAME = #{tag}
+		WHERE TAG_NAME = #{tagName}
 	</select>
 	
-	<insert id="addTag" parameterType="hashmap">
+	<insert id="addTag" parameterType="String">
 		INSERT INTO TAG(TAG_NO, TAG_NAME)
-		VALUES(TAG_SEQ.NEXTVAL, #{tagArt[i]})
+		VALUES(TAG_SEQ.NEXTVAL, #{tagName})
 	</insert>
 	
 	<insert id="addMiddleTag" parameterType="hashmap">
