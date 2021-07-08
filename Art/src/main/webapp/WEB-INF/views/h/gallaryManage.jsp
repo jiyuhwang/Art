@@ -232,8 +232,9 @@ $(document).ready(function(){
 				html +="	<div class=\"tag_wrap\">";
 
 				if(result.data.TAGS != null && result.data.TAGS != "") {
+					
+					var tagArry = [];
 					var tagSplit = (result.data.TAGS).split(",");
-					String tagArry = [];
 					tagArry += tagSplit;
 					
 					for(var t of tagArry){
