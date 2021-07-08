@@ -39,10 +39,8 @@ $(document).ready(function(){
 	//---------------------------------------데이터 가져오기
 	loadPostList();
 	
-	//사이드바 해당 메뉴 고정시키기
+	//사이드바, 탭 고정시키기
 	$(".gallary").attr("id", "active");
-	
-	//메뉴탭 고정시키기
 	$(".menu_tab_wrap div:first-child").attr("class", "tab_selected");
 	
 	//menuTab클릭했을 때 
@@ -80,10 +78,9 @@ $(document).ready(function(){
 	
 	//검색시
 	$("#searchBtn").on("click", function(){
-		$("#page").val(1);
 		$("#searchOldTxt").val($("#searchTxt").val());
 		loadPostList();
-	});//예전 검색어 다시 확인하기 flag들 확인하기, 삭제제외 삭제포함 하기
+	});//예전 검색어 다시 확인하기 flag들 확인하기
 	
 	//전체체크하면 전체적으로 체크되게 하기
 	$("#checkAll").on("click", function(){
@@ -93,6 +90,28 @@ $(document).ready(function(){
 			$(".result_table input").prop("checked", false);
 		}
 	});
+	
+	//삭제포함,삭제제외 버튼 클릭시
+	$("#BtnWithDel").off("click");
+	$("#BtnWithDel").on("click", function(){
+		$("#delFlag").val("0");
+		console.log($("#delFlag").val("0"));
+		loadPostList();
+	});
+	
+	$("#BtnWithoutDel").off("click");
+	$("#BtnWithoutDel").on("click", function(){
+		$("#delFlag").val("1");
+		console.log($("#delFlag").val("1"));
+		loadPostList();
+	});
+	
+	$("#BtnWith").off("click");
+	$("#BtnWith").on("click", function(){
+		loadPostList();
+	});
+	
+	
 	
 	//하나라도 체크 풀면 전체체크박스 해제되기
 	$(".result_table").on("click", "[type='checkbox']", function(){
@@ -158,6 +177,27 @@ $(document).ready(function(){
 			success: function(result){
 				
 				drawList(result.list);
+				drawPaging(result.pb);
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
+	
+	
+	
+	function reloadPostList(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "withoutDelList",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(result){
+				
+				delList(result.list);
 				drawPaging(result.pb);
 				
 			}, error: function(request, status, error){
@@ -278,7 +318,7 @@ $(document).ready(function(){
 				});
 				
 				$(".background").off("click");
-				$(".wrap").on("click", function(){
+				$(".background").on("click", function(){
 					closePopup();
 				});
 				
@@ -381,8 +421,8 @@ $(document).ready(function(){
 <!-----------------------------------------------데이터 전송  -->
 <form action="#" id="actionForm" method="post" >
 	<input type="hidden" id="postNo" name="postNo"/>
-	<input type="hidden" id="start"/>
-	<input type="hidden"/>
+	<input type="hidden" id="delFlag" name="delFlag" value="" />
+	<input type="hidden"  value=""/>
 	
 		<div class ="search_flag_div">
 			<div class="search_flag">
@@ -410,8 +450,9 @@ $(document).ready(function(){
 						<span> ~ </span>
 						<input type="date" id="endFlag" name="endFlag" min="2021-01-01">
 						<input type="button" value="검색" id="searchBtn"/>
-						<input type="button" value="삭제제외" class="btn_notyet"/>
-						<input type="button" value="삭제포함" class="btn_notyet"/>
+						<input type="button" value="삭제된" id="BtnWithoutDel"/>
+						<input type="button" value="삭제안된" id="BtnWithDel"/>
+						<input type="button" value="삭제포함" id="BtnWith"/>
 				</div>
 			</div>
 		</div>
@@ -430,9 +471,9 @@ $(document).ready(function(){
 						<col width="3%"/>
 						<col width="4%"/>
 						<col width="10%"/>
-						<col width="34%"/>
+						<col width="24%"/>
 						<col width="8%"/>
-						<col width="10%"/>
+						<col width="20%"/>
 						<col width="10%"/>
 						<col width="4%"/>
 						<col width="4%"/>

@@ -62,9 +62,10 @@ public class ManagerDao implements IManagerDao {
 
 	@Override
 	public int getGallaryMCnt(HashMap<String, String> params) throws Throwable {
-
 		return sqlSession.selectOne("Manager.getGallaryMCnt", params);
 	}
+
+
 
 	
 }
