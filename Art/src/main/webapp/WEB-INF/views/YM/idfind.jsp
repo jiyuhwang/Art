@@ -147,7 +147,7 @@ $(document).ready(function() {
 	
 	$(".pwfind").on("click", function(){
 		    
-			location.href = "passwordfind";   
+		location.href = "passwordfind";   
 	});
 	
 	

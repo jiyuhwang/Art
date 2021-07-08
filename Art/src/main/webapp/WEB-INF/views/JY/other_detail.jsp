@@ -124,11 +124,11 @@ function heart() {
 			<span>--------------</span>
 			<div class="side_bar_menu1"><a href="mygallary">나의 작업실</a></div>
 			<br />
-			<div class="side_bar_menu2"><a href="gallary">작품 보러가기</a></div>
+			<div class="side_bar_menu2"><a href="picgallary">작품 보러가기</a></div>
 			<br />
 			<div class="side_bar_menu3"><a href="profile">개인정보 수정</a></div>
 			<br />
-			<div class="side_bar_menu4"><a href="#">공지사항</a></div>
+			<div class="side_bar_menu4"><a href="gongji">공지사항</a></div>
 		</div>
 		<input type="button" id="btnLogout" value="로그아웃">
 	</div>

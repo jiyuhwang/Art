@@ -199,7 +199,7 @@ $(document).ready(function() {
 			</div>
 			<br />
 			<div class="side_bar_menu2">
-				<a href="gallary">작품 보러가기</a>
+				<a href="picgallary">작품 보러가기</a>
 			</div>
 			<br />
 			<div class="side_bar_menu3">

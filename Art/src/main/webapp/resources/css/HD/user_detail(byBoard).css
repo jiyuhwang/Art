@@ -30,7 +30,7 @@
 }
 .Pmain .topBar{
 	width : 100%;
-	height : 25px;
+	heigth
 	background-color: rgba;
 }
 .Pmain .blank{
@@ -101,6 +101,7 @@
 	display: inline-block; 
 	vertical-align: top;
 	font-size: 30pt;
+	padding-top: 20px;
 }
 .Pmain .writeBoxI{
 	width : 600px;
@@ -114,7 +115,6 @@
 	/* font-size: 12px; */
 	text-align: center;
 	padding : 3px 0px;
-	margin-top: 40px;
 	border: none;
 }
 .Pmain .leftBox{
@@ -180,7 +180,7 @@
 	z-index: 1;
 	position: relative;
 	border: none;
-	
+	margin-top: 40px;
 }
 .Pmain .insideMiddle1{
 	box-shadow: 4px 4px 5px grey;
@@ -234,14 +234,18 @@
 	height: 40px;
 	display: inline-block;
 	font-size: 4px;
+		margin-top: 27px;
 }
-.Pmain .searchBox > input{
+.Pmain .searchBox .searchTxt{
 	width : 140px;
 	height : 33px;
 	display: inline-block;
 	vertical-align: top;
 	position: relative;
-	margin: 0;
+}
+.Pmain .btnDP{
+	width: 60px;
+	height: 40px;
 }
 .Pmain select{
 	width : 80px;
@@ -255,7 +259,7 @@
 }
 .Pmain .boxForBoard{
 	width: 800px;
-	height: 320px;
+	height: 290px;
 	background-color: white;
 	margin: 0 auto;
 	overflow: auto;
@@ -266,13 +270,9 @@
 .Pmain .blank2{
 	display: inline-block;
 	vertical-align: top;
-	width : 375px;
+	width : 385px;
 	height : 100%;
 	background-color: rgba;
-}
-.Pmain .btnDP{
-	width: 50px;
-	height: 30px;
 }
 .Pmain table{
 	width:800px;
