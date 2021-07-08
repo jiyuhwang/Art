@@ -11,7 +11,46 @@
 		        SEX,TO_CHAR(BIRTHDAY) AS BIRTHDAY, PHONE_NO,MAIL,TO_CHAR(JOIN_DATE) AS JOIN_DATE,
 		        TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE),BIRTHDAY) / 12) as old
 		        FROM USERS
-		        WHERE 1=1)
+		        WHERE 1=1
+		        <if test="searchType != null and searchType != ''">
+		        <choose>
+		        	<when test="searchType == 0">
+		        		AND 1=1
+		        	</when>
+		        	<when test="searchType == 1">
+						AND TO_CHAR(JOIN_DATE, 'YYYY') = TO_CHAR(SYSDATE,'YYYY')
+		        	</when>
+		        	<when test="searchType == 2">
+						AND TO_NUMBER(TO_CHAR(JOIN_DATE, 'YYYY')) = TO_NUMBER(TO_CHAR(SYSDATE,'YYYY')) -1
+		        	</when>
+		        </choose>
+		        </if>
+		        <if test="searchGbn != null and searchTxt != ''">
+		        <choose>
+		        	<when test="searchGbn == 0">
+		        	AND USER_NO LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 1">
+					AND NAME LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 2">
+					AND USER_ID LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 3">
+					AND PHONE_NO LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 4">
+					AND SEX LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 5">
+					AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE),BIRTHDAY) / 12) LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        </choose>
+		        </if>
+		        <if test="(startDate != null and startDate !='')||(endDate != null and endDate != '')">
+		        	AND JOIN_DATE BETWEEN TO_DATE('${startDate}') AND TO_DATE('${endDate}')
+		        </if>
+		        )
 		WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 
@@ -23,38 +62,39 @@
 	
 	<select id="getUser" resultType="hashmap" parameterType="hashmap">
 		SELECT NAME, CASE WHEN SEX=0 THEN '남' ELSE '여' END AS SEX
-		        ,USER_NO, TO_CHAR(BIRTHDAY) AS BIRTHDAY, PHONE_NO,MAIL,INTRODUCE
-				FROM(SELECT NAME, SEX, USER_NO, BIRTHDAY, PHONE_NO, MAIL,INTRODUCE
+		        ,USER_NO, TO_CHAR(BIRTHDAY) AS BIRTHDAY, PHONE_NO,MAIL,INTRODUCE,USER_NICKNAME
+				FROM(SELECT NAME, SEX, USER_NO, BIRTHDAY, PHONE_NO, MAIL,INTRODUCE,USER_NICKNAME
 					    FROM USERS
 					    WHERE USER_NO = #{userNo})
 	</select>
 	
 	<select id="getDPList" resultType="hashmap" parameterType="hashmap">
-		SELECT P.POST_NO, P.USER_NO, P.CATEGORY_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.VISIBILITY,
+		SELECT P.POST_NO, P.USER_NO, P.CATEGORY_NO, P.TITLE, P.POST_FILE, P.VISIBILITY,
 		        P.VIEWS, P.REGISTER_DATE, P.DEL,
 		        CASE WHEN LIKE_CNT IS NULL THEN 0 ELSE LIKE_CNT END AS LIKE_CNT,
 		        CASE WHEN COMMENT_CNT IS NULL THEN 0 ELSE COMMENT_CNT END AS COMMENT_CNT,
 		        CASE WHEN REPORT_CNT IS NULL THEN 0 ELSE REPORT_CNT END AS REPORT_CNT,
-		        CASE WHEN TAG_NAMES IS NULL THEN '없음' ELSE TAG_NAMES END AS TAG_NAME
+		        CASE WHEN TAG_NAMES IS NULL THEN '없음' ELSE TAG_NAMES END AS TAG_NAMES,
+		        CASE WHEN P.EXPLAIN IS NULL THEN ' ' ELSE P.EXPLAIN END AS EXPLAIN
 		FROM POST P LEFT OUTER JOIN (SELECT POST_NO,COUNT(*) AS LIKE_CNT
-	                                FROM POST_LIKE
-	                                GROUP BY POST_NO)E
-	                        ON P.POST_NO = E.POST_NO
-	            LEFT OUTER JOIN (SELECT POST_NO, COUNT(COMMENT_NO) AS COMMENT_CNT
-	                             FROM COMMENTS
-	                             GROUP BY POST_NO
-	                             )F
-	                        ON P.POST_NO = F.POST_NO
-	            LEFT OUTER JOIN (SELECT P.POST_NO,LISTAGG(T.TAG_NAME,',') WITHIN GROUP (ORDER BY P.POST_NO) AS TAG_NAMES
-	                                FROM POST_TAG P INNER JOIN TAG T
-	                                            ON P.TAG_NO = T.TAG_NO
-	                                GROUP BY P.POST_NO) T
-	                        ON P.POST_NO = T.POST_NO
-	            LEFT OUTER JOIN (SELECT POST_NO, COUNT(*) AS REPORT_CNT
-	                                FROM REPORT
-	                                GROUP BY POST_NO
-	                                )Y
-	                        ON P.POST_NO =Y.POST_NO
+		                                FROM POST_LIKE
+		                                GROUP BY POST_NO)E
+		                        ON P.POST_NO = E.POST_NO
+		            LEFT OUTER JOIN (SELECT POST_NO, COUNT(COMMENT_NO) AS COMMENT_CNT
+		                             FROM COMMENTS
+		                             GROUP BY POST_NO
+		                             )F
+		                        ON P.POST_NO = F.POST_NO
+		            LEFT OUTER JOIN (SELECT P.POST_NO,LISTAGG(T.TAG_NAME,',') WITHIN GROUP (ORDER BY P.POST_NO) AS TAG_NAMES
+		                                FROM POST_TAG P INNER JOIN TAG T
+		                                            ON P.TAG_NO = T.TAG_NO
+		                                GROUP BY P.POST_NO) T
+		                        ON P.POST_NO = T.POST_NO
+		            LEFT OUTER JOIN (SELECT POST_NO, COUNT(*) AS REPORT_CNT
+		                                FROM REPORT
+		                                GROUP BY POST_NO
+		                                )Y
+		                        ON P.POST_NO =Y.POST_NO
 		WHERE USER_NO = #{userNo}
 	</select>
 	
@@ -70,7 +110,154 @@
 	
 	
 	
-<select id="getPostList" parameterType="hashmap" resultType="hashmap">
+	
+	<select id="getGallaryMCnt" resultType="Integer" parameterType="hashmap">
+		SELECT COUNT(*) AS CNT
+		FROM POST
+		WHERE 1 = 1
+		<if test="srhYearFlag == 0 or srhYearFlag == 1">
+			<choose>
+					<when test="srhYearFlag == 0">
+						AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+					</when>
+					<when test="srhYearFlag == 1">
+						AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
+					</when>
+			</choose>
+		</if>
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchFlag == 0">
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+				</when>
+				<when test="searchFlag == 1">
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
+				</when>
+				<when test="searchFlag == 2">
+					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 3">
+					AND P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 4">
+					AND U.NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 5">
+					AND P.POST_NO LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 6">
+					AND PC.CATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 7">
+					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
+					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 8">
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
+		<if test="startFlag != null and startFlag != ''
+				or endFlag != null and endFlag != ''">
+			<choose>
+				<when test="startFlag != null and startFlag != ''
+						and endFlag == null and endFlag == ''">
+				AND P.REGISTER_DATE &gt;= #{startFlag}
+				</when>
+				<when test="startFlag == null and startFlag == ''
+						and endFlag != null and endFlag != ''">
+					AND P.REGISTER_DATE &lt;=  #{endFlag}
+				</when>
+					<when test="startFlag != null and startFlag != ''
+						and endFlag != null and endFlag != ''">
+					AND P.REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="getGallaryDCnt" resultType="Integer" parameterType="hashmap">
+		SELECT COUNT(*) AS CNT
+		FROM POST
+		WHERE 1 = 1
+		<if test="srhYearFlag == 0 or srhYearFlag == 1">
+			<choose>
+					<when test="srhYearFlag == 0">
+						AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+					</when>
+					<when test="srhYearFlag == 1">
+						AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
+					</when>
+			</choose>
+		</if>
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchFlag == 0">
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+				</when>
+				<when test="searchFlag == 1">
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
+				</when>
+				<when test="searchFlag == 2">
+					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 3">
+					AND P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 4">
+					AND U.NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 5">
+					AND P.POST_NO LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 6">
+					AND PC.CATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 7">
+					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
+					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchFlag == 8">
+					AND TO_CHAR(P.REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
+		<if test="startFlag != null and startFlag != ''
+				or endFlag != null and endFlag != ''">
+			<choose>
+				<when test="startFlag != null and startFlag != ''
+						and endFlag == null and endFlag == ''">
+				AND P.REGISTER_DATE &gt;= #{startFlag}
+				</when>
+				<when test="startFlag == null and startFlag == ''
+						and endFlag != null and endFlag != ''">
+					AND P.REGISTER_DATE &lt;=  #{endFlag}
+				</when>
+					<when test="startFlag != null and startFlag != ''
+						and endFlag != null and endFlag != ''">
+					AND P.REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
+				</when>
+			</choose>
+		</if>
+		<if test="delFlag == 0 or delFlag == 1">
+			<choose>
+					<when test="delFlag == 0">
+						AND DEL = 0
+					</when>
+					<when test="delFlag == 1">
+						AND DEL = 1
+					</when>
+			</choose>
+		</if>
+		
+	</select>
+
+	
+	
+	
+	
+	
+	<select id="getPostList" parameterType="hashmap" resultType="hashmap">
 		SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME,
 				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YY-MM-DD') AS R_DATE,
 				P.VIEWS, DECODE(L.CNT, NULL, 0, L.CNT) AS CNT, P.EXPLAIN
@@ -147,7 +334,7 @@
 	</select>
 	
 	
-	
+
 	
 	
 	<select id="getUserDetail" parameterType="hashmap" resultType="hashmap">
@@ -170,6 +357,7 @@
 		WHERE RN.POST_NO = #{postNo}
 		ORDER BY RN.REGISTER_DATE DESC
 	</select>
+	
 	
 	
 	

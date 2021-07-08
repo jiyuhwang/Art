@@ -59,23 +59,13 @@ $(document).ready(function(){
 	<input type="hidden" name="page" value="${param.page}"/>
 	<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
 	<input type="hidden" name="searchTxt" value="${param.searchTxt}"/>
-</form>
 
-<c:if test="${!empty data.POST_FILE}">
 <!-- set: 변수 -->
 <%-- <c:set var="len" value="${fn:length(data.B_FILE)}"></c:set>
 첨부파일: <!--a의 download: 해당 주소를 다운로드 하겠다. 값이 있는 경우 해당이름으로 다운받겠다.  -->
 <a href="resources/upload/${data.B_FILE}" download="${fn:substring(data.B_FILE, 20, len)}">${fn:substring(data.B_FILE, 20, len)}</a><br/><!--이클립스가 못읽는거니 신경은 안써도된다..  -->
 --%>
-첨부파일: <a href="resources/upload/${data.POST_FILE}" download="${data.POST_UFILE}">
-${data.POST_UFILE}</a><br/>
-</c:if>
-태그 받기:<br/>
-댓글 받기:<br/>
-<br/>
-
-
-<div class="background"></div>
+	<div class="background"></div>
 	<div class="wrap">
 	<div class="popup_title">관리자용 상세보기</div>
 		<div class="close_btn_wrap">
@@ -83,7 +73,14 @@ ${data.POST_UFILE}</a><br/>
 			<input type="button" id="BtnClose" value="닫기"/>
 		</div>
 		<div class="contents_wrap">
-			<img class="contents_img" src="resources/images/JY/짱구1.jpg">
+		<c:choose>
+			<c:when test="${!empty data.POST_FILE}">
+			<img class="contents_img" src="resources/upload/${data.POST_FILE}" alt="작품이미지" download="${data.POST_UFILE}">
+			</c:when>
+			<c:otherwise>
+			<img class="contents_img" src="resources/images/JY/짱구1.jpg" alt="사랑스런짱구">
+			</c:otherwise>
+		</c:choose>
 		</div>
 		<div class="category">${data.CATEGORY_NAME}</div>
 		<div class="title">${data.TITLE}</div>
@@ -99,18 +96,25 @@ ${data.POST_UFILE}</a><br/>
 			</c:when>
 		</c:choose>
 			<div class="comment_wrap">
-				<img class="comment_img" src="resources/images/JY/comment.png">
+				<img class="comment_img" src="resources/images/JY/comment.png" alt="댓글아이콘">
 				<div class="comment">댓글 ${data.COMMENT_CNT}개</div>
 			</div>		
 		</div><br/>
 		<div class="mini_profile_wrap">
 			<div class="mini_profile">
-				<img class="profile_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1">
-			${data.PROFILE_IMG_PATH}</div>
+			<c:choose>
+				<c:when test="${!empty data.PROFILE_IMG_PATH}">
+				<img class="profile_img2" src="resources/upload/${data.PROFILE_IMG_PATH}" alt="프로필이미지" download="${data.PROFILE_IMG_UPATH}">
+				</c:when>
+				<c:otherwise>
+				<img class="profile_img2" src="resources/images/JY/who.png" alt="기본프로필">
+				</c:otherwise>
+			</c:choose>
+			</div>
 			<div class="mini_profile_name">${data.USER_NICKNAME}</div>
 			<div class="profile_introduce">${data.INTRODUCE}</div>
 		</div>
 	</div>
-
+</form>
 </body>
 </html>
