@@ -15,8 +15,8 @@
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript"
-		src="resources/script/HD/user_detailP.js"></script>
+<!-- <script type="text/javascript"
+		src="resources/script/HD/user_detailP.js"></script> -->
 <script type="text/javascript">
 $(document).ready( function () {
 		
@@ -83,18 +83,46 @@ $(document).ready( function () {
 		$("#userForm").submit();
 	});
 	
+	$(".Pmain #pagingWrap").on("click",".Pmain span", function () {
+		$(".Pmain #page").val($(this).attr("name"));
+		console.log($(".Pmain #page").val());
+		$(".Pmain #userForm").submit();
+	});
+	
 	//---------------------------------Ajax 상세페이지 그리기, 더블 클릭 상세보기
 	$("tbody").on("dblclick","tr", function () {
-		$(".Pmain, .background").show();
+		/* $(".Pmain, .background").show();*/
+		
 		$("#userNo").val($(this).attr("name"));
-		
 		drawPopup();
-		
-		$(".background").on("click", function () {
-			$(".Pmain, .background").hide();
-		})
-		
+
 	});//end dblclick
+		
+	$("body").on("click",".background", function () {
+		$(".popupWrap").empty(); // 함수 empty() 해당 객체 안에 있는 것들을 비운다.
+	});
+	
+	//메모 작품 버튼들
+	 $(".Pmain #insideMiddle2").on("click", function () {
+		if($(".Pmain #insideMiddle2").attr("class") != "insideMiddle1"){
+			$(".Pmain #insideMiddle2").attr("class","insideMiddle1")
+			$(".Pmain #insideMiddle1").attr("class","insideMiddle2")
+		}else{
+			$(".Pmain #insideMiddle2").attr("class","insideMiddle1")
+			$(".Pmain #insideMiddle1").attr("class","insideMiddle2")
+		}
+	});
+	$(".Pmain #insideMiddle1").on("click", function () {
+		if($(".Pmain #insideMiddle1").attr("class") != "insideMiddle1"){
+			$(".Pmain #insideMiddle1").attr("class","insideMiddle1")
+			$(".Pmain #insideMiddle2").attr("class","insideMiddle2")
+		}else{
+			$(".Pmain #insideMiddle1").attr("class","insideMiddle1")
+			$(".Pmain #insideMiddle2").attr("class","insideMiddle2")
+		}
+	}); 
+	
+	
 });
 //document end
 
@@ -107,7 +135,10 @@ function drawPopup() {
 		dataType :"json",
 		data:params,
 		success : function (res) {
-			console.log(res);
+			console.log(res.user);
+			console.log(res.list);
+			drawPopUpDP(res.user);
+			pagingDP(res.list);
 		},
 		error: function (request, status, error) {
 			console.log(error);
@@ -115,116 +146,144 @@ function drawPopup() {
 });
 }
 
-/* function drawPopUpDP() {
+ function drawPopUpDP(user) {
 	var html="";
+
+				html +=	"  <div class= \"background\" id=\"PbackgroundDP\"></div>";
+				html +=	"  <div class =\"Pmain\" id=\"PmainDP\">";
+				html +=	"  <div class =\"topBar\">";
+				html +=	"	<div class =\"blank\"></div>";
+				html +=	"  </div>";
+				html +=	"  <div class = \"profile\">";
+				html +=	"  	  <div class =\"pBox\">";
+				html +=	"		  <img class =\"img\" alt=\"프로필사진\" src=\"resources/images/HD/profile.png\">";
+				html +=	"		  <div class =\"cButtonB\"></div>";
+				html +=	"		  <div class =\"cButtonc\">";
+				html +=	"			  <img class =\"cButtonI\" alt=\"취소버튼\" src=\"resources/images/HD/cancel.png\">";
+				html +=	"		  </div>";
+				html +=	"	  </div>";
+				html +=	"	  <input class =\"pName\" type =\"text\" placeholder=\"nickname\" readonly=\"readonly\">";
+				html +=	"  </div>";
+				html +=	"  <div class =\"writeBox\" >";
+				html +=	"	  <div class = \"blank1\">회원상세정보</div>";
+				html +=	"		  <div class = \"smallBox\">";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">이름</div>";
+				html +=	"				  <div class=\"content_box\">" + user.NAME + "</div>";
+				html +=	"			  </div>";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">회원번호</div>";
+				html +=	"				  <div class=\"content_box\">" + user.USER_NO + "</div>";
+				html +=	"			  </div>";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">전화번호</div>";
+				html +=	"				  <div class=\"content_box\">" + user.PHONE_NO + "</div>";
+				html +=	"			  </div>";
+			
+				html +=	"		  </div>";
+				html +=	"		  <div class = \"smallBox\">";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">성별</div>";
+				html +=	"				  <div class=\"content_box\">" + user.SEX + "</div>";
+				html +=	"			  </div>";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">생년월일</div>";
+				html +=	"				  <div class=\"content_box\">" +user.BIRTHDAY + "</div>";
+				html +=	"			  </div>";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">이메일</div>";
+				html +=	"				  <div class=\"content_box\">" +user.MAIL + "</div>";
+				html +=	"			  </div>";
+				html +=	"		  </div>";
+				
+				html +=	"		  <div class=\"introduce_box\">";
+				html +=	"			  <div class=\"sogea\"><b>소개</b></div>";
+				html +=	"			  <div class=\"sogea_box\">";
+				html +=	"			  " +user.INTRODUCE + "";
+				html +=	"			  </div>";
+				html +=	"		  </div>";
+				html +=	"     </div>";
+			
+				html +=	"     <div class =\"middleSection\">";
+				html +=	"	     <div class = \"brick\"></div>";
+				html +=	"	     <input type=\"button\" class =\"insideMiddle1\" id=\"insideMiddle1\" value=\"작품\">";
+				html +=	"	     <input type=\"button\" class =\"insideMiddle2\" id=\"insideMiddle2\" value=\"메모\">";
+				html +=	"	     <div class = \"underLine\"></div>";
+				html +=	"     </div>";
+				html +=	"     <div class =\"boxForB\">";
+				html +=	"	  <div class =\"topOfBox\">";
+				html +=	"		  <div class =\"topBar\"></div>";
+				html +=	"		  <div class =\"searchBox\">";
+				html +=	"			  <select id=\"searchGbn\">";
+				html +=	"				  <option value=\"0\">선택없음</option>";
+				html +=	"				  <option value=\"1\">제목</option>";
+				html +=	"				  <option value=\"2\">태그</option>";
+				html +=	"			  </select>";
+				html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" class=\"searchTxt\">";
+				html +=	"			  <input type=\"button\" value=\"검색\" class=\"btnDP\" id=\"searchBtn\">";
+				html +=	"			  <div class = \"blank2\"></div>";
+				html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtn\">";
+				html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtn\">";
+				html +=	"		  </div>";
+				html +=	"	  </div>";
+				html +=	"	  <div class =\"boxForBoard\">";
+				html +=	"	  <table>";
+				html += "				<colgroup>                  ";
+				html += "					<col width=\"5%\"/>     ";
+				html += "					<col width=\"5%\"/>     ";
+				html += "					<col width=\"10%\"/>     ";
+				html += "					<col width=\"10%\"/>     ";
+				html += "					<col width=\"10%\"/>     ";
+				html += "					<col width=\"15%\"/>     ";
+				html += "					<col width=\"5%\"/>     ";
+				html += "					<col width=\"45%\"/>     ";
+				html += "				</colgroup>                 ";
+				html +=	"	  <thead>";
+				html +=	"		  <tr>";
+				html +=	"		  	  <th>";
+				html +=	"			  <input class = \"check\" type=\"checkbox\" id=\"ex_chk\">";
+				html +=	"			  </th>";
+				html +=	"			  <th> no</th>";
+				html +=	"			  <th> 제목</th>";
+				html +=	"			  <th> 좋아요</th>";
+				html +=	"			  <th> 댓글</th>";
+				html +=	"			  <th> 태그</th>";
+				html +=	"			  <th> 신고</th>";
+				html +=	"			  <th> 설명</th>";
+				html +=	"		  </tr>";
+				html +=	"	  </thead>";
+				html +=	"	  <tbody>";
+				                                                                                                                                                 
+				
+				html +=	"	</tbody>";
+				html +=	"		</table>";
+				html +=	"		</div>";
+				html +=	"	</div>";
+
+				html +=	"  </div>";
+	$(".popupWrap").prepend(html);
+}  
+ 
+ function pagingDP(list) {
+	var html="";
+		for(var d of list){
+			
+				html+= "	<tr>";
+				html+= "		<td>";
+				html+= "		<input class = \"check\" type=\"checkbox\" id=\"ex_chk\">"; 
+				html+= "		</td>";
+				html+= "		<td> " + d.POST_NO +"</td>";
+				html+= "		<td>  "+ d.TITLE +"</td>";
+				html+= "		<td>  "+ d.LIKE_CNT +"</td>";
+				html+= "		<td>  "+ d.COMMENT_CNT +"</td>";
+				html+= "		<td>  "+ d.TAG_NAMES +"</td>";
+				html+= "		<td>  "+ d.REPORT_CNT +"</td>";
+				html+= "		<td>  "+ d.EXPLAIN +"</td>";
+				html+= "	</tr>                                                        ";
+		}                                                               
+	$(".Pmain tbody").html(html);
 	
-				html +=	<div class= "background"></div>
-				html +=	<div class ="Pmain">
-				html +=	<div class ="topBar">
-				html +=		<div class ="blank"></div>
-				html +=	</div>
-				html +=	<div class = "profile">
-				html +=		<div class ="pBox">
-				html +=			<img class ="img" alt="프로필사진" src="resources/images/HD/profile.png">
-				html +=			<div class ="cButtonB"></div>
-				html +=			<div class ="cButtonc">
-				html +=				<img class ="cButtonI" alt="취소버튼" src="resources/images/HD/cancel.png">
-				html +=			</div>
-				html +=		</div>
-				html +=		<input class ="pName" type ="text" placeholder="nickname" readonly="readonly">
-				html +=	</div>
-				html +=	
-				html +=	<div class ="writeBox" >
-				html +=		<div class = "blank1">회원상세정보</div>
-				html +=			<div class = "smallBox">
-				html +=				<div class ="MsmallBox">
-				html +=					<div class="informing">이름</div>
-				html +=					<div class="content_box"></div>
-				html +=				</div>
-				html +=				<div class ="MsmallBox">
-				html +=					<div class="informing">회원번호</div>
-				html +=					<div class="content_box"></div>
-				html +=				</div>
-				html +=				<div class ="MsmallBox">
-				html +=					<div class="informing">전화번호</div>
-				html +=					<div class="content_box"></div>
-				html +=				</div>
-				html +=				
-				html +=			</div>
-				html +=			<div class = "smallBox">
-				html +=				<div class ="MsmallBox">
-				html +=					<div class="informing">성별</div>
-				html +=					<div class="content_box"></div>
-				html +=				</div>
-				html +=				<div class ="MsmallBox">
-				html +=					<div class="informing">생년월일</div>
-				html +=					<div class="content_box"></div>
-				html +=				</div>
-				html +=				<div class ="MsmallBox">
-				html +=					<div class="informing">이메일</div>
-				html +=					<div class="content_box"></div>
-				html +=				</div>
-				html +=			</div>
-				html +=			
-				html +=			<div class="introduce_box">
-				html +=				<div class="sogea"><b>소개</b></div>
-				html +=				<div class="sogea_box">
-				html +=				소개 입력란입니다.
-				html +=				</div>
-				html +=			</div>
-				html +=	</div>
-				html +=	
-				html +=	<div class ="middleSection">
-				html +=		<div class = "brick"></div>
-				html +=		<input type="button" class ="insideMiddle1" id="insideMiddle1" value="작품">
-				html +=		<input type="button" class ="insideMiddle2" id="insideMiddle2" value="메모">
-				html +=		<div class = "underLine"></div>
-				html +=	</div>
-				html +=	<div class ="boxForB">
-				html +=		<div class ="topOfBox">
-				html +=			<div class ="topBar"></div>
-				html +=			<div class ="searchBox">
-				html +=				<select id="searchGbn">
-				html +=					<option value="0">선택없음</option>
-				html +=					<option value="1">제목</option>
-				html +=					<option value="2">태그</option>
-				html +=				</select>
-				html +=				<input type="text" placeholder="검색어를 입력하세요" style="font-size:10pt;" class="searchTxt">
-				html +=				<input type="button" value="검색" class="btnDP" id="searchBtn">
-				html +=				<div class = "blank2"></div>
-				html +=				<input type="button" value="수정" class="btnDP" id="updateBtn">
-				html +=				<input type="button" value="삭제" class="btnDP" id="deleteBtn">
-				html +=			</div>
-				html +=		</div>
-				html +=		<div class ="boxForBoard">
-				html +=		<table>
-				html +=		<thead>
-				html +=			<tr>
-				html +=				<th>
-				html +=				<input class = "check" type="checkbox" id="ex_chk"> 
-				html +=				</th>
-				html +=				<th> no</th>
-				html +=				<th> 제목</th>
-				html +=				<th> 좋아요 개수</th>
-				html +=				<th> 댓글개수</th>
-				html +=				<th> 태그</th>
-				html +=				<th> 신고</th>
-				html +=				<th> 설명</th>
-				html +=			</tr>
-				html +=		</thead>
-				html +=		<tbody>
-				
-				for(var d of list){
-					
-				}
-				
-				html +=		</tbody>
-				html +=			</table>
-				html +=			</div>
-				html +=		</div>
-				html +=					
-				html +=	</div>
-}  */
+}
  
 </script>
 </head>
@@ -386,8 +445,8 @@ function drawPopup() {
 	<c:import url="login.jsp"></c:import>
 </div>
 
-<div>
-	<c:import url="user_detail(post).jsp"></c:import>
+<div class="popupWrap">
+	<%-- <c:import url="user_detail(post).jsp"></c:import> --%>
 </div>
 <div>
 	<c:import url="email(send).jsp"></c:import>

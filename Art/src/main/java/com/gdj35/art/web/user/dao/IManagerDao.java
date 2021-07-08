@@ -20,7 +20,11 @@ public interface IManagerDao {
 
 	public HashMap<String, String> getUser(HashMap<String, String> params)throws Throwable;
 
+<<<<<<< HEAD
 	public int getGallaryMCnt(HashMap<String, String> params) throws Throwable;
+=======
+	public List<HashMap<String, String>> getDPList(HashMap<String, String> params)throws Throwable;
+>>>>>>> branch 'main' of https://github.com/jhd7130/Art.git
 
 
 }

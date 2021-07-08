@@ -107,14 +107,21 @@ public class ManagerController {
 		Map<String, Object> modelMap = new HashMap<String,Object>();
 		
 		System.out.println(params);
+		
 		// 목록취득
-		HashMap<String,String> user
-		=iManagerService.getUser(params);
+		HashMap<String,String> user=iManagerService.getUser(params);
+		//detail post의 작품 리스트를 가져오는 메서드
+		List<HashMap<String,String>> list = iManagerService.getDPList(params);
 		
 		/*
-		 * List<HashMap<String,String>> list = iManagerService.getPostList();
+		 * PagingBean pb = iPagingService.getPagingBean(page, maxCount, viewCnt,
+		 * pageCnt)
 		 */
-		
+		 
+		System.out.println(user);
+		System.out.println(list);
+		/* modelMap.put("pb",pb); */
+		modelMap.put("list", list);
 		modelMap.put("user", user);
 		
 		return mapper.writeValueAsString(modelMap);

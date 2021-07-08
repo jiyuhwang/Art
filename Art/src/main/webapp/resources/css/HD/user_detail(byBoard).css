@@ -8,7 +8,6 @@
 	left : 0;
 	top : 0;
 	z-index: 10;
-	display: none;
 }
 .Pmain table th{
 	background-color: #cccccc;
@@ -26,7 +25,6 @@
 	margin-top : -450px;
 	border-radius: 7px;
 	z-index: 11;
-	display: none;
 }
 .Pmain .topBar{
 	width : 100%;
@@ -280,6 +278,7 @@
 	font-size: 10pt;
 	border-collapse: collapse;
 	 text-align: center;
+	 
 }
 .Pmain table th{
 	 border-bottom: 1px solid black;
@@ -291,7 +290,30 @@
 	 border-top: 1px solid black;
 	 height : 30px;
 }
+.Pmain table td{
+	overflow: hidden;
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
+}
+.Pmain table td:last-child{
+	overflow: hidden;
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
+	 display: table-caption;
+	 width: 300px;
+}
+.Pmain table td:nth-child(6){
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
+	 display: table-caption;
+	 width: 100px;
+}
+
 .Pmain .check{
 	margin : 0;
+}
+.Pmain #pagingWrap span:hover{
+	cursor:pointer;
 }
 	

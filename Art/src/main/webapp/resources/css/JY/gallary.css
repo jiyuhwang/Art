@@ -91,7 +91,7 @@ body {
 	z-index: 200;
 }
 
-.pic:hover .bg, .draw:hover, .video:hover  {
+.pic:hover .bg, .draw:hover .bg, .video:hover .bg  {
 	background-color: gray;
 	opacity: 0.7;
 }

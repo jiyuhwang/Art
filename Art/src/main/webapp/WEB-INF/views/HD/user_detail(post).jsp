@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -224,7 +225,41 @@
 		</table>
 		</div>
 	</div>
-	
+	<div id="pagingWrap">
+		<span name="1">처음</span>
+		<!-- 이전 페이지  -->
+		<c:choose>
+			<c:when test="${page eq 1}">
+				<span name="1">이전</span>
+			</c:when>
+			<c:otherwise>
+				<span  name="${page-1 }">이전 </span>
+			</c:otherwise>
+		</c:choose>
+		
+		<!-- 페이징   -->
+		<c:forEach var="i" begin="${pb.startPcount}" end="${pb.endPcount}" step="1">
+			<c:choose>
+				<c:when test="${i eq page}">
+					<span name="${i}"><b>${i}</b></span>
+				</c:when>
+				<c:otherwise>
+					<span name="${i}">${i}</span>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		
+		<!--다음페이지  -->
+		<c:choose>
+			<c:when test="${page eq pb.maxPcount}">
+				<span name="${pb.maxPcount}">다음</span>
+			</c:when>
+			<c:otherwise>
+				<span name="${page+1}">다음</span>
+			</c:otherwise>
+		</c:choose>
+		<span name="${pb.maxPcount}">마지막</span>
+	</div>
 </div>
 </body>
 </html> 

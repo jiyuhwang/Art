@@ -255,6 +255,7 @@ body {
 	position: absolute;
 	cursor: pointer;
 	right: 30px;
+	float: right;
 }
 
 .comment {
@@ -356,9 +357,10 @@ body {
 }
 
 .tag_wrap {
-	width: 100%;
+	width: 80%;
 	height: 40px;
 	position: relative;
+	display: inline-block;
 }
 
 .tag {

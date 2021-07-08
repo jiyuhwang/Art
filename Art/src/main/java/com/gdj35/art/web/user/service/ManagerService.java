@@ -53,8 +53,16 @@ public class ManagerService implements IManagerService {
 	}
 
 	@Override
+
 	public int getGallaryMCnt(HashMap<String, String> params) throws Throwable {		
 		return iManagerDao.getGallaryMCnt(params);
+	}
+	
+	
+	public List<HashMap<String, String>> getDPList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getDPList(params);
+
 	}
 	
 }

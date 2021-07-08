@@ -43,6 +43,11 @@ public class MyGallaryService implements IMyGallaryService{
 	public int getDrawCnt(HashMap<String, String> params) throws Throwable {
 		return iMyGallaryDao.getDrawCnt(params);
 	}
+
+	@Override
+	public HashMap<String, String> getPost(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getPost(params);
+	}
 	
 
 

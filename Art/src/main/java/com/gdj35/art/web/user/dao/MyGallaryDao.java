@@ -69,4 +69,9 @@ public class MyGallaryDao implements IMyGallaryDao{
 		return sqlSession.selectOne("Post.getDrawCnt", params);
 	}
 
+	@Override
+	public HashMap<String, String> getPost(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getPost", params);
+	}
+
 }
