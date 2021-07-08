@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj35.art.common.bean.PagingBean;
 import com.gdj35.art.common.service.IPagingService;
 import com.gdj35.art.web.user.service.IMemberService;
 import com.gdj35.art.web.user.service.IMyGallaryService;
@@ -73,12 +74,79 @@ public class MyGallaryController {
 	
 
 	@RequestMapping(value = "/gallary")
-	public ModelAndView gallary(ModelAndView mav) {
+	public ModelAndView gallary(@RequestParam HashMap<String, String> params,
+								ModelAndView mav) {
+		
+		int page= 1;
+		if(params.get("page") != null) {
+			page = Integer.parseInt(params.get("page"));
+		}
+		
+		mav.addObject("page", page);
+		
 		mav.setViewName("JY/gallary");
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "/picgallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String picGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMyGallaryService.getPicCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 16, 5);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.picList(params);
+		
+		modelMap.put("list", list);		
+		modelMap.put("pb", pb);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
 
+	
+	@RequestMapping(value = "/drawgallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String drawGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMyGallaryService.getDrawCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 16, 5);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.drawList(params);
+		
+		modelMap.put("list", list);		
+		modelMap.put("pb", pb);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	
 	@RequestMapping(value = "/main")
 	public ModelAndView main(ModelAndView mav) {
 		mav.setViewName("JY/main");

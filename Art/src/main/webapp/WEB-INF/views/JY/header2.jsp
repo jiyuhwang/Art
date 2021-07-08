@@ -165,7 +165,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="forget">
-			<a href="#">계정을 잊어버리셨나요?</a>
+			<a href="idfind">계정을 잊어버리셨나요?</a>
 		</div>
 	</div>
 </body>

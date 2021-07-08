@@ -160,8 +160,13 @@ $(document).ready(function() {
 	
 	
 	$("#btnOk").on("click", function() {
-			$("#agreeForm").submit();
 		
+		if($("#check1").is(":checked") && $("#check2").is(":checked")) {
+			
+			$("#agreeForm").submit();
+		} else {
+			alert("필수약관에 동의해주세요.");
+		}
 	});
 	$("#btnNo").on("click", function() {
 			location.href="login";
@@ -186,7 +191,7 @@ $(document).ready(function() {
                     <ul class="clear_fix">
                         <li>이용약관 동의(필수)</li>
                         <li class="check_btn">
-                            <input type="checkbox" class="check" name="check"> 
+                            <input type="checkbox" id="check1" class="check" name="check"> 
                         </li>
                     </ul>
                     <div class="text">
@@ -211,7 +216,7 @@ $(document).ready(function() {
                     <ul class="clear_fix">
                         <li>개인정보 수집 및 이용에 대한 안내(필수)</li>
                         <li class="check_btn">
-                            <input type="checkbox" class="check" name="check">
+                            <input type="checkbox" id="check2" class="check" name="check">
                         </li>
                     </ul>
  

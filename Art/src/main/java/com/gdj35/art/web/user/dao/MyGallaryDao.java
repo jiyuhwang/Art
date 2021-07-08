@@ -1,6 +1,7 @@
 package com.gdj35.art.web.user.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,26 @@ public class MyGallaryDao implements IMyGallaryDao{
 	@Override
 	public int getNum() throws Throwable {
 		return sqlSession.selectOne("Post.getNum");
+	}
+
+	@Override
+	public List<HashMap<String, String>> picList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.picList", params);
+	}
+
+	@Override
+	public int getPicCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getPicCnt", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> drawList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.drawList", params);
+	}
+
+	@Override
+	public int getDrawCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getDrawCnt", params);
 	}
 
 }
