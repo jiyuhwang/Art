@@ -13,7 +13,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	loadDetail();
 	
 	
 	
@@ -28,38 +27,7 @@ $(document).ready(function(){
 		$("#goForm").submit();
 	});
 	
-	$("#deleteBtn").on("click", function(){
-		if(confirm("삭제하시겠습니까?")){//삭제 아작스로 돌릴거다.
-			
-			var params = $("#goForm").serialize();
-			
-			$.ajax({
-				url: "detailDeletePopup",//접속주소
-				type: "post",
-				dataType: "json",//받아올 데이터 형식
-				data: params, //얘랑 21번째 var 랑 이름 맞추기만 하면 됨
-				success: function(res){ //성공시 다음 함수 실행
-					
-					if(res.msg == "success"){
-						location.href = "gallaryManage";	
-					} else if(res.msg == "failed"){
-						alert("작성에 실패하였습니다.");
-					} else {
-						alert("작성 중 문제가 발생하였습니다.");
-					}
-					
-					
-				},//실패시 다음함수 실행, 값이 돌아오지 않는다든지에 대한 에러. 인터넷이 끊어지지않는이상 안터질거다 여기서는
-				error: function(request, status, error){
-					console.log(error);
-					
-				}
-			
-			});
 
-		}
-		
-	});
 	//만약 사진 없으면 관리자니까 ART그림 불러오게하기
 	//파일 왜 안뜨니
 	//좋아요, 공유버튼 나오게 하는거(상단에)
@@ -107,13 +75,13 @@ ${data.POST_UFILE}</a><br/>
 <br/>
 
 
-
-<input type="button" value="수정" id="updateBtn"/>
-<input type="button" value="삭제" id="deleteBtn"/>
-<input type="button" value="목록가기" id="listBtn"/>
-
-
-<div class="wrap">
+<div class="background"></div>
+	<div class="wrap">
+	<div class="popup_title">관리자용 상세보기</div>
+		<div class="close_btn_wrap">
+			<input type="button" id="BtnUpdate" value="수정"/>
+			<input type="button" id="BtnClose" value="닫기"/>
+		</div>
 		<div class="contents_wrap">
 			<img class="contents_img" src="resources/images/JY/짱구1.jpg">
 		</div>
@@ -135,13 +103,14 @@ ${data.POST_UFILE}</a><br/>
 				<div class="comment">댓글 ${data.COMMENT_CNT}개</div>
 			</div>		
 		</div><br/>
-	<div class="mini_profile_wrap">
-		<div class="mini_profile">
-			<img class="profile_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1">
-		${data.PROFILE_IMG_PATH}</div>
-		<div class="mini_profile_name">${data.USER_NICKNAME}</div>
-		<div class="profile_introduce">${data.INTRODUCE}</div>
+		<div class="mini_profile_wrap">
+			<div class="mini_profile">
+				<img class="profile_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1">
+			${data.PROFILE_IMG_PATH}</div>
+			<div class="mini_profile_name">${data.USER_NICKNAME}</div>
+			<div class="profile_introduce">${data.INTRODUCE}</div>
+		</div>
 	</div>
-</div>
+
 </body>
 </html>
