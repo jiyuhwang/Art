@@ -161,7 +161,7 @@ a {
 			</div>
 			<br />
 			<div class="side_bar_menu2">
-				<a href="picgallary">작품 보러가기</a>
+				<a href="gallary">작품 보러가기</a>
 			</div>
 		</div>
 		<div class="forget">

@@ -6,20 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>gallary</title>
-<link rel="stylesheet" href="resources/css/JY/picgallary.css">
+<link rel="stylesheet" href="resources/css/JY/gallary.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	reloadList();
-	//reloadList2();
 	
 	$("html, body").animate({ scrollTop: 0 }, "fast")
+	
 	
 	$(".pagination").on("click", "a",  function() {
 		$("#page").val($(this).attr("page"));
 		$('html').scrollTop(0);
 		reloadList();
-		//reloadList2();
 	});
 	
 	$(".pic_wrap").on("click", "div", function() {
@@ -28,14 +27,10 @@ $(document).ready(function() {
 		$("#actionForm").submit();
 	});
 	
-	$("#gallaryMenu1").on("click", function() {
-		location.href = "picgallary";
+	$(".tabs").on("change", "[type='radio']", function() {
+		$("#page").val("1");
+		reloadList();
 	});
-	
-	$("#gallaryMenu2").on("click", function() {
-		location.href = "drawgallary";
-	});
-
 	
 });
 
@@ -43,15 +38,32 @@ $(document).ready(function() {
 	function reloadList() {
 		var params= $("#actionForm").serialize();
 		
+		var urlTxt = "";
+		switch($(".tabs [type='radio']:checked").val()) {
+		case "0" :
+			urlTxt = "picgallarys";
+			break;
+		case "1" :
+			urlTxt = "drawgallarys";
+			break;
+		}
+		
 		$.ajax({
-			url: "picgallarys", // 접속 주소
+			url: urlTxt, // 접속 주소
 			type: "post", // 전송 방식: get, post
 			dataType: "json", // 받아올 데이터 형태
 			data: params, // 보낼 데이터(문자열 형태)
 			success: function(res) { // 성공 시 다음 함수 실행
-				picList(res.list);
-				picPaging(res.pb);	
-
+				switch($(".tabs [type='radio']:checked").val()) {
+				case "0" :
+					picList(res.list);
+					break;
+				case "1" :
+					drawList(res.list);
+					break;
+				}
+				
+				drawPaging(res.pb);	
 			},
 			error: function(request, status, error) { // 실패 시 다음 함수 실행
 				console.log(error);
@@ -59,12 +71,10 @@ $(document).ready(function() {
 		});
 	}
 	
-
 	function picList(list) {
 			var html = "";
-			for(var i in list) {
-				var p = list[i];
-				html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + i + "\">";					
+			for(var p of list) {
+				html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + p.POST_NO + "\">";					
 				html += "<div class=\"bg\">";
 				html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
 				html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
@@ -75,13 +85,52 @@ $(document).ready(function() {
 		
 			}
 			$(".pic_wrap").html(html);
-			for(var e in list) {
-				$('#pic' + e).css('background-image', 'url(resources/upload/' + list[e].POST_FILE + ')');
+			for(var p of list) {
+				$('#pic' + p.POST_NO).css('background-image', 'url(resources/upload/' + p.POST_FILE + ')');
 			}		
 	}
 	
+	function drawList(list) {
+		var html = "";
+		for(var i in list) {
+			var d = list[i];
+			html += "<div pno = \"" + d.POST_NO + "\"class = \"draw\" id=\"draw" + i + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + d.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + d.EXPLAIN + "</div>";
+			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
+			html += "<div class=\"contents_name\"> " + d.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+
+		}
+		$(".draw_wrap").html(html);
+		for(var e in list) {
+			$('#draw' + e).css('background-image', 'url(resources/upload/' + list[e].POST_FILE + ')');
+		}		
+	}
 	
-	function picPaging(pb) {
+	/* function drawList(list) {
+		var html = "";
+		for(var i in list) {
+			var d = list[i];
+			html += "<div pno = \"" + d.POST_NO + "\"class = \"draw\" id=\"draw" + i + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + d.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + d.EXPLAIN + "</div>";
+			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
+			html += "<div class=\"contents_name\"> " + d.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+
+		}
+		$(".draw_wrap").html(html);
+		for(var e in list) {
+			$('#draw' + e).css('background-image', 'url(resources/upload/' + list[e].POST_FILE + ')');
+		}		
+	} */
+	
+	function drawPaging(pb) {
 		var html ="";
 		
 		html += "<a page=\"1\"><<</a>";
@@ -103,13 +152,14 @@ $(document).ready(function() {
 		if($("#page").val() == pb.maxPcount) {
 			html += "<a page=\"" + pb.maxPcount + "\">></a>";
 		} else {
-			html += "<a page=\"" + ($("#page").val() * 1 + 1) + "\">></a>"; // 문자열에 그냥 + 1하게 되면 11이 되기 때문에 * 1 해줘야함
+			html += "<a page=\"" + ($("#page").val() * 1 + 1) + "\">></a>";
 		}
 		
 		html += "<a page=\"" + pb.maxPcount + "\">>></a";
 		
 		$(".pagination").html(html);
 	}
+
 </script>
 </head>
 <body>
@@ -129,9 +179,9 @@ $(document).ready(function() {
 	<div class="wrap">
 		<div class="gallary">
 			<div class="tabs">
-				<input id="gallaryMenu1" type="radio" name="tab" checked="checked" />
-				<input id="gallaryMenu2" type="radio" name="tab" />
-				<input id="gallaryMenu3" type="radio" name="tab" />
+				<input id="gallaryMenu1" type="radio" value="0" name="tab" checked="checked" />
+				<input id="gallaryMenu2" type="radio" value="1" name="tab" />
+				<input id="gallaryMenu3" type="radio" value="2" name="tab" />
 				<label for="gallaryMenu1">사진작품관</label>
 				<label for="gallaryMenu2">그림작품관</label>
 				<label for="gallaryMenu3">영상작품관</label>

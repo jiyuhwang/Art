@@ -35,15 +35,16 @@
 	
 	<!-- 사진갤러리 페이지 목록 -->
 	<select id="picList" parameterType="hashmap" resultType="hashmap">
-		SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO
-		FROM USERS U RIGHT OUTER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
-		                        FROM POST
-		                        WHERE DEL = 1
-		                        AND VISIBILITY = 0
-		                        AND CATEGORY_NO = 1) P
-		                ON U.USER_NO = P.USER_NO
-		WHERE U.OUT_DATE IS NULL
-		AND P.RNUM BETWEEN #{startCnt} AND #{endCnt}
+		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO,RNUM
+		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
+			FROM USERS U inner JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+			                        FROM POST
+			                        WHERE DEL = 1
+			                        AND VISIBILITY = 0
+			                        AND CATEGORY_NO = 1) P
+			                ON U.USER_NO = P.USER_NO
+			WHERE U.OUT_DATE IS NULL) UP
+			WHERE UP.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 
 	<!-- 사진갤러리 게시글 수 -->
@@ -60,15 +61,16 @@
 	
 	<!-- 그림갤러리 페이지 목록 -->
 	<select id="drawList" parameterType="hashmap" resultType="hashmap">
-		SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO
-		FROM USERS U RIGHT OUTER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
-		                        FROM POST
-		                        WHERE DEL = 1
-		                        AND VISIBILITY = 0
-		                        AND CATEGORY_NO = 2) P
-		                ON U.USER_NO = P.USER_NO
-		WHERE U.OUT_DATE IS NULL
-		AND P.RNUM BETWEEN #{startCnt} AND #{endCnt}
+		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO,RNUM
+		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
+			FROM USERS U inner JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+			                        FROM POST
+			                        WHERE DEL = 1
+			                        AND VISIBILITY = 0
+			                        AND CATEGORY_NO = 2) P
+			                ON U.USER_NO = P.USER_NO
+			WHERE U.OUT_DATE IS NULL) UP
+		WHERE UP.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 	
 	<!-- 그림갤러리 게시글 수 -->
