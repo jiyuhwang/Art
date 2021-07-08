@@ -15,8 +15,8 @@
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript"
-		src="resources/script/HD/user_detailP.js"></script>
+<!-- <script type="text/javascript"
+		src="resources/script/HD/user_detailP.js"></script> -->
 <script type="text/javascript">
 $(document).ready( function () {
 		
@@ -95,12 +95,34 @@ $(document).ready( function () {
 		
 		$("#userNo").val($(this).attr("name"));
 		drawPopup();
-		
-		$(".background").on("click", function () {
-			$(".Pmain, .background").hide();
-		})
-		
+
 	});//end dblclick
+		
+	$("body").on("click",".background", function () {
+		$(".popupWrap").empty(); // 함수 empty() 해당 객체 안에 있는 것들을 비운다.
+	});
+	
+	//메모 작품 버튼들
+	 $(".Pmain #insideMiddle2").on("click", function () {
+		if($(".Pmain #insideMiddle2").attr("class") != "insideMiddle1"){
+			$(".Pmain #insideMiddle2").attr("class","insideMiddle1")
+			$(".Pmain #insideMiddle1").attr("class","insideMiddle2")
+		}else{
+			$(".Pmain #insideMiddle2").attr("class","insideMiddle1")
+			$(".Pmain #insideMiddle1").attr("class","insideMiddle2")
+		}
+	});
+	$(".Pmain #insideMiddle1").on("click", function () {
+		if($(".Pmain #insideMiddle1").attr("class") != "insideMiddle1"){
+			$(".Pmain #insideMiddle1").attr("class","insideMiddle1")
+			$(".Pmain #insideMiddle2").attr("class","insideMiddle2")
+		}else{
+			$(".Pmain #insideMiddle1").attr("class","insideMiddle1")
+			$(".Pmain #insideMiddle2").attr("class","insideMiddle2")
+		}
+	}); 
+	
+	
 });
 //document end
 
@@ -127,8 +149,8 @@ function drawPopup() {
  function drawPopUpDP(user) {
 	var html="";
 
-				html +=	"  <div class= \"background\"></div>";
-				html +=	"  <div class =\"Pmain\">";
+				html +=	"  <div class= \"background\" id=\"PbackgroundDP\"></div>";
+				html +=	"  <div class =\"Pmain\" id=\"PmainDP\">";
 				html +=	"  <div class =\"topBar\">";
 				html +=	"	<div class =\"blank\"></div>";
 				html +=	"  </div>";
@@ -206,6 +228,16 @@ function drawPopup() {
 				html +=	"	  </div>";
 				html +=	"	  <div class =\"boxForBoard\">";
 				html +=	"	  <table>";
+				html += "				<colgroup>                  ";
+				html += "					<col width=\"5%\"/>     ";
+				html += "					<col width=\"5%\"/>     ";
+				html += "					<col width=\"10%\"/>     ";
+				html += "					<col width=\"10%\"/>     ";
+				html += "					<col width=\"10%\"/>     ";
+				html += "					<col width=\"15%\"/>     ";
+				html += "					<col width=\"5%\"/>     ";
+				html += "					<col width=\"45%\"/>     ";
+				html += "				</colgroup>                 ";
 				html +=	"	  <thead>";
 				html +=	"		  <tr>";
 				html +=	"		  	  <th>";
@@ -213,8 +245,8 @@ function drawPopup() {
 				html +=	"			  </th>";
 				html +=	"			  <th> no</th>";
 				html +=	"			  <th> 제목</th>";
-				html +=	"			  <th> 좋아요 개수</th>";
-				html +=	"			  <th> 댓글개수</th>";
+				html +=	"			  <th> 좋아요</th>";
+				html +=	"			  <th> 댓글</th>";
 				html +=	"			  <th> 태그</th>";
 				html +=	"			  <th> 신고</th>";
 				html +=	"			  <th> 설명</th>";

@@ -30,31 +30,32 @@
 	</select>
 	
 	<select id="getDPList" resultType="hashmap" parameterType="hashmap">
-		SELECT P.POST_NO, P.USER_NO, P.CATEGORY_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.VISIBILITY,
+		SELECT P.POST_NO, P.USER_NO, P.CATEGORY_NO, P.TITLE, P.POST_FILE, P.VISIBILITY,
 		        P.VIEWS, P.REGISTER_DATE, P.DEL,
 		        CASE WHEN LIKE_CNT IS NULL THEN 0 ELSE LIKE_CNT END AS LIKE_CNT,
 		        CASE WHEN COMMENT_CNT IS NULL THEN 0 ELSE COMMENT_CNT END AS COMMENT_CNT,
 		        CASE WHEN REPORT_CNT IS NULL THEN 0 ELSE REPORT_CNT END AS REPORT_CNT,
-		        CASE WHEN TAG_NAMES IS NULL THEN '없음' ELSE TAG_NAMES END AS TAG_NAME
+		        CASE WHEN TAG_NAMES IS NULL THEN '없음' ELSE TAG_NAMES END AS TAG_NAMES,
+		        CASE WHEN P.EXPLAIN IS NULL THEN ' ' ELSE P.EXPLAIN END AS EXPLAIN
 		FROM POST P LEFT OUTER JOIN (SELECT POST_NO,COUNT(*) AS LIKE_CNT
-	                                FROM POST_LIKE
-	                                GROUP BY POST_NO)E
-	                        ON P.POST_NO = E.POST_NO
-	            LEFT OUTER JOIN (SELECT POST_NO, COUNT(COMMENT_NO) AS COMMENT_CNT
-	                             FROM COMMENTS
-	                             GROUP BY POST_NO
-	                             )F
-	                        ON P.POST_NO = F.POST_NO
-	            LEFT OUTER JOIN (SELECT P.POST_NO,LISTAGG(T.TAG_NAME,',') WITHIN GROUP (ORDER BY P.POST_NO) AS TAG_NAMES
-	                                FROM POST_TAG P INNER JOIN TAG T
-	                                            ON P.TAG_NO = T.TAG_NO
-	                                GROUP BY P.POST_NO) T
-	                        ON P.POST_NO = T.POST_NO
-	            LEFT OUTER JOIN (SELECT POST_NO, COUNT(*) AS REPORT_CNT
-	                                FROM REPORT
-	                                GROUP BY POST_NO
-	                                )Y
-	                        ON P.POST_NO =Y.POST_NO
+		                                FROM POST_LIKE
+		                                GROUP BY POST_NO)E
+		                        ON P.POST_NO = E.POST_NO
+		            LEFT OUTER JOIN (SELECT POST_NO, COUNT(COMMENT_NO) AS COMMENT_CNT
+		                             FROM COMMENTS
+		                             GROUP BY POST_NO
+		                             )F
+		                        ON P.POST_NO = F.POST_NO
+		            LEFT OUTER JOIN (SELECT P.POST_NO,LISTAGG(T.TAG_NAME,',') WITHIN GROUP (ORDER BY P.POST_NO) AS TAG_NAMES
+		                                FROM POST_TAG P INNER JOIN TAG T
+		                                            ON P.TAG_NO = T.TAG_NO
+		                                GROUP BY P.POST_NO) T
+		                        ON P.POST_NO = T.POST_NO
+		            LEFT OUTER JOIN (SELECT POST_NO, COUNT(*) AS REPORT_CNT
+		                                FROM REPORT
+		                                GROUP BY POST_NO
+		                                )Y
+		                        ON P.POST_NO =Y.POST_NO
 		WHERE USER_NO = #{userNo}
 	</select>
 	
