@@ -73,7 +73,7 @@ public class MyGallaryController {
 	
 	
 
-	@RequestMapping(value = "/picgallary")
+	@RequestMapping(value = "/gallary")
 	public ModelAndView gallary(@RequestParam HashMap<String, String> params,
 								ModelAndView mav) {
 		
@@ -84,7 +84,7 @@ public class MyGallaryController {
 		
 		mav.addObject("page", page);
 		
-		mav.setViewName("JY/picgallary");
+		mav.setViewName("JY/gallary");
 
 		return mav;
 	}
@@ -116,22 +116,7 @@ public class MyGallaryController {
 		
 		return mapper.writeValueAsString(modelMap);
 	}
-	
-	@RequestMapping(value = "/drawgallary")
-	public ModelAndView drawgallary(@RequestParam HashMap<String, String> params,
-								ModelAndView mav) {
-		
-		int page= 1;
-		if(params.get("page") != null) {
-			page = Integer.parseInt(params.get("page"));
-		}
-		
-		mav.addObject("page", page);
-		
-		mav.setViewName("JY/drawgallary");
 
-		return mav;
-	}
 	
 	@RequestMapping(value = "/drawgallarys",
 			method = RequestMethod.POST,
