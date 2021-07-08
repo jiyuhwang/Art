@@ -56,10 +56,15 @@ public class ManagerController {
 		return mav;
 	}
 	
+	
+	
 	@RequestMapping(value="/user_board")
 	public ModelAndView user_board(ModelAndView mav,
 									@RequestParam HashMap<String,String> params) throws Throwable {
 		 
+		System.out.println(params);
+		
+		
 		int page=1;
 		
 		
@@ -95,6 +100,8 @@ public class ManagerController {
 		mav.setViewName("HD/user_board");
 		return mav;
 	}
+	
+	
 	
 	
 	@RequestMapping(value = "/user_datailP",
