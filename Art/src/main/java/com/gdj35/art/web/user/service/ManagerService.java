@@ -51,5 +51,11 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getUser(params);
 
 	}
+
+	@Override
+	public List<HashMap<String, String>> getDPList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getDPList(params);
+	}
 	
 }

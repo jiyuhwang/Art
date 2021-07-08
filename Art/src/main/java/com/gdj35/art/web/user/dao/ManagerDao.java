@@ -39,6 +39,12 @@ public class ManagerDao implements IManagerDao {
 	}
 
 	
+	@Override
+	public List<HashMap<String, String>> getDPList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return  sqlSession.selectList("Manager.getDPList",params);
+	}
+	
 	
 	
 	
