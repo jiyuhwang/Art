@@ -15,6 +15,8 @@ public class MyGallaryDao implements IMyGallaryDao{
 	@Override
 	public int addPost(HashMap<String, String> params) throws Throwable {
 		
+		
+		
 		String tag = params.get("tag"); // 키가 "tag"인 것의 값을 문자열 tag에 담는다.
 		
 		String[] tagArt = tag.split(","); // 문자열 tag를 ',' 기준으로 나누어 배열에 담는다.
