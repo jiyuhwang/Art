@@ -19,7 +19,15 @@
 		src="resources/script/HD/user_detailP.js"></script> -->
 <script type="text/javascript">
 $(document).ready( function () {
+	 if("${param.searchType}" != "" || "${param.searchGbn}" != ""){
+		$("#searchType").val("${param.searchType}");
+		$("#searchGbn").val("${param.searchGbn}");
+	}
 		
+/* 	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${param.searchGbn}");
+	} */
+		 
 	 $(".delete_btn").on("click", function () {
 		 $(".PmainL, .PbackgroundL").show();
 		
@@ -48,6 +56,10 @@ $(document).ready( function () {
 		}
 	});
 	
+	$("#searchBtn").on("click", function () {
+		$("#page").val(1);
+		$("#userForm").submit();
+	})
 	
 	
 //side 클릭시 변경 script
@@ -122,7 +134,13 @@ $(document).ready( function () {
 		}
 	}); 
 	
+	$("#addBtn").on("click", function () {
+			alert("준비중입니다.");
+	});
 	
+	$(".update_btn").on("click", function () {
+		alert("준비중입니다.")
+	});
 });
 //document end
 
@@ -162,7 +180,7 @@ function drawPopup() {
 				html +=	"			  <img class =\"cButtonI\" alt=\"취소버튼\" src=\"resources/images/HD/cancel.png\">";
 				html +=	"		  </div>";
 				html +=	"	  </div>";
-				html +=	"	  <input class =\"pName\" type =\"text\" placeholder=\"nickname\" readonly=\"readonly\">";
+				html +=	"	  <input class =\"pName\" type =\"text\" placeholder=\"" +user.USER_NICKNAME + "\" readonly=\"readonly\">";
 				html +=	"  </div>";
 				html +=	"  <div class =\"writeBox\" >";
 				html +=	"	  <div class = \"blank1\">회원상세정보</div>";
@@ -279,7 +297,7 @@ function drawPopup() {
 				html+= "		<td>  "+ d.TAG_NAMES +"</td>";
 				html+= "		<td>  "+ d.REPORT_CNT +"</td>";
 				html+= "		<td>  "+ d.EXPLAIN +"</td>";
-				html+= "	</tr>                                                        ";
+				html+= "	</tr>";
 		}                                                               
 	$(".Pmain tbody").html(html);
 	
@@ -317,13 +335,13 @@ function drawPopup() {
 		<div class ="main2">
 			<div class="main2-1">
 				<label>회원분류</label>
-				<select name="searchType">
+				<select name="searchType" id="searchType">
 					<option value="0"> 전체회원</option>
-					<option value="1"> 작년회원</option>
-					<option value="2"> 올해회원</option>
+					<option value="1"> 올해회원</option>
+					<option value="2"> 작년회원</option>
 				</select>
 				<label>검색분류</label>
-				<select name="searchGbn">
+				<select name="searchGbn" id="searchGbn">
 					<option value="0">회원번호</option>
 					<option value="1">이름</option>
 					<option value="2">아이디</option>
@@ -331,19 +349,19 @@ function drawPopup() {
 					<option value="4">성별</option>
 					<option value="5">나이</option>
 				</select>
-			     <input type="text" name="searchTxt" placeholder="검색어를 입력해주세요.">
+			     <input type="text" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt }">
 				<div class="date_search">
 					<label>날짜분류</label>
-						<input type="date">
+						<input type="date" name="startDate" id="startDate">
 						<span> ~ </span>
-						<input type="date">
+						<input type="date" name="endDate" id="endDate">
 				</div>
 				<input type="button" id="searchBtn" value="검색">
 			</div>
 </form>		
 		</div>
 		<div class="main3">
-			<input type="button" value="등록"/>
+			<input type="button" value="등록" id="addBtn"/>
 			<input type="button" value="이메일" id="email_btn"/>
 		</div>
 		<div class="main3-table">
@@ -394,7 +412,7 @@ function drawPopup() {
 					<td>${data.PHONE_NO}</td>
 					<td>${data.MAIL}</td>
 					<td>${data.JOIN_DATE}</td>
-					<td><input type="button" value="수정"/>
+					<td><input type="button" value="수정" class="update_btn"/>
 						<input type="button" value="삭제" class="delete_btn"/>
 					</td>
 				</tr>
