@@ -35,52 +35,64 @@ $(document).ready(function(){
 	//메뉴탭 고정시키기
 	$(".menu_tab_wrap div:first-child").attr("class", "tab_selected");
 	
+	//menuTab클릭했을 때 
+	$(".menu_tab_wrap").on("click", "div", function(){
+		
+		$(".menu_tab_wrap div").attr("class", "tab");
+		$(this).attr("class", "tab_selected");
+		$(".result_table").hide();
+		
+		var selected = $(this).find("a").attr("href");
+		$(selected).fadeIn("fast");
+		return false;//이걸 안하면 스크롤이 중간에...
+		
+	});
 	
 	//상세보기
-	$("tbody").on("click", "tr", function(){
+	$("tbody").on("dblclick", "tr", function(){
 		$("#postNo").val($(this).attr("pno"));
-		confirm("상세페이지로 이동합니다.");
 		$("#actionForm").attr("action", "detailPopup");
 		$("#actionForm").submit();
+	});
+	
+	//검색버튼 누르면 준비중입니다 알람
+	$(".btn_notyet").on("click", function(){
+		alert("준비중입니다.");
 	});
 	
 	//검색시
 	$("#searchBtn").on("click", function(){
 		$("#searchOldTxt").val($("#searchTxt").val());
 		loadPostList();
+	});//예전 검색어 다시 확인하기, 삭제제외 삭제포함 하기
+	
+	//전체체크하면 전체적으로 체크되게 하기
+	$("#checkAll").on("click", function(){
+		if($(this).is(":checked")){
+			$(".result_table input").prop("checked", true);
+		} else {
+			$(".result_table input").prop("checked", false);
+		}
 	});
 	
-	
+	//하나라도 체크 풀면 전체체크박스 해제되기
+	$(".result_table").on("click", "[type='checkbox']", function(){
+		if($(".table_tr [type='checkbox']").length
+				== $(".table_tr [type='checkbox']:checked").length){
+			$("#checkAll").prop("checked", true);
+		} else {
+			$("#checkAll").prop("checked", false);
+		}
+
+		//console.log($(".result_table [type='checkbox']").length);
+		//console.log($("#tableTr [type='checkbox']:checked").length);
+	});
 
 	
 	
 	
 	
 	
-	//전체체크하면 전체적으로 체크되게 하기
-	$("#checkAll").on("click", function(){
-		if($(this).is(":checked")){
-			$("#tableTr input").prop("checked", true);
-		} else {
-			$("#tableTr input").prop("checked", false);
-		}
-	});//checkAll
-	
-	
-	//하나라도 체크 풀면 전체체크박스 해제되기
-	$(".result_table").on("click", "[type='checkbox']", function(){
-		if($("#tableTr [type='checkbox']").length
-				== $("#tableTr [type='checkbox']:checked").length){
-			$("#checkAll").prop("checked", true);
-		} else {
-			$("#checkAll").prop("checked", false);
-		}
-		
-		//console.log($(".result_table [type='checkbox']").length);
-		//console.log($("#tableTr [type='checkbox']:checked").length);
-	});
-	
-	//체크다하면 전체체크되게
 	
 	
 /* 	//클릭시 색상 변하기.............미완성
@@ -101,28 +113,10 @@ $(document).ready(function(){
 	
 	
 	
-	//검색버튼 누르면 준비중입니다 알람
-	$(".btn_notyet").on("click", function(){
-		alert("준비중입니다.");
-	});
+
+
 	
-	//사이드바 해당 메뉴 고정시키기
-	$(".gallary").attr("class", "manage_selected");
-	
-	
-	
-	//menuTab클릭했을 때 
-	$(".menu_tab_wrap").on("click", "div", function(){
-		
-		$(".menu_tab_wrap div").attr("class", "tab");
-		$(this).attr("class", "tab_selected");
-		$(".result_table").hide();
-		
-		var selected = $(this).find("a").attr("href");
-		$(selected).fadeIn("fast");
-		return false;//이걸 안하면 스크롤이 중간에...
-		
-	});
+
 	
 	
 	
@@ -177,7 +171,7 @@ $(document).ready(function(){
 	
 		for(var d of list){
 			++no;
-			html +="<tr pno=\"" + d.POST_NO + "\" id=\"#tableTr\">";
+			html +="<tr pno=\"" + d.POST_NO + "\" class=\"table_tr\">";
 			html +="<td><input type=\"checkbox\"></td>";
 			html +="<td>" + no + "</td>";
 			html +="<td>" + d.POST_NO + "</td>";
@@ -297,9 +291,9 @@ $(document).ready(function(){
 			<div class="search_flag">
 				<label>회원분류</label>
 				<select name="srhYearFlag" id="srhYearFlag">
-					<option value="0"> 올해회원</option>
-					<option value="1"> 작년회원</option>
-					<option value="3" selected="selected"> 전체회원</option>
+					<option value="0"> 올해작품</option>
+					<option value="1"> 작년작품</option>
+					<option value="3" selected="selected"> 전체작품</option>
 				</select>
 				<label>검색분류</label>
 				<select name="searchFlag" id="searchFlag">
@@ -333,7 +327,7 @@ $(document).ready(function(){
 		
 		
 		<div class="result_table" id="tabResult1">
-			<table class="table1" >
+			<table class="table1">
 				<colgroup>
 						<col width="2%"/>
 						<col width="3%"/>

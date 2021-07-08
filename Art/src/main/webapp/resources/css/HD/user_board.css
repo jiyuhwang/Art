@@ -199,3 +199,7 @@ select, input{
 label{
 	margin-left: 10px;	
 }
+
+#pagingWrap span:hover{
+	cursor: pointer;
+}

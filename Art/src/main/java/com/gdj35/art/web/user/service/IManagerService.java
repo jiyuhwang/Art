@@ -20,4 +20,6 @@ public interface IManagerService {
 
 	public HashMap<String, String> getUser(HashMap<String, String> params)throws Throwable;
 
+	public List<HashMap<String, String>> getDPList(HashMap<String, String> params)throws Throwable;
+
 }

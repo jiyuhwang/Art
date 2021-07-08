@@ -8,7 +8,6 @@
 	left : 0;
 	top : 0;
 	z-index: 10;
-	display: none;
 }
 .Pmain table th{
 	background-color: #cccccc;
@@ -26,7 +25,6 @@
 	margin-top : -450px;
 	border-radius: 7px;
 	z-index: 11;
-	display: none;
 }
 .Pmain .topBar{
 	width : 100%;
@@ -293,5 +291,8 @@
 }
 .Pmain .check{
 	margin : 0;
+}
+.Pmain #pagingWrap span:hover{
+	cursor:pointer;
 }
 	
