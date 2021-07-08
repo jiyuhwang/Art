@@ -163,7 +163,7 @@ public class ManagerController {
 	//작품관리
 	@RequestMapping(value="/gallaryManage")
 	public ModelAndView gallaryManage(ModelAndView mav) throws Throwable {
-				
+		
 		mav.setViewName("h/gallaryManage");
 		return mav;
 	}
@@ -174,57 +174,17 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String entireList(
-			@RequestParam HashMap<String, String> params,
+		public String entireList(
+		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		//페이징처리
-		int page = 1;
-		
-		if(params.get("page") != null) {
-			page = Integer.parseInt(params.get("page"));
-		}
-		
-		int cnt = iManagerService.getGallaryMCnt(params);
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
-		
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
+
+			int page = Integer.parseInt(params.get("page"));
+
 				
-		
-		//목록취득
-		List<HashMap<String, String>> list = iManagerService.getPostList(params);
-		
-		modelMap.put("list", list);
-		modelMap.put("pb", pb);
-				
-		return mapper.writeValueAsString(modelMap);
-	}
-	
-	
-	
-	//삭제를 제외한 글 보기
-	@RequestMapping(value="/withoutDelList",
-			method=RequestMethod.POST,
-			produces="text/json;charset=UTF-8")
-	@ResponseBody
-	public String withoutDelList(
-			@RequestParam HashMap<String, String> params,
-			ModelAndView mav) throws Throwable{
-		
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
-		//페이징처리
-		int page = 1;
-		
-		if(params.get("page") != null) {
-			page = Integer.parseInt(params.get("page"));
-		}
-		
 		int cnt = iManagerService.getGallaryMCnt(params);
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
 		
@@ -241,6 +201,7 @@ public class ManagerController {
 				
 		return mapper.writeValueAsString(modelMap);
 	}
+	
 	
 	
 	

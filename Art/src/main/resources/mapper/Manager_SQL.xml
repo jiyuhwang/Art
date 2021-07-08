@@ -79,42 +79,42 @@
 		<if test="srhYearFlag == 0 or srhYearFlag == 1">
 			<choose>
 					<when test="srhYearFlag == 0">
-						AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+						AND TO_CHAR(REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
+						AND TO_CHAR(REGISTER_DATE, 'YY') = '20'
 					</when>
 			</choose>
 		</if>
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchFlag == 0">
-					AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+					AND TO_CHAR(REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
 				</when>
 				<when test="searchFlag == 1">
-					AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
+					AND TO_CHAR(REGISTER_DATE, 'YY') = '20'
 				</when>
 				<when test="searchFlag == 2">
-					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 3">
-					AND P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+					AND EXPLAIN LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 4">
-					AND U.NAME LIKE '%' || #{searchTxt} || '%'
+					AND NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 5">
-					AND P.POST_NO LIKE '%' || #{searchTxt} || '%'
+					AND POST_NO LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 6">
-					AND PC.CATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
+					AND PCATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 7">
-					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
-					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					OR EXPLAIN LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 8">
-					AND TO_CHAR(P.REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 		</if>
@@ -123,103 +123,38 @@
 			<choose>
 				<when test="startFlag != null and startFlag != ''
 						and endFlag == null and endFlag == ''">
-				AND P.REGISTER_DATE &gt;= #{startFlag}
+				AND REGISTER_DATE &gt;= #{startFlag}
 				</when>
 				<when test="startFlag == null and startFlag == ''
 						and endFlag != null and endFlag != ''">
-					AND P.REGISTER_DATE &lt;=  #{endFlag}
+					AND REGISTER_DATE &lt;=  #{endFlag}
 				</when>
 					<when test="startFlag != null and startFlag != ''
 						and endFlag != null and endFlag != ''">
-					AND P.REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
+					AND REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
 				</when>
 			</choose>
 		</if>
+		<choose>
+			<when test="delFlag == 0">
+				AND DEL = 0
+			</when>
+			<when test="delFlag == 1">
+				AND DEL = 1
+			</when>
+			<otherwise>
+				AND (DEL = 0 OR DEL = 1)
+			</otherwise>
+		</choose>
+
 	</select>
 	
-	<select id="getGallaryDCnt" resultType="Integer" parameterType="hashmap">
-		SELECT COUNT(*) AS CNT
-		FROM POST
-		WHERE 1 = 1
-		<if test="srhYearFlag == 0 or srhYearFlag == 1">
-			<choose>
-					<when test="srhYearFlag == 0">
-						AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
-					</when>
-					<when test="srhYearFlag == 1">
-						AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
-					</when>
-			</choose>
-		</if>
-		<if test="searchTxt != null and searchTxt != ''">
-			<choose>
-				<when test="searchFlag == 0">
-					AND TO_CHAR(P.REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
-				</when>
-				<when test="searchFlag == 1">
-					AND TO_CHAR(P.REGISTER_DATE, 'YY') = '20'
-				</when>
-				<when test="searchFlag == 2">
-					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchFlag == 3">
-					AND P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchFlag == 4">
-					AND U.NAME LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchFlag == 5">
-					AND P.POST_NO LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchFlag == 6">
-					AND PC.CATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchFlag == 7">
-					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
-					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchFlag == 8">
-					AND TO_CHAR(P.REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
-				</when>
-			</choose>
-		</if>
-		<if test="startFlag != null and startFlag != ''
-				or endFlag != null and endFlag != ''">
-			<choose>
-				<when test="startFlag != null and startFlag != ''
-						and endFlag == null and endFlag == ''">
-				AND P.REGISTER_DATE &gt;= #{startFlag}
-				</when>
-				<when test="startFlag == null and startFlag == ''
-						and endFlag != null and endFlag != ''">
-					AND P.REGISTER_DATE &lt;=  #{endFlag}
-				</when>
-					<when test="startFlag != null and startFlag != ''
-						and endFlag != null and endFlag != ''">
-					AND P.REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
-				</when>
-			</choose>
-		</if>
-		<if test="delFlag == 0 or delFlag == 1">
-			<choose>
-					<when test="delFlag == 0">
-						AND DEL = 0
-					</when>
-					<when test="delFlag == 1">
-						AND DEL = 1
-					</when>
-			</choose>
-		</if>
-		
-	</select>
+	
+
 
 	
-	
-	
-	
-	
 	<select id="getPostList" parameterType="hashmap" resultType="hashmap">
-		SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME,
+		SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME, P.DEL,
 				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YY-MM-DD') AS R_DATE,
 				P.VIEWS, DECODE(L.CNT, NULL, 0, L.CNT) AS CNT, P.EXPLAIN
 		FROM ((POST P LEFT OUTER JOIN USERS U
@@ -291,6 +226,17 @@
 				</when>
 			</choose>
 		</if>
+		<choose>
+			<when test="delFlag == 0">
+				AND P.DEL = 0
+			</when>
+			<when test="delFlag == 1">
+				AND P.DEL = 1
+			</when>
+			<otherwise>
+				AND (P.DEL = 0 OR P.DEL = 1)
+			</otherwise>
+		</choose>
 		ORDER BY P.REGISTER_DATE DESC
 	</select>
 	

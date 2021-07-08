@@ -12,7 +12,6 @@ tbody tr:hover {
 	background-color: #f2f2f2;
 }
 
-
 </style>
 
 <link rel="stylesheet" href="resources/css/h/gallary_manage.css"/>
@@ -35,6 +34,8 @@ $(document).ready(function(){
 	
 	if("${param.endFlag}" != "")
 		$("#endFlag").val("${param.endFlag}");
+	
+	$("#page").val(1);
 	
 	//---------------------------------------데이터 가져오기
 	loadPostList();
@@ -78,6 +79,7 @@ $(document).ready(function(){
 	
 	//검색시
 	$("#searchBtn").on("click", function(){
+		$("#page").val(1);
 		$("#searchOldTxt").val($("#searchTxt").val());
 		loadPostList();
 	});//예전 검색어 다시 확인하기 flag들 확인하기
@@ -91,25 +93,25 @@ $(document).ready(function(){
 		}
 	});
 	
-	//삭제포함,삭제제외 버튼 클릭시
+	//삭제된,삭제제외,삭제포함 버튼 클릭시
+	$("#BtnWith").off("click");
+	$("#BtnWith").on("click", function(){
+		$("#delFlag").val("-1");
+		loadPostList();
+	});
+
 	$("#BtnWithDel").off("click");
 	$("#BtnWithDel").on("click", function(){
 		$("#delFlag").val("0");
-		console.log($("#delFlag").val("0"));
 		loadPostList();
 	});
 	
 	$("#BtnWithoutDel").off("click");
 	$("#BtnWithoutDel").on("click", function(){
 		$("#delFlag").val("1");
-		console.log($("#delFlag").val("1"));
 		loadPostList();
 	});
 	
-	$("#BtnWith").off("click");
-	$("#BtnWith").on("click", function(){
-		loadPostList();
-	});
 	
 	
 	
@@ -158,6 +160,7 @@ $(document).ready(function(){
 	
 	$("#pagingWrap").on("click", "span", function(){
 		$("#page").val($(this).attr("name"));
+	
 		$("#searchTxt").val($("#searchOldTxt").val());
 		loadPostList();
 	});
@@ -178,34 +181,14 @@ $(document).ready(function(){
 				
 				drawList(result.list);
 				drawPaging(result.pb);
+				showCnt(result.cnt);
 				
 			}, error: function(request, status, error){
 				console.log(error);
 			}
 		});
 	}
-	
-	
-	
-	function reloadPostList(){
-		var params = $("#actionForm").serialize();
-		
-		$.ajax({
-			url: "withoutDelList",
-			type: "post",
-			dataType: "json",
-			data: params,
-			success: function(result){
-				
-				delList(result.list);
-				drawPaging(result.pb);
-				
-			}, error: function(request, status, error){
-				console.log(error);
-			}
-		});
-	}
-	
+
 	
 	//-------------------------------------------------------목록그리기
 	function drawList(list){
@@ -231,10 +214,13 @@ $(document).ready(function(){
 				html +="<td>" + d.VIEWS + "</td>";
 				html +="<td>" + d.CNT + "</td>";
 				html +="</tr>";
-			}                             			
+			}
+			
+			
 		}
 		
 		$("tbody").html(html);
+		
 	}
 	
 	//-------------------------------------------------------상세보기그리기
@@ -273,11 +259,9 @@ $(document).ready(function(){
 
 				if(result.data.TAGS != null && result.data.TAGS != "") {
 					
-					var tagArry = [];
 					var tagSplit = (result.data.TAGS).split(",");
-					tagArry += tagSplit;
 					
-					for(var t of tagArry){
+					for(var t of tagSplit){
 						html +="<i class=\"small_tag\"># "+ t +"</i>";
 					}
 				}
@@ -349,8 +333,19 @@ $(document).ready(function(){
 	
 	
 	
-	
-	
+	//총 tr 개수 가져오기
+	function showCnt(cnt){
+		var html = "";		
+		
+		html += "<div class=\"result_cnt\">결과: " + cnt +"개</div>";
+		html += "<div class=\"button_wrap\">";
+		html += "<input type=\"button\" value=\"복원\" class=\"btn_notyet\"/>&nbsp;&nbsp;&nbsp;";
+		html += "<input type=\"button\" value=\"삭제\" class=\"btn_notyet\"/>";
+		html += "</div>";
+		
+		$(".cnt_wrap").html(html);
+		
+	}
 	
 	
 	
@@ -414,14 +409,15 @@ $(document).ready(function(){
 		<div class="menu_txt_wrap">
 			<div class="menu_txt">
 				<span><span class="font-red">검색어를 입력</span>하여 검색할 수 있습니다.</span><br/>
-				<span><span class="font-red">제목</span>을 클릭하시면 수정페이지로 이동합니다.</span><br/>
+				<span><span class="font-red">제목</span>을 연속으로 두 번 클릭하시면 수정페이지로 이동합니다.</span><br/>
 				<span><span class="font-red">데이터가 많은 경우</span> 느려질 수 있습니다.</span>
 			</div>
 		</div>
 <!-----------------------------------------------데이터 전송  -->
 <form action="#" id="actionForm" method="post" >
 	<input type="hidden" id="postNo" name="postNo"/>
-	<input type="hidden" id="delFlag" name="delFlag" value="" />
+	<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
+	<input type="hidden" id="page" name="page" value="${page}"/>
 	<input type="hidden"  value=""/>
 	
 		<div class ="search_flag_div">
@@ -450,16 +446,13 @@ $(document).ready(function(){
 						<span> ~ </span>
 						<input type="date" id="endFlag" name="endFlag" min="2021-01-01">
 						<input type="button" value="검색" id="searchBtn"/>
-						<input type="button" value="삭제된" id="BtnWithoutDel"/>
-						<input type="button" value="삭제안된" id="BtnWithDel"/>
+						<input type="button" value="삭제된" id="BtnWithDel"/>
+						<input type="button" value="삭제안된" id="BtnWithoutDel"/>
 						<input type="button" value="삭제포함" id="BtnWith"/>
 				</div>
 			</div>
 		</div>
-		<div class="button_wrap">
-			<input type="button" value="복원" class="btn_notyet"/>
-			<input type="button" value="삭제" class="btn_notyet"/>
-		</div>
+		<div class="cnt_wrap"></div>
 </form>
 		<!-----------------------------------------------------------테이블 -->
 		
