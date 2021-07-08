@@ -1,14 +1,5 @@
 @charset "UTF-8";
 
-body {
-	font-size: 0pt;
-	margin: 0;
-	padding: 0;
-	font-family: '돋움';
-}
-
-
-
 .background {
 	width: 100%;
 	height: 100%;
@@ -117,7 +108,7 @@ body {
 	position: relative;
 }
 
-.tag {
+.small_tag {
 	font-size: 13pt;
 	padding: 5px 12px 5px 5px;
 	background-color: #ffad33;

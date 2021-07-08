@@ -47,25 +47,7 @@ public class ManagerDao implements IManagerDao {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	@Override
@@ -77,6 +59,13 @@ public class ManagerDao implements IManagerDao {
 	public HashMap<String, String> getUserDetail(HashMap<String, String> params) throws Throwable {		
 		return sqlSession.selectOne("Manager.getUserDetail", params);
 	}
+
+	@Override
+	public int getGallaryMCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Manager.getGallaryMCnt", params);
+	}
+
+
 
 	
 }
