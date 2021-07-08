@@ -161,11 +161,11 @@ a {
 			</div>
 			<br />
 			<div class="side_bar_menu2">
-				<a href="gallary">작품 보러가기</a>
+				<a href="picgallary">작품 보러가기</a>
 			</div>
 		</div>
 		<div class="forget">
-			<a href="#">계정을 잊어버리셨나요?</a>
+			<a href="idfind">계정을 잊어버리셨나요?</a>
 		</div>
 	</div>
 

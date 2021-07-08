@@ -72,7 +72,7 @@ body {
     margin-left: 20px;
 }
 
-.pic {
+.pic, .draw {
 	display: inline-block;
 	cursor: pointer;
 	width: 310px;
@@ -91,14 +91,20 @@ body {
 	z-index: 200;
 }
 
-.pic:hover .bg {
+.pic:hover .bg, .draw:hover, .video:hover  {
 	background-color: gray;
 	opacity: 0.7;
-	/* filter: brightness(40%); */
 }
 
 .pic:hover .contents_title, .pic:hover .contents_in, .pic:hover .contents_heart,
 	.pic:hover .contents_name {
+	opacity: 1;
+	color: white;
+	z-index: 300;
+}
+
+.draw:hover .contents_title, .draw:hover .contents_in, .draw:hover .contents_heart,
+	.draw:hover .contents_name {
 	opacity: 1;
 	color: white;
 	z-index: 300;
@@ -156,75 +162,21 @@ body {
 	left: 85%;
 }
 
-.pic_wrap {
+.pic_wrap, .draw_wrap, .video_wrap {
 	position: absolute;
 	margin-top: 20px;
 }
 
-#pic1 {
-	background-image: url("../../images/JY/짱구1.jpg");
-}
 
-#pic2 {
-	background-image: url("../../images/JY/짱구2.jpg");
-}
-
-#pic3 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#pic4 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-
-#pic5 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#pic6 {
-	background-image: url("../../images/JY/짱구4.jpg");
-}
-
-#pic7 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-#pic8 {
-	background-image: url("../../images/JY/짱구1.jpg");
-}
-#pic9 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-#pic10 {
-	background-image: url("../../images/JY/짱구2.jpg");
-}
-#pic11 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-#pic12 {
-	background-image: url("../../images/JY/짱구4.jpg");
-}
-#pic13 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-#pic14 {
-	background-image: url("../../images/JY/짱구1.jpg");
-}
-#pic15 {
-	background-image: url("../../images/JY/짱구2.jpg");
-}
-#pic16 {
-	background-image: url("../../images/JY/짱구4.jpg");
-}
-
-.pic_wrap :not(:nth-child(4n)) {
+.pic_wrap :not(:nth-child(4n)), .draw_wrap :not(:nth-child(4n)), .video_wrap :not(:nth-child(4n)) {
 	margin-right: 15px;
 }
 
 
 .select {
 	margin-top: 10px;
-	margin-left: 770px;
-	width: 90px;
+	margin-left: 760px;
+	width: 100px;
     padding: 5px;
     padding-left: 12px;
     border: 1px solid black;
@@ -248,15 +200,17 @@ body {
 	float: left;
 	padding: 8px 16px;
 	text-decoration: none;
+	margin: 0 5px;
+	cursor: pointer;
 }
 
-.pagination a.active {
+.on {
 	border: 1px solid black;
 	font-weight: bold;
 	border-radius: 5px;
 }
 
-.pagination a:hover:not(.active) {
+.pagination a:hover:not(.on) {
 	background-color: #ddd;
 	border-radius: 5px;
 }

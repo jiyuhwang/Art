@@ -5,15 +5,18 @@
 	<!-- resultType : row 1줄의 형태를 지정 -->
 	<!-- 쿼리 작성 시 ;이 들어가면 실행되지 않음 -->
 	
+	<!-- 작품올리기 -->
 	<insert id="addPost" parameterType="hashmap">
 		INSERT INTO POST(POST_NO, USER_NO, CATEGORY_NO, TITLE, EXPLAIN, POST_FILE, VISIBILITY, REGISTER_DATE)
 		VALUES(#{postNo}, #{userNo}, #{category}, #{title}, #{explain}, #{postFile2}, #{public_privacy}, SYSDATE)
 	</insert>
 	
+	<!-- 작품번호 -->
 	<select id="getNum" resultType="Integer">
      	SELECT POST_SEQ.NEXTVAL FROM DUAL
 	</select>
 	
+	<!-- 태그 -->
 	<select id="getTag" parameterType="String" resultType="hashmap">
      	SELECT TAG_NO
 		FROM TAG
@@ -30,6 +33,54 @@
 		VALUES(#{postNo}, #{TagNo})
 	</insert>
 	
+	<!-- 사진갤러리 페이지 목록 -->
+	<select id="picList" parameterType="hashmap" resultType="hashmap">
+		SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO
+		FROM USERS U RIGHT OUTER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
+		                        FROM POST
+		                        WHERE DEL = 1
+		                        AND VISIBILITY = 0
+		                        AND CATEGORY_NO = 1) P
+		                ON U.USER_NO = P.USER_NO
+		WHERE U.OUT_DATE IS NULL
+		AND P.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
 
+	<!-- 사진갤러리 게시글 수 -->
+	<select id="getPicCnt" parameterType="hashmap" resultType="Integer">
+     	SELECT COUNT(*) AS CNT 
+		FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+		                        FROM POST
+		                        WHERE DEL = 1
+		                        AND VISIBILITY = 0
+		                        AND CATEGORY_NO = 1) P
+		                ON U.USER_NO = P.USER_NO
+		WHERE U.OUT_DATE IS NULL
+	</select>
+	
+	<!-- 그림갤러리 페이지 목록 -->
+	<select id="drawList" parameterType="hashmap" resultType="hashmap">
+		SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO
+		FROM USERS U RIGHT OUTER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
+		                        FROM POST
+		                        WHERE DEL = 1
+		                        AND VISIBILITY = 0
+		                        AND CATEGORY_NO = 2) P
+		                ON U.USER_NO = P.USER_NO
+		WHERE U.OUT_DATE IS NULL
+		AND P.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<!-- 그림갤러리 게시글 수 -->
+	<select id="getDrawCnt" parameterType="hashmap" resultType="Integer">
+     	SELECT COUNT(*) AS CNT 
+		FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+		                        FROM POST
+		                        WHERE DEL = 1
+		                        AND VISIBILITY = 0
+		                        AND CATEGORY_NO = 2) P
+		                ON U.USER_NO = P.USER_NO
+		WHERE U.OUT_DATE IS NULL
+	</select>
 
 </mapper>
