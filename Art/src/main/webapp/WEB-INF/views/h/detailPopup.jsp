@@ -115,35 +115,31 @@ ${data.POST_UFILE}</a><br/>
 
 <div class="wrap">
 		<div class="contents_wrap">
-			<img class="contents_img" src="resources/images/JY/짱구1.jpg" width="700px" height="500px">
+			<img class="contents_img" src="resources/images/JY/짱구1.jpg">
 		</div>
 		<div class="category">${data.CATEGORY_NAME}</div>
 		<div class="title">${data.TITLE}</div>
-		<div class="contents_date">${data.REGISTER_DATE}</div>
-		<br/>
-		<br/>
+		<div class="contents_date">${data.REGISTER_DATE}</div><br/><br/>
 		<div class="contents">${data.EXPLAIN}</div>
+		<div class="tag_wrap">
 		<c:choose>
 			<c:when test="${!empty data.TAGS}">
-				<div class="tag_wrap">
 				<c:set var="tagSplit" value="${fn:split(data.TAGS,',')}"></c:set>
-
 				<c:forEach var="i" items="${tagSplit}">
 					<i class="tag"># ${i}</i>
 				</c:forEach>
-				</div><br/>
 			</c:when>
 		</c:choose>
-				<div class="comment_wrap1">
-				<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
-				<div class="comment">댓글</div>
-				</div>
-		
-	<div class="profile2_wrap">
-		<div class="profile2">
-			<img class="profile_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="40px" height="40px">
+			<div class="comment_wrap">
+				<img class="comment_img" src="resources/images/JY/comment.png">
+				<div class="comment">댓글 ${data.COMMENT_CNT}개</div>
+			</div>		
+		</div><br/>
+	<div class="mini_profile_wrap">
+		<div class="mini_profile">
+			<img class="profile_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1">
 		${data.PROFILE_IMG_PATH}</div>
-		<div class="profile_name2">${data.USER_NICKNAME}</div>
+		<div class="mini_profile_name">${data.USER_NICKNAME}</div>
 		<div class="profile_introduce">${data.INTRODUCE}</div>
 	</div>
 </div>
