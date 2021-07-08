@@ -51,5 +51,10 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getUser(params);
 
 	}
+
+	@Override
+	public int getGallaryMCnt(HashMap<String, String> params) throws Throwable {		
+		return iManagerDao.getGallaryMCnt(params);
+	}
 	
 }

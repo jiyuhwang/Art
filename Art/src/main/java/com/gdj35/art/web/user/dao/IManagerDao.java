@@ -20,5 +20,7 @@ public interface IManagerDao {
 
 	public HashMap<String, String> getUser(HashMap<String, String> params)throws Throwable;
 
+	public int getGallaryMCnt(HashMap<String, String> params) throws Throwable;
+
 
 }

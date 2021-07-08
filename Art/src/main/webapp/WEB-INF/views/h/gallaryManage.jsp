@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><!--EL Tag 확장기능  --> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,21 +11,30 @@
 tbody tr:hover {
 	background-color: #f2f2f2;
 }
+
+
 </style>
+
 <link rel="stylesheet" href="resources/css/h/gallary_manage.css"/>
+<!-- Popup CSS -->
+<link rel="stylesheet" href="resources/css/h/detail_popup.css">
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	if("${param.searchFlag}" != ""){
+	if("${param.searchFlag}" != "")
 		$("#searchFlag").val("${param.searchFlag}");
-	}
 	
-	if("${param.srhYearFlag}" != ""){
+	if("${param.srhYearFlag}" != "")
 		$("#srhYearFlag").val("${param.srhYearFlag}");
-	}
+	
+	if("${param.startFlag}" != "")
+		$("#startFlag").val("${param.startFlag}");
+	
+	if("${param.endFlag}" != "")
+		$("#endFlag").val("${param.endFlag}");
 	
 	//---------------------------------------데이터 가져오기
 	loadPostList();
@@ -40,19 +50,27 @@ $(document).ready(function(){
 		
 		$(".menu_tab_wrap div").attr("class", "tab");
 		$(this).attr("class", "tab_selected");
-		$(".result_table").hide();
 		
-		var selected = $(this).find("a").attr("href");
-		$(selected).fadeIn("fast");
-		return false;//이걸 안하면 스크롤이 중간에...
+/* 		if($(this).attr("id", "entire")){
+			
+		} else if($(this).attr("id", "picture")){
+			
+		} else if($(this).attr("id", "drawing")){
+
+			
+		} else{
+			
+		}	 */
+		
+		
+		loadPostList();
 		
 	});
 	
 	//상세보기
 	$("tbody").on("dblclick", "tr", function(){
 		$("#postNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "detailPopup");
-		$("#actionForm").submit();
+		drawPopup();
 	});
 	
 	//검색버튼 누르면 준비중입니다 알람
@@ -62,9 +80,10 @@ $(document).ready(function(){
 	
 	//검색시
 	$("#searchBtn").on("click", function(){
+		$("#page").val(1);
 		$("#searchOldTxt").val($("#searchTxt").val());
 		loadPostList();
-	});//예전 검색어 다시 확인하기, 삭제제외 삭제포함 하기
+	});//예전 검색어 다시 확인하기 flag들 확인하기, 삭제제외 삭제포함 하기
 	
 	//전체체크하면 전체적으로 체크되게 하기
 	$("#checkAll").on("click", function(){
@@ -118,7 +137,11 @@ $(document).ready(function(){
 	
 
 	
-	
+	$("#pagingWrap").on("click", "span", function(){
+		$("#page").val($(this).attr("name"));
+		$("#searchTxt").val($("#searchOldTxt").val());
+		loadPostList();
+	});
 	
 	
 	
@@ -128,39 +151,20 @@ $(document).ready(function(){
 		var params = $("#actionForm").serialize();
 		
 		$.ajax({
-			url: "entire",
+			url: "entireList",
 			type: "post",
 			dataType: "json",
 			data: params,
 			success: function(result){
 				
 				drawList(result.list);
+				drawPaging(result.pb);
 				
 			}, error: function(request, status, error){
 				console.log(error);
 			}
 		});
 	}
-	
-	function loadDetail(){
-		var params = $("#actionForm").serialize();
-		
-		$.ajax({
-			url: "detailPopup",
-			type: "post",
-			dataType: "json",
-			data: params,
-			success: function(result){
-				
-				drawData(result.data);
-				
-			}, error: function(request, status, error){
-				console.log(error);
-			}
-		});
-	}
-	
-	
 	
 	
 	//-------------------------------------------------------목록그리기
@@ -168,75 +172,134 @@ $(document).ready(function(){
 		var html = "";
 		var no = 0;
 		
-	
-		for(var d of list){
-			++no;
-			html +="<tr pno=\"" + d.POST_NO + "\" class=\"table_tr\">";
-			html +="<td><input type=\"checkbox\"></td>";
-			html +="<td>" + no + "</td>";
-			html +="<td>" + d.POST_NO + "</td>";
-			html +="<td>" + d.CATEGORY_NAME + "</td>";
-			html +="<td>" + d.TITLE + "</td>";
-			html +="<td>" + d.NAME + "</td>";
-			html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
-			html +="<td>" + d.R_DATE + "</td>";
-			html +="<td>" + d.VIEWS + "</td>";
-			html +="<td>" + d.CNT + "</td>";
-			html +="</tr>";
-		}                             
-		
-		$("tbody").html(html);
-	}
-	
-	//-------------------------------------------------------상세보기그리기
-	function drawData(data){
-		var html = "";
-		
-		
-		for(var d of data){
-			html +="<div class=\"wrap\">";
-			html +="<div class=\"contents_wrap\">";
-			html +="<img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" width=\"700px\" height=\"500px\">";
-			html +="</div>";
-			html +="<div class=\"category\">"+ d.CATEGORY_NAME +"</div>";
-			html +="<div class=\"title\">"+ d.TITLE +"</div>";
-			html +="<div class=\"contents_date\">"+ d.REGISTER_DATE +"</div>";
-			html +="<br/>";
-			html +="<br/>";
-			html +="<div class=\"contents\">"+ d.EXPLAIN +"</div>";
-			html +="<div class=\"tag_wrap\">";
-			
-			
-			if(d.TAGS != null){
-				var tags = d.TAGS;
-				var tagSplit = tags.split(",");
-					
-				for(var i=0; i<tagSplit.lenth; i++){
-					html +="<i class=\"tag\">#"+ tagSplit[i] +"</i>";
-				}
-				
-			}
-			
-			
-			
-			html +="<div class=\"comment_wrap1\">";
-			html +="<img class=\"comment_img\" src=\"resources/images/JY/comment.png\" width=\"30px\" height=\"30px\">";
-			html +="<div class=\"comment\">댓글</div>";
-			html +="</div>";
-			html +="</div><br/>";
-			html +="<div class=\"profile2_wrap\">";
-			html +="<div class=\"profile2\">";
-			html +="<img class=\"profile_img2\" src=\"resources/images/JY/짱구1.jpg\" alt=\"짱구1\" width=\"40px\" height=\"40px\">";
-			html +=${data.PROFILE_IMG_PATH} +"</div>";
-			html +="<div class=\"profile_name2\">"+ d.USER_NICKNAME +"</div>";
-			html +="<div class=\"profile_introduce\">"+ d.INTRODUCE +"</div>";
-			html +="</div>                                                                                              ";
-			html +="</div>                                                                                              ";
+		if(list.length == 0 && $("#page").val() == 1) {
+			html += "<tr>";
+			html += "<td colspan=\"5\">등록된 글이 없습니다.</td>";
+			html += "</tr>";
+		} else {
+			for(var d of list){
+				++no;
+				html +="<tr pno=\"" + d.POST_NO + "\" class=\"table_tr\">";
+				html +="<td><input type=\"checkbox\"></td>";
+				html +="<td>" + no + "</td>";
+				html +="<td>" + d.POST_NO + "</td>";
+				html +="<td>" + d.CATEGORY_NAME + "</td>";
+				html +="<td>" + d.TITLE + "</td>";
+				html +="<td>" + d.NAME + "</td>";
+				html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
+				html +="<td>" + d.R_DATE + "</td>";
+				html +="<td>" + d.VIEWS + "</td>";
+				html +="<td>" + d.CNT + "</td>";
+				html +="</tr>";
+			}                             			
 		}
 		
 		$("tbody").html(html);
 	}
 	
+	//-------------------------------------------------------상세보기그리기
+	function drawPopup(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "drawUserPopup",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(result){
+				var html = "";
+                
+				html +="	<div class=\"background\"></div>";
+				html +="	<div class=\"wrap\">";
+				html +="	<div class=\"popup_title\">관리자용 상세보기</div>";
+				html +="	<div class=\"close_btn_wrap\">";
+				html +="	<input type=\"button\" id=\"BtnUpdate\" value=\"수정\"/>";
+				html +="	<input type=\"button\" id=\"BtnClose\" value=\"닫기\"/>";
+				html +="	</div>";
+				html +="	<div class=\"contents_wrap\">";
+				
+				if(result.POST_FILE != null && result.POST_FILE != "") {
+					html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE +"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
+				} else {
+					html +=" <img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" alt=\"사랑스런짱구\">";
+				}
+
+				html +="	</div>";
+				html +="	<div class=\"category\">"+ result.data.CATEGORY_NAME +"</div>";
+				html +="	<div class=\"title\">"+ result.data.TITLE +"</div>";
+				html +="	<div class=\"contents_date\">"+ result.data.REGISTER_DATE +"</div><br/><br/>";
+				html +="	<div class=\"contents\">"+ result.data.EXPLAIN +"</div>";
+				html +="	<div class=\"tag_wrap\">";
+
+				if(result.data.TAGS != null && result.data.TAGS != "") {
+					var tagSplit = (result.data.TAGS).split(",");
+					String tagArry = [];
+					tagArry += tagSplit;
+					
+					for(var t of tagArry){
+						html +="<i class=\"small_tag\"># "+ t +"</i>";
+					}
+				}
+				     
+				html +="	<div class=\"comment_wrap\">";
+				html +="	<img class=\"comment_img\" src=\"resources/images/JY/comment.png\" alt=\"댓글아이콘\">";
+				html +="	<div class=\"comment\">댓글 "+ result.data.COMMENT_CNT+"개</div>";
+				html +="	</div></div><br/>";
+				html +="	<div class=\"mini_profile_wrap\">";
+				html +="	<div class=\"mini_profile\">";
+				
+				if(result.data.PROFILE_IMG_PATH != null && result.data.PROFILE_IMG_PATH != "") {
+					html +=" <img class=\"profile_img2\" src=\"resources/upload/"+ result.data.PROFILE_IMG_PATH +"\" alt=\"프로필이미지\" download=\""+ result.data.PROFILE_IMG_UPATH+"\">";
+
+				} else {
+					html +=" <img class=\"profile_img2\" src=\"resources/images/JY/who.png\" alt=\"기본프로필\">";
+				}
+				
+				html +="	</div><div class=\"mini_profile_name\">"+ ${data.USER_NICKNAME} +"</div>";
+				html +="	<div class=\"profile_introduce\">"+ ${data.INTRODUCE} +"</div>";
+				html +="	</div>";
+				html +="	</div>";
+				html +="	</form>";
+				
+				
+				$("body").prepend(html);
+				
+				$(".background").hide();
+				$(".wrap").hide();
+				
+				$(".background").fadeIn();
+				$(".wrap").fadeIn();
+				
+				
+				$("#BtnClose").off("click");
+				$("#BtnClose").on("click", function(){
+					closePopup();
+				});
+				
+				$(".background").off("click");
+				$(".wrap").on("click", function(){
+					closePopup();
+				});
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
+
+	//상세팝업닫기
+	function closePopup() {
+		$(".background").fadeOut(function(){
+			$(".background").remove();
+		});
+		
+		$(".wrap").fadeOut(function(){
+			$(".wrap").remove();
+		});
+	}
+			
+			
+
 	
 	
 	
@@ -250,6 +313,39 @@ $(document).ready(function(){
 	
 	
 	
+	//-------------------------------------------------------페이징 그리기
+	function drawPaging(pb){
+		var html = "";
+		
+		html += "<span name=\"1\">처음</span>";
+		
+		if($("#page").val()== "1"){
+			html += "<span name=\"1\">이전</span>";
+			
+		} else {
+			html += "<span name=\"" + ($("#page").val() - 1) + "\">이전</span>";	
+		}
+		
+		for(var i = pb.startPcount; i<= pb.endPcount; i++){
+			if($("#page").val() == i){
+				html += "<span name=\"" + i + "\"><b>" + i + "</b></span>";
+				
+			} else {
+				html += "<span name=\"" + i + "\">" + i + "</span>";
+			}
+		}
+		
+		if($("#page").val() == pb.maxPcount){
+			html += "<span name=\"" + pb.maxPcount + "\">다음</span>";
+			
+		} else {
+			html += "<span name=\"" + ($("#page").val() * 1 + 1) + "\">다음</span>";
+		}
+			
+		html += "<span name=\"" + pb.maxPcount + "\">마지막</span>";
+		
+		$("#pagingWrap").html(html);
+	}	
 	
 	
 	
@@ -269,10 +365,10 @@ $(document).ready(function(){
 		<div class ="blank2"></div>
 		
 		<div class="menu_tab_wrap">
-			<div id="entire" class="tab"><a href="#tabResult1">전체목록</a></div>
-			<div id="picture" class="tab"><a href="#tabResult2">사진</a></div>
-			<div id="drawing" class="tab"><a href="#tabResult3">그림</a></div>
-			<div id="movie" class="tab"><a href="#tabResult4">영상</a></div>
+			<div id="entire" class="tab">전체목록</div>
+			<div id="picture" class="tab">사진</div>
+			<div id="drawing" class="tab">그림</div>
+			<div id="movie" class="tab">영상</div>
 		</div>
 		<div class="menu_txt_wrap">
 			<div class="menu_txt">
@@ -332,8 +428,8 @@ $(document).ready(function(){
 						<col width="2%"/>
 						<col width="3%"/>
 						<col width="4%"/>
-						<col width="4%"/>
-						<col width="40%"/>
+						<col width="10%"/>
+						<col width="34%"/>
 						<col width="8%"/>
 						<col width="10%"/>
 						<col width="10%"/>
@@ -358,7 +454,8 @@ $(document).ready(function(){
 				</thead>
 				<tbody></tbody>
 			</table>
-		</div>	
+		</div>
+		<div id="pagingWrap"></div>
 	</div>
 </div>
 </body>
