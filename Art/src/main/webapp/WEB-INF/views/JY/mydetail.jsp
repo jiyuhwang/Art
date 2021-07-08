@@ -217,11 +217,9 @@ function heart() {
 		<br />
 		<br />
 		<div class="contents">${data.EXPLAIN}</div>
-		<div class="tag_wrap">
-			<i class="tag"># ${data.TAG_NAME}</i>		
-			<!-- <i class="tag">#나무</i>		
-			<i class="tag">#공원</i> -->
-		</div>
+				<c:forEach var="i" items="${array}">
+					<i class="tag"># ${i}</i>
+				</c:forEach>
 			<div class="comment_wrap1">
 				<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
 				<div class="comment">댓글</div>
