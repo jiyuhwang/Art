@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>gallary</title>
+<title>전체 갤러리</title>
 <link rel="stylesheet" href="resources/css/JY/gallary.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
@@ -23,7 +23,13 @@ $(document).ready(function() {
 	
 	$(".pic_wrap").on("click", "div", function() {
 		$("#pNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "mydetail");
+		$("#actionForm").attr("action", "detail");
+		$("#actionForm").submit();
+	});
+	
+	$(".draw_wrap").on("click", "div", function() {
+		$("#pNo").val($(this).attr("pno"));
+		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
 	

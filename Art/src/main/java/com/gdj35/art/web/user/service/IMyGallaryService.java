@@ -19,5 +19,10 @@ public interface IMyGallaryService {
 
 	public HashMap<String, String> getPost(HashMap<String, String> params) throws Throwable;
 
+	public int updatePost(HashMap<String, String> params) throws Throwable;
+
+	public int deletePost(HashMap<String, String> params) throws Throwable;
+
+
 
 }
