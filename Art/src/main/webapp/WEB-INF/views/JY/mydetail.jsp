@@ -10,6 +10,16 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	
+	
+	if("${sUserNo}" != "") { // 로그인 상태
+		$("#btnCommentDelete, #writeInfo").show();
+	} else { // 비 로그인 상태
+		$("#btnCommentDelete, #loginInfo").show();
+	}
+	
+	
 	$('#btnMenu').click(function() {
 		if ($('.side_bar').css('display') == 'none') {
 			$('.side_bar').slideDown();
@@ -88,7 +98,62 @@ $(document).ready(function() {
 
 	        $('html').animate({scrollTop : offset.top}, 400);
 	})
+	
+	$("#btnLogout").on("click", function() {
+		$.ajax({
+			url: "Logout",
+			type: "post",
+			success: function(res) {
+				location.href = "main";
+			},
+			error: function(request, status, error) {
+				console.log(error);
+			}
+		});
+	});
+	
+	
+	/* $("#updateBtn").on("click", function() {
+		$("#goForm").attr("action", "testABUpdate");
+		$("#goForm").submit();
+	});
+	
+	$("#deleteBtn").on("click", function() {
+		if(confirm("삭제하시겠습니까?")) {
+			var params= $("#goForm").serialize();
+			
+			$.ajax({
+				url: "testABDeletes", // 접속 주소
+				type: "post", // 전송 방식: get, post
+				dataType: "json", // 받아올 데이터 형태
+				data: params, // 보낼 데이터(문자열 형태)
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						location.href = "testABList";
+					} else if(res.msg == "failed") {
+						alert("삭제에 실패하였습니다.")
+					} else {
+						alert("삭제 중 문제가 발생하였습니다.")
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+		}
+	}); */
 });
+
+/* function drawtTag(list) {
+	var html = "";
+	for(var i in list) {
+		var d = list[i];
+		html += "<i class=\"tag\"># ${data.TAG_NAME}[0]</i>"	
+
+	}
+	$(".tag_wrap").html(html);
+
+} */
 
 function heart() {
 	var heart = document.getElementById('btnLike')
@@ -102,6 +167,10 @@ function heart() {
 </script>
 </head>
 <body>
+	<form action="#" id="goForm" method="post">
+		<input type="hidden" name="pNo" value="${data.USER_NO}" />
+		<input type="hidden" name="page" value="${param.page}" />
+	</form>
 	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
@@ -140,23 +209,23 @@ function heart() {
 	</div>
 	<div class="wrap">
 		<div class="contents_wrap">
-			<img class="contents_img" src="resources/images/JY/짱구1.jpg" width="700px" height="500px">
+			<img class="contents_img" src="resources/upload/${data.POST_FILE}" width="700px" height="500px">
 		</div>
-		<div class="category">사진갤러리</div>
-		<div class="title">스마일 짱구</div>
-		<div class="contents_date">2021.06.28 15:00</div>
+		<div class="category">${data.CATEGORY_NAME}</div>
+		<div class="title">${data.TITLE}</div>
+		<div class="contents_date">${data.REGISTER_DATE}</div>
 		<br />
 		<br />
-		<div class="contents">작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명작품설명</div>
+		<div class="contents">${data.EXPLAIN}</div>
 		<div class="tag_wrap">
-			<i class="tag">#복숭아</i>		
-			<i class="tag">#나무</i>		
-			<i class="tag">#공원</i>
+			<i class="tag"># ${data.TAG_NAME}</i>		
+			<!-- <i class="tag">#나무</i>		
+			<i class="tag">#공원</i> -->
+		</div>
 			<div class="comment_wrap1">
 				<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
 				<div class="comment">댓글</div>
 			</div>
-		</div>
 		<br />
 		<div class="comment_wrap2">
 			<div class="comment_title">댓글 <span class="comment_cnt2"> 5</span></div>

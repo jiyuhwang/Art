@@ -155,18 +155,29 @@ public class MyGallaryController {
 	}
 	
 	@RequestMapping(value = "/mydetail")
-	public ModelAndView mydetail(HttpSession session, ModelAndView mav) throws Throwable {
+	public ModelAndView mydetail(HttpSession session,
+								@RequestParam HashMap<String, String> params,
+								 ModelAndView mav) throws Throwable {
 
 		
-		if(session.getAttribute("sUserNo") != null) {
+		HashMap<String, String> data = iMyGallaryService.getPost(params);
+		
+		String str = data.get("TAG_NAME");
 
-			mav.setViewName("JY/mydetail");
-			
-			
-		} else {
-			
-			mav.setViewName("redirect:main");
+		String[] array = str.split(",");
+		
+		for(int i = 0 ; i < array.length ; i++) {
+			System.out.println(array[i]);
 		}
+		
+		
+		mav.addObject("array", array);
+		
+		System.out.println(array);
+		
+		mav.addObject("data", data);
+		
+		mav.setViewName("JY/mydetail");
 
 		return mav;
 	}

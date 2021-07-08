@@ -17,5 +17,7 @@ public interface IMyGallaryDao {
 
 	public int getDrawCnt(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> getPost(HashMap<String, String> params) throws Throwable;
+
 
 }

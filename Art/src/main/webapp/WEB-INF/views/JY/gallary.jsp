@@ -23,7 +23,7 @@ $(document).ready(function() {
 	
 	$(".pic_wrap").on("click", "div", function() {
 		$("#pNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "");
+		$("#actionForm").attr("action", "mydetail");
 		$("#actionForm").submit();
 	});
 	
