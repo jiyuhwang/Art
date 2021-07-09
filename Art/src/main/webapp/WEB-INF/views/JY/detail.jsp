@@ -5,22 +5,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mydetail</title>
-<link rel="stylesheet" href="resources/css/JY/mydetail.css">
+<title>작품 상세보기</title>
+<link rel="stylesheet" href="resources/css/JY/detail.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
+$(document).ready(function() {	
+
 	
-	
-	
-	if("${sUserNo}" != "") { // 로그인 상태
-		$("#btnCommentDelete, #writeInfo").show();
-	} else { // 비 로그인 상태
-		$("#btnCommentDelete, #loginInfo").show();
+	if("${sUserNo}" != $("#authorNo").val()) {
+		$(".btnCommentDelete").hide();
+		$("#replyBtnCommentDelete").hide();
+		$(".header").hide();
+		$(".share_wrap").hide();
+		$(".header2").show();
+		$(".share_wrap2").show();
+	} else {
+		$(".btnCommentDelete").show();
+		$("#replyBtnCommentDelete").show();
+		$(".header").show();
+		$(".share_wrap").show();
+		$(".header2").hide();
+		$(".share_wrap2").hide();
 	}
 	
 	
-	$('#btnMenu').click(function() {
+	$('#btnMenu, #btnMenu2').click(function() {
 		if ($('.side_bar').css('display') == 'none') {
 			$('.side_bar').slideDown();
 		} else {
@@ -46,6 +55,14 @@ $(document).ready(function() {
 		}
 	})
 	
+	$('#btnShare2').click(function() {
+		if ($('.share_wrap2').css('display') == 'none') {
+			$('.share_wrap2').show();
+		} else {
+			$('.share_wrap2').hide();
+		}
+	})
+	
 	$('.comment_wrap1').click(function() {
 		if ($('.comment_wrap2').css('display') == 'none') {
 			$('.comment_wrap2').show();
@@ -64,8 +81,11 @@ $(document).ready(function() {
 	
 	$('#btnShare').hide();
 	$('#btnLike').hide();
-	$("#btnDot2").hide();
+	$("#btnDot2, #btnDot22").hide();
 	$(".like_cnt").hide();
+	$("#btnDeclation2").hide();
+	$(".share_wrap").hide();
+	$(".share_wrap2").hide();
 	
 	
 	$('#btnDot1').click(function() {
@@ -92,7 +112,36 @@ $(document).ready(function() {
 		$("#btnDot1").show();
 	})
 	
+	$('#btnDot12').click(function() {
+		$('#btnShare2').hide();
+		$('#btnLike2').hide();
+		$('.like_cnt2').hide();
+		$('#btnComment2').hide();
+		$('.comment_cnt12').hide();
+		$(this).hide();
+		$("#btnDot22").show();
+		$("#btnDeclation2").show();
+	})
+	
+	$('#btnDot22').click(function() {
+		$('#btnShare2').show();
+		$('#btnLike2').show();
+		$('.like_cnt2').show();
+		$('#btnComment2').show();
+		$('.comment_cnt12').show();
+		$(this).hide();
+		$("#btnDot12").show();
+		$("#btnDeclation2").hide();
+	})
+	
 	$('#btnComment, .comment_cnt').click(function(){
+			$(".comment_wrap1").show();
+			var offset = $('.comment_wrap1').offset();
+
+	        $('html').animate({scrollTop : offset.top}, 400);
+	})
+	
+	$('#btnComment2, .comment_cnt12').click(function(){
 			$(".comment_wrap1").show();
 			var offset = $('.comment_wrap1').offset();
 
@@ -112,24 +161,27 @@ $(document).ready(function() {
 		});
 	});
 	
+
 	
-	/* $("#updateBtn").on("click", function() {
-		$("#goForm").attr("action", "testABUpdate");
+	
+	$("#btnEdit").on("click", function() {
+		$("#goForm").attr("action", "edit");
 		$("#goForm").submit();
 	});
 	
-	$("#deleteBtn").on("click", function() {
+	
+	$("#btnDelete").on("click", function() {
 		if(confirm("삭제하시겠습니까?")) {
 			var params= $("#goForm").serialize();
 			
 			$.ajax({
-				url: "testABDeletes", // 접속 주소
+				url: "postDeletes", // 접속 주소
 				type: "post", // 전송 방식: get, post
 				dataType: "json", // 받아올 데이터 형태
 				data: params, // 보낼 데이터(문자열 형태)
 				success: function(res) { // 성공 시 다음 함수 실행
 					if(res.msg == "success") {
-						location.href = "testABList";
+						location.href = "gallary";
 					} else if(res.msg == "failed") {
 						alert("삭제에 실패하였습니다.")
 					} else {
@@ -141,8 +193,32 @@ $(document).ready(function() {
 				}
 			});
 		}
-	}); */
+	});
 });
+
+function CopyUrl()
+
+{
+	var ShareUrl = document.getElementById("shareAddress");
+	ShareUrl.value = window.document.location.href;  // 현재 URL 을 세팅해 줍니다.
+	ShareUrl.select();  // 해당 값이 선택되도록 select() 합니다
+	document.execCommand("copy"); // 클립보드에 복사합니다.
+	ShareUrl.blur(); // 선택된 것을 다시 선택안된것으로 바꿉니다.
+	alert("URL이 클립보드에 복사되었습니다"); 
+
+}
+
+function CopyUrl2()
+
+{
+	var ShareUrl = document.getElementById("shareAddress2");
+	ShareUrl.value = window.document.location.href;  // 현재 URL 을 세팅해 줍니다.
+	ShareUrl.select();  // 해당 값이 선택되도록 select() 합니다
+	document.execCommand("copy"); // 클립보드에 복사합니다.
+	//obShareUrl.blur(); // 선택된 것을 다시 선택안된것으로 바꿈니다.
+	alert("URL이 클립보드에 복사되었습니다"); 
+
+}
 
 /* function drawtTag(list) {
 	var html = "";
@@ -154,6 +230,8 @@ $(document).ready(function() {
 	$(".tag_wrap").html(html);
 
 } */
+
+
 
 function heart() {
 	var heart = document.getElementById('btnLike')
@@ -168,9 +246,14 @@ function heart() {
 </head>
 <body>
 	<form action="#" id="goForm" method="post">
-		<input type="hidden" name="pNo" value="${data.USER_NO}" />
+		<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
 		<input type="hidden" name="page" value="${param.page}" />
+		<input type="hidden" id="authorNo" value="${data.USER_NO}"/>
 	</form>
+	
+	
+	
+	<!-- 글 작가와 본인이 동일할 때 -->	
 	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
@@ -186,13 +269,47 @@ function heart() {
 	</div>
 	<div class="share_wrap">
 		<div class="share">아트 글을 공유해보세요.</div>
-		<input type="text" id="shareAddress" value="http://localhost:8090/TestWeb/JY/NewFile"/>
-		<input type="button" id="btnShareAddress" value="Copy"/>
+		<input type="text" id="shareAddress" value="http://localhost:8090/art/detail"/>
+		<input type="button" id="btnShareAddress" value="Copy" onclick="javascript:CopyUrl()" />
 	</div>
+	
+	
+	<!-- 글 작가와 본인이 동일하지않을 때 -->	
+	<div class="header2">
+		<img src="resources/images/JY/menu.png" id="btnMenu2" alt="메뉴" width="35px" height="40px">
+		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo3" alt="로고" width="70px" height="40px"></a>
+		<img src="resources/images/JY/comment2.png" id="btnComment2" alt="댓글" width="20px" height="20px">
+		<span class="comment_cnt12">30</span>
+		<img src="resources/images/JY/heart.png" id="btnLike2" onclick="heart();" alt="좋아요" width="25px" height="25px">
+		<span class="like_cnt2">23</span>
+		<img src="resources/images/JY/share.png" id="btnShare2" alt="공유" width="20px" height="20px">
+		<img src="resources/images/JY/dot1.png" id="btnDot12" alt="메뉴" width="25px" height="25px">
+		<img src="resources/images/JY/dot2.png" id="btnDot22" alt="메뉴" width="25px" height="25px">
+		<img src="resources/images/JY/declation.png" id="btnDeclation2" alt="신고" width="20px" height="20px">
+	</div>
+	<div class="share_wrap2">
+		<div class="share2">아트 글을 공유해보세요.</div>
+		<input type="text" id="shareAddress2" value="http://localhost:8090/art/detail"/>
+		<input type="button" id="btnShareAddress2" value="Copy" onclick="javascript:CopyUrl2()" />
+	</div>
+	
+	
+	
+	
+	
 	<div class="side_bar">
-		<div class="profile">
-			<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="짱구1" width="300px" height="300px">
-		</div>
+		<c:choose>
+				<c:when test="${empty sUserProfileImg}">
+					<div class="profile">
+						<img class="profile_img" src="resources/images/JY/who.png" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:when>
+				<c:otherwise>
+					<div class="profile">
+						<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:otherwise>
+		</c:choose>
 		<div class="profile_name">${sUserNickname}</div>
 		<a href="writing"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
@@ -209,7 +326,7 @@ function heart() {
 	</div>
 	<div class="wrap">
 		<div class="contents_wrap">
-			<img class="contents_img" src="resources/upload/${data.POST_FILE}" width="700px" height="500px">
+			<img class="contents_img" src="resources/upload/${data.POST_FILE}">
 		</div>
 		<div class="category">${data.CATEGORY_NAME}</div>
 		<div class="title">${data.TITLE}</div>
@@ -217,9 +334,12 @@ function heart() {
 		<br />
 		<br />
 		<div class="contents">${data.EXPLAIN}</div>
-				<c:forEach var="i" items="${array}">
-					<i class="tag"># ${i}</i>
-				</c:forEach>
+		<c:if test="${!empty array}">
+		<c:forEach var="i" items="${array}">
+			<i class="tag"># ${i}</i>
+		</c:forEach>
+		</c:if>
+
 			<div class="comment_wrap1">
 				<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
 				<div class="comment">댓글</div>
@@ -240,8 +360,8 @@ function heart() {
 				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
 				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
 				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" id="btnReplyUpload" value="답글">
-					<input type="button" id="btnCommentDelete" value="삭제">
+					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
+					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
 				</div>
 			</div>
 			
@@ -295,8 +415,8 @@ function heart() {
 				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
 				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
 				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" id="btnReplyUpload" value="답글">
-					<input type="button" id="btnCommentDelete" value="삭제">
+					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
+					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
 				</div>
 			</div>
 			<div class="comment_form1">
@@ -307,8 +427,8 @@ function heart() {
 				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
 				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
 				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" id="btnReplyUpload" value="답글">
-					<input type="button" id="btnCommentDelete" value="삭제">
+					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
+					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
 				</div>
 			</div>
 			<div class="comment_form1">
@@ -319,8 +439,8 @@ function heart() {
 				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
 				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
 				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" id="btnReplyUpload" value="답글">
-					<input type="button" id="btnCommentDelete" value="삭제">
+					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
+					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
 				</div>
 			</div>
 			<div class="comment_form1">
@@ -331,8 +451,8 @@ function heart() {
 				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
 				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
 				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" id="btnReplyUpload" value="답글">
-					<input type="button" id="btnCommentDelete" value="삭제">
+					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
+					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
 				</div>
 			</div>
 			<div class="pagination">
@@ -346,11 +466,23 @@ function heart() {
 			</div>
 		</div>
 		<div class="profile2_wrap">
-			<div class="profile2">
-				<img class="profile_img2" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="40px" height="40px">
-			</div>
-			<div class="profile_name2"><a href="other_gallary">짱구</a></div>
-			<div class="profile_introduce">소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개</div>
+		
+			<c:choose>
+				<c:when test="${empty data.PROFILE_IMG_PATH}">
+					<div class="profile2">
+						<img class="profile_img2" src="resources/images/JY/who.png" alt="프로필사진" width="40px" height="40px">
+				    </div>
+				</c:when>
+				<c:otherwise>
+					<div class="profile2">
+						<img class="profile_img2" src="resources/upload/${data.PROFILE_IMG_PATH}" alt="프로필사진" width="40px" height="40px">
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
+			
+			<div class="profile_name2"><a href="other_gallary">${data.USER_NICKNAME}</a></div>
+			<div class="profile_introduce">${data.INTRODUCE}</div>
 		</div>
 	</div>
 

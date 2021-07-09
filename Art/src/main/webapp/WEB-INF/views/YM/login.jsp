@@ -52,6 +52,14 @@ a {
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		$('#userId, #userPw').keypress(function(event){
+		     if (event.which == 13 ) {
+		         $('#btnLogin').click();
+		         return false;
+		     }
+		});
+		
 		$("#btnLogin").on("click", function() {
 			if($.trim($("#userId").val()) == "") {
 				alert("아이디를 입력해주세요.");

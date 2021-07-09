@@ -224,6 +224,123 @@ body {
 	left: 95px;
 }
 
+/*----------------------------------------------------------  */
+.header2 {
+	margin-top: 20px;
+	position: relative;
+	width: 100%;
+	height: 60px;
+}
+
+#btnMenu2 {
+	position: absolute;
+	left: 20px;
+	cursor: pointer;
+}
+
+#btnLogo3 {
+	position: absolute;
+	left: 60px;
+}
+
+#btnLike2 {
+	position: absolute;
+	right: 215px;
+	cursor: pointer;
+}
+
+.like_cnt2 {
+	position: absolute;
+	font-size: 12pt;
+	top: 2px;
+	right: 190px;
+	font-weight: bold;
+}
+
+#btnComment2 {
+	position: absolute;
+	top: 2px;
+	right: 155px;
+	cursor: pointer;
+}
+
+.comment_cnt12 {
+	position: absolute;
+	font-size: 12pt;
+	top: 2px;
+	right: 130px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#btnShare2 {
+	position: absolute;
+	top: 2px;
+	right: 90px;
+	cursor: pointer;
+}
+
+.share_wrap2 {
+	display: none;
+	position: absolute;
+	width: 270px;
+	height: 80px;
+	border: 1px solid #ccc;
+	top: 60px;
+	right: 40px;
+}
+
+.share2 {
+	position: absolute;
+	font-size: 10pt;
+	top: 5px;
+	left: 15px;
+}
+
+#shareAddress2 {
+	position: absolute;
+	top: 40px;
+	left: 15px;
+	font-size: 10pt;
+	width: 190px;
+	border-radius: 5px;
+}
+
+#btnShareAddress2 {
+	position: absolute;
+	top: 40px;
+	right: 15px;
+	font-size: 10pt;
+	color: white;
+	background-color: #ffad33;
+	padding: 3px 2px;
+	border: 1px solid #ffad33;
+	border-radius: 10px;
+}
+
+#btnDeclation2 {
+	position: absolute;
+	right: 90px;
+	cursor: pointer;
+}
+
+#btnDot12 {
+	position: absolute;
+	right: 40px;
+	cursor: pointer;
+}
+
+#btnDot22 {
+	position: absolute;
+	right: 40px;
+	cursor: pointer;
+	display: none;
+	
+}
+
+
+/*----------------------------------------------------------  */
+
 .wrap {
 	position: relative;
 	width: 1330PX;
@@ -256,6 +373,7 @@ body {
 	cursor: pointer;
 	right: 30px;
 	float: right;
+	/* margin-bottom: 50px; */
 }
 
 .comment {
@@ -275,7 +393,7 @@ body {
 	position: relative;
 	margin-bottom: 40px;
 	background-color: #fbfbfb;
-	margin-top: 30px;
+	margin-top: 80px;
 }
 
 .profile2 {
@@ -347,6 +465,8 @@ body {
 .contents_img {
 	display: block;
 	margin: 120px auto 0;
+	max-width: 1200px;
+  	height: auto;
 }
 
 .contents {
@@ -354,6 +474,9 @@ body {
 	margin-bottom: 150px;
 	display: block;
 	font-size: 12pt;
+}
+#none {
+	display: none;
 }
 
 .tag_wrap {

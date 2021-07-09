@@ -48,8 +48,16 @@ public class MyGallaryService implements IMyGallaryService{
 	public HashMap<String, String> getPost(HashMap<String, String> params) throws Throwable {
 		return iMyGallaryDao.getPost(params);
 	}
-	
 
+	@Override
+	public int updatePost(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.updatePost(params);
+	}
+
+	@Override
+	public int deletePost(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.deletePost(params);
+	}
 
 	
 }

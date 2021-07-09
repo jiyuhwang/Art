@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>gallary</title>
+<title>전체 갤러리</title>
 <link rel="stylesheet" href="resources/css/JY/gallary.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
@@ -23,7 +23,13 @@ $(document).ready(function() {
 	
 	$(".pic_wrap").on("click", "div", function() {
 		$("#pNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "mydetail");
+		$("#actionForm").attr("action", "detail");
+		$("#actionForm").submit();
+	});
+	
+	$(".draw_wrap").on("click", "div", function() {
+		$("#pNo").val($(this).attr("pno"));
+		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
 	
@@ -72,25 +78,44 @@ $(document).ready(function() {
 	}
 	
 	function picList(list) {
-			var html = "";
-			for(var p of list) {
-				html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + p.POST_NO + "\">";					
-				html += "<div class=\"bg\">";
-				html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-				html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
-				html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
-				html += "</div>";
-				html += "</div>";
-		
-			}
-			$(".pic_wrap").html(html);
-			for(var p of list) {
-				$('#pic' + p.POST_NO).css('background-image', 'url(resources/upload/' + p.POST_FILE + ')');
-			}		
+		var html = "";
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + p.POST_NO + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
+			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+	
+		}
+		$(".pic_wrap").html(html);
+		for(var p of list) {
+			$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+		}		
 	}
 	
 	function drawList(list) {
+		var html = "";
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"draw" + p.POST_NO + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
+			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+	
+		}
+		$(".draw_wrap").html(html);
+		for(var p of list) {
+			$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+		}		
+	}	
+	
+	/* function drawList(list) {
 		var html = "";
 		for(var i in list) {
 			var d = list[i];
@@ -108,7 +133,7 @@ $(document).ready(function() {
 		for(var e in list) {
 			$('#draw' + e).css('background-image', 'url(resources/upload/' + list[e].POST_FILE + ')');
 		}		
-	}
+	} */
 	
 	/* function drawList(list) {
 		var html = "";

@@ -54,23 +54,6 @@ public class MyGallaryController {
 	}
 	
 	
-	@RequestMapping(value = "/edit")
-	public ModelAndView edit(HttpSession session, ModelAndView mav) throws Throwable {
-
-		
-		if(session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/edit");
-			
-			
-		} else {
-			
-			mav.setViewName("redirect:main");
-		}
-
-		return mav;
-	}
-	
 	
 
 	@RequestMapping(value = "/gallary")
@@ -154,32 +137,104 @@ public class MyGallaryController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/mydetail")
-	public ModelAndView mydetail(HttpSession session,
+	
+	
+	@RequestMapping(value = "/detail")
+	public ModelAndView detail(HttpSession session,
 								@RequestParam HashMap<String, String> params,
 								 ModelAndView mav) throws Throwable {
 
 		
 		HashMap<String, String> data = iMyGallaryService.getPost(params);
 		
-		String str = data.get("TAG_NAME");
-
-		String[] array = str.split(",");
+		if(data.get("TAG_NAME") != null && data.get("TAG_NAME") != "") {
+			String str = data.get("TAG_NAME");
+	
+			String[] array = str.split(",");
+			
+			for(int i = 0 ; i < array.length ; i++) {
+				System.out.println(array[i]);
+			}
 		
-		for(int i = 0 ; i < array.length ; i++) {
-			System.out.println(array[i]);
+		
+			mav.addObject("array", array);
 		}
 		
-		
-		mav.addObject("array", array);
-		
-		System.out.println(array);
+		//System.out.println(array);
 		
 		mav.addObject("data", data);
 		
-		mav.setViewName("JY/mydetail");
+		mav.setViewName("JY/detail");
 
 		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/edit")
+	public ModelAndView edit(HttpSession session,
+							@RequestParam HashMap<String, String> params,
+							ModelAndView mav) throws Throwable {
+		
+		if(session.getAttribute("sUserNo") != null) {
+
+			mav.setViewName("JY/edit");
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
+
+		HashMap<String, String> data = iMyGallaryService.getPost(params);
+		
+		
+		if(data.get("TAG_NAME") != null && data.get("TAG_NAME") != "") {
+			String str = data.get("TAG_NAME");
+	
+			String[] array = str.split(",");
+			
+			for(int i = 0 ; i < array.length ; i++) {
+				System.out.println(array[i]);
+			}
+		
+		
+			mav.addObject("array", array);
+		}
+		
+		mav.addObject("data", data);
+				
+		return mav;	
+	}
+	
+	@RequestMapping(value = "/edits",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String edits(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+	
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// mPw의 값을 암호화 후 mPw로 넣겠다.
+		//params.put("mPw", Utils.encryptAES128(params.get("mPw")));
+		
+		
+		  try {
+			  int cnt = iMyGallaryService.updatePost(params);
+			  if(cnt > 0) {
+				  modelMap.put("msg", "success");
+			  } else {
+				  modelMap.put("msg", "failed");
+			  }
+		  
+		  } catch (Throwable e) {
+			  e.printStackTrace();
+			  modelMap.put("msg", "error");
+			  
+		  }
+		 
+	
+		return mapper.writeValueAsString(modelMap);
 	}
 	
 
@@ -226,9 +281,7 @@ public class MyGallaryController {
 
 		return mav;
 	}
-
-
-
+	
 	
 	@RequestMapping(value = "/writing")
 	public ModelAndView writing(HttpSession session, ModelAndView mav) throws Throwable {
@@ -279,6 +332,32 @@ public class MyGallaryController {
 			modelMap.put("msg", "error");
 		}
 
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "/postDeletes",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String postDeletes(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+	
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iMyGallaryService.deletePost(params);
+			if(cnt > 0) {		
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
 		return mapper.writeValueAsString(modelMap);
 	}
 }

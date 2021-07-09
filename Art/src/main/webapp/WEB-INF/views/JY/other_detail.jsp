@@ -97,7 +97,7 @@ function heart() {
 </script>
 </head>
 <body>
-	<div class="header">
+	<div class="header2">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
 		<img src="resources/images/JY/comment2.png" id="btnComment" alt="댓글" width="20px" height="20px">
@@ -109,7 +109,7 @@ function heart() {
 		<img src="resources/images/JY/dot2.png" id="btnDot2" alt="메뉴" width="25px" height="25px">
 		<img src="resources/images/JY/declation.png" id="btnDeclation" alt="신고" width="20px" height="20px">
 	</div>
-	<div class="share_wrap">
+	<div class="share_wrap2">
 		<div class="share">아트 글을 공유해보세요.</div>
 		<input type="text" id="shareAddress" value="http://localhost:8090/TestWeb/JY/NewFile"/>
 		<input type="button" id="btnShareAddress" value="Copy"/>
