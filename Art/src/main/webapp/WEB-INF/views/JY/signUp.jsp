@@ -364,6 +364,8 @@ $(document).ready(function() {
 				success: function(res) { // 성공 시 다음 함수 실행
 					if(res.msg == "success") {
 						alert("회원가입이 완료되었습니다.");
+						$("#joinForm").attr("action", "login");
+						$("#joinForm").submit();
 					} else if(res.msg == "failed") {
 						alert("작성에 실패하였습니다.");
 					} else {

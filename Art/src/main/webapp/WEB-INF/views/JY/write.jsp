@@ -145,7 +145,8 @@ $(document).ready(function() {
 						 $("#postFile2").val(res.fileName[0]);
 					 }
 					  
-					$("#uploadFile").attr("src", "resources/upload/" + $('#postFile2').val());
+					$("#upload").css('background-image', 'url(\'resources/upload/' + $('#postFile2').val() + '\')');
+					$("#upload").css('background-size', '400px 400px');
 		 
 					
 					} else {
@@ -179,7 +180,7 @@ $(document).ready(function() {
 	<input type="hidden" name="userNo" value="${sUserNo}">
 	<div class="wrap">
 		<div class="upload_wrap">
-			<img id="uploadFile" src="" width="400px" height="400px">
+			<!-- <img id="uploadFile" src="" width="400px" height="400px"> -->
 			<input type="button" id="upload"/>
 			<!-- <div class="upload_txt">작품을 올려주세요.</div> -->
 			<input type="hidden" name="postFile2" id="postFile2" value=""/>  

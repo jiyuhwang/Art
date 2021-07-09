@@ -5,14 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>갤러리</title>
+<title>다른 사람 갤러리</title>
 <link rel="stylesheet" href="resources/css/JY/othergallary.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	console.log($('#userNo').val());
 	reloadList();
-	console.log("aa");
 
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 
@@ -23,17 +21,28 @@ $(document).ready(function() {
 		$('html').scrollTop(0);
 		reloadList();
 	});
+
 	
-	$(".pic_wrap").on("click", "div", function() {
+	$(".pic_wrap, .draw_wrap").on("dblclick", "div", function() {
 		$("#pNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
 	
-	$(".draw_wrap").on("click", "div", function() {
-		$("#pNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "detail");
-		$("#actionForm").submit();
+	$(".gallary_wrap").on("click", '.contents_heart', function() {
+		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
+			$(this).attr("src", "resources/images/JY/heart2.png");
+		} else {
+			$(this).attr("src", "resources/images/JY/heart3.png");
+		}
+	});
+	
+	$("#heart").on("click", function() {
+		if ($(this).attr("src") == "resources/images/JY/heart.png") {
+			$(this).attr("src", "resources/images/JY/heart2.png");
+		} else {
+			$(this).attr("src", "resources/images/JY/heart.png");
+		}
 	});
 	
 	$(".tabs").on("change", "[type='radio']", function() {
@@ -79,6 +88,8 @@ function reloadList() {
 		}
 	});
 }
+
+
 
 function picList(list) {
 		var html = "";
@@ -163,7 +174,7 @@ function drawPaging(pb) {
 <form action="#" id="actionForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" />
 		<input type="hidden" id="userNo" name="userNo" value="${param.authorNo}" />
-		<input type="hidden" id="page" name="page" value="${page}" />
+		<input type="hidden" id="page" name="page" value="${param.page}" />
 	<div class="wrap">
 		<div class="profile_wrap">
 			<img id="heart" src="resources/images/JY/heart.png" alt="하트" onclick="heart();" width="35px" height="35px">
