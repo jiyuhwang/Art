@@ -48,8 +48,58 @@ public class MyGallaryService implements IMyGallaryService{
 	public HashMap<String, String> getPost(HashMap<String, String> params) throws Throwable {
 		return iMyGallaryDao.getPost(params);
 	}
+
+	@Override
+	public int updatePost(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.updatePost(params);
+	}
+
+	@Override
+	public int deletePost(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.deletePost(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> myPicList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.myPicList(params);
+	}
+	
+	@Override
+	public int getMyPicCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getMyPicCnt(params);
+	}
+	
+	@Override
+	public List<HashMap<String, String>> myDrawList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.myDrawList(params);
+	}
+
+	@Override
+	public int getMyDrawCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getMyDrawCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> otherPicList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.otherPicList(params);
+	}
+
+	@Override
+	public int getOtherPicCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getOtherPicCnt(params);
+	}
+	
+	@Override
+	public List<HashMap<String, String>> otherDrawList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.otherDrawList(params);
+	}
+
+	@Override
+	public int getOtherDrawCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getOtherDrawCnt(params);
+	}
+
 	
 
 
-	
 }

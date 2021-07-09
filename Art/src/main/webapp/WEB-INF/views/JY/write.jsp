@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>writing</title>
-<link rel="stylesheet" href="resources/css/JY/writing.css">
+<title>작품 등록하기</title>
+<link rel="stylesheet" href="resources/css/JY/write.css">
 
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -52,14 +52,9 @@ function enterValue(){
 
 
 $(document).ready(function() {
-		
 	
-	$("#btnCancel").on("click", function () {
-		var Text = $( '.badge' ).text();
-		var Tag = Text.split('x');
-		$('#tag2').val(Tag);
-		console.log($('#tag2').val());
-	});
+		
+
 	
 	CKEDITOR.replace("contentsIn", {
 		resize_enabled : false,
@@ -75,6 +70,10 @@ $(document).ready(function() {
 		$("#postFile").click();
 	});
 	
+	$("#btnCancel").on("click", function () {
+		history.back();
+	});
+	
 
 	$("#btnSave").on("click", function(){
 		
@@ -84,6 +83,7 @@ $(document).ready(function() {
 		var Tag = Text.split('x');
 		$('#tag2').val(Tag);
 		console.log($('#tag2').val());
+		
 		
 		if($("#uploadFile").attr("src") == "") {
 			alert("작품을 올려주세요");
@@ -112,7 +112,7 @@ $(document).ready(function() {
 				success: function(res) { // 성공 시 다음 함수 실행
 				    if(res.msg == "success") {
 				    	alert("정상적으로 작품 등록되었습니다.");
-				    	location.href = "main";
+				    	history.back();
 					} else if(res.msg == "failed") {
 						alert("작품 등록에 실패하였습니다.");
 					} else {

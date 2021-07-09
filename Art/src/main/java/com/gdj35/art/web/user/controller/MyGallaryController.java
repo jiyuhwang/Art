@@ -32,6 +32,7 @@ public class MyGallaryController {
 	@Autowired
 	public IPagingService iPagingService;
 
+	// 로그인 했을 시 상단
 	@RequestMapping(value = "/header")
 	public ModelAndView header(ModelAndView mav) {
 		mav.setViewName("JY/header");
@@ -39,6 +40,7 @@ public class MyGallaryController {
 		return mav;
 	}
 	
+	// 로그인 안했을 시 상단
 	@RequestMapping(value = "/header2")
 	public ModelAndView header2(ModelAndView mav) {
 		mav.setViewName("JY/header2");
@@ -46,6 +48,7 @@ public class MyGallaryController {
 		return mav;
 	}
 
+	// 하단
 	@RequestMapping(value = "/footer")
 	public ModelAndView footer(ModelAndView mav) {
 		mav.setViewName("JY/footer");
@@ -54,25 +57,170 @@ public class MyGallaryController {
 	}
 	
 	
-	@RequestMapping(value = "/edit")
-	public ModelAndView edit(HttpSession session, ModelAndView mav) throws Throwable {
+	// 나의 갤러리 페이지
+	@RequestMapping(value = "/mygallary")
+	public ModelAndView mygallary(@RequestParam HashMap<String, String> params,
+								  ModelAndView mav) {
+
+		int page= 1;
+		if(params.get("page") != null) {
+			page = Integer.parseInt(params.get("page"));
+		}
+		
+		mav.addObject("page", page);
+		
+		mav.setViewName("JY/mygallary");
 
 		
-		if(session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/edit");
-			
-			
-		} else {
-			
-			mav.setViewName("redirect:main");
-		}
-
 		return mav;
 	}
 	
-	
+	// 나의 갤러리 페이지
+		@RequestMapping(value = "/othergallary")
+		public ModelAndView othergallary(@RequestParam HashMap<String, String> params,
+									  ModelAndView mav) {
 
+			int page= 1;
+			if(params.get("page") != null) {
+				page = Integer.parseInt(params.get("page"));
+			}
+			
+			mav.addObject("page", page);
+			
+			mav.setViewName("JY/othergallary");
+
+			
+			return mav;
+		}
+	
+	
+	
+	
+	// 나의 사진갤러리 Ajax
+	@RequestMapping(value = "/mypicgallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String mypicGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMyGallaryService.getMyPicCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.myPicList(params);
+		
+		modelMap.put("list", list);		
+		modelMap.put("pb", pb);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	
+	// 나의 그림갤러리 Ajax
+	@RequestMapping(value = "/mydrawgallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String mydrawGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMyGallaryService.getMyDrawCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.myDrawList(params);
+		
+		modelMap.put("list", list);		
+		modelMap.put("pb", pb);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+		// 다른 사람 사진갤러리 Ajax
+		@RequestMapping(value = "/otherpicgallarys",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String otherpicGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+			
+			int cnt = iMyGallaryService.getOtherPicCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iMyGallaryService.otherPicList(params);
+			
+			modelMap.put("list", list);		
+			modelMap.put("pb", pb);
+			
+			return mapper.writeValueAsString(modelMap);
+		}
+
+		
+		// 그림갤러리 Ajax
+		@RequestMapping(value = "/otherdrawgallarys",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String otherdrawGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+			
+			int cnt = iMyGallaryService.getOtherDrawCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iMyGallaryService.otherDrawList(params);
+			
+			modelMap.put("list", list);		
+			modelMap.put("pb", pb);
+			
+			return mapper.writeValueAsString(modelMap);
+		}
+	
+	
+	
+	
+	
+	// 갤러리 페이지
 	@RequestMapping(value = "/gallary")
 	public ModelAndView gallary(@RequestParam HashMap<String, String> params,
 								ModelAndView mav) {
@@ -89,6 +237,7 @@ public class MyGallaryController {
 		return mav;
 	}
 	
+	// 사진갤러리 Ajax
 	@RequestMapping(value = "/picgallarys",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
@@ -118,6 +267,7 @@ public class MyGallaryController {
 	}
 
 	
+	// 그림갤러리 Ajax
 	@RequestMapping(value = "/drawgallarys",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
@@ -147,6 +297,7 @@ public class MyGallaryController {
 	}
 
 	
+	// 메인 페이지
 	@RequestMapping(value = "/main")
 	public ModelAndView main(ModelAndView mav) {
 		mav.setViewName("JY/main");
@@ -154,89 +305,118 @@ public class MyGallaryController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/mydetail")
-	public ModelAndView mydetail(HttpSession session,
+	
+	// 글 상세 페이지
+	@RequestMapping(value = "/detail")
+	public ModelAndView detail(HttpSession session,
 								@RequestParam HashMap<String, String> params,
 								 ModelAndView mav) throws Throwable {
 
 		
 		HashMap<String, String> data = iMyGallaryService.getPost(params);
 		
-		String str = data.get("TAG_NAME");
-
-		String[] array = str.split(",");
+		if(data.get("TAG_NAME") != null && data.get("TAG_NAME") != "") {
+			String str = data.get("TAG_NAME");
+	
+			String[] array = str.split(",");
+			
+			for(int i = 0 ; i < array.length ; i++) {
+				System.out.println(array[i]);
+			}
 		
-		for(int i = 0 ; i < array.length ; i++) {
-			System.out.println(array[i]);
+		
+			mav.addObject("array", array);
 		}
 		
-		
-		mav.addObject("array", array);
-		
-		System.out.println(array);
+		//System.out.println(array);
 		
 		mav.addObject("data", data);
 		
-		mav.setViewName("JY/mydetail");
+		mav.setViewName("JY/detail");
 
 		return mav;
 	}
 	
-
-	@RequestMapping(value = "/mygallary")
-	public ModelAndView mygallary(ModelAndView mav) {
-		mav.setViewName("JY/mygallary");
-
-		return mav;
-	}
-
-	@RequestMapping(value = "/other_detail")
-	public ModelAndView otherDetail(ModelAndView mav) {
-		mav.setViewName("JY/other_detail");
-
-		return mav;
-	}
-
-	@RequestMapping(value = "/other_gallary")
-	public ModelAndView otherGllary(ModelAndView mav) {
-		mav.setViewName("JY/other_gallary");
-
-		return mav;
-	}
-
-	@RequestMapping(value = "/popup")
-	public ModelAndView popup(ModelAndView mav) {
-		mav.setViewName("JY/popup");
-
-		return mav;
-	}
-
 	
+	// 글수정 페이지
+	@RequestMapping(value = "/edit")
+	public ModelAndView edit(HttpSession session,
+							@RequestParam HashMap<String, String> params,
+							ModelAndView mav) throws Throwable {
+		
+		if(session.getAttribute("sUserNo") != null) {
 
-	@RequestMapping(value = "/sidebar")
-	public ModelAndView sidebar(ModelAndView mav) {
-		mav.setViewName("JY/sidebar");
+			mav.setViewName("JY/edit");
+			
+		} else {
+			
+			mav.setViewName("redirect:main");
+		}
 
-		return mav;
-	}
-
-	@RequestMapping(value = "/sidebar2")
-	public ModelAndView sidebar2(ModelAndView mav) {
-		mav.setViewName("JY/sidebar2");
-
-		return mav;
-	}
-
-
-
+		HashMap<String, String> data = iMyGallaryService.getPost(params);
+		
+		
+		if(data.get("TAG_NAME") != null && data.get("TAG_NAME") != "") {
+			String str = data.get("TAG_NAME");
 	
-	@RequestMapping(value = "/writing")
-	public ModelAndView writing(HttpSession session, ModelAndView mav) throws Throwable {
+			String[] array = str.split(",");
+			
+			for(int i = 0 ; i < array.length ; i++) {
+				System.out.println(array[i]);
+			}
+		
+		
+			mav.addObject("array", array);
+		}
+		
+		mav.addObject("data", data);
+				
+		return mav;	
+	}
+	
+	// 글수정 Ajax
+	@RequestMapping(value = "/edits",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String edits(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+	
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		// mPw의 값을 암호화 후 mPw로 넣겠다.
+		//params.put("mPw", Utils.encryptAES128(params.get("mPw")));
+		
+		
+		  try {
+			  int cnt = iMyGallaryService.updatePost(params);
+			  if(cnt > 0) {
+				  modelMap.put("msg", "success");
+			  } else {
+				  modelMap.put("msg", "failed");
+			  }
+		  
+		  } catch (Throwable e) {
+			  e.printStackTrace();
+			  modelMap.put("msg", "error");
+			  
+		  }
+		 
+	
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+	// 글쓰기 페이지
+	@RequestMapping(value = "/write")
+	public ModelAndView write(HttpSession session, ModelAndView mav) throws Throwable {
 
 		
 		if(session.getAttribute("sUserNo") != null) {
 
-			mav.setViewName("JY/writing");
+			mav.setViewName("JY/write");
 			
 			
 		} else {
@@ -247,6 +427,7 @@ public class MyGallaryController {
 		return mav;
 	}
 	
+	// 글쓰기 Ajax
 	@RequestMapping(value = "/writes",
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
@@ -279,6 +460,33 @@ public class MyGallaryController {
 			modelMap.put("msg", "error");
 		}
 
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	// 글삭제 Ajax
+	@RequestMapping(value = "/postDeletes",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String postDeletes(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+	
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iMyGallaryService.deletePost(params);
+			if(cnt > 0) {		
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
 		return mapper.writeValueAsString(modelMap);
 	}
 }

@@ -37,6 +37,7 @@ public class MemberController {
 	@Autowired
 	public IPagingService iPagingService;
 
+	// 임시 비밀번호 전송 시 랜덤 번호
 	public static String getTempPassword(int length) {
 		int index = 0;
 		char[] charArr = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
@@ -54,6 +55,7 @@ public class MemberController {
 		return sb.toString();
 	}
 
+	// 회원가입 또는 개인정보 수정 시 이메일 인증번호 전송
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public String mailCheckGET(String email) throws Exception {
@@ -94,6 +96,7 @@ public class MemberController {
 
 	}
 	
+	// 임시 비밀번호 전송
 	@RequestMapping(value="/exPwMail", method=RequestMethod.GET)
     @ResponseBody
     public String exPwMail(String email) throws Throwable{
@@ -145,13 +148,17 @@ public class MemberController {
         
     }
 
+	// 회원가입 페이지
 	@RequestMapping(value = "/signUp")
-	public ModelAndView signUp(ModelAndView mav) {
-		mav.setViewName("JY/signUp");
+	public ModelAndView signUp(@RequestParam HashMap<String, String> params,
+								ModelAndView mav) {
 
+			mav.setViewName("JY/signUp");	
+		
 		return mav;
 	}
 
+	// 회원가입 Ajax
 	@RequestMapping(value = "/signUps", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String signUps(@RequestParam HashMap<String, String> params) throws Throwable {
@@ -176,6 +183,7 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
+	// 아이디 중복 체크
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String idCheck(@RequestParam HashMap<String, String> params) throws Throwable {
@@ -200,6 +208,7 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
+	// 닉네임 중복 체크
 	@RequestMapping(value = "/nicknameCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String nicknameCheck(@RequestParam HashMap<String, String> params) throws Throwable {
@@ -224,6 +233,7 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
+	// 이용약관 동의
 	@RequestMapping(value = "/agree")
 	public ModelAndView agree(ModelAndView mav) {
 		mav.setViewName("YM/agree");
@@ -231,13 +241,7 @@ public class MemberController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/join")
-	public ModelAndView join(ModelAndView mav) {
-		mav.setViewName("YM/join");
-
-		return mav;
-	}
-
+	// 로그인 페이지
 	@RequestMapping(value = "/login")
 	public ModelAndView login(ModelAndView mav) {
 		mav.setViewName("YM/login");
@@ -245,6 +249,7 @@ public class MemberController {
 		return mav;
 	}
 
+	// 로그인 Ajax
 	@RequestMapping(value = "/Logins", method = RequestMethod.POST, produces = "text/json;charset=UTF-8") // 오타 절대 금지
 	@ResponseBody // Spring에 View임을 제시
 	public String Logins(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
@@ -281,6 +286,7 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
+	// 로그아웃 Ajax
 	@RequestMapping(value = "/Logout")
 	public ModelAndView Logout(HttpSession session, ModelAndView mav) {
 
@@ -291,6 +297,7 @@ public class MemberController {
 		return mav;
 	}
 
+	// 탈퇴하기 페이지
 	@RequestMapping(value = "/withdrawal")
 	public ModelAndView withdrawal(HttpSession session, ModelAndView mav) throws Throwable {
 
@@ -308,6 +315,7 @@ public class MemberController {
 		return mav;
 	}
 
+	// 탈퇴하기 Ajax
 	@RequestMapping(value = "/withdrawals", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String withdrawals(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
@@ -354,16 +362,9 @@ public class MemberController {
 
 		return mav;
 	}
-	
-	@RequestMapping(value = "/NewFile")
-	public ModelAndView NewFile(ModelAndView mav) {
 
-		mav.setViewName("JY/NewFile");
 
-		
-		return mav;
-	}
-
+	// 프로필 수정 Ajax
 	@RequestMapping(value = "/profiles", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String profiles(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
@@ -392,6 +393,7 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
+	// 개인정보 수정 페이지
 	@RequestMapping(value = "/set")
 	public ModelAndView set(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav)
 			throws Throwable {
@@ -413,6 +415,7 @@ public class MemberController {
 		return mav;
 	}
 
+	// 개인정보 수정 Ajax
 	@RequestMapping(value = "/sets", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String sets(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
@@ -446,7 +449,7 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
-	// 지유야 이거만 여기다 하마!! 악어!
+	// 공지사항 페이지
 	@RequestMapping(value = "/gongji")
 	public ModelAndView gongji(ModelAndView mav) {
 
@@ -454,6 +457,7 @@ public class MemberController {
 		return mav;
 	}
 
+	// 아이디 찾기 페이지
 	@RequestMapping(value = "/idfind")
 	public ModelAndView idfind(ModelAndView mav) {
 
@@ -461,6 +465,7 @@ public class MemberController {
 		return mav;
 	}
 
+	// 아이디 찾기 Ajax
 	@RequestMapping(value = "/idfinds", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String idfinds(@RequestParam HashMap<String, String> params) throws Throwable {
@@ -483,6 +488,7 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
+	// 찾은 아이디 페이지
 	@RequestMapping(value = "/findId")
 	public ModelAndView findId(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
@@ -490,6 +496,7 @@ public class MemberController {
 		return mav;
 	}
 
+	// 비밀번호 찾기 페이지 
 	@RequestMapping(value = "/passwordfind")
 	public ModelAndView passwordfind(ModelAndView mav) throws Throwable {
 
@@ -498,6 +505,7 @@ public class MemberController {
 		return mav;
 	}
 
+	// 비밀번호 찾기 Ajax
 	@RequestMapping(value = "/passwordfinds", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String passwordfinds(@RequestParam HashMap<String, String> params) throws Throwable {
@@ -522,6 +530,7 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
+	// 찾은 비밀번호 페이지
 	@RequestMapping(value = "/findPw")
 	public ModelAndView findPw(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
@@ -530,6 +539,16 @@ public class MemberController {
 		
 		mav.setViewName("YM/findPw");
 
+		return mav;
+	}
+	
+	// 샘플
+	@RequestMapping(value = "/NewFile")
+	public ModelAndView NewFile(ModelAndView mav) {
+
+		mav.setViewName("JY/NewFile");
+
+		
 		return mav;
 	}
 

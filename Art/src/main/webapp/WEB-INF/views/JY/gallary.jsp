@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>gallary</title>
+<title>전체 갤러리</title>
 <link rel="stylesheet" href="resources/css/JY/gallary.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
@@ -22,8 +22,17 @@ $(document).ready(function() {
 	});
 	
 	$(".pic_wrap").on("click", "div", function() {
+		$("#page").val($(this).attr("page"));
+		$('#tabtab').val($("input[name=tab]").val());
 		$("#pNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "mydetail");
+		$("#actionForm").attr("action", "detail");
+		$("#actionForm").submit();
+	});
+	
+	$(".draw_wrap").on("click", "div", function() {
+		$("#page").val($(this).attr("page"));
+		$("#pNo").val($(this).attr("pno"));
+		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
 	
@@ -86,29 +95,28 @@ $(document).ready(function() {
 			}
 			$(".pic_wrap").html(html);
 			for(var p of list) {
-				$('#pic' + p.POST_NO).css('background-image', 'url(resources/upload/' + p.POST_FILE + ')');
+				$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
 			}		
 	}
 	
 	function drawList(list) {
 		var html = "";
-		for(var i in list) {
-			var d = list[i];
-			html += "<div pno = \"" + d.POST_NO + "\"class = \"draw\" id=\"draw" + i + "\">";					
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"draw" + p.POST_NO + "\">";					
 			html += "<div class=\"bg\">";
-			html += "<div class=\"contents_title\">" + d.TITLE + "</div>";
-			html += "<div class=\"contents_in\">" + d.EXPLAIN + "</div>";
+			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
 			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
-			html += "<div class=\"contents_name\"> " + d.USER_NICKNAME + "</div>";
+			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
 			html += "</div>";
 			html += "</div>";
-
+	
 		}
 		$(".draw_wrap").html(html);
-		for(var e in list) {
-			$('#draw' + e).css('background-image', 'url(resources/upload/' + list[e].POST_FILE + ')');
+		for(var p of list) {
+			$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
 		}		
-	}
+	}	
 	
 	/* function drawList(list) {
 		var html = "";
@@ -175,7 +183,8 @@ $(document).ready(function() {
 	</c:choose>
 <form action="#" id="actionForm" method="post">
 			<input type="hidden" id="pNo" name="pNo" />
-			<input type="hidden" id="page" name="page" value="${page}" />	
+			<input type="hidden" id="page" name="page" value="${page}" />
+			<input type="hidden" id="tabtab" name="tabtab"/>	
 	<div class="wrap">
 		<div class="gallary">
 			<div class="tabs">
