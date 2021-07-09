@@ -72,8 +72,7 @@ table th:hover{
 	height : 60px;
 	background-color: RGBA;
 }
-
-.bigClass-1{
+.bigClassActive{
 	display : inline-block;
 	height: 60px;
 	width : 120px;
@@ -87,6 +86,21 @@ table th:hover{
 	color: white;
 	font-weight: 300;
 	position: relative;
+}
+
+.bigClass-1{
+	display : inline-block;
+	height: 60px;
+	width : 120px;
+	background-color: #6C7A89;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	border-radius: 3px;
+
+	position: relative;
+	color: white;
+	font-weight: 300;
 }
 .bigClass-2{
 	display : inline-block;

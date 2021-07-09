@@ -25,7 +25,10 @@ public interface IManagerDao {
 
 	public List<HashMap<String, String>> getDPList(HashMap<String, String> params)throws Throwable;
 
+	public List<HashMap<String, String>> outUserList(HashMap<String, String> params)throws Throwable;
 
+	public int getOutCnt(HashMap<String, String> params)throws Throwable;
 
+	public int deleteOneRow(HashMap<String, String> params)throws Throwable;
 
 }

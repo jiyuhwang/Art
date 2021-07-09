@@ -45,6 +45,11 @@ public class ManagerDao implements IManagerDao {
 		return  sqlSession.selectList("Manager.getDPList",params);
 	}
 	
+	@Override
+	public List<HashMap<String, String>> outUserList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return  sqlSession.selectList("Manager.outUserList",params);
+	}
 	
 	
 
@@ -64,6 +69,19 @@ public class ManagerDao implements IManagerDao {
 	public int getGallaryMCnt(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectOne("Manager.getGallaryMCnt", params);
 	}
+
+	@Override
+	public int getOutCnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Manager.getOutCnt",params);
+	}
+
+	@Override
+	public int deleteOneRow(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Manager.deleteOneRow",params);
+	}
+
 
 
 
