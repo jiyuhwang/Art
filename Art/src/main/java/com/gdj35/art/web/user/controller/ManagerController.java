@@ -184,7 +184,7 @@ public class ManagerController {
 		public String entireList(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
-		
+		System.out.println(params);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		

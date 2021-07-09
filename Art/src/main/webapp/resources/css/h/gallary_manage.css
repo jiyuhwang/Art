@@ -147,6 +147,7 @@ table td{
 
 .result_table {
 	height: 550px;
+	line-height: 32px;
 	overflow: auto;
 }
 
@@ -165,3 +166,8 @@ select, input{/*입력칸 넓히기  */
     text-align: center;
     margin-top: 30px;
 }
+
+#pagingWrap span{
+	margin: 0 5px;
+	cursor: pointer;
+} 
