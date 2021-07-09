@@ -134,6 +134,68 @@ public class ManagerController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "/delOneRow",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String delOneRow(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println(params);
+		
+		int cnt = iManagerService.deleteOneRow(params);
+		
+		
+		 /*
+		 * PagingBean pb = iPagingService.getPagingBean(page, maxCount, viewCnt,
+		 * pageCnt)
+		 */
+		
+		
+		/* modelMap.put("pb",pb); */
+		modelMap.put("cnt", cnt);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "/out_user_list",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String out_user_list(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println(params);
+		
+		int page=1;
+		
+		 if(params.get("page") != null) { 
+			 page= Integer.parseInt(params.get("page"));
+		  }
+		 
+		//Total count를 가져온다 T
+		int cnt = iManagerService.getOutCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+		
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		
+		List<HashMap<String,String>> list = iManagerService.outUserList(params);
+		
+		System.out.println(list);
+		System.out.println(pb);
+		
+		modelMap.put("pb", pb);
+		modelMap.put("list", list);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	
 	@RequestMapping(value="/gong_board")
 	public ModelAndView gong_board(ModelAndView mav) throws Throwable {

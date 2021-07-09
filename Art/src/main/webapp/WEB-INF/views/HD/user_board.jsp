@@ -23,6 +23,11 @@ $(document).ready( function () {
 		$("#searchType").val("${param.searchType}");
 		$("#searchGbn").val("${param.searchGbn}");
 	}
+	 $("#allUserList").attr("class","bigClassActive");
+	 $("#allUserList").on("click", function () {
+	  	$("#allUserList").attr("class","bigClassActive");
+		$("#userForm").submit();
+	});
 		
 /* 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
@@ -38,7 +43,7 @@ $(document).ready( function () {
 	
 	
 	//----------------------------------------------이메일 띄우기
-	$("#email_btn").on("click", function () {
+	$("#emailBtn").on("click", function () {
 		$(".PmainM, .PbackgroundM").show();
 		
 		$("#cancel_btnM").on("click", function () {
@@ -59,10 +64,12 @@ $(document).ready( function () {
 	$("#searchBtn").on("click", function () {
 		$("#page").val(1);
 		$("#userForm").submit();
-	})
+	});
+	
+	$(".bigClass")
 	
 	
-//side 클릭시 변경 script
+//-----------------------------------------side 클릭시 변경 script
 	var now ='${now}';
 	console.log(now);
 	$('.'+now).attr("id","active");
@@ -89,12 +96,13 @@ $(document).ready( function () {
 		}
 		
 	});
-	//side 클릭시 변경 script
+	//------------------------------------------side 클릭시 변경 script
 	$("#pagingWrap").on("click","span", function () {
 		$("#page").val($(this).attr("name"));
 		$("#userForm").submit();
 	});
 	
+	//---------------------------------------paging 이벤트
 	$(".Pmain #pagingWrap").on("click",".Pmain span", function () {
 		$(".Pmain #page").val($(this).attr("name"));
 		console.log($(".Pmain #page").val());
@@ -132,18 +140,30 @@ $(document).ready( function () {
 			$(".Pmain #insideMiddle1").attr("class","insideMiddle1")
 			$(".Pmain #insideMiddle2").attr("class","insideMiddle2")
 		}
-	}); 
+	});
+	
+	$("#outUserList").on("click", function () {
+		$("#outUserList").attr("class","bigClassActive");
+		$("#allUserList").attr("class","bigClass-1");
+		$(".main3-table tbody").empty();
+		$("#pagingWrap").empty();
+		drawOutList();
+	});
+	$(".main3-table tbody").on("click", ".delete_btn" ,function () {
+		$("#userNo").val($(this).parent().parent().attr("name"));
+		delOneRow();
+	});
 	
 	$("#addBtn").on("click", function () {
 			alert("준비중입니다.");
 	});
 	
 	$(".update_btn").on("click", function () {
-		alert("준비중입니다.")
+		alert("준비중입니다.");
 	});
 });
 //document end
-
+//----------------------------------------- 상세페이지 팝업 그려주는 함수 
 function drawPopup() {
 	var params = $("#detailForm").serialize();
 	
@@ -156,7 +176,42 @@ function drawPopup() {
 			console.log(res.user);
 			console.log(res.list);
 			drawPopUpDP(res.user);
-			pagingDP(res.list);
+			listDP(res.list);
+		},
+		error: function (request, status, error) {
+			console.log(error);
+		}
+});
+//----------------------------------------- 상세페이지 팝업 그려주는 함수 
+}
+function delOneRow() {
+	var params = $("#detailForm").serialize();
+	
+	$.ajax({
+		url:"delOneRow",
+		type:"post",
+		dataType :"json",
+		data:params,
+		success : function (res) {
+			alert("삭제되었습니다.");
+		},
+		error: function (request, status, error) {
+			console.log(error);
+		}
+});
+}
+//--------------------------------------- 탈퇴회원 리스트 그리는 함수
+function drawOutList() {
+	var params = $("#userForm").serialize();
+	
+	$.ajax({
+		url:"out_user_list",
+		type:"post",
+		dataType :"json",
+		data:params,
+		success : function (res) {
+			outList(res.list);
+			pagingDraw(res.pb);
 		},
 		error: function (request, status, error) {
 			console.log(error);
@@ -282,7 +337,7 @@ function drawPopup() {
 	$(".popupWrap").prepend(html);
 }  
  
- function pagingDP(list) {
+ function listDP(list) {
 	var html="";
 		for(var d of list){
 			
@@ -302,7 +357,64 @@ function drawPopup() {
 	$(".Pmain tbody").html(html);
 	
 }
+ function outList(list) {
+	var html="";
+	
+	console.log(list);
+	
+	for(var e of list){
+		html+= "	<tr name=\"" + e.USER_NO  + "\">";
+		html+= "		<td><input type=\"checkbox\"> </td>";
+		html+= "		<td>" + e.RNUM  + "</td>";
+		html+= "		<td>" + e.USER_NO  + "</td>";
+		html+= "		<td>" + e.NAME  + "</td>";
+		html+= "		<td>" + e.USER_ID  + "</td>";
+		html+= "		<td>" + e.USER_NICKNAME  + "</td>";
+		html+= "		<td>" + e.SEX + "</td>";
+		html+= "		<td>" + e.BIRTHDAY + "</td>";
+		html+= "		<td>" + e.PHONE_NO + "</td>";
+		html+= "		<td>" + e.MAIL + "</td>";
+		html+= "		<td>" + e.OUT_DATE + "</td>";
+		html+= "		<td><input type=\"button\" value=\"수정\" class=\"update_btn\" id=\"update_btn\"/>";
+		html+= "			<input type=\"button\" value=\"복구\" class=\"delete_btn\" id=\"delete_btn\"/>";
+		html+= "		</td>";
+		html+= "	</tr>";
+	}
+	
+	$(".main3-table tbody").html(html);
+}
  
+ function pagingDraw(pb) {
+	var html ="";
+		console.log(pb);
+			html += "<span name=\"1\">처음</span>";
+			/* <!-- 이전 페이지  --> */
+			if($("#page") == "1"){
+					html +=		"<span name=\"1\">이전</span>";
+			}else{
+					html +=	    "<span name=\"" + ($("#page").val()*1 -1) + "\">이전 </span>";
+			}
+			/* <!-- 페이징   --> */
+			for( var i = pb.startPcount ; i <= pb.endPcount; i++){
+				if($("#page").val() ==i){
+					html +=	"<span name=" + i + " ><b>" + i +  "</b></span>";
+				}else{
+					html +=	"<span name=" + i + " >" + i +  "</span>";
+				}
+			}
+			/* 다음이랑 마지막 페이지  */
+			if($("#page").val() == pb.maxPcount){
+					html +=	"<span name=" + pb.maxPcount + ">다음</span>";
+			}else{
+					html += "<span name=" + ($("#page").val()*1 + 1) + ">다음</span>";
+			}
+			
+		    html +=	"<span name="+ pb.maxPcount+">마지막</span>";
+		
+		 $("#pagingWrap").html(html);
+}
+ 
+
 </script>
 </head>
 <body>
@@ -322,8 +434,8 @@ function drawPopup() {
 		<div class ="blank2"></div>
 		
 		<div class ="bigClass">
-			<div class ="bigClass-1">전체회원</div>
-			<div class ="bigClass-2">탈퇴회원</div>
+			<div class ="bigClass-1" id="allUserList">전체회원</div>
+			<div class ="bigClass-2" id="outUserList">탈퇴회원</div>
 		</div>
 		<div class="main1">
 			<div class="main1-1">
@@ -361,8 +473,9 @@ function drawPopup() {
 </form>		
 		</div>
 		<div class="main3">
+			<input type="button" value="선택삭제" id="selectDelBtn"/>
 			<input type="button" value="등록" id="addBtn"/>
-			<input type="button" value="이메일" id="email_btn"/>
+			<input type="button" value="이메일" id="emailBtn"/>
 		</div>
 		<div class="main3-table">
 			<table>
@@ -394,14 +507,14 @@ function drawPopup() {
 					<th>생년월일(나이)</th>
 					<th>전화번호</th><!--신고자 닉네임(아이디)  -->
 					<th>이메일</th>
-					<th>가입일</th>
+					<th>가입일/탈퇴일</th>
 					<th>수정/삭제</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="data" items="${list}">
 				<tr name="${data.USER_NO}">
-					<td><input type="checkbox"> </td>
+					<td><input type="checkbox" name="${data.USER_NO}"> </td>
 					<td>${data.RNUM}</td>
 					<td>${data.USER_NO}</td>
 					<td>${data.NAME}</td>

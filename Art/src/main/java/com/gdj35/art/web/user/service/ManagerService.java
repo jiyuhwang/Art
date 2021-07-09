@@ -25,6 +25,13 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getTCnt(params);
 	}
 	
+	@Override
+	public List<HashMap<String, String>> outUserList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.outUserList(params);
+	}
+
+
 
 	@Override
 	public List<HashMap<String, String>> getGList() throws Throwable {
@@ -58,12 +65,25 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getGallaryMCnt(params);
 	}
 	
-	
+	@Override
 	public List<HashMap<String, String>> getDPList(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
 		return iManagerDao.getDPList(params);
 
 	}
+
+	@Override
+	public int getOutCnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getOutCnt(params);
+	}
+
+	@Override
+	public int deleteOneRow(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.deleteOneRow(params);
+	}
+
 
 
 
