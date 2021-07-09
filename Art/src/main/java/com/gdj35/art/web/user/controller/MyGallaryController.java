@@ -147,16 +147,18 @@ public class MyGallaryController {
 		
 		HashMap<String, String> data = iMyGallaryService.getPost(params);
 		
-		String str = data.get("TAG_NAME");
-
-		String[] array = str.split(",");
+		if(data.get("TAG_NAME") != null && data.get("TAG_NAME") != "") {
+			String str = data.get("TAG_NAME");
+	
+			String[] array = str.split(",");
+			
+			for(int i = 0 ; i < array.length ; i++) {
+				System.out.println(array[i]);
+			}
 		
-		for(int i = 0 ; i < array.length ; i++) {
-			System.out.println(array[i]);
+		
+			mav.addObject("array", array);
 		}
-		
-		
-		mav.addObject("array", array);
 		
 		//System.out.println(array);
 		
@@ -181,22 +183,22 @@ public class MyGallaryController {
 			
 			mav.setViewName("redirect:main");
 		}
-		
-		
-		
+
 		HashMap<String, String> data = iMyGallaryService.getPost(params);
 		
-		String str = data.get("TAG_NAME");
-
-		String[] array = str.split(",");
 		
-		for(int i = 0 ; i < array.length ; i++) {
-			System.out.println(array[i]);
+		if(data.get("TAG_NAME") != null && data.get("TAG_NAME") != "") {
+			String str = data.get("TAG_NAME");
+	
+			String[] array = str.split(",");
+			
+			for(int i = 0 ; i < array.length ; i++) {
+				System.out.println(array[i]);
+			}
+		
+		
+			mav.addObject("array", array);
 		}
-		
-		
-		mav.addObject("array", array);
-		
 		
 		mav.addObject("data", data);
 				

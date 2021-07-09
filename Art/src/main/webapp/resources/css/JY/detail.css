@@ -373,6 +373,7 @@ body {
 	cursor: pointer;
 	right: 30px;
 	float: right;
+	/* margin-bottom: 50px; */
 }
 
 .comment {
@@ -392,7 +393,7 @@ body {
 	position: relative;
 	margin-bottom: 40px;
 	background-color: #fbfbfb;
-	margin-top: 30px;
+	margin-top: 80px;
 }
 
 .profile2 {
@@ -473,6 +474,9 @@ body {
 	margin-bottom: 150px;
 	display: block;
 	font-size: 12pt;
+}
+#none {
+	display: none;
 }
 
 .tag_wrap {

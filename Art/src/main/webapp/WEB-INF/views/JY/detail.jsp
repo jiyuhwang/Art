@@ -9,9 +9,9 @@
 <link rel="stylesheet" href="resources/css/JY/detail.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	
+$(document).ready(function() {	
 
+	
 	if("${sUserNo}" != $("#authorNo").val()) {
 		$(".btnCommentDelete").hide();
 		$("#replyBtnCommentDelete").hide();
@@ -246,7 +246,7 @@ function heart() {
 </head>
 <body>
 	<form action="#" id="goForm" method="post">
-		<input type="hidden" name="pNo" value="${data.POST_NO}" />
+		<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
 		<input type="hidden" name="page" value="${param.page}" />
 		<input type="hidden" id="authorNo" value="${data.USER_NO}"/>
 	</form>
@@ -298,9 +298,18 @@ function heart() {
 	
 	
 	<div class="side_bar">
-		<div class="profile">
-			<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="짱구1" width="300px" height="300px">
-		</div>
+		<c:choose>
+				<c:when test="${empty sUserProfileImg}">
+					<div class="profile">
+						<img class="profile_img" src="resources/images/JY/who.png" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:when>
+				<c:otherwise>
+					<div class="profile">
+						<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:otherwise>
+		</c:choose>
 		<div class="profile_name">${sUserNickname}</div>
 		<a href="writing"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
@@ -325,9 +334,12 @@ function heart() {
 		<br />
 		<br />
 		<div class="contents">${data.EXPLAIN}</div>
-			<c:forEach var="i" items="${array}">
-				<i class="tag"># ${i}</i>
-			</c:forEach>
+		<c:if test="${!empty array}">
+		<c:forEach var="i" items="${array}">
+			<i class="tag"># ${i}</i>
+		</c:forEach>
+		</c:if>
+
 			<div class="comment_wrap1">
 				<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
 				<div class="comment">댓글</div>

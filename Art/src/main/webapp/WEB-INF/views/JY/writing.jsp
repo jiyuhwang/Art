@@ -52,6 +52,7 @@ function enterValue(){
 
 
 $(document).ready(function() {
+	
 		
 
 	
@@ -78,6 +79,7 @@ $(document).ready(function() {
 		var Tag = Text.split('x');
 		$('#tag2').val(Tag);
 		console.log($('#tag2').val());
+		
 		
 		if($("#uploadFile").attr("src") == "") {
 			alert("작품을 올려주세요");

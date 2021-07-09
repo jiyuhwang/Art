@@ -21,7 +21,7 @@
 	border-radius: 5px;
 	margin-right: 8px;
 }
-.bootstrap-tagsinput{	
+.tags_input{	
 	width: 100%;
 	height: 34px;
 	padding: 6px 12px;
@@ -37,48 +37,37 @@
 }
 
 </style>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-  		function enterValue(){
-  			
-  			var tagSpan = document.createElement('span');
-  			var x = document.createElement('span');	
-  			var xMark = 'x';
-  			var result = document.getElementById('tag');
-  			var input = document.getElementById('tagId');
-  			tagSpan.className='badge';
-  			x.setAttribute( 'onclick', 'removeTag()' );
-  			x.className='xClass';
+$(document).ready(function() {	
+	    	 for(var i= 0; i <10; i++) {
+	$('#tagId').keypress(function(event){
+	     if (event.which == 13) {
+	    	 var html = "";
+	    	 var text = $('#tagId').val();
+	    	 html += "<div class=\"badge\">" + text + "</div>" 
 
-  					
-  			var content =  document.getElementById('tagId');
-  			var string = content.value;
-  			var string2 = string.trim();
-  			var string3 = string2.replace("," , "");
-  			
-  			
-  			
-  			if(string3 !== ""){
-  				tagSpan.append(string3);  
-  	  			x.append(xMark);
-  	  			tagSpan.append(x);
-  	  			result.append(tagSpan);  			
-  	  			input.value = null;		
-  			}else if(string3 == string){}
- 
-  		}
-  		
-  		function removeTag(){
-  			var listSpan = document.getElementById("tag");
-  			listSpan.removeChild(listSpan.childNodes[0]);
-  		}
-  		
- /*    js: span 엘리먼트 생성 -> css,id등 속성추가 ->
- 	들어온값에 trim, 콤마 제거 -> x클릭시 removeTag()실행    */ 	
+	     }
+	    	 $(".tags_input").html(html);
+	     //$('#tagId').val("");
+	});
+	    	 }
+	
+})
+/* ------------ */
+/* function draw(text) {
+		var html = "";
+		for(var i of text) {
+			
+			html += "<span class=\"badge\">" + i + "</span>" 
+
+		}
+		$(".tags_input").html(html);
+	} */
 </script>		
 </head>
 <body>
-<input id="tagId" type="text" name="post_tag" class="form-control" value placeholder="Tags,"
-		onkeyup="if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}"/>
-		<div id="tag" class="bootstrap-tagsinput"></div>
+<input id="tagId" type="text" name="post_tag" class="form-control" />
+<div id="tag" class="tags_input"></div>
 </body>
 </html>

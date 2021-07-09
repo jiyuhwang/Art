@@ -15,7 +15,8 @@
 
 <script type="text/javascript">
 function enterValue(){
-		
+	
+	
 		var tagSpan = document.createElement('span');
 		var x = document.createElement('span');	
 		var xMark = 'x';
@@ -53,7 +54,10 @@ function enterValue(){
 
 
 $(document).ready(function() {
-		
+	console.log($('#postNo').val());
+	console.log($('#uploadFile').attr("src"));
+	console.log($('#uploadFile').attr("src").substring(18)); 
+	//var filekeep = $('#uploadFile').attr("src").substring(18);
 	
 	$("#btnCancel").on("click", function () {
 		var Text = $( '.badge' ).text();
@@ -86,6 +90,15 @@ $(document).ready(function() {
 		$('#tag2').val(Tag);
 		console.log($('#tag2').val());
 		
+		
+		// 사진 수정을 안 할 경우
+		var filekeep = $('#uploadFile').attr("src").substring(17);
+		
+		if($('#postFileKeep').val() == filekeep) {
+			$('#postFile2').val(filekeep);
+		}
+		console.log($('#postFile2').val());
+		
 		if($("#uploadFile").attr("src") == "") {
 			alert("작품을 올려주세요");
 			return false;// ajaxForm 실행 불가
@@ -113,7 +126,7 @@ $(document).ready(function() {
 				success: function(res) { // 성공 시 다음 함수 실행
 				    if(res.msg == "success") {
 				    	alert("정상적으로 작품 수정되었습니다.");
-				    	$("#updateForm").attr("action", "writing");
+				    	$("#updateForm").attr("action", "main");
 						$("#updateForm").submit();
 					} else if(res.msg == "failed") {
 						alert("작품 수정에 실패하였습니다.");
@@ -171,7 +184,7 @@ $(document).ready(function() {
 <form action="#" id="updateForm" method="post">
 	<input type="hidden" id="tag2" name="tag" value="">
 	<input type="hidden" name="page" value="${param.page}" />
-	<input type="hidden" name="postNo" value="${param.POST_NO}" />
+	<input type="hidden" id="postNo" name="postNo" value="${param.pNo}" />
 	<c:choose>
 		<c:when test="${empty sUserNo}">
 			<c:import url="header2.jsp"></c:import>
@@ -183,7 +196,8 @@ $(document).ready(function() {
 	<input type="hidden" name="userNo" value="${data.USER_NO}">
 	<div class="wrap">
 		<div class="upload_wrap">
-			<img id="uploadFile" src="resources/upload/${data.PROFILE_IMG_PATH}" width="400px" height="400px">
+			<img id="uploadFile" src="resources/upload/${data.POST_FILE}" width="400px" height="400px">
+			<input type="hidden" id="postFileKeep" value="${data.POST_FILE}"/>  			
 			<input type="button" id="upload"/>
 			<input type="hidden" name="postFile2" id="postFile2" value=""/>  
 		</div>

@@ -96,16 +96,16 @@
 		        ON P.USER_NO = U.USER_NO
 		            INNER JOIN POST_CATEGORY PC
 		        ON P.CATEGORY_NO = PC.CATEGORY_NO
-		            INNER JOIN (SELECT PT.POST_NO, LISTAGG(TAG_NAME, ',') WITHIN GROUP(ORDER BY T.TAG_NO) AS TAG_NAME
-		                        FROM POST_TAG PT INNER JOIN TAG T
-		                                    ON PT.TAG_NO = T.TAG_NO
-								GROUP BY PT.POST_NO) T2
+		            LEFT OUTER JOIN (SELECT PT.POST_NO, LISTAGG(TAG_NAME, ',') WITHIN GROUP(ORDER BY T.TAG_NO) AS TAG_NAME
+			                        FROM POST_TAG PT INNER JOIN TAG T
+			                                    ON PT.TAG_NO = T.TAG_NO
+			                        GROUP BY PT.POST_NO) T2
 		        ON P.POST_NO = T2.POST_NO) A
 		WHERE A.POST_NO = #{pNo}
 	</select>
 	
 	<update id="updatePost" parameterType="hashmap">
-		UPDATE POST SET POST_NO = #{postNo}, USER_NO = #{userNo}, CATEGORY_NO = #{category}, TITLE = #{title}, EXPLAIN = #{explain}, POST_FILE = #{postFile2}, VISIBILITY = #{public_privacy}
+		UPDATE POST SET CATEGORY_NO = #{category}, TITLE = #{title}, EXPLAIN = #{explain}, POST_FILE = #{postFile2}, VISIBILITY = #{public_privacy}
 		WHERE POST_NO = #{postNo}
 	</update>
 	
@@ -113,5 +113,10 @@
 		UPDATE POST SET DEL = 0
 		WHERE POST_NO = #{pNo}
 	</update>
+	
+	<delete id="deleteTag" parameterType="hashmap">
+		DELETE FROM POST_TAG
+		WHERE POST_NO = #{postNo}
+	</delete>
 
 </mapper>
