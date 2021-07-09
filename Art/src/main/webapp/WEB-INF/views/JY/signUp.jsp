@@ -10,15 +10,61 @@
 <!-- <script type="text/javascript" src="resources/script/JY/signUp.js"></script> -->
 <script type="text/javascript">
 
+// 이메일 형식 유효성 검사
+function mailFormCheck(email){
+    var form = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return form.test(email);
+}
+
+// 비밀번호 형식 유효성 검사
+function checkPassword(password){
+    
+    if(!/^(?=.*[a-zA-Z])(?=.*[~!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+        alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+        $('#pwInput').val('').focus();
+        return false;
+    }    
+    var checkNumber = password.search(/[0-9]/g);
+    var checkEnglish = password.search(/[a-z]/ig);
+    if(checkNumber <0 || checkEnglish <0){
+        alert("숫자와 영문자를 혼용하여야 합니다.");
+        $('#pwInput').val('').focus();
+        return false;
+    }
+    if(/(\w)\1\1\1/.test(password)){
+        alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
+        $('#pwInput').val('').focus();
+        return false;
+    }
+        
+    return true;
+}
+
+
+
 var code = "";                //이메일전송 인증번호 저장위한 코드
 
 $(document).ready(function() {
+	$("#pwInput").change(function(){
+	    checkPassword($('#pwInput').val());
+	});
+	
 	$("#btnMailSend").click(function(){
 	    
 		  var email = $("#mailInput").val();            // 입력한 이메일
+		  
+	    if(!mailFormCheck(email)){
+	        alert("올바르지 못한 이메일 형식입니다.");
+	        return false;
+	    } else {
+	        alert("이메일이 전송 되었습니다. 이메일을 확인해주세요.");
+	   		$("#mailCheckInput").val(""); 
+	    }
+		
 		  var checkBox = $("#mailCheckInput");        // 인증번호 입력란
 		  var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
-		    
+		  
+		 
 		    $.ajax({
 		        
 		        type:"GET",
@@ -50,16 +96,15 @@ $(document).ready(function() {
 	    
 	}); */
 	
-	$("#btnMailSend").on("click", function(){
-	    
-	    alert("이메일 인증번호가 전송되었습니다.");
-	    $("#mailCheckInput").val(""); 
-	});
 	
 	$("#btnMailCheck").on("click", function(){
 	    
 	    var inputCode = $("#mailCheckInput").val();        // 입력코드    
 	    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과     
+	    
+	    
+	    
+	    
 	    
 	    if(inputCode == code){                            // 일치할 경우
 	        checkResult.html("인증번호가 일치합니다.");
