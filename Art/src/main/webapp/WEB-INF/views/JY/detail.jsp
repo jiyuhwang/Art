@@ -171,11 +171,14 @@ $(document).ready(function() {
 	
 	
 	$(".profile_name2").on("click", function() {
-		$("#goForm").attr("action", "othergallary");
-		$("#goForm").submit();
+		if($('#user').val() == $('#authorNo').val()) {
+			location.href = "mygallary";
+		} else {
+			$("#goForm").attr("action", "othergallary");
+			$("#goForm").submit();
+		}
 	});
-	
-	
+			
 	$("#btnDelete").on("click", function() {
 		if(confirm("삭제하시겠습니까?")) {
 			var params= $("#goForm").serialize();
@@ -254,6 +257,7 @@ function heart() {
 	<form action="#" id="goForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
 		<input type="hidden" name="page" value="${param.page}" />
+		<input type="hidden" id="user" name="user" value="${sUserNo}"/>
 		<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>
 		<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>
 		<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}"/>
