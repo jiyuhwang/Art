@@ -22,12 +22,15 @@ $(document).ready(function() {
 	});
 	
 	$(".pic_wrap").on("click", "div", function() {
+		$("#page").val($(this).attr("page"));
+		$('#tabtab').val($("input[name=tab]").val());
 		$("#pNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
 	
 	$(".draw_wrap").on("click", "div", function() {
+		$("#page").val($(this).attr("page"));
 		$("#pNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
@@ -180,7 +183,8 @@ $(document).ready(function() {
 	</c:choose>
 <form action="#" id="actionForm" method="post">
 			<input type="hidden" id="pNo" name="pNo" />
-			<input type="hidden" id="page" name="page" value="${page}" />	
+			<input type="hidden" id="page" name="page" value="${page}" />
+			<input type="hidden" id="tabtab" name="tabtab"/>	
 	<div class="wrap">
 		<div class="gallary">
 			<div class="tabs">

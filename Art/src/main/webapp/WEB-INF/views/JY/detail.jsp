@@ -148,6 +148,9 @@ $(document).ready(function() {
 	        $('html').animate({scrollTop : offset.top}, 400);
 	})
 	
+	
+	
+	
 	$("#btnLogout").on("click", function() {
 		$.ajax({
 			url: "Logout",
@@ -257,6 +260,7 @@ function heart() {
 	<form action="#" id="goForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
 		<input type="hidden" name="page" value="${param.page}" />
+		<input type="hidden" id="tabtab" name="tabtab" value="${param.tabtab}"/>
 		<input type="hidden" id="user" name="user" value="${sUserNo}"/>
 		<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>
 		<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>

@@ -98,9 +98,6 @@ $(document).ready(function() {
 			alert("닉네임을 입력해주세요.");
 			$("#nickname").focus();
 			return false; // ajaxForm 실행 불가
-		} else if($("#profileEditImg").attr("src") == "resources/images/JY/who.png") {
-			$('#profileImg').val("");
-			return false;
 		} else {
 			
 			var params= $("#profileForm").serialize();

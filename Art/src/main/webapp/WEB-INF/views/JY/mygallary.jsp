@@ -28,12 +28,14 @@ $(document).ready(function() {
 	});
 	
 	$(".pic_wrap").on("click", "div", function() {
+		$("#page").val($(this).attr("page"));
 		$("#pNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
 	
 	$(".draw_wrap").on("click", "div", function() {
+		$("#page").val($(this).attr("page"));
 		$("#pNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
