@@ -10,13 +10,57 @@
 <link rel="stylesheet" href="resources/css/JY/set.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+
+//이메일 형식 유효성 검사
+function mailFormCheck(email){
+    var form = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return form.test(email);
+}
+
+//비밀번호 형식 유효성 검사
+function checkPassword(password){
+    
+    if(!/^(?=.*[a-zA-Z])(?=.*[~!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+        alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+        $('#pw').val('').focus();
+        return false;
+    }    
+    var checkNumber = password.search(/[0-9]/g);
+    var checkEnglish = password.search(/[a-z]/ig);
+    if(checkNumber <0 || checkEnglish <0){
+        alert("숫자와 영문자를 혼용하여야 합니다.");
+        $('#pw').val('').focus();
+        return false;
+    }
+    if(/(\w)\1\1\1/.test(password)){
+        alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
+        $('#pw').val('').focus();
+        return false;
+    }
+        
+    return true;
+}
+
 var code = "";                //이메일전송 인증번호 저장위한 코드
 
 $(document).ready(function() {
 	
+	$("#pw").change(function(){
+	    checkPassword($('#pw').val());
+	});
+	
+	
 	$("#emailSend").click(function(){
 	    
 		  var email = $("#email").val();            // 입력한 이메일
+		  
+		  if(!mailFormCheck(email)){
+		        alert("올바르지 못한 이메일 형식입니다.");
+		        return false;
+		    } else {
+		        alert("이메일이 전송 되었습니다. 이메일을 확인해주세요.");
+		   		$("#email3").val("");
+		    }
 		  var checkBox = $("#email3");        // 인증번호 입력란
 		  var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
 		    
@@ -35,11 +79,6 @@ $(document).ready(function() {
 		  });
 	});
 	
-	$("#emailSend").on("click", function(){
-	    
-	    alert("이메일 인증번호가 전송되었습니다.");
-	    $("#email3").val(""); 
-	});
 	
 	$("#emailCheck").on("click", function(){
 	    
