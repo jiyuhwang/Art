@@ -23,6 +23,25 @@ public interface IMyGallaryService {
 
 	public int deletePost(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> myPicList(HashMap<String, String> params) throws Throwable;
+	
+	public int getMyPicCnt(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> myDrawList(HashMap<String, String> params) throws Throwable;
+	
+	public int getMyDrawCnt(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> otherPicList(HashMap<String, String> params) throws Throwable;
+
+	public int getOtherPicCnt(HashMap<String, String> params) throws Throwable;
+	
+	public List<HashMap<String, String>> otherDrawList(HashMap<String, String> params) throws Throwable;
+
+	public int getOtherDrawCnt(HashMap<String, String> params) throws Throwable;
+
+
+
+
 
 
 }

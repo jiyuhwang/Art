@@ -195,7 +195,7 @@ a {
 		</c:choose>
 		
 		<div class="profile_name">${sUserNickname}</div>
-		<a href="writing"><input type="button" id="btnUpload" value="작품등록"></a>
+		<a href="write"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
 			<div class="side_bar_menu1"><a href="mygallary">나의 작업실</a></div>

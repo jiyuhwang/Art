@@ -170,6 +170,12 @@ $(document).ready(function() {
 	});
 	
 	
+	$(".profile_name2").on("click", function() {
+		$("#goForm").attr("action", "othergallary");
+		$("#goForm").submit();
+	});
+	
+	
 	$("#btnDelete").on("click", function() {
 		if(confirm("삭제하시겠습니까?")) {
 			var params= $("#goForm").serialize();
@@ -248,7 +254,10 @@ function heart() {
 	<form action="#" id="goForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
 		<input type="hidden" name="page" value="${param.page}" />
-		<input type="hidden" id="authorNo" value="${data.USER_NO}"/>
+		<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>
+		<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>
+		<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}"/>
+		<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}"/>
 	</form>
 	
 	
@@ -311,7 +320,7 @@ function heart() {
 				</c:otherwise>
 		</c:choose>
 		<div class="profile_name">${sUserNickname}</div>
-		<a href="writing"><input type="button" id="btnUpload" value="작품등록"></a>
+		<a href="write"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
 			<div class="side_bar_menu1"><a href="mygallary">나의 작업실</a></div>
@@ -481,7 +490,7 @@ function heart() {
 			</c:choose>
 			
 			
-			<div class="profile_name2"><a href="other_gallary">${data.USER_NICKNAME}</a></div>
+			<div class="profile_name2">${data.USER_NICKNAME}</div>
 			<div class="profile_introduce">${data.INTRODUCE}</div>
 		</div>
 	</div>

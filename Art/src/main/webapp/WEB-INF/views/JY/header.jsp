@@ -190,7 +190,7 @@ $(document).ready(function() {
 		</c:choose>
 	
 		<div class="profile_name">${sUserNickname}</div>
-		<a href="writing"><input type="button" id="btnUpload"
+		<a href="write"><input type="button" id="btnUpload"
 			value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>

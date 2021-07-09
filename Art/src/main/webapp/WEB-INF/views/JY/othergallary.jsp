@@ -5,20 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 갤러리</title>
-<link rel="stylesheet" href="resources/css/JY/mygallary.css">
+<title>갤러리</title>
+<link rel="stylesheet" href="resources/css/JY/othergallary.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	console.log($('#userNo').val());
 	reloadList();
-
+	console.log("aa");
 
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 
-	
-	$('#btnGoUpload').click(function() {
-		location.href =	"write";
-	});
 	
 	
 	$(".pagination").on("click", "a",  function() {
@@ -53,10 +50,10 @@ function reloadList() {
 	var urlTxt = "";
 	switch($(".tabs [type='radio']:checked").val()) {
 	case "0" :
-		urlTxt = "mypicgallarys";
+		urlTxt = "otherpicgallarys";
 		break;
 	case "1" :
-		urlTxt = "mydrawgallarys";
+		urlTxt = "otherdrawgallarys";
 		break;
 	}
 	
@@ -165,30 +162,34 @@ function drawPaging(pb) {
 	</c:choose>
 <form action="#" id="actionForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" />
-		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
+		<input type="hidden" id="userNo" name="userNo" value="${param.authorNo}" />
 		<input type="hidden" id="page" name="page" value="${page}" />
 	<div class="wrap">
 		<div class="profile_wrap">
+			<img id="heart" src="resources/images/JY/heart.png" alt="하트" onclick="heart();" width="35px" height="35px">
+	
 
 			<c:choose>
-				<c:when test="${empty sUserProfileImg}">
+				<c:when test="${empty param.userProfileImg}">
 					<div class="profile2">
 						<img class="profile_img2" src="resources/images/JY/who.png" alt="프로필사진" width="200px" height="200px">
 				    </div>
 				</c:when>
 				<c:otherwise>
 					<div class="profile2">
-						<img class="profile_img2" src="resources/upload/${sUserProfileImg}" alt="프로필사진" width="200px" height="200px">
+						<img class="profile_img2" src="resources/upload/${param.userProfileImg}" alt="프로필사진" width="200px" height="200px">
 					</div>
 				</c:otherwise>
 			</c:choose>
 			
-			<div class="profile_name2">${sUserNickname}</div>
+			<div class="profile_name2">${param.userNickname}</div>
 			<div class="profile_like">좋아요수
 				<span class="profile_like_cnt">30</span>
 			</div>
+			
+			
 			<div class="profile_introduce">
-				<div class="profile_introduce_in">${sUserIntroduce}</div>
+				<div class="profile_introduce_in">${param.userIntroduce}</div>
 			</div>
 		</div>
 		<div class="gallary_wrap">
@@ -200,7 +201,6 @@ function drawPaging(pb) {
 					<label for="gallaryMenu1">사진작품관</label>
 					<label for="gallaryMenu2">그림작품관</label>
 					<label for="gallaryMenu3">영상작품관</label>
-					<input id="btnGoUpload" type="button" value="작품 등록하기">
 					<select class="select" name="searchGbn">
 						<option value="0" selected="selected">최신순</option>
 						<option value="1">좋아요순</option>

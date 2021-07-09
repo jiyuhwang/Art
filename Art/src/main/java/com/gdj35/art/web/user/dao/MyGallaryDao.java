@@ -118,4 +118,46 @@ public class MyGallaryDao implements IMyGallaryDao{
 	public int deletePost(HashMap<String, String> params) throws Throwable {
 		return sqlSession.update("Post.deletePost", params);
 	}
+	
+	@Override
+	public List<HashMap<String, String>> myPicList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.myPicList", params);
+	}
+
+	@Override
+	public int getMyPicCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getMyPicCnt", params);
+	}
+	
+	@Override
+	public List<HashMap<String, String>> myDrawList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.myDrawList", params);
+	}
+
+	@Override
+	public int getMyDrawCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getMyDrawCnt", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> otherPicList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.otherPicList", params);
+	}
+
+	@Override
+	public int getOtherPicCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getOtherPicCnt", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> otherDrawList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.otherDrawList", params);
+	}
+
+	@Override
+	public int getOtherDrawCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getOtherDrawCnt", params);
+	}
+
+
 }

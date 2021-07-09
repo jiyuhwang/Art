@@ -5,7 +5,7 @@
 	<!-- resultType : row 1줄의 형태를 지정 -->
 	<!-- 쿼리 작성 시 ;이 들어가면 실행되지 않음 -->
 	
-	<!-- 작품올리기 -->
+	<!-- 작품 등록 -->
 	<insert id="addPost" parameterType="hashmap">
 		INSERT INTO POST(POST_NO, USER_NO, CATEGORY_NO, TITLE, EXPLAIN, POST_FILE, VISIBILITY, REGISTER_DATE)
 		VALUES(#{postNo}, #{userNo}, #{category}, #{title}, #{explain}, #{postFile2}, #{public_privacy}, SYSDATE)
@@ -87,7 +87,7 @@
 		WHERE U.OUT_DATE IS NULL
 	</select>
 	
-	<!-- 작품 상세 가져오기 -->
+	<!-- 작품 상세 정보 -->
 	<select id="getPost" parameterType="hashmap" resultType="hashmap">
 		SELECT A.POST_NO, A.CATEGORY_NO, A.USER_NO, A.USER_NICKNAME, A.INTRODUCE, A.PROFILE_IMG_PATH, A.CATEGORY_NAME, A.TITLE, A.EXPLAIN, A.POST_FILE, A.VISIBILITY, TO_CHAR(A.REGISTER_DATE,'YYYY-MM-DD-HH-MI'), A.VIEWS, A.TAG_NAME
 		FROM (
@@ -104,19 +104,139 @@
 		WHERE A.POST_NO = #{pNo}
 	</select>
 	
+	<!-- 작품 수정 -->
 	<update id="updatePost" parameterType="hashmap">
 		UPDATE POST SET CATEGORY_NO = #{category}, TITLE = #{title}, EXPLAIN = #{explain}, POST_FILE = #{postFile2}, VISIBILITY = #{public_privacy}
 		WHERE POST_NO = #{postNo}
 	</update>
 	
+	<!-- 작품 삭제 -->
 	<update id="deletePost" parameterType="hashmap">
 		UPDATE POST SET DEL = 0
 		WHERE POST_NO = #{pNo}
 	</update>
 	
+	<!-- 중계 테이블 작품_태그 삭제 -->
 	<delete id="deleteTag" parameterType="hashmap">
 		DELETE FROM POST_TAG
 		WHERE POST_NO = #{postNo}
 	</delete>
+	
+	<!-- 나의 사진 갤러리 페이지 목록 -->
+	<select id="myPicList" parameterType="hashmap" resultType="hashmap">
+		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO,RNUM
+		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
+			  FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+			                        FROM POST
+			                        WHERE DEL = 1
+			                        AND CATEGORY_NO = 1) P
+			                ON U.USER_NO = P.USER_NO
+			  WHERE U.OUT_DATE IS NULL
+			  AND U.USER_NO = #{userNo}) UP
+		WHERE UP.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<!-- 나의 사진갤러리 게시글 수 -->
+	<select id="getMyPicCnt" parameterType="hashmap" resultType="Integer">
+     	SELECT COUNT(*) AS CNT 
+		FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+		                        FROM POST
+		                        WHERE DEL = 1
+		                        AND CATEGORY_NO = 1) P
+		                ON U.USER_NO = P.USER_NO
+		WHERE U.OUT_DATE IS NULL
+		AND U.USER_NO = #{userNo}
+	</select>
+	
+	<!-- 나의 그림갤러리 페이지 목록 -->
+	<select id="myDrawList" parameterType="hashmap" resultType="hashmap">
+		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO,RNUM
+		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
+			  FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+			                        FROM POST
+			                        WHERE DEL = 1
+			                        AND CATEGORY_NO = 2) P
+			                ON U.USER_NO = P.USER_NO
+			  WHERE U.OUT_DATE IS NULL
+			  AND U.USER_NO = #{userNo}) UP
+		WHERE UP.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<!-- 나의 그림갤러리 게시글 수 -->
+	<select id="getMyDrawCnt" parameterType="hashmap" resultType="Integer">
+     	SELECT COUNT(*) AS CNT 
+		FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+		                        FROM POST
+		                        WHERE DEL = 1
+		                        AND CATEGORY_NO = 2) P
+		                ON U.USER_NO = P.USER_NO
+		WHERE U.OUT_DATE IS NULL
+		AND U.USER_NO = #{userNo}
+	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 다른사람 사진 갤러리 페이지 목록 -->
+	<select id="otherPicList" parameterType="hashmap" resultType="hashmap">
+		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO,RNUM
+		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
+			  FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+			                        FROM POST
+			                        WHERE DEL = 1
+			                        AND VISIBILITY = 0
+			                        AND CATEGORY_NO = 1) P
+			                ON U.USER_NO = P.USER_NO
+			  WHERE U.OUT_DATE IS NULL
+			  AND U.USER_NO = #{userNo}) UP
+		WHERE UP.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<!-- 다른사람 사진갤러리 게시글 수 -->
+	<select id="getOtherPicCnt" parameterType="hashmap" resultType="Integer">
+     	SELECT COUNT(*) AS CNT 
+		FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+		                        FROM POST
+		                        WHERE DEL = 1
+		                        AND VISIBILITY = 0
+		                        AND CATEGORY_NO = 1) P
+		                ON U.USER_NO = P.USER_NO
+		WHERE U.OUT_DATE IS NULL
+		AND U.USER_NO = #{userNo}
+	</select>
+	
+	<!-- 다른사람 그림갤러리 페이지 목록 -->
+	<select id="otherDrawList" parameterType="hashmap" resultType="hashmap">
+		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO,RNUM
+		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM
+			  FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+			                        FROM POST
+			                        WHERE DEL = 1
+			                        AND VISIBILITY = 0
+			                        AND CATEGORY_NO = 2) P
+			                ON U.USER_NO = P.USER_NO
+			  WHERE U.OUT_DATE IS NULL
+		AND U.USER_NO = #{userNo}) UP
+		WHERE UP.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<!-- 다른사람 그림갤러리 게시글 수 -->
+	<select id="getOtherDrawCnt" parameterType="hashmap" resultType="Integer">
+     	SELECT COUNT(*) AS CNT 
+		FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
+		                        FROM POST
+		                        WHERE DEL = 1
+		                        AND VISIBILITY = 0
+		                        AND CATEGORY_NO = 2) P
+		                ON U.USER_NO = P.USER_NO
+		WHERE U.OUT_DATE IS NULL
+		AND U.USER_NO = #{userNo}
+	</select>
+	
+	
+	
+	
 
 </mapper>
