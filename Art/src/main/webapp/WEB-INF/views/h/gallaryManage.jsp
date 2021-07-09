@@ -96,7 +96,8 @@ $(document).ready(function(){
 	//삭제된,삭제제외,삭제포함 버튼 클릭시
 	$("#BtnWith").off("click");
 	$("#BtnWith").on("click", function(){
-		$("#delFlag").val("-1");
+		$("#delFlag").val("");
+		console.log($("#delFlag").val());
 		loadPostList();
 	});
 
@@ -171,7 +172,7 @@ $(document).ready(function(){
 	//-------------------------------------------------------ajax실행
 	function loadPostList(){
 		var params = $("#actionForm").serialize();
-		
+		console.log(params);
 		$.ajax({
 			url: "entireList",
 			type: "post",
@@ -212,7 +213,7 @@ $(document).ready(function(){
 				html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
 				html +="<td>" + d.R_DATE + "</td>";
 				html +="<td>" + d.VIEWS + "</td>";
-				html +="<td>" + d.CNT + "</td>";
+				html +="<td>" + d.LIKE_CNT + "</td>";
 				html +="</tr>";
 			}
 			

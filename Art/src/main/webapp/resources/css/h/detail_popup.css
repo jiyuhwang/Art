@@ -140,12 +140,11 @@
 	display: inline-block;
 	height: 30px;
 	position: absolute;
-	left: 33px;
-	top: 7px;
+	left: 32px;
+	top: 4px;
 }
 
 .mini_profile_wrap {
-	width: 1330px;
 	height: 250px;
 	position: relative;
 	margin-bottom: 40px;
