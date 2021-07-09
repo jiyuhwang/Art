@@ -84,15 +84,6 @@ $(document).ready(function(){
 		loadPostList();
 	});//예전 검색어 다시 확인하기 flag들 확인하기
 	
-	//전체체크하면 전체적으로 체크되게 하기
-	$("#checkAll").on("click", function(){
-		if($(this).is(":checked")){
-			$(".result_table input").prop("checked", true);
-		} else {
-			$(".result_table input").prop("checked", false);
-		}
-	});
-	
 	//삭제된,삭제제외,삭제포함 버튼 클릭시
 	$("#BtnWith").off("click");
 	$("#BtnWith").on("click", function(){
@@ -115,6 +106,15 @@ $(document).ready(function(){
 	
 	
 	
+	
+	//전체체크하면 전체적으로 체크되게 하기
+	$("#checkAll").on("click", function(){
+		if($(this).is(":checked")){
+			$(".result_table input").prop("checked", true);
+		} else {
+			$(".result_table input").prop("checked", false);
+		}
+	});
 	
 	//하나라도 체크 풀면 전체체크박스 해제되기
 	$(".result_table").on("click", "[type='checkbox']", function(){
@@ -160,8 +160,7 @@ $(document).ready(function(){
 
 	
 	$("#pagingWrap").on("click", "span", function(){
-		$("#page").val($(this).attr("name"));
-	
+		$("#page").val($(this).attr("name"));	
 		$("#searchTxt").val($("#searchOldTxt").val());
 		loadPostList();
 	});
@@ -245,8 +244,9 @@ $(document).ready(function(){
 				html +="	</div>";
 				html +="	<div class=\"contents_wrap\">";
 				
-				if(result.POST_FILE != null && result.POST_FILE != "") {
-					html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE +"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
+				if(result.data.POST_FILE != null && result.data.POST_FILE != "") {
+					html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
+								+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
 				} else {
 					html +=" <img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" alt=\"사랑스런짱구\">";
 				}
@@ -254,7 +254,17 @@ $(document).ready(function(){
 				html +="	</div>";
 				html +="	<div class=\"category\">"+ result.data.CATEGORY_NAME +"</div>";
 				html +="	<div class=\"title\">"+ result.data.TITLE +"</div>";
-				html +="	<div class=\"contents_date\">"+ result.data.REGISTER_DATE +"</div><br/><br/>";
+				html +="	<div class=\"contents_date\"> 작성시간: "+ result.data.REGISTER_DATE +"&nbsp;&nbsp;"
+								
+					var checkV = result.data.VISIBILITY;
+					
+					if(checkV == "0"){
+						 html +="	공개&nbsp;&nbsp;";						
+					} else {
+						 html +="	비공개&nbsp;&nbsp;";
+					}
+				
+				html +="조회수: "+ result.data.VIEWS +"&nbsp;&nbsp;좋아요수: "+ result.data.LIKE_CNT +"</div><br/><br/>";					
 				html +="	<div class=\"contents\">"+ result.data.EXPLAIN +"</div>";
 				html +="	<div class=\"tag_wrap\">";
 
@@ -275,18 +285,17 @@ $(document).ready(function(){
 				html +="	<div class=\"mini_profile\">";
 				
 				if(result.data.PROFILE_IMG_PATH != null && result.data.PROFILE_IMG_PATH != "") {
-					html +=" <img class=\"profile_img2\" src=\"resources/upload/"+ result.data.PROFILE_IMG_PATH +"\" alt=\"프로필이미지\" download=\""+ result.data.PROFILE_IMG_UPATH+"\">";
-
+					html +=" <img class=\"profile_img2\" src=\"resources/upload/"+ result.data.PROFILE_IMG_PATH
+								+"\" alt=\"프로필이미지\" download=\""+ result.data.PROFILE_IMG_UPATH+"\">";
 				} else {
 					html +=" <img class=\"profile_img2\" src=\"resources/images/JY/who.png\" alt=\"기본프로필\">";
 				}
 				
-				html +="	</div><div class=\"mini_profile_name\">"+ ${data.USER_NICKNAME} +"</div>";
-				html +="	<div class=\"profile_introduce\">"+ ${data.INTRODUCE} +"</div>";
+				html +="	</div><div class=\"mini_profile_name\">"+ result.data.USER_NICKNAME +"</div>";
+				html +="	<div class=\"profile_introduce\">"+ result.data.INTRODUCE +"</div>";
 				html +="	</div>";
 				html +="	</div>";
 				html +="	</form>";
-				
 				
 				$("body").prepend(html);
 				
@@ -295,6 +304,11 @@ $(document).ready(function(){
 				
 				$(".background").fadeIn();
 				$(".wrap").fadeIn();
+				
+				$("#BtnUpdate").off("click");
+				$("#BtnUpdate").on("click", function(){
+					closePopup();
+				});
 				
 				
 				$("#BtnClose").off("click");

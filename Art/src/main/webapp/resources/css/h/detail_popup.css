@@ -96,10 +96,8 @@
 
 
 .contents {
-	margin-top: 50px;
-	margin-bottom: 150px;
-	display: block;
-	font-size: 12pt;
+	min-height: 150px;
+    margin-bottom: 15px;
 }
 
 .tag_wrap {
