@@ -31,5 +31,7 @@ public interface IManagerService {
 
 	public int deleteOneRow(HashMap<String, String> params) throws Throwable;
 
+	public int updatePostDetail(HashMap<String, String> params) throws Throwable;
+
 
 }

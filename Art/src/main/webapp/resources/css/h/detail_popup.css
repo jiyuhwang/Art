@@ -34,13 +34,13 @@
 	line-height: 40px;
 }
 
-.close_btn_wrap {
-	height: 160px;
+.close_btn_wrap, .save_btn_wrap {
+	height: 60px;
 	padding: 20px;
 	width: 100%;
 }
 
-.close_btn_wrap [type='button'] {
+.close_btn_wrap [type='button'], .save_btn_wrap [type='button'] {
 	font-family: '돋움';
 	width: 60px;
 	height: 40px;
@@ -52,6 +52,7 @@
     background-color: #fbfbfb;
     right: 10px;
 }
+
 
 #BtnUpdate {
 	right: 74px;

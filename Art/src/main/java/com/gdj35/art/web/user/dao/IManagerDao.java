@@ -31,4 +31,6 @@ public interface IManagerDao {
 
 	public int deleteOneRow(HashMap<String, String> params)throws Throwable;
 
+	public int updatePostDetail(HashMap<String, String> params) throws Throwable;
+
 }

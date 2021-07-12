@@ -378,7 +378,12 @@
 		WHERE RN.POST_NO = #{postNo}
 	</select>
 	
-	
+	<select id="updatePostDetail" parameterType="hashmap">
+		UPDATE POST
+		SET TITLE = #{title},
+			EXPLAIN = #{explain}
+		WHERE POST_NO = #{postNo}	
+	</select>
 	
 	
 	

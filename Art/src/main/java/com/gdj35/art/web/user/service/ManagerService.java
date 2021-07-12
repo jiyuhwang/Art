@@ -84,6 +84,11 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.deleteOneRow(params);
 	}
 
+	@Override
+	public int updatePostDetail(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.updatePostDetail(params);
+	}
+
 
 
 
