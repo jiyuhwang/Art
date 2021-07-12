@@ -82,6 +82,11 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.update("Manager.deleteOneRow",params);
 	}
 
+	@Override
+	public int updatePostDetail(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.updatePostDetail",params);
+	}
+
 
 
 

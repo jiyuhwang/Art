@@ -262,10 +262,13 @@ public class ManagerController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-
-			int page = Integer.parseInt(params.get("page"));
-
-				
+		//페이징처리
+		int page = 1;
+		
+		if(params.get("page") != null) {
+			page = Integer.parseInt(params.get("page"));
+		}
+							
 		int cnt = iManagerService.getGallaryMCnt(params);
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
 		
@@ -299,11 +302,7 @@ public class ManagerController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		//페이징처리
-		int page = 1;
-		
-		if(params.get("page") != null) {
-			page = Integer.parseInt(params.get("page"));
-		}
+		int page = Integer.parseInt(params.get("page"));
 		
 		int cnt = iManagerService.getGallaryMCnt(params);
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
@@ -321,7 +320,66 @@ public class ManagerController {
 		return mapper.writeValueAsString(modelMap);
 	
 	}
+	
 
+	//업데이트 해보기
+	@RequestMapping(value="/drawEdit",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String drawEdit(
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		//페이징처리
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iManagerService.getGallaryMCnt(params);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+		
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+				
+		
+		//데이터취득
+		HashMap<String, String> data = iManagerService.getUserDetail(params);
+	
+		modelMap.put("data", data);
+		modelMap.put("pb", pb);
+				
+		return mapper.writeValueAsString(modelMap);
+	
+	}
+	
+	@RequestMapping(value="/drawEdits",
+			method=RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+
+	@ResponseBody
+	public String drawEdits(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+	
+	try {
+		int cnt = iManagerService.updatePostDetail(params);
+		
+		if(cnt > 0) {
+			modelMap.put("msg", "success");
+		} else {
+			modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
+		return mapper.writeValueAsString(modelMap);
+		}
 	
 	
 	
