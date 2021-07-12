@@ -40,6 +40,7 @@ $(document).ready(function() {
 	
 	$(".pic_wrap, .draw_wrap").on("dblclick", "div", function() {
 		$("#pNo").val($(this).attr("pno"));
+		$("#postNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});

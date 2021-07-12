@@ -450,6 +450,7 @@ function CopyUrl2()
 		<div class="category">${data.CATEGORY_NAME}</div>
 		<div class="title">${data.TITLE}</div>
 		<div class="contents_date">${data.REGISTER_DATE}</div>
+		<div class="views"> 조회수 ${data.VIEWS}</div>
 		<br />
 		<br />
 		<div class="contents">${data.EXPLAIN}</div>

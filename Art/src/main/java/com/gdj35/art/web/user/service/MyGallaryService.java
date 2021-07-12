@@ -140,5 +140,10 @@ public class MyGallaryService implements IMyGallaryService{
 		return iMyGallaryDao.authorLikeCnt2(params);
 	}
 
+	@Override
+	public void updateViews(HashMap<String, String> params) throws Throwable {
+		iMyGallaryDao.updateViews(params);
+	}
+
 
 }

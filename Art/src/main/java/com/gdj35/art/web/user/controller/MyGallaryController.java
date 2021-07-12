@@ -322,7 +322,9 @@ public class MyGallaryController {
 	public ModelAndView detail(HttpSession session,
 								@RequestParam HashMap<String, String> params,
 								 ModelAndView mav) throws Throwable {
-
+		
+		
+		iMyGallaryService.updateViews(params);
 		
 		HashMap<String, String> data = iMyGallaryService.getPost(params);
 		

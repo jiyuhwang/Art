@@ -55,6 +55,8 @@ public interface IMyGallaryDao {
 
 	public HashMap<String, String> authorLikeCnt2(HashMap<String, String> params) throws Throwable;
 
+	public void updateViews(HashMap<String, String> params) throws Throwable;
+
 
 
 }
