@@ -12,6 +12,40 @@ tbody tr:hover {
 	background-color: #f2f2f2;
 }
 
+
+@charset "UTF-8";
+
+.background2 {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: #000000;
+	opacity:0.3;
+	z-index: 100;
+}
+
+
+.wrap2 {
+	position: absolute;
+	width: 1330PX;
+	height: 800px;
+	top: 50%;
+	left: 50%;
+	margin-top: -410px;
+	margin-left: -660px;
+	background-color: #ffffff;
+	padding: 16px;
+	z-index: 1000;
+	overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#BtnSave {
+	right: 74px;
+}
+
+
+
 </style>
 
 <link rel="stylesheet" href="resources/css/h/gallary_manage.css"/>
@@ -339,12 +373,7 @@ $(document).ready(function(){
 				$("#BtnUpdate").on("click", function(){
 					closePopup();
 					drawEdit();
-					
-					
-					
-					
-					
-					
+
 				});
 				
 				
@@ -367,29 +396,37 @@ $(document).ready(function(){
 		$(".wrap").fadeOut(function(){
 			$(".wrap").remove();
 		});
+		
+		$(".background2").fadeOut(function(){
+			$(".background2").remove();
+		});
+		
+		$(".wrap2").fadeOut(function(){
+			$(".wrap2").remove();
+		});
 	}
 			
 			
 //-------------------------------------------------------------------수정하기해보자
 	function drawEdit(){
-		var params = $("#detailForm").serialize();
+		var params = $("#actionForm").serialize();
 		
 		$.ajax({
-			url: "drawEdit",
+			url: "drawUserPopup",
 			type: "post",
 			dataType: "json",
 			data: params,
 			success: function(result){
 				var html = "";
                 
-				html +="	<div class=\"background\"></div>";
-				html +="	<div class=\"wrap\">";
+				html +="	<div class=\"background2\"></div>";
+				html +="	<div class=\"wrap2\">";
 				html += "		<form id=\"actionForm\">";
 				html += "		<input type=\"hidden\" name=\"postNo\" value=\"" + result.data.POST_NO + "\" />";
 				html +="	<div class=\"popup_title\">관리자용 상세보기</div>";
 				html +="	<div class=\"save_btn_wrap\">";
 				html +="	<input type=\"button\" id=\"BtnSave\" value=\"저장\"/>";
-				html +="	<input type=\"button\" id=\"BtnClose\" value=\"닫기\"/>";
+				html +="	<input type=\"button\" id=\"BtnClose2\" value=\"닫기\"/>";
 				html +="	</div>";
 				html +="	<div class=\"contents_wrap\">";
 				
@@ -450,18 +487,18 @@ $(document).ready(function(){
 				
 				$("body").prepend(html);
 				
-				$(".background").hide();
-				$(".wrap").hide();				
-				$(".background").fadeIn();
-				$(".wrap").fadeIn();
+				$(".background2").hide();
+				$(".wrap2").hide();				
+				$(".background2").fadeIn();
+				$(".wrap2").fadeIn();
 				
-				$("#BtnClose").off("click");
-				$("#BtnClose").on("click", function(){
+				$("#BtnClose2").off("click");
+				$("#BtnClose2").on("click", function(){
 					closePopup();
 				});
 				
-				$(".background").off("click");
-				$(".background").on("click", function(){
+				$(".background2").off("click");
+				$(".background2").on("click", function(){
 					closePopup();
 				});
 				

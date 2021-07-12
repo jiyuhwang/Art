@@ -146,6 +146,7 @@
 		WHERE A.POST_NO = #{pNo}
 	</select>
 	
+	<!-- 조회수 추가 -->
 	<update id="updateViews" parameterType="hashmap">
 		UPDATE POST
 		SET VIEWS = VIEWS + 1
