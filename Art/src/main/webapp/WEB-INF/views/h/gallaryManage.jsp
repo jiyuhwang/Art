@@ -115,14 +115,14 @@ $(document).ready(function(){
 	});
 	
 	//상세보기 수정시 editor
-		CKEDITOR.replace("explainCK", {
+	/* 	CKEDITOR.replace("explainCK", {
 		resize_enabled : false,
 		language : "ko",
 		enterMode : "2",
 		width: "1330",
 		height: "500",
 		removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
-	});
+	}); */
 	
 	//검색버튼 누르면 준비중입니다 알람
 	$(".btn_notyet").on("click", function(){
@@ -285,6 +285,7 @@ $(document).ready(function(){
 			dataType: "json",
 			data: params,
 			success: function(result){
+				
 				var html = "";
                 
 				html +="	<div class=\"background\"></div>";
@@ -417,6 +418,7 @@ $(document).ready(function(){
 			dataType: "json",
 			data: params,
 			success: function(result){
+				
 				var html = "";
                 
 				html +="	<div class=\"background2\"></div>";
