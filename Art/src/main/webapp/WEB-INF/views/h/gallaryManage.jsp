@@ -602,7 +602,7 @@ $(document).ready(function(){
 		<div class="menu_txt_wrap">
 			<div class="menu_txt">
 				<span><span class="font-red">검색어를 입력</span>하여 검색할 수 있습니다.</span><br/>
-				<span><span class="font-red">제목</span>을 연속으로 두 번 클릭하시면 수정페이지로 이동합니다.</span><br/>
+				<span><span class="font-red">제목</span>을 연속으로 두 번 클릭하시면 상세페이지로 이동합니다.</span><br/>
 				<span><span class="font-red">데이터가 많은 경우</span> 느려질 수 있습니다.</span>
 			</div>
 		</div>
@@ -611,11 +611,10 @@ $(document).ready(function(){
 	<input type="hidden" id="postNo" name="postNo"/>
 	<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
 	<input type="hidden" id="page" name="page" value="${page}"/>
-	<input type="hidden"  value=""/>
 	
 		<div class ="search_flag_div">
 			<div class="search_flag">
-				<label>회원분류</label>
+				<label>작품분류</label>
 				<select name="srhYearFlag" id="srhYearFlag">
 					<option value="0"> 올해작품</option>
 					<option value="1"> 작년작품</option>

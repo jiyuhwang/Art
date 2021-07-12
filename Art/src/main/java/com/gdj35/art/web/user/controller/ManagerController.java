@@ -391,4 +391,40 @@ public class ManagerController {
 		return mav;
 	}
 	
+	//신고 상세 보기
+	@RequestMapping(value="/drawReportList",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+		public String drawReportList(
+		@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable{
+		System.out.println(params);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		//페이징처리
+		int page = 1;
+		
+		if(params.get("page") != null) {
+			page = Integer.parseInt(params.get("page"));
+		}
+							
+		int cnt = iManagerService.getGallaryMCnt(params);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+		
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+				
+		
+		//목록취득
+		List<HashMap<String, String>> list = iManagerService.getReportList(params);
+		
+		modelMap.put("list", list);
+		modelMap.put("pb", pb);
+		modelMap.put("cnt", cnt);
+				
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }
