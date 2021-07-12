@@ -7,53 +7,91 @@
 <meta charset="UTF-8">
 <title>Art 로그인</title>
 <style type="text/css">
-
-.wrap{
-   text-align: center;
-   height : 370px;
-   width : 400px;
-   margin: 0 auto;
-   border : 1px solid #e5e5e5;
-   margin-top: 200px;
-   
-}
-
-#userId, #userPw {
-	width: 250px;
-	height: 45px;
-	border: 0;
-	font-size: 12pt;
-	outline: none;
-	border-bottom: 2px solid #e5e5e5;
-}
-
-.a{
-  text-align: center;
-
-}
-
-#btnLogin{
-   width : 250px;
-   height : 50px;
-   background-color: #ffad33;
-   border: none;
-   border-radius: 20px;
-   color: #fff;
-   font-size: 15px;
-   cursor: pointer;
-}
-
 a {
 	color: inherit;
 	text-decoration: none;
 }
 
+#loginForm2 {
+    width: 800px;
+    padding: 70px;
+    border: 1px solid #ccc;
+    margin: 150px auto;
+    overflow: hidden;
+}
+
+.logo3 {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+    margin-right: 50px;
+}
+
+#loginForm2 form {
+    height: 200px;
+    padding-left: 50px;
+    border-left: 2px dashed #ccc;
+    float: left;
+}
+
+#loginForm2 form fieldset {
+    width: 466px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+#loginForm2 form fieldset legend {
+    font-size: 30px;
+    font-weight: 900;
+    margin-left: 20px;
+}
+
+#loginForm2 form fieldset ul {
+    list-style: none;
+}
+
+#loginForm2 form fieldset ul li {
+    margin-bottom: 15px;
+}
+
+#loginForm2 form fieldset ul li label {
+    width: 75px;
+    display: inline-block;
+    font-weight: 900;
+    color: #333;
+}
+
+#loginForm2 form fieldset ul li input {
+    padding: 10px;
+}
+
+#saveId2 {
+	margin-right: 50px;
+}
+
+#btnLogin {
+    width: 100px;
+    padding: 15px;
+    position: absolute;
+    top: 40px;
+    right: 30px;
+    background-color: #ffad33;;
+    border: none;
+    font-weight: 900;
+    color: #333;
+    cursor: pointer;
+}
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script src="resources/script/jquery/jquery.cookie.js"></script>
 <script type="text/javascript">
+
 	$(document).ready(function() {
 		
-		$('#userId, #userPw').keypress(function(event){
+		$('#loginForm').keypress(function(event){
 		     if (event.which == 13 ) {
 		         $('#btnLogin').click();
 		         return false;
@@ -96,22 +134,29 @@ a {
 </script>
 </head>
 <body>
-<form action="#" id="loginForm">
-	<div class = "wrap">
-	     <div class="login"><h1>Art 로그인</h1></div>
-	         <input type="text" placeholder="아이디" id="userId" name="userId" value="${param.id}">
-	   <br><br>            
-		     <input type="password" placeholder="비밀번호" id="userPw" name="userPw">
-	   <br><br>
-	   		 <span class="incorrect"></span>
-	   <br><br>
-	         <input type="button" id="btnLogin" value="로그인하기">
-	   <br><br>
-			<a href="agree">회원가입</a> |
+<div id="loginForm2">
+        <div class="logo3"><img src="resources/images/JY/art2.png" alt="art" width="200px" height="200px"></div>
+        <form action="#" id="loginForm" method="post" >
+            <fieldset>
+                <legend>Art 로그인</legend>
+                <ul>
+                    <li>
+                        <label for="userId">아이디</label>
+                        <input type="text" id="userId" name="userId" placeholder="ID" value="${param.id}">
+                    </li>
+                    <li>
+                        <label for="userPw">비밀번호</label>
+                        <input type="password" id="userPw" name="userPw" placeholder="PASSWORD">
+                    </li>
+                </ul>
+                <input type="button" id="btnLogin" value="로그인">
+                <span class="incorrect"></span>
+            </fieldset>
+           	<a href="agree">회원가입</a> |
 			<a href="idfind">아이디찾기</a> |
-			<a href="passwordfind">비밀번호 찾기 </a>                   
-	</div>
-</form>
+			<a href="passwordfind">비밀번호 찾기 </a>   
+        </form>
+    </div>
 </body>
 
 </html>

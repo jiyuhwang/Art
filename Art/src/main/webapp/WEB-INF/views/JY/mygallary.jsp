@@ -27,14 +27,8 @@ $(document).ready(function() {
 		reloadList();
 	});
 	
-	$(".pic_wrap").on("click", "div", function() {
-		$("#page").val($(this).attr("page"));
-		$("#pNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "detail");
-		$("#actionForm").submit();
-	});
 	
-	$(".draw_wrap").on("click", "div", function() {
+	$(".pic_wrap, .draw_wrap").on("dblclick", "div", function() {
 		$("#page").val($(this).attr("page"));
 		$("#pNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
@@ -46,7 +40,25 @@ $(document).ready(function() {
 		reloadList();
 	});
 	
+	$(".gallary_wrap").on("click", '.contents_heart', function() {
+		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
+			$(this).attr("src", "resources/images/JY/heart2.png");
+		} else {
+			$(this).attr("src", "resources/images/JY/heart3.png");
+		}
+	});
+	
 });
+
+/* function heart() {
+	var heart = document.getElementById('contentsHeart');
+
+	if (heart.src.match("resources/images/JY/heart3.png")) {
+		heart.src = "resources/images/JY/heart2.png";
+	} else {
+		heart.src = "resources/images/JY/heart3.png";
+	}
+} */
 
 
 function reloadList() {

@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="resources/css/JY/detail.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {	
-
+$(document).ready(function() {
+	console.log($('#page').val());
 	
 	if("${sUserNo}" != $("#authorNo").val()) {
 		$(".btnCommentDelete").hide();
@@ -206,6 +206,23 @@ $(document).ready(function() {
 			});
 		}
 	});
+	
+	
+	$(".header").on("click", '#btnLike', function() {
+		if ($(this).attr("src") == "resources/images/JY/heart.png") {
+			$(this).attr("src", "resources/images/JY/heart2.png");
+		} else {
+			$(this).attr("src", "resources/images/JY/heart.png");
+		}
+	});
+	
+	$(".header2").on("click", '#btnLike2', function() {
+		if ($(this).attr("src") == "resources/images/JY/heart.png") {
+			$(this).attr("src", "resources/images/JY/heart2.png");
+		} else {
+			$(this).attr("src", "resources/images/JY/heart.png");
+		}
+	});
 });
 
 function CopyUrl()
@@ -227,25 +244,13 @@ function CopyUrl2()
 	ShareUrl.value = window.document.location.href;  // 현재 URL 을 세팅해 줍니다.
 	ShareUrl.select();  // 해당 값이 선택되도록 select() 합니다
 	document.execCommand("copy"); // 클립보드에 복사합니다.
-	//obShareUrl.blur(); // 선택된 것을 다시 선택안된것으로 바꿈니다.
+	//obShareUrl.blur(); // 선택된 것을 다시 선택안된것으로 바꿉니다.
 	alert("URL이 클립보드에 복사되었습니다"); 
 
 }
 
-/* function drawtTag(list) {
-	var html = "";
-	for(var i in list) {
-		var d = list[i];
-		html += "<i class=\"tag\"># ${data.TAG_NAME}[0]</i>"	
 
-	}
-	$(".tag_wrap").html(html);
-
-} */
-
-
-
-function heart() {
+/* function heart() {
 	var heart = document.getElementById('btnLike')
 
 	if (heart.src.match("resources/images/JY/heart.png")) {
@@ -253,13 +258,13 @@ function heart() {
 	} else {
 		heart.src = "resources/images/JY/heart.png";
 	}
-}
+} */
 </script>
 </head>
 <body>
 	<form action="#" id="goForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
-		<input type="hidden" name="page" value="${param.page}" />
+		<input type="hidden" name="page" id="page" value="${param.page}" />
 		<input type="hidden" id="tabtab" name="tabtab" value="${param.tabtab}"/>
 		<input type="hidden" id="user" name="user" value="${sUserNo}"/>
 		<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>

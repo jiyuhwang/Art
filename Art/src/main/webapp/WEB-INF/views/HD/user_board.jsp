@@ -52,14 +52,7 @@ $(document).ready( function () {
 	});//end email_btn
 	
 	//---------------------------------------------------전체선택 기능
-	$("#all_check").on("click", function () {
-		if($("#all_check").prop("checked")){
-			$("input[type=checkbox]").prop("checked",true);
-		}else{
-			13
-			$("input[type=checkbox]").prop("checked",false);
-		}
-	});
+	
 	
 	$("#searchBtn").on("click", function () {
 		$("#page").val(1);
@@ -152,6 +145,26 @@ $(document).ready( function () {
 	$(".main3-table tbody").on("click", ".delete_btn" ,function () {
 		$("#userNo").val($(this).parent().parent().attr("name"));
 		delOneRow();
+	});
+	
+	$("#all_check").on("click", function () {
+		if($(this).is(":checked")){
+			$("input[type=checkbox]").prop("checked",true);
+		}else{
+			$("input[type=checkbox]").prop("checked",false);
+		}
+	});
+	
+	$("#selectDelBtn").on("click", function () {
+		var list = new Array();
+		$(".main3-table [name=userNo]:checked").each(function(index,item) {
+			list.push($(item).val())
+		})
+		
+		$("#userNo").val(list);
+		console.log($("#userNo").val());
+		delOneRow(list);
+		
 	});
 	
 	$("#addBtn").on("click", function () {
@@ -473,7 +486,7 @@ function drawOutList() {
 </form>		
 		</div>
 		<div class="main3">
-			<input type="button" value="선택삭제" id="selectDelBtn"/>
+			<input type="button" value="선택 삭제/복구" id="selectDelBtn"/>
 			<input type="button" value="등록" id="addBtn"/>
 			<input type="button" value="이메일" id="emailBtn"/>
 		</div>
@@ -514,7 +527,7 @@ function drawOutList() {
 			<tbody>
 				<c:forEach var="data" items="${list}">
 				<tr name="${data.USER_NO}">
-					<td><input type="checkbox" name="${data.USER_NO}"> </td>
+					<td><input type="checkbox" name ="userNo" value ="${data.USER_NO}"> </td>
 					<td>${data.RNUM}</td>
 					<td>${data.USER_NO}</td>
 					<td>${data.NAME}</td>

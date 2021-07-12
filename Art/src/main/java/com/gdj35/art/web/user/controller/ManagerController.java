@@ -1,5 +1,6 @@
 package com.gdj35.art.web.user.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj35.art.common.bean.PagingBean;
 import com.gdj35.art.common.service.IPagingService;
 import com.gdj35.art.web.user.service.IManagerService;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Controller
@@ -143,9 +143,21 @@ public class ManagerController {
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
 		
-		System.out.println(params);
+		String arr = params.get("userNo");
+		String [] usersNo = arr.split(",");
+		int cnt = 0;
+		System.out.println(Arrays.toString(usersNo));
 		
-		int cnt = iManagerService.deleteOneRow(params);
+		for(int i =0 ; i <usersNo.length; i++) {
+			params.put("userNo",usersNo[i]);
+			cnt += iManagerService.deleteOneRow(params);
+			params.remove("userNo");
+		}
+		
+		System.out.println(params);
+		System.out.println(cnt);
+		
+		/* int cnt = iManagerService.deleteOneRow(params); */
 		
 		
 		 /*
@@ -155,7 +167,7 @@ public class ManagerController {
 		
 		
 		/* modelMap.put("pb",pb); */
-		modelMap.put("cnt", cnt);
+		/* modelMap.put("cnt", cnt); */
 		
 		return mapper.writeValueAsString(modelMap);
 	}

@@ -127,13 +127,13 @@ body {
 	top: 4vh;
 	width: 80%;
 	height: auto;
-	font-size: 1.1vw;
+	font-size: 15pt;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
 .contents_in {
-	top: 8vh;
+	top: 9vh;
 	font-size: 0.8vw;
 	width: 80%;
 	height: auto;
@@ -156,7 +156,7 @@ body {
 }
 
 .contents_heart {
-	width: 1.5vw;
+	width: 30px;
 	height: auto;
 	top: 10px;
 	left: 85%;

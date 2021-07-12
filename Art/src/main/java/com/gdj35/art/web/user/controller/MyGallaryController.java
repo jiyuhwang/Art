@@ -75,23 +75,23 @@ public class MyGallaryController {
 		return mav;
 	}
 	
-	// 나의 갤러리 페이지
-		@RequestMapping(value = "/othergallary")
-		public ModelAndView othergallary(@RequestParam HashMap<String, String> params,
-									  ModelAndView mav) {
+	// 다른사람 갤러리 페이지
+	@RequestMapping(value = "/othergallary")
+	public ModelAndView othergallary(@RequestParam HashMap<String, String> params,
+								  ModelAndView mav) {
 
-			int page= 1;
-			if(params.get("page") != null) {
-				page = Integer.parseInt(params.get("page"));
-			}
-			
-			mav.addObject("page", page);
-			
-			mav.setViewName("JY/othergallary");
-
-			
-			return mav;
+		int page= 1;
+		if(params.get("page") != null && params.get("page") != "") {
+			page = Integer.parseInt(params.get("page"));
 		}
+		
+		mav.addObject("page", page);
+		
+		mav.setViewName("JY/othergallary");
+
+		
+		return mav;
+	}
 	
 	
 	

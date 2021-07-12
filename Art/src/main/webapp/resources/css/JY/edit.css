@@ -40,20 +40,23 @@ a {
 }
 
 #uploadFile {
-	z-index: 500;
+	z-index: 700;
 }
 
 #upload {
 	position: absolute;
-	width: 100px;
-	height: 100px;
+	width: 400px;
+	height: 400px;
 	background-image: url("../../images/JY/upload.png");
 	background-repeat: no-repeat;
 	background-size: 100px 100px;
-	top: calc(50% - 70px);
-	left: calc(50% - 50px);
+	background-position: center;
+	/* top: calc(50% - 70px);
+	left: calc(50% - 50px); */
+	left: calc(50% - 200px);
 	border: none;
 	background-color: white;
+	opacity:0
 }
 
 .upload_txt {

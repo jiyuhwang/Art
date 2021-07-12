@@ -21,24 +21,26 @@ $(document).ready(function() {
 		reloadList();
 	});
 	
-	$(".pic_wrap").on("click", "div", function() {
-		$("#page").val($(this).attr("page"));
-		$('#tabtab').val($("input[name=tab]").val());
-		$("#pNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "detail");
-		$("#actionForm").submit();
-	});
-	
-	$(".draw_wrap").on("click", "div", function() {
-		$("#page").val($(this).attr("page"));
-		$("#pNo").val($(this).attr("pno"));
-		$("#actionForm").attr("action", "detail");
-		$("#actionForm").submit();
-	});
 	
 	$(".tabs").on("change", "[type='radio']", function() {
 		$("#page").val("1");
 		reloadList();
+	});
+	
+	$(".pic_wrap, .draw_wrap").on("dblclick", "div", function() {
+		$("#page").val($(this).attr("page"));
+		$("#pNo").val($(this).attr("pno"));
+		$('#tabtab').val($("input[name=tab]").val())
+		$("#actionForm").attr("action", "detail");
+		$("#actionForm").submit();
+	});
+	
+	$(".gallary").on("click", '.contents_heart', function() {
+		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
+			$(this).attr("src", "resources/images/JY/heart2.png");
+		} else {
+			$(this).attr("src", "resources/images/JY/heart3.png");
+		}
 	});
 	
 });

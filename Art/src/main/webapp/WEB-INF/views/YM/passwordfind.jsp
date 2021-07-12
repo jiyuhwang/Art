@@ -15,7 +15,7 @@ body {
 	height: 500px;
 	margin: 0 auto;
 	padding: 30px;
-	margin-top: 80px;
+	margin-top: 50px;
 	border: solid 1px;
 	text-align: center;
 	border: 1px solid #e5e5e5;
