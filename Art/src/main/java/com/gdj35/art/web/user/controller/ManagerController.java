@@ -258,7 +258,6 @@ public class ManagerController {
 		public String entireList(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
-		System.out.println(params);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
@@ -275,10 +274,13 @@ public class ManagerController {
 			
 			params.put("endCnt", Integer.toString(pb.getEndCount()));
 			params.put("startCnt", Integer.toString(pb.getStartCount()));
-					
+				
 			
 			//목록취득
 			List<HashMap<String, String>> list = iManagerService.getPostList(params);
+			
+			System.out.println(params);
+			System.out.println(list);
 			
 			modelMap.put("list", list);
 			modelMap.put("pb", pb);
@@ -416,7 +418,6 @@ public class ManagerController {
 		public String reportList(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
-		System.out.println(params);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
@@ -438,11 +439,13 @@ public class ManagerController {
 			
 			//목록취득
 			List<HashMap<String, String>> list = iManagerService.getReportList(params);
+					
+			System.out.println(params);
+			System.out.println(list);
 			
 			modelMap.put("list", list);
 			modelMap.put("pb", pb);
-			modelMap.put("cnt", cnt);
-			
+			modelMap.put("cnt", cnt);			
 				
 				if (cnt > 0) {
 					modelMap.put("msg", "success");

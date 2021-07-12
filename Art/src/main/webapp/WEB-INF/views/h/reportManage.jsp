@@ -48,12 +48,17 @@ $(document).ready(function(){
 		
 	});
 
-	
-	
 	//검색버튼 누르면 준비중입니다 알람
 	$(".btn_notyet").on("click", function(){
 		alert("준비중입니다.");
 	});
+	
+	//검색시
+	$("#searchBtn").on("click", function(){
+		$("#page").val(1);
+		$("#searchOldTxt").val($("#searchTxt").val());
+		loadPostList();
+	});//예전 검색어 다시 확인하기 flag들 확인하기
 	
 	//삭제된,삭제제외,삭제포함 버튼 클릭시
 	$("#BtnWith").off("click");
