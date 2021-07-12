@@ -534,7 +534,7 @@ public class MemberController {
 	@RequestMapping(value = "/findPw")
 	public ModelAndView findPw(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
-		int cnt = iMemberService.updatePw(params);
+		iMemberService.updatePw(params);
 		
 		
 		mav.setViewName("YM/findPw");

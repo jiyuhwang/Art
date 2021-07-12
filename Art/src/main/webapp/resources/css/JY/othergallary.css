@@ -65,6 +65,10 @@ body {
 	font-size: 11pt;
 }
 
+.profile_like_cnt {
+	font-weight: bold;
+}
+
 .profile_introduce {
 	position: absolute;
 	width: 100%;
@@ -80,7 +84,7 @@ body {
 	padding: 0px 10px;
 }
 
-#heart {
+.heart {
 	position: absolute;
 	top: 15px;
 	left: 20px;
@@ -274,8 +278,8 @@ body {
 
 .select {    
     margin-top: 10px;
-	margin-left: 420px;
-	width: 90px;
+	margin-left: 410px;
+    width: 100px;
     padding: 5px;
     padding-left: 12px;
     border: 1px solid black;
@@ -299,16 +303,18 @@ body {
 	float: left;
 	padding: 8px 16px;
 	text-decoration: none;
+	margin: 0 5px;
+	cursor: pointer;
 }
 
 
-.pagination a.active {
+.on {
 	border: 1px solid black;
 	font-weight: bold;
 	border-radius: 5px;
 }
 
-.pagination a:hover:not(.active) {
+.pagination a:hover:not(.on) {
 	background-color: #ddd;
 	border-radius: 5px;
 }
