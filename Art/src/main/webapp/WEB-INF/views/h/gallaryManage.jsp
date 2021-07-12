@@ -307,7 +307,7 @@ $(document).ready(function(){
 				
 				$("#BtnUpdate").off("click");
 				$("#BtnUpdate").on("click", function(){
-					closePopup();
+					updatePopup();
 				});
 				
 				
@@ -326,6 +326,111 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
+	//-------------------------------------------------------상세보기그리기
+	function updatePopup(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "updatePopup",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(result){
+				var html = "";
+                
+				html +="	<div class=\"background\"></div>";
+				html +="	<div class=\"wrap\">";
+				html +="	<div class=\"popup_title\">관리자용 상세보기</div>";
+				html +="	<div class=\"close_btn_wrap\">";
+				html +="	<input type=\"button\" id=\"BtnUpdate\" value=\"수정\"/>";
+				html +="	<input type=\"button\" id=\"BtnClose\" value=\"닫기\"/>";
+				html +="	</div>";
+				html +="	<div class=\"contents_wrap\">";
+				
+				if(result.data.POST_FILE != null && result.data.POST_FILE != "") {
+					html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
+								+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
+				} else {
+					html +=" <img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" alt=\"사랑스런짱구\">";
+				}
+
+				html +="	</div>";
+				html +="	<div class=\"category\">"+ result.data.CATEGORY_NAME +"</div>";
+				html +="	<div class=\"title\">"+ result.data.TITLE +"</div>";
+				html +="	<div class=\"contents_date\"> 작성시간: "+ result.data.REGISTER_DATE +"&nbsp;&nbsp;"
+								
+					var checkV = result.data.VISIBILITY;
+					
+					if(checkV == "0"){
+						 html +="	공개&nbsp;&nbsp;";						
+					} else {
+						 html +="	비공개&nbsp;&nbsp;";
+					}
+				
+				html +="조회수: "+ result.data.VIEWS +"&nbsp;&nbsp;좋아요수: "+ result.data.LIKE_CNT +"</div><br/><br/>";					
+				html +="	<div class=\"contents\">"+ result.data.EXPLAIN +"</div>";
+				html +="	<div class=\"tag_wrap\">";
+
+				if(result.data.TAGS != null && result.data.TAGS != "") {
+					
+					var tagSplit = (result.data.TAGS).split(",");
+					
+					for(var t of tagSplit){
+						html +="<i class=\"small_tag\"># "+ t +"</i>";
+					}
+				}
+				     
+				html +="	<div class=\"comment_wrap\">";
+				html +="	<img class=\"comment_img\" src=\"resources/images/JY/comment.png\" alt=\"댓글아이콘\">";
+				html +="	<div class=\"comment\">댓글 "+ result.data.COMMENT_CNT+"개</div>";
+				html +="	</div></div><br/>";
+				html +="	<div class=\"mini_profile_wrap\">";
+				html +="	<div class=\"mini_profile\">";
+				
+				if(result.data.PROFILE_IMG_PATH != null && result.data.PROFILE_IMG_PATH != "") {
+					html +=" <img class=\"profile_img2\" src=\"resources/upload/"+ result.data.PROFILE_IMG_PATH
+								+"\" alt=\"프로필이미지\" download=\""+ result.data.PROFILE_IMG_UPATH+"\">";
+				} else {
+					html +=" <img class=\"profile_img2\" src=\"resources/images/JY/who.png\" alt=\"기본프로필\">";
+				}
+				
+				html +="	</div><div class=\"mini_profile_name\">"+ result.data.USER_NICKNAME +"</div>";
+				html +="	<div class=\"profile_introduce\">"+ result.data.INTRODUCE +"</div>";
+				html +="	</div>";
+				html +="	</div>";
+				html +="	</form>";
+				
+				$("body").prepend(html);
+				
+				$(".background").hide();
+				$(".wrap").hide();
+				
+				$(".background").fadeIn();
+				$(".wrap").fadeIn();
+				
+				$("#BtnUpdate").off("click");
+				$("#BtnUpdate").on("click", function(){
+					updatePopup();
+				});
+				
+				
+				$("#BtnClose").off("click");
+				$("#BtnClose").on("click", function(){
+					closePopup();
+				});
+				
+				$(".background").off("click");
+				$(".background").on("click", function(){
+					closePopup();
+				});
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
+	
 
 	//상세팝업닫기
 	function closePopup() {
