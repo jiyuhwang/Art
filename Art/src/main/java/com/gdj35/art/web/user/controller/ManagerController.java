@@ -269,20 +269,26 @@ public class ManagerController {
 			page = Integer.parseInt(params.get("page"));
 		}
 							
-		int cnt = iManagerService.getGallaryMCnt(params);
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+		try {
+			int cnt = iManagerService.getGallaryMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+					
+			
+			//목록취득
+			List<HashMap<String, String>> list = iManagerService.getPostList(params);
+			
+			modelMap.put("list", list);
+			modelMap.put("pb", pb);
+			modelMap.put("cnt", cnt);
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
 		
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
-				
-		
-		//목록취득
-		List<HashMap<String, String>> list = iManagerService.getPostList(params);
-		
-		modelMap.put("list", list);
-		modelMap.put("pb", pb);
-		modelMap.put("cnt", cnt);
-				
 		return mapper.writeValueAsString(modelMap);
 	}
 	
@@ -304,19 +310,25 @@ public class ManagerController {
 		//페이징처리
 		int page = Integer.parseInt(params.get("page"));
 		
-		int cnt = iManagerService.getGallaryMCnt(params);
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+		try {
+			int cnt = iManagerService.getGallaryMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+					
+			
+			//데이터취득
+			HashMap<String, String> data = iManagerService.getUserDetail(params);
 		
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
-				
+			modelMap.put("data", data);
+			modelMap.put("pb", pb);
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}		
 		
-		//데이터취득
-		HashMap<String, String> data = iManagerService.getUserDetail(params);
-	
-		modelMap.put("data", data);
-		modelMap.put("pb", pb);
-				
 		return mapper.writeValueAsString(modelMap);
 	
 	}
@@ -337,19 +349,24 @@ public class ManagerController {
 		//페이징처리
 		int page = Integer.parseInt(params.get("page"));
 		
-		int cnt = iManagerService.getGallaryMCnt(params);
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+		try {
+			int cnt = iManagerService.getGallaryMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+					
+			
+			//데이터취득
+			HashMap<String, String> data = iManagerService.getUserDetail(params);
 		
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
-				
+			modelMap.put("data", data);
+			modelMap.put("pb", pb);
 		
-		//데이터취득
-		HashMap<String, String> data = iManagerService.getUserDetail(params);
-	
-		modelMap.put("data", data);
-		modelMap.put("pb", pb);
-				
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
 		return mapper.writeValueAsString(modelMap);
 	
 	}
@@ -391,12 +408,12 @@ public class ManagerController {
 		return mav;
 	}
 	
-	//신고 상세 보기
-	@RequestMapping(value="/drawReportList",
+	//신고 리스트 보기
+	@RequestMapping(value="/reportList",
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-		public String drawReportList(
+		public String reportList(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		System.out.println(params);
@@ -405,24 +422,40 @@ public class ManagerController {
 		
 		//페이징처리
 		int page = 1;
-		
+				
 		if(params.get("page") != null) {
 			page = Integer.parseInt(params.get("page"));
 		}
+		
+		try {
 							
-		int cnt = iManagerService.getGallaryMCnt(params);
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
-		
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
+			int cnt = iManagerService.getReportMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+					
+			
+			//목록취득
+			List<HashMap<String, String>> list = iManagerService.getReportList(params);
+			
+			modelMap.put("list", list);
+			modelMap.put("pb", pb);
+			modelMap.put("cnt", cnt);
+			
 				
+				if (cnt > 0) {
+					modelMap.put("msg", "success");
+				} else {
+					modelMap.put("msg", "failed");
+				}
 		
-		//목록취득
-		List<HashMap<String, String>> list = iManagerService.getReportList(params);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
 		
-		modelMap.put("list", list);
-		modelMap.put("pb", pb);
-		modelMap.put("cnt", cnt);
+		
 				
 		return mapper.writeValueAsString(modelMap);
 	}

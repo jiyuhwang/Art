@@ -669,7 +669,7 @@ $(document).ready(function(){
 				<select name="srhYearFlag" id="srhYearFlag">
 					<option value="0"> 올해작품</option>
 					<option value="1"> 작년작품</option>
-					<option value="3" selected="selected"> 전체작품</option>
+					<option value="" selected="selected"> 전체작품</option>
 				</select>
 				<label>검색분류</label>
 				<select name="searchFlag" id="searchFlag">
@@ -703,16 +703,16 @@ $(document).ready(function(){
 		<div class="result_table" id="tabResult1">
 			<table class="table1">
 				<colgroup>
-						<col width="2%"/>
-						<col width="3%"/>
-						<col width="4%"/>
-						<col width="10%"/>
-						<col width="24%"/>
-						<col width="8%"/>
-						<col width="20%"/>
-						<col width="10%"/>
-						<col width="4%"/>
-						<col width="4%"/>
+						<col width="50px"/>
+						<col width="50px"/>
+						<col width="100px"/>
+						<col width="150px"/>
+						<col width="900px"/>
+						<col width="100px"/>
+						<col width="300px"/>
+						<col width="100px"/>
+						<col width="100px"/>
+						<col width="100px"/>
 					</colgroup>
 				<thead>	
 				<tr id="tableTh">

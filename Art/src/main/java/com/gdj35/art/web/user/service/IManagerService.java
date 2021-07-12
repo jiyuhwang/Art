@@ -33,5 +33,9 @@ public interface IManagerService {
 
 	public int updatePostDetail(HashMap<String, String> params) throws Throwable;
 
+	public int getReportMCnt(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> getReportList(HashMap<String, String> params) throws Throwable;
+
 
 }

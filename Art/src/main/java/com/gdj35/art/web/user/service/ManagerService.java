@@ -89,6 +89,16 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.updatePostDetail(params);
 	}
 
+	@Override
+	public int getReportMCnt(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.getReportMCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getReportList(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.getReportList(params);
+	}
+
 
 
 

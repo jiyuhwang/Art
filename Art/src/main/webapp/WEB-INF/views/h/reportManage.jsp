@@ -19,6 +19,23 @@ tbody tr:hover {
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	if("${param.searchFlag}" != "")
+		$("#searchFlag").val("${param.searchFlag}");
+	
+	if("${param.srhYearFlag}" != "")
+		$("#srhYearFlag").val("${param.srhYearFlag}");
+	
+	if("${param.startFlag}" != "")
+		$("#startFlag").val("${param.startFlag}");
+	
+	if("${param.endFlag}" != "")
+		$("#endFlag").val("${param.endFlag}");
+	
+	$("#page").val(1);
+	
+	//---------------------------------------데이터 가져오기
+	loadPostList();
+	
 	//사이드바 해당 메뉴 고정시키기
 	$(".report").attr("id", "active");
 	$(".menu_tab_wrap div:first-child").attr("class", "tab_selected");
@@ -125,14 +142,13 @@ $(document).ready(function(){
 				html +="<td>" + no + "</td>";
 				html +="<td>" + d.REPORT_NO + "</td>";
 				html +="<td>" + d.TYPE_NAME + "</td>";
-				html +="<td>" + d.PNICKNAME + "</td>";
-				html +="<td>" + d.PNAME + "</td>";
-				html +="<td>" + d.PNICKNAME +"(" + d.PID + ")</td>";
+				html +="<td>" + d.WRITER_NAME + "</td>";
+				html +="<td>" + d.WRITER_NICK +"(" + d.WRITER_ID + ")</td>";
 				html +="<td>" + d.CONTENTS + "</td>";				
-				html +="<td>" + d.NAME + "</td>";
-				html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
-				html +="<td>" + d.R_DATE + "</td>";
-				html +="<td>" + d.R_STATUS + "</td>";
+				html +="<td>" + d.R_NAME + "</td>";
+				html +="<td>" + d.R_NICK +"(" + d.R_ID + ")</td>";
+				html +="<td>" + d.REGISTER_DATE + "</td>";
+				html +="<td>" + d.REPORT_STATUS + "</td>";
 				html +="</tr>";
 			}
 			
@@ -230,22 +246,18 @@ $(document).ready(function(){
 				<label>신고분류</label>
 				<select name="srhYearFlag" id="srhYearFlag">
 					<option value="0"> 올해신고</option>
-					<option value="1"> 작년산고</option>
-					<option value="3" selected="selected"> 전체신고</option>
+					<option value="1"> 작년신고</option>
+					<option value="" selected="selected"> 전체신고</option>
 				</select>
 				<label>검색분류</label>
 				<select name="searchFlag" id="searchFlag">
-					<option value="2" selected="selected">제목</option>
-					<option value="3">내용</option>
-					<option value="4">작성자</option>
-					<option value="5">번호</option>
-					<option value="6">분류</option>
-					<option value="7">제목+내용</option>
-					<option value="8">작성일</option>
+					<option value="2" selected="selected">내용</option>
+					<option value="3">작성자</option>
+					<option value="4">신고번호</option>
+					<option value="5">작성일</option>
 				</select>
 			     <input type="hidden" id="searchOldTxt" value="${param.searchTxt}"/>
 				<input type="text" name="searchTxt" id="searchTxt" value="${param.searchTxt}" placeholder="검색어를 입력해주세요."/>
-			     <input type="button" value="검색" class="btn_notyet"/>
 				<div class="date_srh">
 					<label>날짜분류</label>
 						<input type="date" id="startFlag" name="startFlag">
@@ -265,17 +277,17 @@ $(document).ready(function(){
 		<div class="result_table" id="tabResult1">
 		<table>
 			<colgroup>
-					<col width="2%"/>
-					<col width="3%"/>
-					<col width="4%"/>
-					<col width="4%"/>
-					<col width="5%"/>
-					<col width="8%"/>
-					<col width="40%"/>
-					<col width="5%"/>
-					<col width="8%"/>
-					<col width="6%"/>
-					<col width="10%"/>
+				<col width="50px"/>
+				<col width="70px"/>
+				<col width="100px"/>
+				<col width="100px"/>
+				<col width="70px"/>
+				<col width="300px"/>
+				<col width="700px"/>
+				<col width="70px"/>
+				<col width="300px"/>
+				<col width="100px"/>
+				<col width="100px"/>
 				</colgroup>
 				<thead>	
 				<tr id="tableTh">

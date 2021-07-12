@@ -29,7 +29,6 @@ table {
 	text-align: center;
 	border-bottom: 1px solid black;
 	font-size: 10pt;
-	width: 1500px;
 }
 
 table th {
@@ -131,19 +130,27 @@ table td{
 
 .date_srh {
 	display: inline-block;
-	
 }
-.button_wrap{/* 저장 삭제 있는 div */
-	width : 100%;
+
+.cnt_wrap{
 	height: 30px;
-	font-size: 2px;
-	text-align: right;
 	margin-bottom: 10px;
-	
+}
+
+.result_cnt {
+	display: inline-block;
+	color: #0C4A60;
+}
+
+.button_wrap{/* 저장 삭제 있는 div */
+	display: inline-block;
+	right: 0px;
+	position: absolute;
 }
 
 .result_table {
 	height: 550px;
+	line-height: 32px;
 	overflow: auto;
 }
 
@@ -156,3 +163,14 @@ table td{
 select, input{/*입력칸 넓히기  */
 	padding: 5px;
 }
+
+#pagingWrap {
+	font-size: 15pt;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#pagingWrap span{
+	margin: 0 5px;
+	cursor: pointer;
+} 

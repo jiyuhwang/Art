@@ -87,6 +87,16 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.update("Manager.updatePostDetail",params);
 	}
 
+	@Override
+	public int getReportMCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Manager.getReportMCnt",params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getReportList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Manager.getReportList", params);
+	}
+
 
 
 
