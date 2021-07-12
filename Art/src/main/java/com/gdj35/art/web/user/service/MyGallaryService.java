@@ -99,7 +99,46 @@ public class MyGallaryService implements IMyGallaryService{
 		return iMyGallaryDao.getOtherDrawCnt(params);
 	}
 
-	
+	@Override
+	public int postOnHeart(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.postOnHeart(params);
+	}
+
+	@Override
+	public int postOffHeart(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.postOffHeart(params);
+	}
+
+	@Override
+	public HashMap<String, String> postLikeCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.postLikeCnt(params);
+	}
+
+	@Override
+	public int authorOnHeart(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.authorOnHeart(params);
+	}
+
+	@Override
+	public int authorOffHeart(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.authorOffHeart(params);
+	}
+
+	@Override
+	public HashMap<String, String> authorLikeCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.authorLikeCnt(params);
+	}
+
+
+	@Override
+	public HashMap<String, String> authorIsHeart(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.authorIsHeart(params);
+	}
+
+	@Override
+	public HashMap<String, String> authorLikeCnt2(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.authorLikeCnt2(params);
+	}
 
 
 }

@@ -10,7 +10,21 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	if("${param.selectGbn}" != "") {
+		$(".select").val("${param.selectGbn}");
+	}
+	
+	/* $("input[name=tab]").val($('#tabtab').val()); */
+	
+	
+	/* if($('#tabtab').val() != "") {
+		$("input[name=tab]").val($('#tabtab').val());
+	} */
+	
+	//console.log($('#tabtab').val());
+		
 	reloadList();
+	
 	
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 	
@@ -21,6 +35,11 @@ $(document).ready(function() {
 		reloadList();
 	});
 	
+	$(".select").on("click", function() {
+
+		reloadList();
+	});
+	
 	
 	$(".tabs").on("change", "[type='radio']", function() {
 		$("#page").val("1");
@@ -28,18 +47,69 @@ $(document).ready(function() {
 	});
 	
 	$(".pic_wrap, .draw_wrap").on("dblclick", "div", function() {
-		$("#page").val($(this).attr("page"));
 		$("#pNo").val($(this).attr("pno"));
-		$('#tabtab').val($("input[name=tab]").val())
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
 	
 	$(".gallary").on("click", '.contents_heart', function() {
+		
+
 		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
+			console.log($(this).parent().parent().attr("pno"));
 			$(this).attr("src", "resources/images/JY/heart2.png");
+			$("#postNo").val($(this).parent().parent().attr("pno"));
+
+			
+			var params= $("#actionForm").serialize();
+			
+			$.ajax({
+				url : "postOnHeart",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						//alert("좋아요가 눌렸습니다.");
+						
+					} else if(res.msg == "failed") {
+						alert("오류 발생");
+					} else {
+						alert("오류 발생2");
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+
 		} else {
+			$("#postNo").val($(this).parent().parent().attr("pno"));
+			
 			$(this).attr("src", "resources/images/JY/heart3.png");
+			
+			var params= $("#actionForm").serialize();
+			
+			$.ajax({
+				url : "postOffHeart",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						//alert("좋아요를 취소하였습니다.");
+						
+					} else if(res.msg == "failed") {
+						alert("오류 발생3");
+					} else {
+						alert("오류 발생4");
+					}
+
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
 		}
 	});
 	
@@ -89,7 +159,15 @@ $(document).ready(function() {
 				html += "<div class=\"bg\">";
 				html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
 				html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
+				
+				
+				
+			if(p.REGISTER_DATE == null) {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+			} else {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+			}
+			
 				html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
 				html += "</div>";
 				html += "</div>";
@@ -108,7 +186,11 @@ $(document).ready(function() {
 			html += "<div class=\"bg\">";
 			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
 			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
+			if(p.REGISTER_DATE == null) {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+			} else {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+			}
 			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
 			html += "</div>";
 			html += "</div>";
@@ -185,8 +267,11 @@ $(document).ready(function() {
 	</c:choose>
 <form action="#" id="actionForm" method="post">
 			<input type="hidden" id="pNo" name="pNo" />
+			<input type="hidden" id="postNo" name="postNo" />
 			<input type="hidden" id="page" name="page" value="${page}" />
-			<input type="hidden" id="tabtab" name="tabtab"/>	
+			<input type="hidden" id="mainGallary" name="listPage" value="0"/>	
+			<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"/>	
+			<input type="hidden" id="tabtab" name="tabtab" value="${param.tab}"/>	
 	<div class="wrap">
 		<div class="gallary">
 			<div class="tabs">
@@ -196,7 +281,7 @@ $(document).ready(function() {
 				<label for="gallaryMenu1">사진작품관</label>
 				<label for="gallaryMenu2">그림작품관</label>
 				<label for="gallaryMenu3">영상작품관</label>
-				<select class="select" name="searchGbn">
+				<select class="select" name="selectGbn">
 					<option value="0" selected="selected">최신순</option>
 					<option value="1">좋아요순</option>
 				</select>

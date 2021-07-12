@@ -83,6 +83,7 @@ a {
     font-weight: 900;
     color: #333;
     cursor: pointer;
+    border-radius: 10px;
 }
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
