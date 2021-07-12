@@ -44,8 +44,6 @@ tbody tr:hover {
 	right: 74px;
 }
 
-
-
 </style>
 
 <link rel="stylesheet" href="resources/css/h/gallary_manage.css"/>
@@ -412,6 +410,8 @@ $(document).ready(function(){
 	function drawEdit(){
 		var params = $("#actionForm").serialize();
 		
+
+		
 		$.ajax({
 			url: "drawUserPopup",
 			type: "post",
@@ -454,7 +454,7 @@ $(document).ready(function(){
 					}
 				
 				html +="	<div class=\"contents\">";
-				html +="	<textarea id=\"explainCK\" name=\"explain\" cols=\"80\" rows=\"10\" placeholder=\"작품을 뽐내주세요.\">" + result.data.EXPLAIN +"</textarea></div>";
+				html +="	<textarea id=\"explainCK\" name=\"explain\" cols=\"50\" rows=\"10\" placeholder=\"작품을 뽐내주세요.\">" + result.data.EXPLAIN +"</textarea></div>";
 				
 				html +="	<div class=\"tag_wrap\">";
 
@@ -506,6 +506,17 @@ $(document).ready(function(){
 				
 				/*----------------------------------------------저장 클릭할 때  */
 				$("#BtnSave").off("click");
+				
+				CKEDITOR.replace("explainCK", {
+					resize_enabled : false,
+					language : "ko",
+					enterMode : "2",
+					width: "1330",
+					height: "500",
+					removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
+				});
+								
+				
 				$("#BtnSave").on("click", function(){
 					$("#explainCK").val(CKEDITOR.instances['explainCK'].getData());			
 										
@@ -513,10 +524,9 @@ $(document).ready(function(){
 						alert("제목을 입력해주세요.");
 						$("#title").focus();
 						return false;
-						
-					}else if($.trim($("#contents").val()) == ""){
+					}else if($("#explainCK").val() == ""){
 						alert("작품을 설명해주세요.");
-						$("#contents").focus();
+						$("#explainCK").focus();
 						return false;
 					}else {
 						//글 수정하기
@@ -532,6 +542,7 @@ $(document).ready(function(){
 								if(result.msg == "success"){
 									$("#actionForm").attr("action", "gallaryManage");
 									$("#actionForm").submit();
+									alert("정상적으로 작품 수정되었습니다.");
 								} else if(result.msg == "failed"){
 									alert("수정에 실패하였습니다.");
 								} else {
