@@ -63,9 +63,11 @@ $(document).ready(function() {
 						//alert("좋아요가 눌렸습니다.");
 
 					} else if(res.msg == "failed") {
-						alert("오류 발생");
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
 					} else {
-						alert("오류 발생2");
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
 					}
 				},
 				error: function(request, status, error) { // 실패 시 다음 함수 실행
@@ -90,9 +92,11 @@ $(document).ready(function() {
 						//alert("좋아요를 취소하였습니다.");
 						
 					} else if(res.msg == "failed") {
-						alert("오류 발생3");
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
 					} else {
-						alert("오류 발생4");
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
 					}
 
 				},
@@ -132,9 +136,11 @@ $(document).ready(function() {
 						//alert("좋아요가 눌렸습니다.");
 						reloadLikeCnt();
 					} else if(res.msg == "failed") {
-						alert("오류 발생");
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
 					} else {
-						alert("오류 발생2");
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
 					}
 				},
 				error: function(request, status, error) { // 실패 시 다음 함수 실행

@@ -224,6 +224,7 @@ $(document).ready(function() {
 	
 	
 $('body').on("click", '.heart', function() {
+	if($('#userNo').val() != "") {
 		if ($(this).attr("src") == "resources/images/JY/heart.png") {
 			$(this).attr("src", "resources/images/JY/heart2.png");
 			
@@ -266,8 +267,10 @@ $('body').on("click", '.heart', function() {
 			
 		}
 		
+		} else {
+			alert("로그인 후 이용해주세요.")
+		}
 	});
-
 	
 });
 
