@@ -11,18 +11,25 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	reloadList();
+		
 	
-	/* $("#checkbox").change(function(){
-	    if($(this).prop("checked") == true){
-			$('#checkbox').val(0);
-			console.log($('#checkbox').val());
-			reloadList();
-		} else {
-			$('#checkbox').val(1);
-			console.log($('#checkbox').val());
-			reloadList();
-		}
-	}); */
+	if("${param.selectGbn}" != "") {
+		$(".select").val("${param.selectGbn}");
+	}
+	
+	
+	$('#label').on("click", function() {
+		 if($('#checkbox').is(":checked")){
+			    $('#visibility').val("1");
+				console.log($('#visibility').val());
+				reloadList();
+			} else {
+				$('#visibility').val("0");
+				console.log($('#visibility').val());
+				reloadList();
+			}
+	});
+   
 	
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 
@@ -45,7 +52,6 @@ $(document).ready(function() {
 	
 	
 	$(".pic_wrap, .draw_wrap").on("dblclick", "div", function() {
-		$("#page").val($(this).attr("page"));
 		$("#pNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
@@ -250,6 +256,7 @@ function drawPaging(pb) {
 		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
 		<input type="hidden" id="postNo" name="postNo" />
 		<input type="hidden" id="page" name="page" value="${page}" />
+		<input type="hidden" id="mainGallary" name="listPage" value="1"/>	
 	<div class="wrap">
 		<div class="profile_wrap">
 
@@ -283,23 +290,11 @@ function drawPaging(pb) {
 					<label for="gallaryMenu1">사진작품관</label>
 					<label for="gallaryMenu2">그림작품관</label>
 					<label for="gallaryMenu3">영상작품관</label>
-					<!-- <label class="public">
-						<input type="radio" name="public" value="옵션1" checked="checked">
-						<span>공개</span>
-					</label>
-					<label class="private">
-						<input type="radio" name="private" value="옵션2">
-						<span>비공개</span>
-					</label> -->
-					<!-- <input type="checkbox" id="checkbox" name="visibility" value="0" checked>
+					<input type="checkbox" id="checkbox" checked>
 						<label id="label" for="checkbox">
 						<span></span>
-					</label> -->
-					
-					 <!-- <div class="public_private">
-					     <input type="radio" id="public" name="visibility" value="0"><label for="public">공개</label>
-					     <input type="radio" id="private" name="visibility" value="1"><label for="private">비공개</label>
-					</div> -->
+					</label>
+					<input type="hidden" id="visibility" name="visibility" value="0"/>
 					
 					<input id="btnGoUpload" type="button" value="작품 등록하기">
 					<select class="select" name="selectGbn">

@@ -51,6 +51,7 @@
 		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
 		                            FROM POST
 		                            WHERE DEL = 1
+		                            AND VISIBILITY = 0
 		                            AND CATEGORY_NO = 1) P
 		                    ON U.USER_NO = P.USER_NO
 		                        LEFT OUTER JOIN (SELECT POST_NO, REGISTER_DATE
@@ -93,6 +94,7 @@
 		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
 		                            FROM POST
 		                            WHERE DEL = 1
+		                            AND VISIBILITY = 0
 		                            AND CATEGORY_NO = 2) P
 		                    ON U.USER_NO = P.USER_NO
 		                        LEFT OUTER JOIN (SELECT POST_NO, REGISTER_DATE
@@ -178,6 +180,14 @@
 		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
 		                            FROM POST
 		                            WHERE DEL = 1
+		                            <choose>
+										<when test="visibility == 0">
+										 	AND VISIBILITY = 0
+										</when>
+										<when test="visibility == 1">
+										 	AND VISIBILITY = 1
+										</when>
+									 </choose>
 		                            AND CATEGORY_NO = 1) P
 		                    ON U.USER_NO = P.USER_NO
 		                        LEFT OUTER JOIN (SELECT POST_NO, REGISTER_DATE
@@ -199,6 +209,14 @@
 		FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
 		                        FROM POST
 		                        WHERE DEL = 1
+		                        <choose>
+									<when test="visibility == 0">
+									 	AND VISIBILITY = 0
+									</when>
+									<when test="visibility == 1">
+									 	AND VISIBILITY = 1
+									</when>
+								</choose>
 		                        AND CATEGORY_NO = 1) P
 		                ON U.USER_NO = P.USER_NO
 		WHERE U.OUT_DATE IS NULL
@@ -221,6 +239,14 @@
 		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
 		                            FROM POST
 		                            WHERE DEL = 1
+		                            <choose>
+										<when test="visibility == 0">
+										 	AND VISIBILITY = 0
+										</when>
+										<when test="visibility == 1">
+										 	AND VISIBILITY = 1
+										</when>
+									 </choose>
 		                            AND CATEGORY_NO = 2) P
 		                    ON U.USER_NO = P.USER_NO
 		                        LEFT OUTER JOIN (SELECT POST_NO, REGISTER_DATE
@@ -242,6 +268,14 @@
 		FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO
 		                        FROM POST
 		                        WHERE DEL = 1
+		                        <choose>
+										<when test="visibility == 0">
+										 	AND VISIBILITY = 0
+										</when>
+										<when test="visibility == 1">
+										 	AND VISIBILITY = 1
+										</when>
+								</choose>
 		                        AND CATEGORY_NO = 2) P
 		                ON U.USER_NO = P.USER_NO
 		WHERE U.OUT_DATE IS NULL
@@ -266,6 +300,7 @@
 		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
 		                            FROM POST
 		                            WHERE DEL = 1
+		                            AND VISIBILITY = 0
 		                            AND CATEGORY_NO = 1) P
 		                    ON U.USER_NO = P.USER_NO
 		                        LEFT OUTER JOIN (SELECT POST_NO, REGISTER_DATE
@@ -310,6 +345,7 @@
 		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
 		                            FROM POST
 		                            WHERE DEL = 1
+		                            AND VISIBILITY = 0
 		                            AND CATEGORY_NO = 2) P
 		                    ON U.USER_NO = P.USER_NO
 		                        LEFT OUTER JOIN (SELECT POST_NO, REGISTER_DATE

@@ -13,10 +13,18 @@ $(document).ready(function() {
 	if("${param.selectGbn}" != "") {
 		$(".select").val("${param.selectGbn}");
 	}
+	
+	/* $("input[name=tab]").val($('#tabtab').val()); */
+	
+	
+	/* if($('#tabtab').val() != "") {
+		$("input[name=tab]").val($('#tabtab').val());
+	} */
+	
+	//console.log($('#tabtab').val());
 		
 	reloadList();
 	
-	console.log($('#userNo').val());
 	
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 	
@@ -261,9 +269,9 @@ $(document).ready(function() {
 			<input type="hidden" id="pNo" name="pNo" />
 			<input type="hidden" id="postNo" name="postNo" />
 			<input type="hidden" id="page" name="page" value="${page}" />
-			<!-- <input type="hidden" id="tabtab" name="tabtab"/>	 -->
 			<input type="hidden" id="mainGallary" name="listPage" value="0"/>	
 			<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"/>	
+			<input type="hidden" id="tabtab" name="tabtab" value="${param.tab}"/>	
 	<div class="wrap">
 		<div class="gallary">
 			<div class="tabs">

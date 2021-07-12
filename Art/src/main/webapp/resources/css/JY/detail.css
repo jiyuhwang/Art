@@ -16,6 +16,7 @@ body {
 	top: 90%;
 	left: 20px;
 	z-index: 800;
+	cursor: pointer;
 }
 
 .footer a, .side_bar a {

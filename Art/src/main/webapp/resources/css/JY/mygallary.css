@@ -98,7 +98,7 @@ input[type="checkbox"] {
     width: 68px;
     height: 22px;
     top: 10px;
-    right: 280px;
+    right: 290px;
     border-radius: 17px;
     background-color: #ddd;
     transition-duration: 0.2s;
@@ -106,10 +106,10 @@ input[type="checkbox"] {
 
 #label span {
     position: absolute;
-    left: 0px;
+    left: -2px;
     top: 0px;
     z-index: 1;
-    width: 38px;
+    width: 40px;
     height: 32px;
     border-radius: 40%;
     background-color: #fff;
@@ -144,48 +144,6 @@ input[type="checkbox"] {
 #checkbox:checked + #label span {
     transform: translateX(40px);
 }
-
-
-
-
-
-.public_private {
-    display: inline-block;
-    padding: 15px 10px 0px;
-    width: 195px;
-}
-.public_private input[type=radio]{
-    display: inline-block;
-    display: none;
-}
-.public_private input[type=radio]+label{
-    display: inline-block;
-    cursor: pointer;
-    height: 24px;
-    width: 90px;
-    border: 1px solid #333;
-    line-height: 24px;
-    text-align: center;
-    font-weight:bold;
-    font-size:13px;
-}
-.public_private input[type=radio]+label{
-    display: inline-block;
-    background-color: #fff;
-    color: #333;
-}
-.public_private input[type=radio]:checked+label{
-	display: inline-block;
-    background-color: #333;
-    color: #fff;
-}
-
-
-
-
-
-
-
 
 
 .select {

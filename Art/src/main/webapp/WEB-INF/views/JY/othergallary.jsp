@@ -14,6 +14,14 @@ $(document).ready(function() {
 	reloadLikeCnt();
 
 
+	if("${param.selectGbn}" != "") {
+		$(".select").val("${param.selectGbn}");
+	}
+	
+	/* if("${param.tab}" != "") {
+		$("input[name=tab]").val("${param.tab}");
+	} */
+	
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 
 	
@@ -238,7 +246,6 @@ function reloadList() {
 }
 
 
-
 function picList(list) {
 		var html = "";
 		for(var p of list) {
@@ -333,6 +340,7 @@ function drawPaging(pb) {
 		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
 		<input type="hidden" id="userNo2" name="userNo2" value="${param.authorNo}" />
 		<input type="hidden" id="page" name="page" value="${page}" />
+		<input type="hidden" id="mainGallary" name="listPage" value="2"/>	
 	<div class="wrap">
 		<div class="profile_wrap">
 		
