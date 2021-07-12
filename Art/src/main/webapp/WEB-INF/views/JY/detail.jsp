@@ -224,6 +224,7 @@ $(document).ready(function() {
 	
 	
 $('body').on("click", '.heart', function() {
+	if($('#userNo').val() != "") {
 		if ($(this).attr("src") == "resources/images/JY/heart.png") {
 			$(this).attr("src", "resources/images/JY/heart2.png");
 			
@@ -266,8 +267,10 @@ $('body').on("click", '.heart', function() {
 			
 		}
 		
+		} else {
+			alert("로그인 후 이용해주세요.")
+		}
 	});
-
 	
 });
 
@@ -447,6 +450,7 @@ function CopyUrl2()
 		<div class="category">${data.CATEGORY_NAME}</div>
 		<div class="title">${data.TITLE}</div>
 		<div class="contents_date">${data.REGISTER_DATE}</div>
+		<div class="views"> 조회수 ${data.VIEWS}</div>
 		<br />
 		<br />
 		<div class="contents">${data.EXPLAIN}</div>

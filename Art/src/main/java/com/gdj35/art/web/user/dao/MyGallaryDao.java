@@ -224,5 +224,10 @@ public class MyGallaryDao implements IMyGallaryDao{
 		return sqlSession.selectOne("Post.authorLikeCnt2", params);
 	}
 
+	@Override
+	public void updateViews(HashMap<String, String> params) throws Throwable {
+		sqlSession.update("Post.updateViews", params);
+	}
+
 
 }

@@ -96,6 +96,7 @@ $(document).ready(function() {
 			$("#titleInput").focus();
 			return false;
 		} else if($("#contentsIn").val() == "") {
+			alert("작품을 설명해주세요.");
 			$("#contentsIn").focus();
 			return false;
 		} else {

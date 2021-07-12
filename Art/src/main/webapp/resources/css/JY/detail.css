@@ -452,7 +452,15 @@ body {
 
 .contents_date {
 	font-size: 12pt;
-	color: #d9d9d9;
+	/* color: #d9d9d9; */
+	color: #ccc;
+	display: inline-block;
+}
+
+.views {
+	margin-left: 20px;
+	font-size: 12pt;
+	color: #ccc;
 	display: inline-block;
 }
 

@@ -53,7 +53,10 @@ $(document).ready(function() {
 	    
 		  var email = $("#mailInput").val();            // 입력한 이메일
 		  
-	    if(!mailFormCheck(email)){
+		if($('#mailInput').val() == "") {
+			alert("이메일을 입력해주세요.");
+			return false;
+		} else if(!mailFormCheck(email)){
 	        alert("올바르지 못한 이메일 형식입니다.");
 	        return false;
 	    } else {
@@ -79,22 +82,7 @@ $(document).ready(function() {
 		                
 		  });
 	});
-	
-	/* 인증번호 비교 */
-	/* $("#mailCheckInput").blur(function(){
-	    
-	    var inputCode = $("#mailCheckInput").val();        // 입력코드    
-	    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과     
-	    
-	    if(inputCode == code){                            // 일치할 경우
-	        checkResult.html("인증번호가 일치합니다.");
-	        checkResult.attr("class", "correct");        
-	    } else {                                            // 일치하지 않을 경우
-	        checkResult.html("인증번호를 다시 확인해주세요.");
-	        checkResult.attr("class", "incorrect");
-	    }    
-	    
-	}); */
+
 	
 	
 	$("#btnMailCheck").on("click", function(){
@@ -106,42 +94,16 @@ $(document).ready(function() {
 	    
 	    
 	    
-	    if(inputCode == code){                            // 일치할 경우
+	    if(inputCode == code && inputCode != ""){                            // 일치할 경우
 	        checkResult.html("인증번호가 일치합니다.");
 	        checkResult.attr("class", "correct");        
 	    } else {                                            // 일치하지 않을 경우
-	        checkResult.html("인증번호를 다시 확인해주세요.");
+	        checkResult.html("인증번호를 확인해주세요.");
 	        checkResult.attr("class", "incorrect");
 	    }    
 	    
 	});
 	
-	
-	
-	/* $("#btnIdCheck").on("click", function(){
-	    
-		var userId= $("#idInput").serialize();
-		
-		$.ajax({
-			url : "idCheck",
-			type : "post",
-			dataType : "json",
-			data : userId,
-			success: function(res) { // 성공 시 다음 함수 실행
-				if(res.msg == "exist") {
-					alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-				} else if(res.msg == "none") {
-					 alert("사용가능한 아이디입니다.");
-				} else {
-					alert("작성 중 문제가 발생하였습니다.")
-				}
-			},
-			error: function(request, status, error) { // 실패 시 다음 함수 실행
-				console.log(error);
-			}
-		})
-	    
-	}); */
 	
 	$('.id_wrap').on("propertychange change keyup paste input", function(){
 
@@ -186,12 +148,10 @@ $(document).ready(function() {
 			data : userNickname,
 			success: function(res) { // 성공 시 다음 함수 실행
 				if(res.msg == "exist") {
-					/* alert("닉네임이 존재합니다. 다른 닉네임을 입력해주세요."); */
 					$('.nickname_input_re_2').css("display","inline-block");
 					$('.nickname_input_re_1').css("display", "none");
 					$('.nickname_input_re_3').css("display", "none");
 				} else if(res.msg == "none") {
-					 /* alert("사용가능한 닉네임입니다."); */
 					$('.nickname_input_re_1').css("display","inline-block");
 					$('.nickname_input_re_2').css("display", "none");	
 					$('.nickname_input_re_3').css("display", "none");	
@@ -292,66 +252,56 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
-	/* $("#btnNicknameCheck").on("click", function(){
-	    
-		var userNickname= $("#nicknameInput").serialize();
-		
-		$.ajax({
-			url : "nicknameCheck",
-			type : "post",
-			dataType : "json",
-			data : userNickname,
-			success: function(res) { // 성공 시 다음 함수 실행
-				if(res.msg == "exist") {
-					alert("닉네임이 존재합니다. 다른 닉네임을 입력해주세요.");
-				} else if(res.msg == "none") {
-					 alert("사용가능한 닉네임입니다.");
-				} else {
-					alert("작성 중 문제가 발생하였습니다.")
-				}
-			},
-			error: function(request, status, error) { // 실패 시 다음 함수 실행
-				console.log(error);
-			}
-		})
-	    
-	}); */
+
 	
 	$("#btnJoin").on("click", function(){
 	    
 		if($("#idInput").val() == "") {
 			$("#idInput").focus();
+			return false;
 		} else if($('.id_input_re_2').css("display") == "inline-block") {
 			$("#idInput").focus();
+			return false;
 		} else if($("#nicknameInput").val() == "") {
 			$("#nicknameInput").focus();
+			return false;
 		} else if($('.nickname_input_re_2').css("display") == "inline-block") {
 			$("#nicknameInput").focus();
+			return false;
 		} else if($("#pwInput").val() == "") {
 			$("#pwInput").focus();
+			return false;
 		} else if($("#pwckInput").val() == "") {
 			$("#pwckInput").focus();
+			return false;
 		} else if($("#pwInput").val() != $("#pwckInput").val()) {
 			$("#pwInput").val("");
 			$("#pwckInput").val("");
 			$("#pwInput").focus();
+			return false;
 		} else if($("#nameInput").val() == "") {
 			$("#nameInput").focus();
+			return false;
 		} else if($("#phoneInput").val() == "") {
 			$("#phoneInput").focus();
+			return false;
 		} else if($("#birthYear").val() == "") {
 			$("#birthYear").focus();
+			return false;
 		} else if($("select[name=birthMonth]").val() == '월') {
 			$(".birth_select").focus();
+			return false;
 		} else if($('#birthDay').val() == "") {
 			$("#birthDay").focus();
+			return false;
 		} else if($("#mailInput").val() == "") {
 			$("#mailInput").focus();
-		} else if($("#mail_check_input_box_warn").html() != "인증번호가 일치합니다." || $("#mailCheckInput").val() == "") {
+			return false;
+		} else if($("#mailCheckInput").val() != code || $("#mailCheckInput").val() == "") {
 			$("#mail_check_input_box_warn").html("인증번호를 다시 확인해주세요.");
 			$("#mail_check_input_box_warn").attr("class", "incorrect");  
 			$("#mailCheckInput").focus();
+			return false;
 		}  else {
 			
 			var params= $("#joinForm").serialize();

@@ -12,6 +12,38 @@ tbody tr:hover {
 	background-color: #f2f2f2;
 }
 
+
+@charset "UTF-8";
+
+.background2 {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: #000000;
+	opacity:0.3;
+	z-index: 100;
+}
+
+
+.wrap2 {
+	position: absolute;
+	width: 1330PX;
+	height: 800px;
+	top: 50%;
+	left: 50%;
+	margin-top: -410px;
+	margin-left: -660px;
+	background-color: #ffffff;
+	padding: 16px;
+	z-index: 1000;
+	overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#BtnSave {
+	right: 74px;
+}
+
 </style>
 
 <link rel="stylesheet" href="resources/css/h/gallary_manage.css"/>
@@ -81,14 +113,14 @@ $(document).ready(function(){
 	});
 	
 	//상세보기 수정시 editor
-		CKEDITOR.replace("explainCK", {
+	/* 	CKEDITOR.replace("explainCK", {
 		resize_enabled : false,
 		language : "ko",
 		enterMode : "2",
 		width: "1330",
 		height: "500",
 		removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
-	});
+	}); */
 	
 	//검색버튼 누르면 준비중입니다 알람
 	$(".btn_notyet").on("click", function(){
@@ -251,6 +283,7 @@ $(document).ready(function(){
 			dataType: "json",
 			data: params,
 			success: function(result){
+				
 				var html = "";
                 
 				html +="	<div class=\"background\"></div>";
@@ -339,12 +372,7 @@ $(document).ready(function(){
 				$("#BtnUpdate").on("click", function(){
 					closePopup();
 					drawEdit();
-					
-					
-					
-					
-					
-					
+
 				});
 				
 				
@@ -367,29 +395,40 @@ $(document).ready(function(){
 		$(".wrap").fadeOut(function(){
 			$(".wrap").remove();
 		});
+		
+		$(".background2").fadeOut(function(){
+			$(".background2").remove();
+		});
+		
+		$(".wrap2").fadeOut(function(){
+			$(".wrap2").remove();
+		});
 	}
 			
 			
 //-------------------------------------------------------------------수정하기해보자
 	function drawEdit(){
-		var params = $("#detailForm").serialize();
+		var params = $("#actionForm").serialize();
+		
+
 		
 		$.ajax({
-			url: "drawEdit",
+			url: "drawUserPopup",
 			type: "post",
 			dataType: "json",
 			data: params,
 			success: function(result){
+				
 				var html = "";
                 
-				html +="	<div class=\"background\"></div>";
-				html +="	<div class=\"wrap\">";
+				html +="	<div class=\"background2\"></div>";
+				html +="	<div class=\"wrap2\">";
 				html += "		<form id=\"actionForm\">";
 				html += "		<input type=\"hidden\" name=\"postNo\" value=\"" + result.data.POST_NO + "\" />";
 				html +="	<div class=\"popup_title\">관리자용 상세보기</div>";
 				html +="	<div class=\"save_btn_wrap\">";
 				html +="	<input type=\"button\" id=\"BtnSave\" value=\"저장\"/>";
-				html +="	<input type=\"button\" id=\"BtnClose\" value=\"닫기\"/>";
+				html +="	<input type=\"button\" id=\"BtnClose2\" value=\"닫기\"/>";
 				html +="	</div>";
 				html +="	<div class=\"contents_wrap\">";
 				
@@ -415,7 +454,7 @@ $(document).ready(function(){
 					}
 				
 				html +="	<div class=\"contents\">";
-				html +="	<textarea id=\"explainCK\" name=\"explain\" cols=\"80\" rows=\"10\" placeholder=\"작품을 뽐내주세요.\">" + result.data.EXPLAIN +"</textarea></div>";
+				html +="	<textarea id=\"explainCK\" name=\"explain\" cols=\"50\" rows=\"10\" placeholder=\"작품을 뽐내주세요.\">" + result.data.EXPLAIN +"</textarea></div>";
 				
 				html +="	<div class=\"tag_wrap\">";
 
@@ -450,23 +489,34 @@ $(document).ready(function(){
 				
 				$("body").prepend(html);
 				
-				$(".background").hide();
-				$(".wrap").hide();				
-				$(".background").fadeIn();
-				$(".wrap").fadeIn();
+				$(".background2").hide();
+				$(".wrap2").hide();				
+				$(".background2").fadeIn();
+				$(".wrap2").fadeIn();
 				
-				$("#BtnClose").off("click");
-				$("#BtnClose").on("click", function(){
+				$("#BtnClose2").off("click");
+				$("#BtnClose2").on("click", function(){
 					closePopup();
 				});
 				
-				$(".background").off("click");
-				$(".background").on("click", function(){
+				$(".background2").off("click");
+				$(".background2").on("click", function(){
 					closePopup();
 				});
 				
 				/*----------------------------------------------저장 클릭할 때  */
 				$("#BtnSave").off("click");
+				
+				CKEDITOR.replace("explainCK", {
+					resize_enabled : false,
+					language : "ko",
+					enterMode : "2",
+					width: "1330",
+					height: "500",
+					removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
+				});
+								
+				
 				$("#BtnSave").on("click", function(){
 					$("#explainCK").val(CKEDITOR.instances['explainCK'].getData());			
 										
@@ -474,10 +524,9 @@ $(document).ready(function(){
 						alert("제목을 입력해주세요.");
 						$("#title").focus();
 						return false;
-						
-					}else if($.trim($("#contents").val()) == ""){
+					}else if($("#explainCK").val() == ""){
 						alert("작품을 설명해주세요.");
-						$("#contents").focus();
+						$("#explainCK").focus();
 						return false;
 					}else {
 						//글 수정하기
@@ -493,6 +542,7 @@ $(document).ready(function(){
 								if(result.msg == "success"){
 									$("#actionForm").attr("action", "gallaryManage");
 									$("#actionForm").submit();
+									alert("정상적으로 작품 수정되었습니다.");
 								} else if(result.msg == "failed"){
 									alert("수정에 실패하였습니다.");
 								} else {
@@ -602,7 +652,7 @@ $(document).ready(function(){
 		<div class="menu_txt_wrap">
 			<div class="menu_txt">
 				<span><span class="font-red">검색어를 입력</span>하여 검색할 수 있습니다.</span><br/>
-				<span><span class="font-red">제목</span>을 연속으로 두 번 클릭하시면 상세페이지로 이동합니다.</span><br/>
+				<span><span class="font-red">제목</span>을 연속으로 두 번 클릭하시면 수정페이지로 이동합니다.</span><br/>
 				<span><span class="font-red">데이터가 많은 경우</span> 느려질 수 있습니다.</span>
 			</div>
 		</div>
@@ -611,10 +661,11 @@ $(document).ready(function(){
 	<input type="hidden" id="postNo" name="postNo"/>
 	<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
 	<input type="hidden" id="page" name="page" value="${page}"/>
+	<input type="hidden"  value=""/>
 	
 		<div class ="search_flag_div">
 			<div class="search_flag">
-				<label>작품분류</label>
+				<label>회원분류</label>
 				<select name="srhYearFlag" id="srhYearFlag">
 					<option value="0"> 올해작품</option>
 					<option value="1"> 작년작품</option>
