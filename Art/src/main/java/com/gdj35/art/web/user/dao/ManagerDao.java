@@ -97,6 +97,11 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.selectList("Manager.getReportList", params);
 	}
 
+	@Override
+	public int deleteG(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.deleteG",params);
+	}
+
 
 
 

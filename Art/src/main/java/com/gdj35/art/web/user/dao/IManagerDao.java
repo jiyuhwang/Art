@@ -37,4 +37,6 @@ public interface IManagerDao {
 
 	public List<HashMap<String, String>> getReportList(HashMap<String, String> params) throws Throwable;
 
+	public int deleteG(HashMap<String, String> params) throws Throwable;
+
 }

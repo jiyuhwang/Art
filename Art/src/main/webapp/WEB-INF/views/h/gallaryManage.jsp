@@ -582,14 +582,61 @@ $(document).ready(function(){
 		
 		html += "<div class=\"result_cnt\">결과: " + cnt +"개</div>";
 		html += "<div class=\"button_wrap\">";
-		html += "<input type=\"button\" value=\"복원\" class=\"btn_notyet\"/>&nbsp;&nbsp;&nbsp;";
-		html += "<input type=\"button\" value=\"삭제\" class=\"btn_notyet\"/>";
+		html += "<input type=\"button\"  id=\"BtnReturn\" value=\"복원\"&nbsp;&nbsp;&nbsp;";
+		html += "<input type=\"button\" id=\"BtnDelete\" value=\"삭제\"";
 		html += "</div>";
 		
 		$(".cnt_wrap").html(html);
 		
-	}
+		$("#BtnDelete").on("click", function(){
+			var confirmFlag = confirm("삭제 하시겠습니까?");
+						
+			if(confirmFlag){
+				var checkCnt = $(".result_table input[pno=postNo]:checked").length;
+				var checkArr = new Array();
+				
+				$(".result_table tbody input[pno=postNo]:checked").each(function(index,item) {
+					checkArr.push($(this).val());//item이 this라서 this로 많이쓴다나~
+				});
+				
+				if(checkCnt == 0){
+					alert("선택된 작품이 없습니다.");
+				} else {
+					
+				$("#postNo").val(list);
+				console.log($("#postNo").val());
+					
+				var params = $("#actionForm").serialize();
+					
+				$.ajax({
+					url: "deleteGallary",
+					type: "post",
+					dataType: "json",
+					data: params,
+					success: function(res){ 
+						
+						if(res.msg == "success"){
+							location.href = "entireList";	
+						} else if(res.msg == "failed"){
+							alert("삭제에 실패하였습니다.");
+						} else {
+							alert("삭제 중 문제가 발생하였습니다.");
+						}						
+					},
+					error: function(request, status, error){
+						console.log(error);
+						
+					}
+				
+				});					
+				}//else
 	
+			
+		}
+			
+		});//delete button click
+		
+	}//SHOWCNT end
 	
 	
 	//-------------------------------------------------------페이징 그리기

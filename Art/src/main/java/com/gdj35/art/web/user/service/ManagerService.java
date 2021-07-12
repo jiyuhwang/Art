@@ -99,6 +99,11 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getReportList(params);
 	}
 
+	@Override
+	public int deleteG(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.deleteG(params);
+	}
+
 
 
 

@@ -373,6 +373,11 @@
 		WHERE POST_NO = #{postNo}	
 	</select>
 	
+	<update id="deleteG" parameterType="hashmap">
+		UPDATE POST SET DEL = 1
+		WHERE POST_NO = #{postNo}
+	</update>
+	
 	
 	
 	

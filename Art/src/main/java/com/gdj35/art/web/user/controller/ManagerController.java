@@ -250,7 +250,7 @@ public class ManagerController {
 	}
 	
 
-	//작품관리 상세페이지 보기
+	//리스트 불러오기
 	@RequestMapping(value="/entireList",
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
@@ -297,7 +297,7 @@ public class ManagerController {
 	
 	
 	
-	//작품관리 테이블 클릭시 해당 게시글로 이동
+	//작품관리 상세페이지 보기
 	@RequestMapping(value="/drawUserPopup",
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
@@ -373,6 +373,7 @@ public class ManagerController {
 	
 	}
 	
+	//업데이트하고 새로고침
 	@RequestMapping(value="/drawEdits",
 			method=RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
@@ -398,7 +399,41 @@ public class ManagerController {
 		}
 	
 		return mapper.writeValueAsString(modelMap);
+	}
+	
+	//삭제하기
+	@RequestMapping(value = "/deleteGallary",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String deleteGallary(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		String getArr = params.get("postNo");
+		String [] postArry = getArr.split(",");
+		
+		int cnt = 0;
+		
+		System.out.println(Arrays.toString(postArry));
+		
+		for(int i =0 ; i <postArry.length; i++) {
+			params.put("postNo",postArry[i]);
+			cnt += iManagerService.deleteG(params);
+			params.remove("postNo");
 		}
+		
+		System.out.println(params);
+		System.out.println(cnt);
+		
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+	
 	
 	
 	
