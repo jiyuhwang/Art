@@ -104,6 +104,20 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.deleteG(params);
 	}
 
+	@Override
+	public int returnG(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.returnG(params);
+	}
+
+	@Override
+	public int deleteR(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.deleteR(params);
+	}
+
+	@Override
+	public int returnR(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.returnR(params);
+	}
 
 
 

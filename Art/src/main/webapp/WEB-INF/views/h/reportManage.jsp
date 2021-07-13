@@ -80,6 +80,56 @@ $(document).ready(function(){
 		loadPostList();
 	});
 	
+	//삭제버튼 클릭시
+	$("#BtnDelete").on("click", function(){
+		var confirmFlag = confirm("삭제 하시겠습니까?");
+					
+		if(confirmFlag){
+			var checkCnt = $("tbody [name=checkbox]:checked").length;
+			
+			if(checkCnt == 0){
+				alert("선택된 작품이 없습니다.");
+			} else {
+			
+				var checkArr = new Array();
+			
+				$("tbody [name=checkbox]:checked").each(function() {
+					checkArr.push($(this).val());//item이 this라서 this로 많이쓴다나~
+				});
+								
+				$("#checkedArr").val(checkArr);					
+				deleteChecked();
+				
+			}//else
+		}	
+	});//delete btn click
+	
+	//복원버튼 클릭시
+	$("#BtnReturn").on("click", function(){
+		var confirmFlag = confirm("복원 하시겠습니까?");
+					
+		if(confirmFlag){
+			var checkCnt = $("tbody [name=checkbox]:checked").length;
+			
+			if(checkCnt == 0){
+				alert("선택된 작품이 없습니다.");
+			} else {
+			
+				var checkArr = new Array();
+			
+				$("tbody [name=checkbox]:checked").each(function() {
+					checkArr.push($(this).val());//item이 this라서 this로 많이쓴다나~
+				});
+								
+				$("#checkedArr").val(checkArr);					
+				returnChecked();
+				
+			}//else
+		}	
+	});//return btn click
+	
+	
+	
 	//전체체크하면 전체적으로 체크되게 하기
 	$("#checkAll").on("click", function(){
 		if($(this).is(":checked")){
@@ -112,7 +162,7 @@ $(document).ready(function(){
 	//-------------------------------------------------------ajax실행
 	function loadPostList(){
 		var params = $("#actionForm").serialize();
-		console.log(params);
+
 		$.ajax({
 			url: "reportList",
 			type: "post",
@@ -143,7 +193,7 @@ $(document).ready(function(){
 			for(var d of list){
 				++no;
 				html +="<tr rno=\"" + d.REPORT_NO + "\" class=\"table_tr\">";
-				html +="<td><input type=\"checkbox\"></td>";
+				html +="<td><input type=\"checkbox\" name=\"checkbox\" value=\"" + d.REPORT_NO + "\"></td>";
 				html +="<td>" + no + "</td>";
 				html +="<td>" + d.REPORT_NO + "</td>";
 				html +="<td>" + d.TYPE_NAME + "</td>";
@@ -164,7 +214,59 @@ $(document).ready(function(){
 		
 	}
 	
+	//-------------------------------------------체크된 테이블 행을 삭제하는 아작스
+	function deleteChecked(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "deleteReport",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res){ 
+				
+				if(res.msg == "success"){
+					loadPostList();	
+				} else if(res.msg == "failed"){
+					alert("삭제에 실패하였습니다.");
+				} else {
+					alert("삭제 중 문제가 발생하였습니다.");
+				}						
+			},
+			error: function(request, status, error){
+				console.log(error);
+				
+			}
+		
+		});			
+	}
 	
+	//-------------------------------------------삭제된거 복구하는 아작스
+	function returnChecked(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "returnDelr",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res){ 
+				
+				if(res.msg == "success"){
+					location.href = "reportManage";	
+				} else if(res.msg == "failed"){
+					alert("복원에 실패하였습니다.");
+				} else {
+					alert("복원 중 문제가 발생하였습니다.");
+				}						
+			},
+			error: function(request, status, error){
+				console.log(error);
+				
+			}
+		
+		});			
+	}
 	
 	
 	
@@ -174,8 +276,6 @@ $(document).ready(function(){
 		
 		html += "<div class=\"result_cnt\">결과: " + cnt +"개</div>";
 		html += "<div class=\"button_wrap\">";
-		html += "<input type=\"button\" value=\"복원\" class=\"btn_notyet\"/>&nbsp;&nbsp;&nbsp;";
-		html += "<input type=\"button\" value=\"삭제\" class=\"btn_notyet\"/>";
 		html += "</div>";
 		
 		$(".cnt_wrap").html(html);
@@ -244,7 +344,7 @@ $(document).ready(function(){
 			<input type="hidden" id="rNo" name="rNo"/>
 			<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
 			<input type="hidden" id="page" name="page" value="${page}"/>
-			<input type="hidden"  value=""/>
+			<input type="hidden" id="checkedArr" name="checkedArr"/>
 		
 		<div class ="search_flag_div">
 			<div class="search_flag">
@@ -274,6 +374,10 @@ $(document).ready(function(){
 						<input type="button" value="삭제포함" id="BtnWith"/>
 				</div>
 			</div>
+		</div>
+		<div class="del_wrap">
+			<input type="button"  id="BtnReturn" value="복원"/>
+			<input type="button" id="BtnDelete" value="삭제"/>		
 		</div>
 		<div class="cnt_wrap"></div>	
 	</form>

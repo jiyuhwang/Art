@@ -39,4 +39,15 @@ public interface IManagerDao {
 
 	public int deleteG(HashMap<String, String> params) throws Throwable;
 
+	public int returnG(HashMap<String, String> params) throws Throwable;
+
+	public int deleteR(HashMap<String, String> params) throws Throwable;
+	
+	public int returnR(HashMap<String, String> params) throws Throwable;
+	
+	
+	
+	
+	
+
 }

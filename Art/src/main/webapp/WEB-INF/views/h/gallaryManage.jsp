@@ -150,48 +150,50 @@ $(document).ready(function(){
 		var confirmFlag = confirm("삭제 하시겠습니까?");
 					
 		if(confirmFlag){
-			var checkCnt = $(".result_table input[class='table_checkbox']:checked").length;
-			var checkArr = new Array();
-			
-			$(".result_table input[class='table_checkbox']:checked").each(function(index,item) {
-				checkArr.push($(this).parent().parent().attr("name"));//item이 this라서 this로 많이쓴다나~
-			});
+			var checkCnt = $("tbody [name=checkbox]:checked").length;
 			
 			if(checkCnt == 0){
 				alert("선택된 작품이 없습니다.");
 			} else {
-				
-			console.log(checkArr[0]);
-				
-			var params = $("#actionForm").serialize();
-				
-			$.ajax({
-				url: "deleteGallary",
-				type: "post",
-				dataType: "json",
-				data: params,
-				success: function(res){ 
-					
-					if(res.msg == "success"){
-						location.href = "entireList";	
-					} else if(res.msg == "failed"){
-						alert("삭제에 실패하였습니다.");
-					} else {
-						alert("삭제 중 문제가 발생하였습니다.");
-					}						
-				},
-				error: function(request, status, error){
-					console.log(error);
-					
-				}
 			
-			});					
+				var checkArr = new Array();
+			
+				$("tbody [name=checkbox]:checked").each(function() {
+					checkArr.push($(this).val());//item이 this라서 this로 많이쓴다나~
+				});
+								
+				$("#checkedArr").val(checkArr);					
+				deleteChecked();
+				
 			}//else
+		}	
+	});//delete btn click
+	
+	//복원버튼 클릭시
+	$("#BtnReturn").on("click", function(){
+		var confirmFlag = confirm("복원 하시겠습니까?");
+					
+		if(confirmFlag){
+			var checkCnt = $("tbody [name=checkbox]:checked").length;
+			
+			if(checkCnt == 0){
+				alert("선택된 작품이 없습니다.");
+			} else {
+			
+				var checkArr = new Array();
+			
+				$("tbody [name=checkbox]:checked").each(function() {
+					checkArr.push($(this).val());//item이 this라서 this로 많이쓴다나~
+				});
+								
+				$("#checkedArr").val(checkArr);					
+				returnChecked();
+				
+			}//else
+		}	
+	});//return btn click
+	
 
-	}
-		
-		
-	});//delete button click
 	
 	
 	//전체체크하면 전체적으로 체크되게 하기
@@ -290,7 +292,7 @@ $(document).ready(function(){
 			for(var d of list){
 				++no;
 				html +="<tr name=\"" + d.POST_NO + "\" class=\"table_tr\">";
-				html +="<td><input type=\"checkbox\" class=\"table_checkbox\"></td>";
+				html +="<td><input type=\"checkbox\" name=\"checkbox\" value=\"" + d.POST_NO + "\"></td>";
 				html +="<td>" + no + "</td>";
 				html +="<td>" + d.POST_NO + "</td>";
 				html +="<td>" + d.CATEGORY_NAME + "</td>";
@@ -306,6 +308,63 @@ $(document).ready(function(){
 		
 		$("tbody").html(html);
 		
+	}
+	
+	
+	
+	
+	//-------------------------------------------체크된 테이블 행을 삭제하는 아작스
+	function deleteChecked(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "deleteGallary",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res){ 
+				
+				if(res.msg == "success"){
+					loadPostList();	
+				} else if(res.msg == "failed"){
+					alert("삭제에 실패하였습니다.");
+				} else {
+					alert("삭제 중 문제가 발생하였습니다.");
+				}						
+			},
+			error: function(request, status, error){
+				console.log(error);
+				
+			}
+		
+		});			
+	}
+	
+	//-------------------------------------------삭제된거 복구하는 아작스
+	function returnChecked(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "returnDel",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res){ 
+				
+				if(res.msg == "success"){
+					location.href = "gallaryManage";	
+				} else if(res.msg == "failed"){
+					alert("복원에 실패하였습니다.");
+				} else {
+					alert("복원 중 문제가 발생하였습니다.");
+				}						
+			},
+			error: function(request, status, error){
+				console.log(error);
+				
+			}
+		
+		});			
 	}
 	
 	//-------------------------------------------------------상세보기그리기
@@ -591,9 +650,6 @@ $(document).ready(function(){
 						});
 					}
 					
-					
-					
-					
 				});
 				
 				
@@ -693,7 +749,7 @@ $(document).ready(function(){
 	<input type="hidden" id="postNo" name="postNo"/>
 	<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
 	<input type="hidden" id="page" name="page" value="${page}"/>
-	<input type="hidden"  value=""/>
+	<input type="hidden" id="checkedArr" name="checkedArr"/>
 	
 		<div class ="search_flag_div">
 			<div class="search_flag">

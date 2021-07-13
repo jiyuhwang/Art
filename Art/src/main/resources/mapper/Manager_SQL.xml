@@ -375,6 +375,11 @@
 	</select>
 	
 	<update id="deleteG" parameterType="hashmap">
+		UPDATE POST SET DEL = 0
+		WHERE POST_NO = #{postNo}
+	</update>
+	
+	<update id="returnG" parameterType="hashmap">
 		UPDATE POST SET DEL = 1
 		WHERE POST_NO = #{postNo}
 	</update>
@@ -523,5 +528,24 @@
 		</if>
 		) WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
+	
+	<update id="deleteR" parameterType="hashmap">
+		UPDATE REPORT SET DEL = 0
+		WHERE REPORT_NO = #{rNo}
+	</update>
+	
+	<update id="returnR" parameterType="hashmap">
+		UPDATE REPORT SET DEL = 1
+		WHERE REPORT_NO = #{rNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

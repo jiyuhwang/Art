@@ -132,6 +132,23 @@ table td{
 	display: inline-block;
 }
 
+.del_wrap {
+	text-align: right;	
+}
+
+.del_wrap input[type="button"] {
+	width: 70px;
+	position: absolute;
+}
+
+.del_wrap input[type="button"]:first-child {
+	right: 74px;
+}
+
+.del_wrap input[type="button"]:last-child {
+	right: 0px;
+}
+
 .cnt_wrap{
 	height: 30px;
 	margin-bottom: 10px;
