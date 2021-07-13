@@ -145,5 +145,20 @@ public class MyGallaryService implements IMyGallaryService{
 		iMyGallaryDao.updateViews(params);
 	}
 
+	@Override
+	public int addComment(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.addComment(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> commentList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.commentList(params);
+	}
+
+	@Override
+	public int addReplyComment(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.addReplyComment(params);
+	}
+
 
 }

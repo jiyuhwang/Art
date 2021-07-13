@@ -229,5 +229,20 @@ public class MyGallaryDao implements IMyGallaryDao{
 		sqlSession.update("Post.updateViews", params);
 	}
 
+	@Override
+	public int addComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("Post.addComment", params);	
+	}
+
+	@Override
+	public List<HashMap<String, String>> commentList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.commentList", params);
+	}
+
+	@Override
+	public int addReplyComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("Post.addReplyComment", params);
+	}
+
 
 }

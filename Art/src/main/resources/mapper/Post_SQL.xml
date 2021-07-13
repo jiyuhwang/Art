@@ -446,6 +446,24 @@
 		WHERE AUTHOR_NO = #{userNo}
 	</select>
 	
+	<!-- 댓글 쓰기 -->
+	<insert id="addComment" parameterType="hashmap">
+		INSERT INTO COMMENTS(COMMENT_NO, USER_NO, POST_NO, CONTENT)
+		VALUES(COMMENTS_SEQ.NEXTVAL, #{userNo}, #{postNo}, #{commentWrite})
+	</insert>
 	
-
+	<!-- 댓글 목록 -->
+	<select id="commentList" parameterType="hashmap" resultType="hashmap">
+		SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY NVL(C.TOP_COMMENT_NO, C.COMMENT_NO) ASC, C.COMMENT_NO ASC) AS RNK,
+						C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH
+		FROM COMMENTS C INNER JOIN USERS U
+		                    ON C.USER_NO = U.USER_NO
+		WHERE C.POST_NO = #{postNo}
+	</select>
+	
+	<!-- 답글 쓰기 -->
+	<insert id="addReplyComment" parameterType="hashmap">
+		INSERT INTO COMMENTS(COMMENT_NO, USER_NO, POST_NO, TOP_COMMENT_NO, CONTENT)
+		VALUES(COMMENTS_SEQ.NEXTVAL, #{userNo}, #{postNo}, #{topCommentNo}, #{replyCommentWrite})
+	</insert>
 </mapper>

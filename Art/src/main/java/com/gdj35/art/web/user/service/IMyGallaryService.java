@@ -57,6 +57,12 @@ public interface IMyGallaryService {
 
 	public void updateViews(HashMap<String, String> params) throws Throwable;
 
+	public int addComment(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> commentList(HashMap<String, String> params) throws Throwable;
+
+	public int addReplyComment(HashMap<String, String> params) throws Throwable;
+
 
 
 

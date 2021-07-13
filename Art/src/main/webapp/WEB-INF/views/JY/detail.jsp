@@ -11,6 +11,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	reloadLikeCnt();
+	reloadList();
 	
 	console.log($('#listPage').val());
 	$('#leftArrow').click(function() {
@@ -26,7 +27,7 @@ $(document).ready(function() {
 		}
 	})
 	
-	if("${sUserNo}" != $("#authorNo").val()) {
+	if($("#userNo").val() != $("#authorNo").val()) {
 		$(".btnCommentDelete").hide();
 		$("#replyBtnCommentDelete").hide();
 		$(".header").hide();
@@ -78,6 +79,7 @@ $(document).ready(function() {
 	})
 	
 	$('.comment_wrap1').click(function() {
+		reloadList();
 		if ($('.comment_wrap2').css('display') == 'none') {
 			$('.comment_wrap2').show();
 		} else {
@@ -85,13 +87,7 @@ $(document).ready(function() {
 		}
 	})
 	
-	$('#btnReplyUpload').click(function() {
-		if ($('.reply_comment_form1_w1').css('display') == 'none') {
-			$('.reply_comment_form1_w1').show();
-		} else {
-			$('.reply_comment_form1_w1').hide();
-		}
-	})
+
 	
 	$('#btnShare').hide();
 	$("#btnDot2, #btnDot22").hide();
@@ -272,7 +268,174 @@ $('body').on("click", '.heart', function() {
 		}
 	});
 	
+	
+	
+	
+	$("#btnCommentUpload").on("click", function() {
+		
+		if($('#userNo').val() != "") {
+			var params= $("#goForm").serialize();
+			
+			$.ajax({
+				url: "commentWrite", // 접속 주소
+				type: "post", // 전송 방식: get, post
+				dataType: "json", // 받아올 데이터 형태
+				data: params, // 보낼 데이터(문자열 형태)
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						reloadList();
+						$('#commentWrite').val("");
+					} else if(res.msg == "failed") {
+						alert("댓글 작성에 실패하였습니다.")
+					} else {
+						alert("댓글 작성 중 문제가 발생하였습니다.")
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			})
+		} else {
+			alert("로그인 후 이용해주세요.")
+		}
+	});
+	
 });
+
+function reloadList() {
+	var params= $("#goForm").serialize();
+	
+	
+	$.ajax({
+		url: "commentList", // 접속 주소
+		type: "post", // 전송 방식: get, post
+		dataType: "json", // 받아올 데이터 형태
+		data: params, // 보낼 데이터(문자열 형태)
+		success: function(res) { // 성공 시 다음 함수 실행
+			
+			commentList(res.list);	
+		},
+		error: function(request, status, error) { // 실패 시 다음 함수 실행
+			console.log(error);
+		}
+	});
+}
+
+function commentList(list) {
+
+	
+	var html = "";
+	var html2 = "";
+	var no = 0;
+	for(var p of list) {
+	if(p.TOP_COMMENT_NO == null) {
+			html += "<div class=\"comment_form1\">";
+			html += "<div class=\"profile3\">";
+			if(p.PROFILE_IMG_PATH != null) {
+			html += "<img class=\"profile_img3\" src=\"resources/upload/" + p.PROFILE_IMG_PATH + "\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+			} else {
+			html += "<img class=\"profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+			}
+			html += "</div>";
+			html += "<div class=\"comment_name1\"><a href=\"other_gallary\">" + p.USER_NICKNAME + "</a></div>";
+			html += "<div class=\"comment1\">" + p.CONTENT + "</div>";
+			html += "<div class=\"comment1_date\">" + p.REGISTER_DATE + "<a class=\"comment_declation\" href=\"#\">신고하기</a></div>";
+			html += "<div class=\"btn_reply_upload_comment_delete_w\" cNo=\"" + p.COMMENT_NO +"\" >";
+			html += "<input type=\"button\" class=\"btnReplyUpload\" id=\"btnReplyUpload\" value=\"답글\">";
+			html += "<input type=\"button\" class=\"btnCommentDelete\" id=\"btnCommentDelete\" value=\"삭제\">";
+			html += "</div>";
+			html += "</div>";
+			html += "<div class=\"reply_comment_form1_w1\">";
+			html += "<form action=\"#\" id=\"go" + no + "\" method=\"post\">";
+			html += "<input type=\"hidden\" name=\"topCommentNo\" value=\"" + p.COMMENT_NO + "\">";
+			html += "<input type=\"hidden\" name=\"userNo\" value=\"${sUserNo}\">";
+			html += "<input type=\"hidden\" name=\"postNo\" value=\"" + p.POST_NO + "\">";
+			html += "<span class=\"reply\"></span>";
+			html += "<div class=\"reply_comment_write_w\"><input id=\"replyCommentWrite\" name=\"replyCommentWrite\"type=\"text\" placeholder=\"답글을 남겨보세요.\"></div>";
+			html += "<div class=\"reply_btn_comment_upload_w\"><input type=\"button\" class=\"replyBtnCommentUpload\" id=\"replyBtnCommentUpload\" value=\"답글 작성\"></div>";
+			html += "</form>";
+			html += "</div>";
+			no ++;
+	} else {
+			html += "<div class=\"reply_comment_form1_w2\">";
+			html += "<span class=\"reply\"></span>";
+			html += "<div class=\"reply_comment_form1\">";
+			html += "<div class=\"reply_profile3\">";
+			if(p.PROFILE_IMG_PATH != null) {
+				html += "<img class=\"reply_profile_img3\" src=\"resources/upload/" + p.PROFILE_IMG_PATH + "\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+			} else {
+				html += "<img class=\"reply_profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+			}
+			html += "</div>";
+			html += "<div class=\"reply_comment_name1\"><a href=\"other_gallary\">" + p.USER_NICKNAME + "</a></div>";
+			html += "<div class=\"reply_comment1\">" + p.CONTENT + "</div>";
+			html += "<div class=\"reply_comment1_date\">" + p.REGISTER_DATE + "<a class=\"reply_comment_declation\" href=\"#\">신고하기</a></div>";
+			html += "<div class=\"reply_btn_reply_upload_comment_delete_w\">";
+			html += "<input type=\"button\" id=\"replyBtnCommentDelete" + p.COMMENT_NO +  "\" value=\"삭제\">";
+			html += "</div>";
+			html += "</div>";
+			html += "</div>";
+		}
+	}
+	console.log(html);
+		$("#commentFormWrap").html(html);
+		console.log($("#commentFormWrap").html());
+		
+		$(".btnReplyUpload").click(function() {
+			var cNo = $(this).parent().attr("cNo");
+			if($('.reply_comment_form1_w1').css('display') == 'none') {
+				$("#go" + cNo).parent().show();
+			} else {
+				$("#go" + cNo).parent().hide();
+			}
+			
+		})
+		
+		
+		if($("#userNo").val() != $("#authorNo").val()) {
+			$('.btnCommentDelete').hide();
+			$('.reply_btn_reply_upload_comment_delete_w').hide();
+		} else {
+			$('.btnCommentDelete').show();
+			$('.reply_btn_reply_upload_comment_delete_w').show();
+		}
+		
+		if($("#userNo").val() != list.USER_NO) {
+			$('.btnCommentDelete').hide();
+			$('.reply_btn_reply_upload_comment_delete_w').hide();
+		} else {
+			$('.btnCommentDelete').show();
+			$('.reply_btn_reply_upload_comment_delete_w').show();
+		}
+		
+		$(".replyBtnCommentUpload").on("click", function() {
+			console.log($('#userNo').val());
+			if($('#userNo').val() != "") {
+				var params= $("#go" + no).serialize();
+				
+				$.ajax({
+					url: "replyCommentWrite", // 접속 주소
+					type: "post", // 전송 방식: get, post
+					dataType: "json", // 받아올 데이터 형태
+					data: params, // 보낼 데이터(문자열 형태)
+					success: function(res) { // 성공 시 다음 함수 실행
+						if(res.msg == "success") {
+							reloadList();
+						} else if(res.msg == "failed") {
+							alert("답글 작성에 실패하였습니다.")
+						} else {
+							alert("답글 작성 중 문제가 발생하였습니다.")
+						}
+					},
+					error: function(request, status, error) { // 실패 시 다음 함수 실행
+						console.log(error);
+					}
+				})
+			} else {
+				alert("로그인 후 이용해주세요.")
+			}
+		});
+}
 
 function reloadLikeCnt() {
 	
@@ -334,20 +497,8 @@ function CopyUrl2()
 </script>
 </head>
 <body>
-	<form action="#" id="goForm" method="post">
-		<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
-		<input type="hidden" id="postNo" name="postNo" value="${data.POST_NO}" />
-		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"/>
-		<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>
-		<input type="hidden" id="userNo2" name="userNo2" value="${data.USER_NO}"/>
-		<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>
-		<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}"/>
-		<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}"/>
-		<input type="hidden" id="tabtab" name="tab" value="${param.tab}"/>
-		<input type="hidden" name="page" id="page" value="${param.page}" />
-		<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
-		<input type="hidden" id="listPage" name="listPage" value="${param.listPage}" />
-	</form>
+	
+	
 	
 	<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="50px" height="50px">
 	
@@ -465,114 +616,31 @@ function CopyUrl2()
 				<div class="comment">댓글</div>
 			</div>
 		<br />
+		
 		<div class="comment_wrap2">
+		<form action="#" id="goForm" method="post">
+			<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
+			<input type="hidden" id="postNo" name="postNo" value="${data.POST_NO}" />
+			<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"/>
+			<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>
+			<input type="hidden" id="userNo2" name="userNo2" value="${data.USER_NO}"/>
+			<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>
+			<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}"/>
+			<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}"/>
+			<input type="hidden" id="tabtab" name="tab" value="${param.tab}"/>
+			<input type="hidden" name="page" id="page" value="${param.page}" />
+			<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
+			<input type="hidden" id="listPage" name="listPage" value="${param.listPage}" />
 			<div class="comment_title">댓글 <span class="comment_cnt2"> 5</span></div>
-			<div class="comment_write_w"><input id="commentWrite" type="text" placeholder="댓글을 남겨보세요."></div>
+			<div class="comment_write_w"><input id="commentWrite" name="commentWrite" type="text" placeholder="댓글을 남겨보세요."></div>
 			<div class="btn_comment_upload_w"><input type="button" id="btnCommentUpload" value="댓글 작성"></div>
-			
+		</form>
 			<hr>
+			<div id="commentFormWrap"></div>
+	 		
+				
 			
-			<div class="comment_form1">
-				<div class="profile3">
-					<img class="profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
-				</div>
-				<div class="comment_name1"><a href="other_gallary">짱구</a></div>
-				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
-				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
-					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
-				</div>
-			</div>
-			
-			<div class="reply_comment_form1_w1">
-				<span class="reply"></span>
-				<div class="reply_comment_write_w"><input id="replyCommentWrite" type="text" placeholder="답글을 남겨보세요."></div>
-				<div class="reply_btn_comment_upload_w"><input type="button" id="replyBtnCommentUpload" value="답글 작성"></div>
-			</div>
-			
-			<div class="reply_comment_form1_w2">
-				<span class="reply"></span>
-				<div class="reply_comment_form1">
-					<div class="reply_profile3">
-						<img class="reply_profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
-					</div>
-					<div class="reply_comment_name1"><a href="other_gallary">구구</a></div>
-					<div class="reply_comment1">답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성</div>
-					<div class="reply_comment1_date">2021.05.11.12:18 <a class="reply_comment_declation" href="#">신고하기</a></div>
-					<div class="reply_btn_reply_upload_comment_delete_w">
-						<!-- <input type="button" id="replyBtnReplyUpload" value="답글"> -->
-						<input type="button" id="replyBtnCommentDelete" value="삭제">
-					</div>
-				</div>
-			</div>
-			
-			<div class="reply_comment_form1_w2">
-				<span class="reply"></span>
-				<div class="reply_comment_form1">
-					<!-- <div id="replyCommentWriteW"><input id="replyCommentWrite" type="text" placeholder="답글을 남겨보세요."></div>
-					<div id="replyBtnCommentUploadW"><input type="button" id="replyBtnCommentUpload" value="답글 작성"></div> -->
-					<div class="reply_profile3">
-						<img class="reply_profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
-					</div>
-					<div class="reply_comment_name1"><a href="other_gallary">구구</a></div>
-					<div class="reply_comment1">답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성답글작성</div>
-					<div class="reply_comment1_date">2021.05.11.12:18 <a class="reply_comment_declation" href="#">신고하기</a></div>
-					<div class="reply_btn_reply_upload_comment_delete_w">
-						<!-- <input type="button" id="replyBtnReplyUpload" value="답글"> -->
-						<input type="button" id="replyBtnCommentDelete" value="삭제">
-					</div>
-				</div>
-			</div>
-			
-			<div class="comment_form1">
-				<div class="profile3">
-					<img class="profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
-				</div>
-				<div class="comment_name1"><a href="other_gallary">짱구</a></div>
-				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
-				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
-					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
-				</div>
-			</div>
-			<div class="comment_form1">
-				<div class="profile3">
-					<img class="profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
-				</div>
-				<div class="comment_name1"><a href="other_gallary">짱구</a></div>
-				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
-				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
-					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
-				</div>
-			</div>
-			<div class="comment_form1">
-				<div class="profile3">
-					<img class="profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
-				</div>
-				<div class="comment_name1"><a href="other_gallary">짱구</a></div>
-				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
-				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
-					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
-				</div>
-			</div>
-			<div class="comment_form1">
-				<div class="profile3">
-					<img class="profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
-				</div>
-				<div class="comment_name1"><a href="other_gallary">짱구</a></div>
-				<div class="comment1">댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성</div>
-				<div class="comment1_date">2021.05.11.12:18 <a class="comment_declation" href="#">신고하기</a></div>
-				<div class="btn_reply_upload_comment_delete_w">
-					<input type="button" class="btnReplyUpload" id="btnReplyUpload" value="답글">
-					<input type="button" class="btnCommentDelete" id="btnCommentDelete" value="삭제">
-				</div>
-			</div>
+
 			<div class="pagination">
 					<a href="#">&laquo;</a>
 					<a href="#" class="active">1</a> 
@@ -605,5 +673,6 @@ function CopyUrl2()
 	</div>
 
 	<c:import url="footer.jsp"></c:import>
+	
 </body>
 </html>
