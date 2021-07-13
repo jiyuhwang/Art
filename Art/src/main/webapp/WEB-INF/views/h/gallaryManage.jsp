@@ -108,7 +108,7 @@ $(document).ready(function(){
 	
 	//상세보기
 	$("tbody").on("dblclick", "tr", function(){
-		$("#postNo").val($(this).attr("pno"));
+		$("#postNo").val($(this).attr("name"));
 		drawPopup();
 	});
 	
@@ -302,8 +302,6 @@ $(document).ready(function(){
 				html +="<td>" + d.LIKE_CNT + "</td>";
 				html +="</tr>";
 			}
-			
-			
 		}
 		
 		$("tbody").html(html);
