@@ -297,7 +297,7 @@ $(document).ready(function(){
 				html +="<td>" + d.TITLE + "</td>";
 				html +="<td>" + d.NAME + "</td>";
 				html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
-				html +="<td>" + d.R_DATE + "</td>";
+				html +="<td>" + d.REGISTER_DATE + "</td>";
 				html +="<td>" + d.VIEWS + "</td>";
 				html +="<td>" + d.LIKE_CNT + "</td>";
 				html +="</tr>";
