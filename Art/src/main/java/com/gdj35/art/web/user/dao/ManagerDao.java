@@ -83,6 +83,24 @@ public class ManagerDao implements IManagerDao {
 	}
 
 	@Override
+	public List<HashMap<String, String>> getDMList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("Manager.getDMList",params);
+	}
+
+	@Override
+	public int updateUser(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Manager.updateUser",params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getTList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("Manager.getTList",params);
+	}
+
+	@Override
 	public int updatePostDetail(HashMap<String, String> params) throws Throwable {
 		return sqlSession.update("Manager.updatePostDetail",params);
 	}

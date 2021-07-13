@@ -41,12 +41,11 @@
 				
 			});
 		});
+		//document ready done
 	</script>
 </head>
 <body>
     <div class="wrapper">
-
-    
     <div class="content">
        <c:import url="managerSide.jsp"></c:import>
         <div class ="main">
@@ -55,7 +54,7 @@
             
             <div class ="bigClass">
                 <div class ="bigClass-1">태그</div>
-                <div class ="bigClass-2">금지어</div>
+                <!-- <div class ="bigClass-2">금지어</div> -->
             </div>
             <div class="main1">
                 <div class="main1-1">
@@ -84,7 +83,7 @@
             </div>
             <div class="main3-table">
                 <table>
-                    <colgroup>
+                   <colgroup>
                             <col width="10%"/>
                             <col width="10%"/>
                             <col width="10%"/>
@@ -94,128 +93,14 @@
                             <col width="10%"/>
                             <col width="10%"/>
                             <col width="10%"/>
-                            <col width="10%"/>
+                            
                     </colgroup>
                     <tr>
+                    <%-- <c:forEach var>
                         <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
+                    </c:forEach> --%>
                     </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
-                    <tr>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td>
-                        <td>#태그</td><!--신고자 닉네임(아이디)  -->
-                        <td>#태그</td>
-                    </tr>
+                    
                    
                 </table>
             </div>

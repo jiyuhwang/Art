@@ -22,7 +22,7 @@ body{
          border-collapse: collapse;
          text-align: center;
          font-size: 10pt;
-         width: 1330px;
+         width: 1500px;
          
     }
     table td{
@@ -164,6 +164,9 @@ body{
         display: inline-block;
         vertical-align: top;
         margin-top: 20px;
+    }
+    .main3-table::-webkit-scroller{
+    	display: none;
     }
     
     .main3-table {

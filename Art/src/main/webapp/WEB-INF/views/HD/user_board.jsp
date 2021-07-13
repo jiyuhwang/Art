@@ -15,8 +15,9 @@
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<!-- <script type="text/javascript"
-		src="resources/script/HD/user_detailP.js"></script> -->
+<script type="text/javascript"
+		src="resources/script/jquery/jquery.form.js"></script>
+
 <script type="text/javascript">
 $(document).ready( function () {
 	 if("${param.searchType}" != "" || "${param.searchGbn}" != ""){
@@ -51,7 +52,7 @@ $(document).ready( function () {
 		})
 	});//end email_btn
 	
-	//---------------------------------------------------전체선택 기능
+	//---------------------------------------------------검색 기능
 	
 	
 	$("#searchBtn").on("click", function () {
@@ -59,7 +60,6 @@ $(document).ready( function () {
 		$("#userForm").submit();
 	});
 	
-	$(".bigClass")
 	
 	
 //-----------------------------------------side 클릭시 변경 script
@@ -108,6 +108,8 @@ $(document).ready( function () {
 		
 		$("#userNo").val($(this).attr("name"));
 		drawPopup();
+	
+	
 
 	});//end dblclick
 		
@@ -115,8 +117,25 @@ $(document).ready( function () {
 		$(".popupWrap").empty(); // 함수 empty() 해당 객체 안에 있는 것들을 비운다.
 	});
 	
+	//---------------------------------- 팝업 페이지 안에 있는 기능 수행하기
+	/* $(document).on("click", ".Pmain #searchBtnDP", function () {
+		console.log(" 상세페이지 검색 버튼 작동한다.");
+		$(".Pmain .boxForBoard").empty();
+		drawPopup();
+		
+	}); */
+	
+	//---------------------------------------업데이트
+	$(".main3-table tbody").on("click", ".update_btn" ,function () {
+		$("#userNo").val($(this).parent().parent().attr("name"));
+		drawUpdatePopup();
+	});
+	
+	
+	
+	
 	//메모 작품 버튼들
-	 $(".Pmain #insideMiddle2").on("click", function () {
+	 $(document).on("click",".Pmain #insideMiddle2", function () {
 		if($(".Pmain #insideMiddle2").attr("class") != "insideMiddle1"){
 			$(".Pmain #insideMiddle2").attr("class","insideMiddle1")
 			$(".Pmain #insideMiddle1").attr("class","insideMiddle2")
@@ -125,7 +144,7 @@ $(document).ready( function () {
 			$(".Pmain #insideMiddle1").attr("class","insideMiddle2")
 		}
 	});
-	$(".Pmain #insideMiddle1").on("click", function () {
+	$(document).on("click",".Pmain #insideMiddle1", function () {
 		if($(".Pmain #insideMiddle1").attr("class") != "insideMiddle1"){
 			$(".Pmain #insideMiddle1").attr("class","insideMiddle1")
 			$(".Pmain #insideMiddle2").attr("class","insideMiddle2")
@@ -158,12 +177,12 @@ $(document).ready( function () {
 	$("#selectDelBtn").on("click", function () {
 		var list = new Array();
 		$(".main3-table [name=userNo]:checked").each(function(index,item) {
-			list.push($(item).val())
-		})
+			list.push($(item).val());
+		});
 		
 		$("#userNo").val(list);
 		console.log($("#userNo").val());
-		delOneRow(list);
+		delOneRow(list); 
 		
 	});
 	
@@ -171,13 +190,19 @@ $(document).ready( function () {
 			alert("준비중입니다.");
 	});
 	
-	$(".update_btn").on("click", function () {
+	/* $(".update_btn").on("click", function () {
 		alert("준비중입니다.");
-	});
+	}); */
+	
+	
+	
 });
 //document end
 //----------------------------------------- 상세페이지 팝업 그려주는 함수 
 function drawPopup() {
+	$("#searchGbnDP").val($("#PsearchGbnDP").val());
+	$("#searchTxtDP").val($("#PsearchTxtDP").val());
+	
 	var params = $("#detailForm").serialize();
 	
 	$.ajax({
@@ -188,8 +213,81 @@ function drawPopup() {
 		success : function (res) {
 			console.log(res.user);
 			console.log(res.list);
+			console.log(res.listM);
+			
 			drawPopUpDP(res.user);
+			
+			
 			listDP(res.list);
+			
+		/* 	$(".Pmain #searchBtnDP").on("click", function () {
+				console.log(" 상세페이지 검색 버튼 작동한다.");
+				$(".Pmain .boxForBoard").empty();
+				listDP(res.list)
+			});
+			 */
+			
+			$("#insideMiddle1").on("click", function () {
+				if($("#insideMiddle1").attr("class") != 'insideMiddle1'){
+				console.log("이거 찍히는데 뭐냐")
+					$(".Pmain table").empty();
+					listDP(res.list)
+				}
+			});
+			 $("#insideMiddle2").on("click", function () {
+				if($("#insideMiddle2").attr("class") != 'insideMiddle1'){
+					$(".Pmain table").empty();
+					listDM(res.listM);
+				}
+			}); 
+		},
+		error: function (request, status, error) {
+			console.log(error);
+		}
+});
+}
+//--------------------------------------------- 상세페이지 수정
+function drawUpdatePopup() {
+	
+	var params = $("#detailForm").serialize();
+	
+	$.ajax({
+		/* url:"user_update", */
+		url:"user_datailP",
+		type:"post",
+		dataType :"json",
+		data:params,
+		success : function (res) {
+			
+			drawUpdateDP(res.user);
+			
+			
+			
+		},
+		error: function (request, status, error) {
+			console.log(error);
+		}
+});
+	
+//------------------------------------수정 버튼 클릭하기
+}
+function userUpdate() {
+	
+	var params = $("#updateForm").serialize();
+	console.log("this is params >>>>" + params);
+	$.ajax({
+		url:"user_update",
+		type:"post",
+		dataType :"json",
+		data:params,
+		success : function (res) {
+			
+			if(res.msg == "success"){
+				alert("업데이트 되었습니다.");
+			}else{
+				alert("작성 중 문제가 발생하였습니다.");
+			}
+			
 		},
 		error: function (request, status, error) {
 			console.log(error);
@@ -223,8 +321,9 @@ function drawOutList() {
 		dataType :"json",
 		data:params,
 		success : function (res) {
+			var what = "pagingWrapOut"
 			outList(res.list);
-			pagingDraw(res.pb);
+			pagingDraw(res.pb, what);
 		},
 		error: function (request, status, error) {
 			console.log(error);
@@ -234,7 +333,6 @@ function drawOutList() {
 
  function drawPopUpDP(user) {
 	var html="";
-
 				html +=	"  <div class= \"background\" id=\"PbackgroundDP\"></div>";
 				html +=	"  <div class =\"Pmain\" id=\"PmainDP\">";
 				html +=	"  <div class =\"topBar\">";
@@ -242,7 +340,13 @@ function drawOutList() {
 				html +=	"  </div>";
 				html +=	"  <div class = \"profile\">";
 				html +=	"  	  <div class =\"pBox\">";
-				html +=	"		  <img class =\"img\" alt=\"프로필사진\" src=\"resources/images/HD/profile.png\">";
+				
+				if(user.PROFILE_IMG_PATH != null && user.PROFILE_IMG_PATH != ""){
+					html +=	"		  <img class =\"img\" alt=\"프로필사진\" src=\"resources/upload/"+ user.PROFILE_IMG_PATH +"\">";
+				}else{
+					html +=	"			  <img class =\"img\" alt=\"프로필사진\" src=\"resources/images/HD/profile.png\">";
+				}
+				
 				html +=	"		  <div class =\"cButtonB\"></div>";
 				html +=	"		  <div class =\"cButtonc\">";
 				html +=	"			  <img class =\"cButtonI\" alt=\"취소버튼\" src=\"resources/images/HD/cancel.png\">";
@@ -300,20 +404,260 @@ function drawOutList() {
 				html +=	"	  <div class =\"topOfBox\">";
 				html +=	"		  <div class =\"topBar\"></div>";
 				html +=	"		  <div class =\"searchBox\">";
-				html +=	"			  <select id=\"searchGbn\">";
+				html +=	"			  <select id=\"PsearchGbnDP\">";
 				html +=	"				  <option value=\"0\">선택없음</option>";
 				html +=	"				  <option value=\"1\">제목</option>";
 				html +=	"				  <option value=\"2\">태그</option>";
 				html +=	"			  </select>";
-				html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" class=\"searchTxt\">";
-				html +=	"			  <input type=\"button\" value=\"검색\" class=\"btnDP\" id=\"searchBtn\">";
+				html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" id=\"PsearchTxtDP\" class=\"searchTxt\">";
+				html +=	"			  <input type=\"button\" value=\"검색\" class=\"btnDP\" id=\"searchBtnDP\">";
 				html +=	"			  <div class = \"blank2\"></div>";
-				html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtn\">";
-				html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtn\">";
+				html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtnDP\">";
+				html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtnDP\">";
 				html +=	"		  </div>";
 				html +=	"	  </div>";
 				html +=	"	  <div class =\"boxForBoard\">";
 				html +=	"	  <table>";
+						//list 공간
+				                                                                                                                                                 
+				html +=	"		</table>";
+				html +=	"		</div>";
+				html +=	"	</div>";
+
+				html +=	"  </div>";
+	$(".popupWrap").prepend(html);
+	
+	//위의 html을 그린 이후의 위의 html기반(id or class)의기능들은 여기서 부터 시작 됨으로 이 안에 적용시켜야한다. 안에 들어가 있어야한다.
+	
+	
+	
+	
+ 	  
+}  
+ 
+ function drawUpdateDP(user) {
+	var html="";
+				html += "<form action=\"fileUploadAjax\" id=\"fileForm\" method=\"post\" enctype=\"multipart/form-data\"> ";
+				html += 	"<input type=\"file\" name=\"att\" id=\"att\">";
+				html += "</form>";
+				html +=	"  <div class= \"background\" id=\"PbackgroundDP\"></div>";
+				html +=	"  <div class =\"Pmain\" id=\"PmainDP\">";
+				html +=	"  <div class =\"topBar\">";
+				html +=	"	<div class =\"blank\"></div>";
+				html +=	"  </div>";
+				html += "<form action=\"user_board\" id=\"updateForm\" method=\"psot\">";
+				html += " <input type=\"hidden\" name=\"fileName\" id=\"fileName\" value=\"\">";
+				html += "<input type=\"hidden\" name=\"userNo\" value=\""+ user.USER_NO +"\">";
+				html +=	"  <div class = \"profile\">";
+				html +=	"  	  <div class =\"pBox\">";
+				if(user.PROFILE_IMG_PATH != null && user.PROFILE_IMG_PATH != ""){
+					html +=	"		  <img class =\"img\" alt=\"프로필사진\" src=\"resources/upload/"+ user.PROFILE_IMG_PATH +"\">";
+				}else{
+					html +=	"			  <img class =\"img\" alt=\"프로필사진\" src=\"resources/images/HD/profile.png\">";
+				}
+				
+				html +=	"		  <div class =\"cButtonB\"></div>";
+				html +=	"		  <div class =\"cButtonc\">";
+				html +=	"			  <img class =\"cButtonI\" alt=\"취소버튼\" src=\"resources/images/HD/cancel.png\">";
+				html +=	"		  </div>";
+				html +=	"	  </div>";
+				html +=	"	  <input class =\"pName\"id=\"userNickName\" name=\"userNick\" type =\"text\" value=\"" +user.USER_NICKNAME + "\">";
+				html += "<input type=\"button\" value=\"수정하기\" class=\"decideBtn\" id=\"decideBtn\" style=\"width: 100px; height : 40px; margin-top:10px;\">";
+				html +=	"  </div>";
+				html +=	"  <div class =\"writeBox\" >";
+				html +=	"	  <div class = \"blank1\">회원상세정보</div>";
+				html +=	"		  <div class = \"smallBox\">";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">이름</div>";
+				html +=	"				  <div class=\"content_box\">" + user.NAME + "</div>";
+				html +=	"			  </div>";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">회원번호</div>";
+				html +=	"				  <div class=\"content_box\" name=\"userNo\" value=\""+ user.USER_NO +"\">" + user.USER_NO + "</div>";
+				html +=	"			  </div>";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">전화번호</div>";
+				html +=	"				  <div class=\"content_box\" ><input type =\"text\" id=\"phone_no\" value=\""+ user.PHONE_NO+ "\" name=\"phon_no\"></div>";
+				html +=	"			  </div>";
+			
+				html +=	"		  </div>";
+				html +=	"		  <div class = \"smallBox\">";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">성별</div>";
+				html +=	"				  <div class=\"content_box\">" + user.SEX + "</div>";
+				html +=	"			  </div>";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">생년월일</div>";
+				html +=	"				  <div class=\"content_box\">" +user.BIRTHDAY + "</div>";
+				html +=	"			  </div>";
+				html +=	"			  <div class =\"MsmallBox\">";
+				html +=	"				  <div class=\"informing\">이메일</div>";
+				html +=	"				  <div class=\"content_box\"><input type =\"text\" id=\"email\"  value=\""+ user.MAIL +"\" name=\"email\"></div>";
+				html +=	"			  </div>";
+				html +=	"		  </div>";
+				
+				html +=	"		  <div class=\"introduce_box\">";
+				html +=	"			  <div class=\"sogea\"><b>소개</b></div>";
+				html +=	"			  <div class=\"sogea_box\">";
+				html +=	"			  <textarea id=\"sogeaTxt\" name=\"sogeaTxt\" style=\"width:100%;height:100%;overflow:hidden;\" >" +user.INTRODUCE + "</textarea>";
+				html +=	"			  </div>";
+				html +=	"		  </div>";
+				html +=	"     </div>";
+				html += "		</form>";	
+				html +=	"     <div class =\"middleSection\">";
+				html +=	"	     <div class = \"brick\"></div>";
+				html +=	"	     <input type=\"button\" class =\"insideMiddle1\" id=\"insideMiddle1\" value=\"작품\">";
+				html +=	"	     <input type=\"button\" class =\"insideMiddle2\" id=\"insideMiddle2\" value=\"메모\">";
+				html +=	"	     <div class = \"underLine\"></div>";
+				html +=	"     </div>";
+				html +=	"     <div class =\"boxForB\">";
+				html +=	"	  <div class =\"topOfBox\">";
+				html +=	"		  <div class =\"topBar\"></div>";
+				html +=	"		  <div class =\"searchBox\">";
+				html +=	"			  <select id=\"PsearchGbnDP\">";
+				html +=	"				  <option value=\"0\">선택없음</option>";
+				html +=	"				  <option value=\"1\">제목</option>";
+				html +=	"				  <option value=\"2\">태그</option>";
+				html +=	"			  </select>";
+				html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" id=\"PsearchTxtDP\" class=\"searchTxt\">";
+				html +=	"			  <input type=\"button\" value=\"검색\" class=\"btnDP\" id=\"searchBtnDP\">";
+				html +=	"			  <div class = \"blank2\"></div>";
+				html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtnDP\">";
+				html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtnDP\">";
+				html +=	"		  </div>";
+				html +=	"	  </div>";
+				html +=	"	  <div class =\"boxForBoard\">";
+				html +=	"	  <table>";
+						//list 공간
+				                                                                                                                                                 
+				html +=	"		</table>";
+				html +=	"		</div>";
+				html +=	"	</div>";
+
+				html +=	"  </div>";
+	$(".popupWrap").prepend(html);
+	
+	$(".Pmain .cButtonc").css("cursor", "pointer");
+	//위의 html을 그린 이후의 위의 html기반(id or class)의기능들은 여기서 부터 시작 됨으로 이 안에 적용시켜야한다. 안에 들어가 있어야한다.
+	$(".Pmain img").on("click", function () {
+		console.log("이거 파일 업로드 취소버튼");
+		$("#att").click();
+		console.log($("#fileName").val());
+	});
+	
+	$(".Pmain #att").on("change", function () {
+		console.log("이거 파일 업로드 취소버튼 이건 체인지");
+		$("#fileName").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+		
+	});
+	
+	
+ 	
+	 $(".Pmain #decideBtn").on("click",function () {
+		 console.log("자 이제 업데이트 시작!!");
+		 
+		var fileForm = $("#fileForm");
+		console.log(fileForm);
+		
+		fileForm.ajaxForm({
+			beforeSubmit : function () {
+				console.log("서밋 전이야!!");
+				if($.trim($("#phone_no").val()) == ""){
+					alert("번호을 입력해주세요.")
+					return false;
+				} else if($.trim($("#email").val()) == ""){
+					alert("메일을 입력해주세요.");
+					return false;
+				} else if($.trim($("#sogeaTxt").val()) == ""){
+					alert("소개란을 입력해 주세요");
+					return false;
+				} else if($.trim($("#userNickName").val()) == ""){
+					alert("닉네임을 입력해 주세요");
+					return false;
+				}
+		},
+		success : function (res) {
+			console.log(res);
+			if(res.result=="SUCCESS"){
+				// 올라간 파일명 저장 폼에 저장
+				if(res.fileName.length >0){
+					$("#fileName").val(res.fileName[0]);
+				console.log($("#fileName").val());
+				}
+				//글저장
+				var params = $("#updateForm").serialize();
+				
+				$.ajax({
+					url : "user_update",
+					type : "post",
+					dataType : "json",
+					data : params,
+					success: function (res) {
+						if(res.msg == "success"){
+							location.href = "user_board"						
+						} else if(res.msg == "failed"){
+							alert("작성에 실패하였습니다.")
+						} else{
+							alert("작성중 문제가 발생하였습니다.")
+						}
+					},
+					error : function (request, status, error) {
+						console.log(error);
+					}
+				});
+			}else{
+				alert("업로드 실패");
+			}
+		},
+		error : function () {
+			alert("파일업로드 중 문제 발생")
+		}
+		});
+		fileForm.submit();
+	}); 
+  
+ 
+}  
+ function listDM(listM) {
+	console.log("this is function listDM>>>" + listM + ">>done");
+	var html="";
+	
+					html += "	<colgroup>";
+					html += "		<col width=\"5%\"/>";
+					html += "		<col width=\"10%\"/>";
+					html += "		<col width=\"15%\"/>";
+					html += "		<col width=\"15%\"/>";
+					html += "		<col width=\"15%\"/>";
+					html += "	</colgroup>";
+					html += "	<tr>";
+					html += "	<th>";
+					html += "	<input class = \"check\" type=\"checkbox\" id=\"ex_chk\">   ";
+					html += "	</th>";
+					html += "	<th> no</th>";
+					html += "	<th> 중요도</th>";
+					html += "	<th> 등록일자</th>";
+					html += "	<th> 발생일자</th>";
+					html += "	<th> 메모내용</th>";
+					html += "	</tr>";
+					for( var d of listM){
+						html += "	<tr>";
+						html += "	<td>";
+						html += "	<input class = \"check\" type=\"checkbox\" id=\"ex_chk\">";
+						html += "	</td>";
+						html += "	<td>"+ d.MEMO_NO +"</td>";
+						html += "	<td>"+ d.MARKING +"</td>";
+						html += "	<td>"+ d.ACCUR_DATE +"</td>";
+						html += "	<td>"+ d.REGI_DATE +"</td>";
+						html += "	<td>"+ d.CONTENTS +"</td>";
+						html += "	</tr>";
+					}
+	$(".Pmain table").html(html);    
+	
+	
+};
+ 
+ function listDP(list) {
+	var html="";
 				html += "				<colgroup>                  ";
 				html += "					<col width=\"5%\"/>     ";
 				html += "					<col width=\"5%\"/>     ";
@@ -339,21 +683,8 @@ function drawOutList() {
 				html +=	"		  </tr>";
 				html +=	"	  </thead>";
 				html +=	"	  <tbody>";
-				                                                                                                                                                 
 				
-				html +=	"	</tbody>";
-				html +=	"		</table>";
-				html +=	"		</div>";
-				html +=	"	</div>";
-
-				html +=	"  </div>";
-	$(".popupWrap").prepend(html);
-}  
- 
- function listDP(list) {
-	var html="";
 		for(var d of list){
-			
 				html+= "	<tr>";
 				html+= "		<td>";
 				html+= "		<input class = \"check\" type=\"checkbox\" id=\"ex_chk\">"; 
@@ -366,8 +697,9 @@ function drawOutList() {
 				html+= "		<td>  "+ d.REPORT_CNT +"</td>";
 				html+= "		<td>  "+ d.EXPLAIN +"</td>";
 				html+= "	</tr>";
-		}                                                               
-	$(".Pmain tbody").html(html);
+		}                     
+				html +=	"	</tbody>";
+	$(".Pmain table").html(html);
 	
 }
  function outList(list) {
@@ -397,9 +729,10 @@ function drawOutList() {
 	$(".main3-table tbody").html(html);
 }
  
- function pagingDraw(pb) {
+ function pagingDraw(pb,what) {
 	var html ="";
 		console.log(pb);
+		console.log(what);
 			html += "<span name=\"1\">처음</span>";
 			/* <!-- 이전 페이지  --> */
 			if($("#page") == "1"){
@@ -424,7 +757,7 @@ function drawOutList() {
 			
 		    html +=	"<span name="+ pb.maxPcount+">마지막</span>";
 		
-		 $("#pagingWrap").html(html);
+		 $("#" + what).html(html);
 }
  
 
@@ -433,6 +766,8 @@ function drawOutList() {
 <body>
 <form action="user_board" id="detailForm" method="psot">
 	<input type="hidden" id="userNo" name="userNo">
+	<input type="hidden" id="searchGbnDP" name="searchGbnDP">
+	<input type="hidden" id="searchTxtDP" name="searchTxtDP">
 </form>
 
 <div class="header">
@@ -487,7 +822,6 @@ function drawOutList() {
 		</div>
 		<div class="main3">
 			<input type="button" value="선택 삭제/복구" id="selectDelBtn"/>
-			<input type="button" value="등록" id="addBtn"/>
 			<input type="button" value="이메일" id="emailBtn"/>
 		</div>
 		<div class="main3-table">
@@ -548,7 +882,7 @@ function drawOutList() {
 			</table>
 		</div>
 		<div class ="status"> 전체 : ${cnt}명</div>
-<div id="pagingWrap">
+<div id="pagingWrap" class="pagingWrap">
 <span name="1">처음</span>
 <!-- 이전 페이지  -->
 <c:choose>
@@ -583,11 +917,12 @@ function drawOutList() {
 </c:choose>
 <span name="${pb.maxPcount}">마지막</span>
 </div>
+<div id="pagingWrapOut" class="pagingWrap"></div>
 	</div>
 </div>
-<div>
+<%-- <div>
 	<c:import url="login.jsp"></c:import>
-</div>
+</div> --%>
 
 <div class="popupWrap">
 	<%-- <c:import url="user_detail(post).jsp"></c:import> --%>

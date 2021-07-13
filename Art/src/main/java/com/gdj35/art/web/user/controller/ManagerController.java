@@ -119,15 +119,22 @@ public class ManagerController {
 		HashMap<String,String> user=iManagerService.getUser(params);
 		//detail post의 작품 리스트를 가져오는 메서드
 		List<HashMap<String,String>> list = iManagerService.getDPList(params);
+		//메모 목록 취득
+		List<HashMap<String,String>> listM = iManagerService.getDMList(params); 
+
+		System.out.println("this is parmas >>>>"+params);
 		
 		/*
 		 * PagingBean pb = iPagingService.getPagingBean(page, maxCount, viewCnt,
 		 * pageCnt)
 		 */
 		 
-		System.out.println(user);
-		System.out.println(list);
+		System.out.println("USER >>>"+user);
+		System.out.println("LIST >>>"+list);
+		System.out.println("LISTM >>>"+listM);
 		/* modelMap.put("pb",pb); */
+		
+		modelMap.put("listM", listM);
 		modelMap.put("list", list);
 		modelMap.put("user", user);
 		
@@ -150,6 +157,7 @@ public class ManagerController {
 		
 		for(int i =0 ; i <usersNo.length; i++) {
 			params.put("userNo",usersNo[i]);
+			System.out.println(">>>>>>이거는 포문 안에 파람 값" + params);
 			cnt += iManagerService.deleteOneRow(params);
 			params.remove("userNo");
 		}
@@ -208,23 +216,60 @@ public class ManagerController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "/user_update",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String user_update(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println("고객 업데이트를 위한 파람 값 >>> "+params);
+		
+		try {
+			 int cnt = iManagerService.updateUser(params); 
+			
+			 System.out.println("고객을 업데이트했는지 안했는지 >> " + cnt); 
+			
+			 if(cnt >0 ) { 
+				 modelMap.put("msg","success"); 
+			 }
+			 
+		}catch(Throwable e){
+			e.printStackTrace();
+			modelMap.put("msg","error");
+		}
+		
+
+//		modelMap.put("list", list);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	
 	@RequestMapping(value="/gong_board")
 	public ModelAndView gong_board(ModelAndView mav) throws Throwable {
-		/*
-		 * List<HashMap<String,String>> list = iManagerService.getGList();
-		 * 
-		 * mav.addObject("list", list);
-		 */
+		
+		  List<HashMap<String,String>> list = iManagerService.getGList();
+		
+		 mav.addObject("list", list);
+		
 		mav.addObject("now", "gong");
 		mav.setViewName("HD/gong_board");
 		return mav;
 	}
 	
 	@RequestMapping(value="/tag_board")
-	public ModelAndView tag_board(ModelAndView mav) {
+	public ModelAndView tag_board(ModelAndView mav, HashMap<String, String> params) throws Throwable {
 		
+		List<HashMap<String, String>> tList = iManagerService.getTList(params);
+		
+		
+		
+		mav.addObject("tList", tList);
 		mav.addObject("now", "tag");
+
 		mav.setViewName("HD/tag_board");
 		return mav;
 	}

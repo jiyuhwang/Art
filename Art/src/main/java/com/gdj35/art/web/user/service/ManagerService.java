@@ -85,6 +85,24 @@ public class ManagerService implements IManagerService {
 	}
 
 	@Override
+	public List<HashMap<String, String>> getDMList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getDMList(params);
+	}
+
+	@Override
+	public int updateUser(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.updateUser(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getTList(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return  iManagerDao.getTList(params);
+	}
+
+	@Override
 	public int updatePostDetail(HashMap<String, String> params) throws Throwable {
 		return iManagerDao.updatePostDetail(params);
 	}

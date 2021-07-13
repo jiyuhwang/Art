@@ -3,6 +3,7 @@ package com.gdj35.art.common.controller;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,8 +33,8 @@ public class FileUploadController {
 	public String fileUploadAjax(HttpServletRequest request, ModelAndView modelAndView) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		HashMap<String, Object> modelMap = new HashMap<String, Object>();
-
-		/* File Upload Logic */
+		
+		
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 
 		String uploadExts = CommonProperties.FILE_EXT;
@@ -69,13 +70,13 @@ public class FileUploadController {
 					}
 				}
 			}
-
+			
 			modelMap.put("result", CommonProperties.RESULT_SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.put("result", CommonProperties.RESULT_ERROR);
 		}
-
+		System.out.println("this is filename" + fileNames);
 		modelMap.put("fileName", fileNames);
 
 		return mapper.writeValueAsString(modelMap);
