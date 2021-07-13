@@ -165,6 +165,35 @@ public class MyGallaryController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	// 나의 영상갤러리 Ajax
+		@RequestMapping(value = "/myvideogallarys",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String myvideoGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+			
+			int cnt = iMyGallaryService.getMyVideoCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iMyGallaryService.myVideoList(params);
+			
+			modelMap.put("list", list);		
+			modelMap.put("pb", pb);
+			
+			return mapper.writeValueAsString(modelMap);
+		}
+	
 	
 	
 		// 다른 사람 사진갤러리 Ajax
@@ -197,7 +226,7 @@ public class MyGallaryController {
 		}
 
 		
-		// 그림갤러리 Ajax
+		// 다른 사람 그림갤러리 Ajax
 		@RequestMapping(value = "/otherdrawgallarys",
 				method = RequestMethod.POST,
 				produces = "text/json;charset=UTF-8")
@@ -226,7 +255,34 @@ public class MyGallaryController {
 			return mapper.writeValueAsString(modelMap);
 		}
 	
-	
+		// 다른 사람 영상갤러리 Ajax
+		@RequestMapping(value = "/othervideogallarys",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String otherVideoGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+			
+			int cnt = iMyGallaryService.getOtherVideoCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iMyGallaryService.otherVideoList(params);
+			
+			modelMap.put("list", list);		
+			modelMap.put("pb", pb);
+			
+			return mapper.writeValueAsString(modelMap);
+		}
 	
 	
 	
@@ -306,6 +362,35 @@ public class MyGallaryController {
 		
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	// 영상갤러리 Ajax
+	@RequestMapping(value = "/videogallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String videoGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+			
+			int cnt = iMyGallaryService.getVideoCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 16, 5);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iMyGallaryService.videoList(params);
+			
+			modelMap.put("list", list);		
+			modelMap.put("pb", pb);
+			
+			return mapper.writeValueAsString(modelMap);
+		}
 
 	
 	// 메인 페이지

@@ -326,7 +326,6 @@ function commentList(list) {
 	
 	var html = "";
 	var html2 = "";
-	var no = 0;
 	for(var p of list) {
 	if(p.TOP_COMMENT_NO == null) {
 			html += "<div class=\"comment_form1\">";
@@ -346,7 +345,7 @@ function commentList(list) {
 			html += "</div>";
 			html += "</div>";
 			html += "<div class=\"reply_comment_form1_w1\">";
-			html += "<form action=\"#\" id=\"go" + no + "\" method=\"post\">";
+			html += "<form action=\"#\" cNo=\"" + p.COMMENT_NO + "\" id=\"go" + p.COMMENT_NO + "\" method=\"post\">";
 			html += "<input type=\"hidden\" name=\"topCommentNo\" value=\"" + p.COMMENT_NO + "\">";
 			html += "<input type=\"hidden\" name=\"userNo\" value=\"${sUserNo}\">";
 			html += "<input type=\"hidden\" name=\"postNo\" value=\"" + p.POST_NO + "\">";
@@ -355,7 +354,6 @@ function commentList(list) {
 			html += "<div class=\"reply_btn_comment_upload_w\"><input type=\"button\" class=\"replyBtnCommentUpload\" id=\"replyBtnCommentUpload\" value=\"답글 작성\"></div>";
 			html += "</form>";
 			html += "</div>";
-			no ++;
 	} else {
 			html += "<div class=\"reply_comment_form1_w2\">";
 			html += "<span class=\"reply\"></span>";
@@ -380,6 +378,34 @@ function commentList(list) {
 	console.log(html);
 		$("#commentFormWrap").html(html);
 		console.log($("#commentFormWrap").html());
+		
+		$(".replyBtnCommentUpload").on("click", function() {
+			if($('#userNo').val() != "") {
+				var cNo = $(this).parent().parent().attr("cNo");
+				var params= $("#go" + cNo).serialize();
+
+				$.ajax({
+					url: "replyCommentWrite", // 접속 주소
+					type: "post", // 전송 방식: get, post
+					dataType: "json", // 받아올 데이터 형태
+					data: params, // 보낼 데이터(문자열 형태)
+					success: function(res) { // 성공 시 다음 함수 실행
+						if(res.msg == "success") {
+							reloadList();
+						} else if(res.msg == "failed") {
+							alert("답글 작성에 실패하였습니다.")
+						} else {
+							alert("답글 작성 중 문제가 발생하였습니다.")
+						}
+					},
+					error: function(request, status, error) { // 실패 시 다음 함수 실행
+						console.log(error);
+					}
+				})
+			} else {
+				alert("로그인 후 이용해주세요.")
+			}
+		});
 		
 		$(".btnReplyUpload").click(function() {
 			var cNo = $(this).parent().attr("cNo");
@@ -408,33 +434,7 @@ function commentList(list) {
 			$('.reply_btn_reply_upload_comment_delete_w').show();
 		}
 		
-		$(".replyBtnCommentUpload").on("click", function() {
-			console.log($('#userNo').val());
-			if($('#userNo').val() != "") {
-				var params= $("#go" + no).serialize();
-				
-				$.ajax({
-					url: "replyCommentWrite", // 접속 주소
-					type: "post", // 전송 방식: get, post
-					dataType: "json", // 받아올 데이터 형태
-					data: params, // 보낼 데이터(문자열 형태)
-					success: function(res) { // 성공 시 다음 함수 실행
-						if(res.msg == "success") {
-							reloadList();
-						} else if(res.msg == "failed") {
-							alert("답글 작성에 실패하였습니다.")
-						} else {
-							alert("답글 작성 중 문제가 발생하였습니다.")
-						}
-					},
-					error: function(request, status, error) { // 실패 시 다음 함수 실행
-						console.log(error);
-					}
-				})
-			} else {
-				alert("로그인 후 이용해주세요.")
-			}
-		});
+		
 }
 
 function reloadLikeCnt() {
@@ -595,9 +595,21 @@ function CopyUrl2()
 		<input type="button" id="btnLogout" value="로그아웃">
 	</div>
 	<div class="wrap">
-		<div class="contents_wrap">
-			<img class="contents_img" src="resources/upload/${data.POST_FILE}">
-		</div>
+	
+		<c:choose>		
+			<c:when test="${data.CATEGORY_NO eq '3'}">
+				<div class="contents_wrap">
+					${data.VIDEO_LINK}
+				</div>
+			</c:when>
+
+			<c:otherwise>
+				<div class="contents_wrap">
+					<img class="contents_img" src="resources/upload/${data.POST_FILE}">
+				</div>
+			</c:otherwise>	
+		</c:choose>
+
 		<div class="category">${data.CATEGORY_NAME}</div>
 		<div class="title">${data.TITLE}</div>
 		<div class="contents_date">${data.REGISTER_DATE}</div>

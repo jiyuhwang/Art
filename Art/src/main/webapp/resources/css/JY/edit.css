@@ -40,6 +40,18 @@ a {
 	display: none;
 }
 
+#video {
+	width: 800px;
+	height: 100%;
+	font-size: 30px;
+	cursor: pointer;
+	outline: none;
+	border: 0;
+	border-bottom: 2px solid #ccc;
+	padding: 10px 0px;
+}
+
+
 #uploadFile {
 	z-index: 700;
 }

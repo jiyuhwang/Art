@@ -160,5 +160,35 @@ public class MyGallaryService implements IMyGallaryService{
 		return iMyGallaryDao.addReplyComment(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> videoList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.videoList(params);
+	}
+
+	@Override
+	public int getVideoCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getVideoCnt(params);
+	}
+
+	@Override
+	public int getMyVideoCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getMyVideoCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> myVideoList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.myVideoList(params);
+	}
+
+	@Override
+	public int getOtherVideoCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getOtherVideoCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> otherVideoList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.otherVideoList(params);
+	}
+
 
 }

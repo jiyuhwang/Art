@@ -63,6 +63,18 @@ public interface IMyGallaryDao {
 
 	public int addReplyComment(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> videoList(HashMap<String, String> params) throws Throwable;
+
+	public int getVideoCnt(HashMap<String, String> params) throws Throwable;
+
+	public int getMyVideoCnt(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> myVideoList(HashMap<String, String> params) throws Throwable;
+
+	public int getOtherVideoCnt(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> otherVideoList(HashMap<String, String> params) throws Throwable;
+
 
 
 }

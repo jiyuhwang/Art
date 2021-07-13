@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+iframe {
+	max-width: 100%;
+	min-width: 80%;
+	min-height: 500px;
+	margin-left: 150px;
+}
+
 body {
 	font-size: 0pt;
 	margin: 0;
@@ -483,7 +490,9 @@ body {
 .contents_wrap {
 	width: 100%;
 	height: 50%;
+	margin-top: 100px;
 }
+
 
 .contents_img {
 	display: block;

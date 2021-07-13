@@ -244,5 +244,39 @@ public class MyGallaryDao implements IMyGallaryDao{
 		return sqlSession.insert("Post.addReplyComment", params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> videoList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.videoList", params);
+	}
+
+	@Override
+	public int getVideoCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getVideoCnt", params);
+	}
+
+	@Override
+	public int getMyVideoCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getMyVideoCnt", params);
+
+	}
+
+	@Override
+	public List<HashMap<String, String>> myVideoList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.myVideoList", params);
+
+	}
+
+	@Override
+	public int getOtherVideoCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getOtherVideoCnt", params);
+
+	}
+
+	@Override
+	public List<HashMap<String, String>> otherVideoList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.otherVideoList", params);
+
+	}
+
 
 }
