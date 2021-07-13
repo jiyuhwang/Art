@@ -12,6 +12,38 @@ tbody tr:hover {
 	background-color: #f2f2f2;
 }
 
+
+@charset "UTF-8";
+
+.background2 {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: #000000;
+	opacity:0.3;
+	z-index: 100;
+}
+
+
+.wrap2 {
+	position: absolute;
+	width: 1330PX;
+	height: 800px;
+	top: 50%;
+	left: 50%;
+	margin-top: -410px;
+	margin-left: -660px;
+	background-color: #ffffff;
+	padding: 16px;
+	z-index: 1000;
+	overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#BtnSave {
+	right: 74px;
+}
+
 </style>
 
 <link rel="stylesheet" href="resources/css/h/gallary_manage.css"/>
@@ -20,6 +52,7 @@ tbody tr:hover {
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -39,6 +72,13 @@ $(document).ready(function(){
 	
 	//---------------------------------------데이터 가져오기
 	loadPostList();
+	
+	$("#actionForm").on("keypress", "input", function(event){
+		if(event.keyCode == 13){
+			return false;
+		}
+	});
+	
 	
 	//사이드바, 탭 고정시키기
 	$(".gallary").attr("id", "active");
@@ -68,9 +108,10 @@ $(document).ready(function(){
 	
 	//상세보기
 	$("tbody").on("dblclick", "tr", function(){
-		$("#postNo").val($(this).attr("pno"));
+		$("#postNo").val($(this).attr("name"));
 		drawPopup();
 	});
+	
 	
 	//검색버튼 누르면 준비중입니다 알람
 	$(".btn_notyet").on("click", function(){
@@ -104,7 +145,53 @@ $(document).ready(function(){
 		loadPostList();
 	});
 	
-	
+	//삭제버튼 클릭시
+	$("#BtnDelete").on("click", function(){
+		var confirmFlag = confirm("삭제 하시겠습니까?");
+					
+		if(confirmFlag){
+			var checkCnt = $(".result_table input[class='table_checkbox']:checked").length;
+			var checkArr = new Array();
+			
+			$(".result_table input[class='table_checkbox']:checked").each(function(index,item) {
+				checkArr.push($(this).parent().parent().attr("name"));//item이 this라서 this로 많이쓴다나~
+			});
+			
+			if(checkCnt == 0){
+				alert("선택된 작품이 없습니다.");
+			} else {
+				
+			console.log(checkArr[0]);
+				
+			var params = $("#actionForm").serialize();
+				
+			$.ajax({
+				url: "deleteGallary",
+				type: "post",
+				dataType: "json",
+				data: params,
+				success: function(res){ 
+					
+					if(res.msg == "success"){
+						location.href = "entireList";	
+					} else if(res.msg == "failed"){
+						alert("삭제에 실패하였습니다.");
+					} else {
+						alert("삭제 중 문제가 발생하였습니다.");
+					}						
+				},
+				error: function(request, status, error){
+					console.log(error);
+					
+				}
+			
+			});					
+			}//else
+
+	}
+		
+		
+	});//delete button click
 	
 	
 	//전체체크하면 전체적으로 체크되게 하기
@@ -202,21 +289,19 @@ $(document).ready(function(){
 		} else {
 			for(var d of list){
 				++no;
-				html +="<tr pno=\"" + d.POST_NO + "\" class=\"table_tr\">";
-				html +="<td><input type=\"checkbox\"></td>";
+				html +="<tr name=\"" + d.POST_NO + "\" class=\"table_tr\">";
+				html +="<td><input type=\"checkbox\" class=\"table_checkbox\"></td>";
 				html +="<td>" + no + "</td>";
 				html +="<td>" + d.POST_NO + "</td>";
 				html +="<td>" + d.CATEGORY_NAME + "</td>";
 				html +="<td>" + d.TITLE + "</td>";
 				html +="<td>" + d.NAME + "</td>";
 				html +="<td>" + d.NICKNAME +"(" + d.USER_ID + ")</td>";
-				html +="<td>" + d.R_DATE + "</td>";
+				html +="<td>" + d.REGISTER_DATE + "</td>";
 				html +="<td>" + d.VIEWS + "</td>";
 				html +="<td>" + d.LIKE_CNT + "</td>";
 				html +="</tr>";
 			}
-			
-			
 		}
 		
 		$("tbody").html(html);
@@ -233,10 +318,13 @@ $(document).ready(function(){
 			dataType: "json",
 			data: params,
 			success: function(result){
+				
 				var html = "";
                 
 				html +="	<div class=\"background\"></div>";
 				html +="	<div class=\"wrap\">";
+				html += "		<form id=\"detailForm\">";
+				html += "		<input type=\"hidden\" name=\"postNo\" value=\"" + result.data.POST_NO + "\" />";
 				html +="	<div class=\"popup_title\">관리자용 상세보기</div>";
 				html +="	<div class=\"close_btn_wrap\">";
 				html +="	<input type=\"button\" id=\"BtnUpdate\" value=\"수정\"/>";
@@ -254,18 +342,18 @@ $(document).ready(function(){
 				html +="	</div>";
 				html +="	<div class=\"category\">"+ result.data.CATEGORY_NAME +"</div>";
 				html +="	<div class=\"title\">"+ result.data.TITLE +"</div>";
-				html +="	<div class=\"contents_date\"> 작성시간: "+ result.data.REGISTER_DATE +"&nbsp;&nbsp;"
-								
-					var checkV = result.data.VISIBILITY;
+				html +="	<div class=\"contents_date\"> 작성시간: "+ result.data.REGISTER_DATE +"&nbsp;&nbsp;"							
+				html +="조회수: "+ result.data.VIEWS +"&nbsp;&nbsp;좋아요수: "+ result.data.LIKE_CNT +"&nbsp;&nbsp;";					
+					
+				var checkV = result.data.VISIBILITY;
 					
 					if(checkV == "0"){
-						 html +="	공개&nbsp;&nbsp;";						
+						 html +="	공개</div><br/><br/>";						
 					} else {
-						 html +="	비공개&nbsp;&nbsp;";
+						 html +="	비공개</div><br/><br/>";
 					}
 				
-				html +="조회수: "+ result.data.VIEWS +"&nbsp;&nbsp;좋아요수: "+ result.data.LIKE_CNT +"</div><br/><br/>";					
-				html +="	<div class=\"contents\">"+ result.data.EXPLAIN +"</div>";
+				html +="	<div class=\"contents\">"+ result.data.EXPLAIN +"</div>";				
 				html +="	<div class=\"tag_wrap\">";
 
 				if(result.data.TAGS != null && result.data.TAGS != "") {
@@ -300,16 +388,9 @@ $(document).ready(function(){
 				$("body").prepend(html);
 				
 				$(".background").hide();
-				$(".wrap").hide();
-				
+				$(".wrap").hide();				
 				$(".background").fadeIn();
 				$(".wrap").fadeIn();
-				
-				$("#BtnUpdate").off("click");
-				$("#BtnUpdate").on("click", function(){
-					closePopup();
-				});
-				
 				
 				$("#BtnClose").off("click");
 				$("#BtnClose").on("click", function(){
@@ -321,11 +402,24 @@ $(document).ready(function(){
 					closePopup();
 				});
 				
+				/*----------------------------------------------수정버튼 클릭할 때  */
+				$("#BtnUpdate").off("click");
+				$("#BtnUpdate").on("click", function(){
+					closePopup();
+					drawEdit();
+
+				});
+				
+				
+				
 			}, error: function(request, status, error){
 				console.log(error);
 			}
 		});
 	}
+	
+	
+	
 
 	//상세팝업닫기
 	function closePopup() {
@@ -336,10 +430,179 @@ $(document).ready(function(){
 		$(".wrap").fadeOut(function(){
 			$(".wrap").remove();
 		});
+		
+		$(".background2").fadeOut(function(){
+			$(".background2").remove();
+		});
+		
+		$(".wrap2").fadeOut(function(){
+			$(".wrap2").remove();
+		});
 	}
 			
 			
+//-------------------------------------------------------------------수정하기해보자
+	function drawEdit(){
+		var params = $("#actionForm").serialize();
+		
 
+		
+		$.ajax({
+			url: "drawUserPopup",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(result){
+				
+				var html = "";
+                
+				html +="	<div class=\"background2\"></div>";
+				html +="	<div class=\"wrap2\">";
+				html += "		<form id=\"actionForm\">";
+				html += "		<input type=\"hidden\" name=\"postNo\" value=\"" + result.data.POST_NO + "\" />";
+				html +="	<div class=\"popup_title\">관리자용 상세보기</div>";
+				html +="	<div class=\"save_btn_wrap\">";
+				html +="	<input type=\"button\" id=\"BtnSave\" value=\"저장\"/>";
+				html +="	<input type=\"button\" id=\"BtnClose2\" value=\"닫기\"/>";
+				html +="	</div>";
+				html +="	<div class=\"contents_wrap\">";
+				
+				if(result.data.POST_FILE != null && result.data.POST_FILE != "") {
+					html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
+								+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
+				} else {
+					html +=" <img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" alt=\"사랑스런짱구\">";
+				}
+
+				html +="	</div>";
+				html +="	<div class=\"category\">"+ result.data.CATEGORY_NAME +"</div>";
+				html +="	<div class=\"title\"><input type=\"text\"class=\"title_input\" size=\"78\" name=\"title\" id=\"title\" value=\"" + result.data.TITLE + "\" /></div>";
+				html +="	<div class=\"contents_date\"> 작성시간: "+ result.data.REGISTER_DATE +"&nbsp;&nbsp;"							
+				html +="조회수: "+ result.data.VIEWS +"&nbsp;&nbsp;좋아요수: "+ result.data.LIKE_CNT +"&nbsp;&nbsp;";					
+					
+				var checkV = result.data.VISIBILITY;
+					
+					if(checkV == "0"){
+						 html +="	공개</div><br/><br/>";						
+					} else {
+						 html +="	비공개</div><br/><br/>";
+					}
+				
+				html +="	<div class=\"contents\">";
+				html +="	<textarea id=\"explainCK\" name=\"explain\" cols=\"50\" rows=\"10\" placeholder=\"작품을 뽐내주세요.\">" + result.data.EXPLAIN +"</textarea></div>";
+				
+				html +="	<div class=\"tag_wrap\">";
+
+				if(result.data.TAGS != null && result.data.TAGS != "") {
+					
+					var tagSplit = (result.data.TAGS).split(",");
+					
+					for(var t of tagSplit){
+						html +="<i class=\"small_tag\"># "+ t +"</i>";
+					}
+				}
+				     
+				html +="	<div class=\"comment_wrap\">";
+				html +="	<img class=\"comment_img\" src=\"resources/images/JY/comment.png\" alt=\"댓글아이콘\">";
+				html +="	<div class=\"comment\">댓글 "+ result.data.COMMENT_CNT+"개</div>";
+				html +="	</div></div><br/>";
+				html +="	<div class=\"mini_profile_wrap\">";
+				html +="	<div class=\"mini_profile\">";
+				
+				if(result.data.PROFILE_IMG_PATH != null && result.data.PROFILE_IMG_PATH != "") {
+					html +=" <img class=\"profile_img2\" src=\"resources/upload/"+ result.data.PROFILE_IMG_PATH
+								+"\" alt=\"프로필이미지\" download=\""+ result.data.PROFILE_IMG_UPATH+"\">";
+				} else {
+					html +=" <img class=\"profile_img2\" src=\"resources/images/JY/who.png\" alt=\"기본프로필\">";
+				}
+				
+				html +="	</div><div class=\"mini_profile_name\">"+ result.data.USER_NICKNAME +"</div>";
+				html +="	<div class=\"profile_introduce\">"+ result.data.INTRODUCE +"</div>";
+				html +="	</div>";
+				html +="	</div>";
+				html +="	</form>";
+				
+				$("body").prepend(html);
+				
+				$(".background2").hide();
+				$(".wrap2").hide();				
+				$(".background2").fadeIn();
+				$(".wrap2").fadeIn();
+				
+				$("#BtnClose2").off("click");
+				$("#BtnClose2").on("click", function(){
+					closePopup();
+				});
+				
+				$(".background2").off("click");
+				$(".background2").on("click", function(){
+					closePopup();
+				});
+				
+				/*----------------------------------------------저장 클릭할 때  */
+				$("#BtnSave").off("click");
+				
+				CKEDITOR.replace("explainCK", {
+					resize_enabled : false,
+					language : "ko",
+					enterMode : "2",
+					width: "1330",
+					height: "500",
+					removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
+				});
+								
+				
+				$("#BtnSave").on("click", function(){
+					$("#explainCK").val(CKEDITOR.instances['explainCK'].getData());			
+										
+					if($.trim($("#title").val()) == ""){
+						alert("제목을 입력해주세요.");
+						$("#title").focus();
+						return false;
+					}else if($("#explainCK").val() == ""){
+						alert("작품을 설명해주세요.");
+						$("#explainCK").focus();
+						return false;
+					}else {
+						//글 수정하기
+						var params = $("#actionForm").serialize();
+						
+						$.ajax({
+							url: "drawEdits",
+							type: "post",
+							dataType: "json",
+							data: params,
+							success: function(result){
+								
+								if(result.msg == "success"){
+									$("#actionForm").attr("action", "gallaryManage");
+									$("#actionForm").submit();
+									alert("정상적으로 작품 수정되었습니다.");
+								} else if(result.msg == "failed"){
+									alert("수정에 실패하였습니다.");
+								} else {
+									alert("수정 중 문제가 발생하였습니다.");
+								}
+								
+							}, error: function(request, status, error){
+								console.log(error);
+							}
+							
+						});
+					}
+					
+					
+					
+					
+				});
+				
+				
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
 	
 	
 	
@@ -354,14 +617,11 @@ $(document).ready(function(){
 		
 		html += "<div class=\"result_cnt\">결과: " + cnt +"개</div>";
 		html += "<div class=\"button_wrap\">";
-		html += "<input type=\"button\" value=\"복원\" class=\"btn_notyet\"/>&nbsp;&nbsp;&nbsp;";
-		html += "<input type=\"button\" value=\"삭제\" class=\"btn_notyet\"/>";
 		html += "</div>";
 		
 		$(".cnt_wrap").html(html);
 		
-	}
-	
+	}//SHOWCNT end
 	
 	
 	//-------------------------------------------------------페이징 그리기
@@ -441,7 +701,7 @@ $(document).ready(function(){
 				<select name="srhYearFlag" id="srhYearFlag">
 					<option value="0"> 올해작품</option>
 					<option value="1"> 작년작품</option>
-					<option value="3" selected="selected"> 전체작품</option>
+					<option value="" selected="selected"> 전체작품</option>
 				</select>
 				<label>검색분류</label>
 				<select name="searchFlag" id="searchFlag">
@@ -467,6 +727,10 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
+		<div class="del_wrap">
+			<input type="button"  id="BtnReturn" value="복원"/>
+			<input type="button" id="BtnDelete" value="삭제"/>		
+		</div>
 		<div class="cnt_wrap"></div>
 </form>
 		<!-----------------------------------------------------------테이블 -->
@@ -475,16 +739,16 @@ $(document).ready(function(){
 		<div class="result_table" id="tabResult1">
 			<table class="table1">
 				<colgroup>
-						<col width="2%"/>
-						<col width="3%"/>
-						<col width="4%"/>
-						<col width="10%"/>
-						<col width="24%"/>
-						<col width="8%"/>
-						<col width="20%"/>
-						<col width="10%"/>
-						<col width="4%"/>
-						<col width="4%"/>
+						<col width="50px"/>
+						<col width="50px"/>
+						<col width="100px"/>
+						<col width="150px"/>
+						<col width="900px"/>
+						<col width="100px"/>
+						<col width="300px"/>
+						<col width="100px"/>
+						<col width="100px"/>
+						<col width="100px"/>
 					</colgroup>
 				<thead>	
 				<tr id="tableTh">

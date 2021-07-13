@@ -10,7 +10,21 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	console.log($('#page').val());
+	reloadLikeCnt();
+	
+	console.log($('#listPage').val());
+	$('#leftArrow').click(function() {
+		if($('#listPage').val() == "0") {
+			$("#goForm").attr("action", "gallary");
+			$("#goForm").submit();
+		} else if($('#listPage').val() == "1") {
+			$("#goForm").attr("action", "mygallary");
+			$("#goForm").submit();
+		} else if($('#listPage').val() == "2") {
+			$("#goForm").attr("action", "othergallary");
+			$("#goForm").submit();
+		}
+	})
 	
 	if("${sUserNo}" != $("#authorNo").val()) {
 		$(".btnCommentDelete").hide();
@@ -80,9 +94,7 @@ $(document).ready(function() {
 	})
 	
 	$('#btnShare').hide();
-	$('#btnLike').hide();
 	$("#btnDot2, #btnDot22").hide();
-	$(".like_cnt").hide();
 	$("#btnDeclation2").hide();
 	$(".share_wrap").hide();
 	$(".share_wrap2").hide();
@@ -90,8 +102,8 @@ $(document).ready(function() {
 	
 	$('#btnDot1').click(function() {
 		$('#btnShare').show();
-		$('#btnLike').show();
-		$('.like_cnt').show();
+		$('#btnLike').hide();
+		$('#likeCnt').hide();
 		$('#btnEdit').hide();
 		$('#btnDelete').hide();
 		$('#btnComment').hide();
@@ -104,8 +116,8 @@ $(document).ready(function() {
 		$('#btnEdit').show();
 		$('#btnDelete').show();
 		$('#btnShare').hide();
-		$('#btnLike').hide();
-		$('.like_cnt').hide();
+		$('#btnLike').show();
+		$('#likeCnt').show();
 		$('#btnComment').show();
 		$('.comment_cnt').show();
 		$(this).hide();
@@ -115,7 +127,7 @@ $(document).ready(function() {
 	$('#btnDot12').click(function() {
 		$('#btnShare2').hide();
 		$('#btnLike2').hide();
-		$('.like_cnt2').hide();
+		$('.like_cnt').hide();
 		$('#btnComment2').hide();
 		$('.comment_cnt12').hide();
 		$(this).hide();
@@ -126,7 +138,7 @@ $(document).ready(function() {
 	$('#btnDot22').click(function() {
 		$('#btnShare2').show();
 		$('#btnLike2').show();
-		$('.like_cnt2').show();
+		$('.like_cnt').show();
 		$('#btnComment2').show();
 		$('.comment_cnt12').show();
 		$(this).hide();
@@ -174,7 +186,7 @@ $(document).ready(function() {
 	
 	
 	$(".profile_name2").on("click", function() {
-		if($('#user').val() == $('#authorNo').val()) {
+		if($('#userNo').val() == $('#authorNo').val()) {
 			location.href = "mygallary";
 		} else {
 			$("#goForm").attr("action", "othergallary");
@@ -208,22 +220,93 @@ $(document).ready(function() {
 	});
 	
 	
-	$(".header").on("click", '#btnLike', function() {
+	
+	
+	
+$('body').on("click", '.heart', function() {
+	if($('#userNo').val() != "") {
 		if ($(this).attr("src") == "resources/images/JY/heart.png") {
 			$(this).attr("src", "resources/images/JY/heart2.png");
+			
+			var params= $("#goForm").serialize();
+			
+			$.ajax({
+				url : "postOnHeart",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function(res) { // 성공 시 다음 함수 실행
+					reloadLikeCnt();
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+			
+
+
 		} else {
+			
 			$(this).attr("src", "resources/images/JY/heart.png");
+			
+			var params= $("#goForm").serialize();
+			
+			$.ajax({
+				url : "postOffHeart",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function(res) { // 성공 시 다음 함수 실행
+
+					reloadLikeCnt();
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+			
+		}
+		
+		} else {
+			alert("로그인 후 이용해주세요.")
 		}
 	});
 	
-	$(".header2").on("click", '#btnLike2', function() {
-		if ($(this).attr("src") == "resources/images/JY/heart.png") {
-			$(this).attr("src", "resources/images/JY/heart2.png");
-		} else {
-			$(this).attr("src", "resources/images/JY/heart.png");
+});
+
+function reloadLikeCnt() {
+	
+	var params= $("#goForm").serialize();
+	$.ajax({
+		url : "postLikeCnt",
+		type : "post",
+		dataType : "json",
+		data : params,
+		success: function(res) { // 성공 시 다음 함수 실행
+			likeCnt(res.data)
+		},
+		error: function(request, status, error) { // 실패 시 다음 함수 실행
+			console.log(error);
 		}
 	});
-});
+}
+
+function likeCnt(data) {
+	var html = "";
+	
+	if($('#userNo').val() == $('#authorNo').val()) {
+
+			html += "<div id=\"likeCnt\" class=\"like_cnt\">" + data.LIKECNT + "</div>";
+		
+	} else {
+
+			html += "<div id=\"likeCnt2\" class=\"like_cnt\">" + data.LIKECNT + "</div>";
+		
+	}
+	
+	$(".like_cnt_wrap").html(html);
+
+}
 
 function CopyUrl()
 
@@ -248,39 +331,44 @@ function CopyUrl2()
 	alert("URL이 클립보드에 복사되었습니다"); 
 
 }
-
-
-/* function heart() {
-	var heart = document.getElementById('btnLike')
-
-	if (heart.src.match("resources/images/JY/heart.png")) {
-		heart.src = "resources/images/JY/heart2.png";
-	} else {
-		heart.src = "resources/images/JY/heart.png";
-	}
-} */
 </script>
 </head>
 <body>
 	<form action="#" id="goForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
-		<input type="hidden" name="page" id="page" value="${param.page}" />
-		<input type="hidden" id="tabtab" name="tabtab" value="${param.tabtab}"/>
-		<input type="hidden" id="user" name="user" value="${sUserNo}"/>
+		<input type="hidden" id="postNo" name="postNo" value="${data.POST_NO}" />
+		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"/>
 		<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>
+		<input type="hidden" id="userNo2" name="userNo2" value="${data.USER_NO}"/>
 		<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>
 		<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}"/>
 		<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}"/>
+		<input type="hidden" id="tabtab" name="tab" value="${param.tab}"/>
+		<input type="hidden" name="page" id="page" value="${param.page}" />
+		<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
+		<input type="hidden" id="listPage" name="listPage" value="${param.listPage}" />
 	</form>
 	
-	
+	<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="50px" height="50px">
 	
 	<!-- 글 작가와 본인이 동일할 때 -->	
 	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-		<img src="resources/images/JY/heart.png" id="btnLike" onclick="heart();" alt="좋아요" width="25px" height="25px">
-		<span class="like_cnt">23</span>
+		<c:choose>
+			<c:when test="${empty data.RD}">
+				<img src="resources/images/JY/heart.png" id="btnLike" class="heart" alt="투명하트" width="25px" height="25px">
+			</c:when>	
+			<c:otherwise>
+				<img src="resources/images/JY/heart2.png" id="btnLike" class="heart" alt="빨간하트" width="25px" height="25px">
+			</c:otherwise>
+		</c:choose>
+
+
+
+		<div class="like_cnt_wrap">
+			<%-- <div id="likeCnt" class="like_cnt">${data.LIKECNT}</div> --%>
+		</div>
 		<img src="resources/images/JY/comment2.png" id="btnComment" alt="댓글" width="20px" height="20px">
 		<span class="comment_cnt">30</span>
 		<img src="resources/images/JY/share.png" id="btnShare" alt="공유" width="20px" height="20px">
@@ -302,8 +390,17 @@ function CopyUrl2()
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo3" alt="로고" width="70px" height="40px"></a>
 		<img src="resources/images/JY/comment2.png" id="btnComment2" alt="댓글" width="20px" height="20px">
 		<span class="comment_cnt12">30</span>
-		<img src="resources/images/JY/heart.png" id="btnLike2" onclick="heart();" alt="좋아요" width="25px" height="25px">
-		<span class="like_cnt2">23</span>
+		<c:choose>
+			<c:when test="${empty data.RD}">
+				<img src="resources/images/JY/heart.png" id="btnLike2" class="heart" alt="투명하트" width="25px" height="25px">
+			</c:when>	
+			<c:otherwise>
+				<img src="resources/images/JY/heart2.png" id="btnLike2" class="heart" alt="빨간하트" width="25px" height="25px">
+			</c:otherwise>
+		</c:choose>
+		<div class="like_cnt_wrap">
+			<%-- <div id="likeCnt2" class="like_cnt">${data.LIKECNT}</div> --%>
+		</div>
 		<img src="resources/images/JY/share.png" id="btnShare2" alt="공유" width="20px" height="20px">
 		<img src="resources/images/JY/dot1.png" id="btnDot12" alt="메뉴" width="25px" height="25px">
 		<img src="resources/images/JY/dot2.png" id="btnDot22" alt="메뉴" width="25px" height="25px">
@@ -353,6 +450,7 @@ function CopyUrl2()
 		<div class="category">${data.CATEGORY_NAME}</div>
 		<div class="title">${data.TITLE}</div>
 		<div class="contents_date">${data.REGISTER_DATE}</div>
+		<div class="views"> 조회수 ${data.VIEWS}</div>
 		<br />
 		<br />
 		<div class="contents">${data.EXPLAIN}</div>
@@ -396,8 +494,6 @@ function CopyUrl2()
 			<div class="reply_comment_form1_w2">
 				<span class="reply"></span>
 				<div class="reply_comment_form1">
-					<!-- <div id="replyCommentWriteW"><input id="replyCommentWrite" type="text" placeholder="답글을 남겨보세요."></div>
-					<div id="replyBtnCommentUploadW"><input type="button" id="replyBtnCommentUpload" value="답글 작성"></div> -->
 					<div class="reply_profile3">
 						<img class="reply_profile_img3" src="resources/images/JY/짱구2.jpg" alt="짱구2" width="30px" height="30px">
 					</div>

@@ -11,9 +11,24 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	reloadList();
+	reloadLikeCnt();
 
+
+	if("${param.selectGbn}" != "") {
+		$(".select").val("${param.selectGbn}");
+	}
+	
+	/* if("${param.tab}" != "") {
+		$("input[name=tab]").val("${param.tab}");
+	} */
+	
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 
+	
+	$(".select").on("click", function() {
+
+		reloadList();
+	});
 	
 	
 	$(".pagination").on("click", "a",  function() {
@@ -25,25 +40,147 @@ $(document).ready(function() {
 	
 	$(".pic_wrap, .draw_wrap").on("dblclick", "div", function() {
 		$("#pNo").val($(this).attr("pno"));
+		$("#postNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
 	
 	$(".gallary_wrap").on("click", '.contents_heart', function() {
 		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
+			console.log($(this).parent().parent().attr("pno"));
 			$(this).attr("src", "resources/images/JY/heart2.png");
+			$("#postNo").val($(this).parent().parent().attr("pno"));
+
+			
+			var params= $("#actionForm").serialize();
+			
+			$.ajax({
+				url : "postOnHeart",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						//alert("좋아요가 눌렸습니다.");
+
+					} else if(res.msg == "failed") {
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
+					} else {
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+
 		} else {
+			$("#postNo").val($(this).parent().parent().attr("pno"));
+			
 			$(this).attr("src", "resources/images/JY/heart3.png");
+			
+			var params= $("#actionForm").serialize();
+			
+			$.ajax({
+				url : "postOffHeart",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						//alert("좋아요를 취소하였습니다.");
+						
+					} else if(res.msg == "failed") {
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
+					} else {
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
+					}
+
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
 		}
 	});
 	
-	$("#heart").on("click", function() {
+/* 	$("#heart").on("click", function() {
 		if ($(this).attr("src") == "resources/images/JY/heart.png") {
 			$(this).attr("src", "resources/images/JY/heart2.png");
 		} else {
 			$(this).attr("src", "resources/images/JY/heart.png");
 		}
 	});
+	 */
+	
+	
+	$(".heart").on("click", function() {
+		
+
+		if ($(this).attr("src") == "resources/images/JY/heart.png") {
+			$(this).attr("src", "resources/images/JY/heart2.png");
+
+			
+			var params= $("#actionForm").serialize();
+			
+			$.ajax({
+				url : "authorOnHeart",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						//alert("좋아요가 눌렸습니다.");
+						reloadLikeCnt();
+					} else if(res.msg == "failed") {
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
+					} else {
+						alert("로그인 후 이용해주세요.");
+						location.href = "login";
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+
+		} else {
+			
+			$(this).attr("src", "resources/images/JY/heart.png");
+			
+			var params= $("#actionForm").serialize();
+			
+			$.ajax({
+				url : "authorOffHeart",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						//alert("좋아요를 취소하였습니다.");
+						reloadLikeCnt();
+					} else if(res.msg == "failed") {
+						alert("오류 발생3");
+					} else {
+						alert("오류 발생4");
+					}
+
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+		}
+	});
+	
+	
+	
+	
 	
 	$(".tabs").on("change", "[type='radio']", function() {
 		$("#page").val("1");
@@ -51,6 +188,32 @@ $(document).ready(function() {
 	});
 	
 });
+
+function reloadLikeCnt() {
+	
+	var params= $("#actionForm").serialize();
+	$.ajax({
+		url : "authorLikeCnt",
+		type : "post",
+		dataType : "json",
+		data : params,
+		success: function(res) { // 성공 시 다음 함수 실행
+			likeCnt(res.data)
+		},
+		error: function(request, status, error) { // 실패 시 다음 함수 실행
+			console.log(error);
+		}
+	});
+}
+
+function likeCnt(data) {
+	var html = "";
+	
+	html += data.LIKECNT;
+	
+	$(".profile_like_cnt").html(html);
+
+}
 
 
 function reloadList() {
@@ -90,7 +253,6 @@ function reloadList() {
 }
 
 
-
 function picList(list) {
 		var html = "";
 		for(var p of list) {
@@ -98,7 +260,11 @@ function picList(list) {
 			html += "<div class=\"bg\">";
 			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
 			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
+			if(p.REGISTER_DATE == null) {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+			} else {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+			}
 			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
 			html += "</div>";
 			html += "</div>";
@@ -117,7 +283,11 @@ function drawList(list) {
 		html += "<div class=\"bg\">";
 		html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
 		html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-		html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"하트\" onclick=\"heart();\" width=\"40px\" height=\"40px\">";
+		if(p.REGISTER_DATE == null) {
+			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+		} else {
+			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+		}
 		html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
 		html += "</div>";
 		html += "</div>";
@@ -173,11 +343,23 @@ function drawPaging(pb) {
 	</c:choose>
 <form action="#" id="actionForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" />
-		<input type="hidden" id="userNo" name="userNo" value="${param.authorNo}" />
-		<input type="hidden" id="page" name="page" value="${param.page}" />
+		<input type="hidden" id="postNo" name="postNo" />
+		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
+		<input type="hidden" id="userNo2" name="userNo2" value="${param.authorNo}" />
+		<input type="hidden" id="page" name="page" value="${page}" />
+		<input type="hidden" id="mainGallary" name="listPage" value="2"/>	
 	<div class="wrap">
 		<div class="profile_wrap">
-			<img id="heart" src="resources/images/JY/heart.png" alt="하트" onclick="heart();" width="35px" height="35px">
+		
+			<c:choose>
+				<c:when test="${empty data.AUTHOR_NO}">
+					<img src="resources/images/JY/heart.png" id="btnLike" class="heart" alt="투명하트" width="35px" height="35px">
+				</c:when>	
+				<c:otherwise>
+					<img src="resources/images/JY/heart2.png" id="btnLike" class="heart" alt="빨간하트" width="35px" height="35px">
+				</c:otherwise>
+			</c:choose>
+		
 	
 
 			<c:choose>
@@ -195,7 +377,7 @@ function drawPaging(pb) {
 			
 			<div class="profile_name2">${param.userNickname}</div>
 			<div class="profile_like">좋아요수
-				<span class="profile_like_cnt">30</span>
+				<span class="profile_like_cnt"></span>
 			</div>
 			
 			
@@ -212,7 +394,7 @@ function drawPaging(pb) {
 					<label for="gallaryMenu1">사진작품관</label>
 					<label for="gallaryMenu2">그림작품관</label>
 					<label for="gallaryMenu3">영상작품관</label>
-					<select class="select" name="searchGbn">
+					<select class="select" name="selectGbn">
 						<option value="0" selected="selected">최신순</option>
 						<option value="1">좋아요순</option>
 					</select>

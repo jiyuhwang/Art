@@ -100,6 +100,26 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.selectList("Manager.getTList",params);
 	}
 
+	@Override
+	public int updatePostDetail(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.updatePostDetail",params);
+	}
+
+	@Override
+	public int getReportMCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Manager.getReportMCnt",params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getReportList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Manager.getReportList", params);
+	}
+
+	@Override
+	public int deleteG(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.deleteG",params);
+	}
+
 
 
 

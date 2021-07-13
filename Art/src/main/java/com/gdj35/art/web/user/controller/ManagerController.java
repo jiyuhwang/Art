@@ -295,7 +295,7 @@ public class ManagerController {
 	}
 	
 
-	//작품관리 상세페이지 보기
+	//리스트 불러오기
 	@RequestMapping(value="/entireList",
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
@@ -303,35 +303,46 @@ public class ManagerController {
 		public String entireList(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
-		System.out.println(params);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-
-			int page = Integer.parseInt(params.get("page"));
-
-				
-		int cnt = iManagerService.getGallaryMCnt(params);
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+		//페이징처리
+		int page = 1;
 		
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		if(params.get("page") != null) {
+			page = Integer.parseInt(params.get("page"));
+		}
+							
+		try {
+			int cnt = iManagerService.getGallaryMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
 				
+			
+			//목록취득
+			List<HashMap<String, String>> list = iManagerService.getPostList(params);
+			
+			System.out.println(params);
+			System.out.println(list);
+			
+			modelMap.put("list", list);
+			modelMap.put("pb", pb);
+			modelMap.put("cnt", cnt);
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
 		
-		//목록취득
-		List<HashMap<String, String>> list = iManagerService.getPostList(params);
-		
-		modelMap.put("list", list);
-		modelMap.put("pb", pb);
-		modelMap.put("cnt", cnt);
-				
 		return mapper.writeValueAsString(modelMap);
 	}
 	
 	
 	
 	
-	//작품관리 테이블 클릭시 해당 게시글로 이동
+	//작품관리 상세페이지 보기
 	@RequestMapping(value="/drawUserPopup",
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
@@ -344,29 +355,92 @@ public class ManagerController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		//페이징처리
-		int page = 1;
+		int page = Integer.parseInt(params.get("page"));
 		
-		if(params.get("page") != null) {
-			page = Integer.parseInt(params.get("page"));
-		}
+		try {
+			int cnt = iManagerService.getGallaryMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+					
+			
+			//데이터취득
+			HashMap<String, String> data = iManagerService.getUserDetail(params);
 		
-		int cnt = iManagerService.getGallaryMCnt(params);
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			modelMap.put("data", data);
+			modelMap.put("pb", pb);
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}		
 		
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
-				
-		
-		//데이터취득
-		HashMap<String, String> data = iManagerService.getUserDetail(params);
-	
-		modelMap.put("data", data);
-		modelMap.put("pb", pb);
-				
 		return mapper.writeValueAsString(modelMap);
 	
 	}
+	
+	//업데이트하고 새로고침
+	@RequestMapping(value="/drawEdits",
+			method=RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
 
+	@ResponseBody
+	public String drawEdits(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+	
+	try {
+		int cnt = iManagerService.updatePostDetail(params);
+		
+		if(cnt > 0) {
+			modelMap.put("msg", "success");
+		} else {
+			modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	//삭제하기
+	@RequestMapping(value = "/deleteGallary",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String deleteGallary(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		String checkArr = params.get("checkArr");
+		System.out.println(checkArr);
+		String [] postArry = checkArr.split(",");
+		System.out.println(postArry);
+		
+		int checkCnt = Integer.parseInt(params.get("checkCnt"));
+		
+		for(int i =0 ; i <checkCnt; i++) {
+			params.put("postNo", postArry[i]);
+			checkCnt += iManagerService.deleteG(params);
+			params.remove("postNo");
+		}
+		
+		System.out.println(params);
+		System.out.println(checkCnt);
+		
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -376,6 +450,59 @@ public class ManagerController {
 		
 		mav.setViewName("h/reportManage");
 		return mav;
+	}
+	
+	//신고 리스트 보기
+	@RequestMapping(value="/reportList",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+		public String reportList(
+		@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		//페이징처리
+		int page = 1;
+				
+		if(params.get("page") != null) {
+			page = Integer.parseInt(params.get("page"));
+		}
+		
+		try {
+							
+			int cnt = iManagerService.getReportMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+					
+			
+			//목록취득
+			List<HashMap<String, String>> list = iManagerService.getReportList(params);
+					
+			System.out.println(params);
+			System.out.println(list);
+			
+			modelMap.put("list", list);
+			modelMap.put("pb", pb);
+			modelMap.put("cnt", cnt);			
+				
+				if (cnt > 0) {
+					modelMap.put("msg", "success");
+				} else {
+					modelMap.put("msg", "failed");
+				}
+		
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+		
+		
+				
+		return mapper.writeValueAsString(modelMap);
 	}
 	
 }

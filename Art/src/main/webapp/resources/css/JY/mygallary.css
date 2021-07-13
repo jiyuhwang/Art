@@ -65,6 +65,10 @@ body {
 	font-size: 11pt;
 }
 
+.profile_like_cnt {
+	font-weight: bold;
+}
+
 .profile_introduce {
 	position: absolute;
 	width: 100%;
@@ -78,6 +82,67 @@ body {
 
 .profile_introduce_in {
 	padding: 0px 10px;
+}
+
+
+
+
+input[type="checkbox"] {
+    position: absolute;
+    visibility: hidden;
+}
+
+#label {
+    display: block;
+    position: absolute;
+    width: 68px;
+    height: 22px;
+    top: 10px;
+    right: 290px;
+    border-radius: 17px;
+    background-color: #ddd;
+    transition-duration: 0.2s;
+}
+
+#label span {
+    position: absolute;
+    left: -2px;
+    top: 0px;
+    z-index: 1;
+    width: 40px;
+    height: 32px;
+    border-radius: 40%;
+    background-color: #fff;
+    transition-duration: 0.2s;
+}
+
+#label:before,
+#label:after{
+    position: absolute;
+    top: 0;
+    width: 45px;
+    font-size: 11px;
+    line-height: 34px;
+    color: #fff;
+    text-align: center;
+}
+
+#label:before {
+    left: 0;
+    content: '공개';
+}
+
+#label:after {
+    right: 0;
+    content: '비공개';
+}
+
+#checkbox:checked + #label {
+    background-color: #ffad33;
+}
+
+#checkbox:checked + #label span {
+    transform: translateX(40px);
 }
 
 
@@ -114,7 +179,7 @@ body {
     display:none;
 }
 .tabs input:nth-of-type(1):checked ~ div:nth-of-type(1), .tabs input:nth-of-type(2):checked ~ div:nth-of-type(2), .tabs input:nth-of-type(3):checked ~ div:nth-of-type(3) {
-    display:block;
+    display: inline-block;
 }
 .tabs > label {
     display:inline-block;
@@ -240,39 +305,6 @@ body {
 	z-index: 500;
 }
 
-#pic1 {
-	background-image: url("../../images/JY/짱구1.jpg");
-}
-
-#pic2 {
-	background-image: url("../../images/JY/짱구2.jpg");
-}
-
-#pic3 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#pic4 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-
-#pic5 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#pic6 {
-	background-image: url("../../images/JY/짱구4.jpg");
-}
-
-#pic7 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-#pic8 {
-	background-image: url("../../images/JY/짱구1.jpg");
-}
-#pic9 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
 
 .pic_wrap {
 	position: absolute;
@@ -286,7 +318,7 @@ body {
 #btnGoUpload {
 	width: 110px;
 	height: 35px;
-	margin-left: 290px;
+	margin-left: 280px;
 	border: 1px solid #ccc;
 	color: black;
 	text-align: center;
@@ -307,8 +339,8 @@ body {
 
 .select {    
     margin-top: 10px;
-	margin-left: 20px;
-	width: 90px;
+	margin-left: 10px;
+    width: 100px;
     padding: 5px;
     padding-left: 12px;
     border: 1px solid black;
@@ -332,16 +364,18 @@ body {
 	float: left;
 	padding: 8px 16px;
 	text-decoration: none;
+	margin: 0 5px;
+	cursor: pointer;
 }
 
 
-.pagination a.active {
+.on {
 	border: 1px solid black;
 	font-weight: bold;
 	border-radius: 5px;
 }
 
-.pagination a:hover:not(.active) {
+.pagination a:hover:not(.on) {
 	background-color: #ddd;
 	border-radius: 5px;
 }

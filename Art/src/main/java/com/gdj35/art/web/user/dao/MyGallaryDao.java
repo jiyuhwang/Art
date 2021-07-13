@@ -159,5 +159,75 @@ public class MyGallaryDao implements IMyGallaryDao{
 		return sqlSession.selectOne("Post.getOtherDrawCnt", params);
 	}
 
+	@Override
+	public int postOnHeart(HashMap<String, String> params) throws Throwable {
+		
+		HashMap<String, Object> heart = sqlSession.selectOne("Post.postIsHeart", params);
+		
+		System.out.println("==============================" + heart);
+		
+		if(heart != null) {
+			sqlSession.delete("Post.postOffHeart", params);
+			
+			return sqlSession.insert("Post.postOnHeart", params);
+		} else {
+				
+			return sqlSession.insert("Post.postOnHeart", params);		
+		}
+		
+		//return sqlSession.insert("Post.onHeart", params);
+	}
+
+	@Override
+	public int postOffHeart(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Post.postOffHeart", params);
+	}
+
+	@Override
+	public HashMap<String, String> postLikeCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.postLikeCnt", params);
+	}
+
+	@Override
+	public int authorOnHeart(HashMap<String, String> params) throws Throwable {
+		
+		HashMap<String, Object> heart = sqlSession.selectOne("Post.authorIsHeart", params);
+		
+		
+		if(heart != null) {
+			sqlSession.delete("Post.authorOffHeart", params);
+			
+			return sqlSession.insert("Post.authorOnHeart", params);
+		} else {
+				
+			return sqlSession.insert("Post.authorOnHeart", params);		
+		}
+	}
+
+	@Override
+	public int authorOffHeart(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Post.authorOffHeart", params);
+	}
+
+	@Override
+	public HashMap<String, String> authorLikeCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.authorLikeCnt", params);
+	}
+	
+	@Override
+	public HashMap<String, String> authorIsHeart(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.authorIsHeart", params);
+	}
+
+	@Override
+	public HashMap<String, String> authorLikeCnt2(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.authorLikeCnt2", params);
+	}
+
+	@Override
+	public void updateViews(HashMap<String, String> params) throws Throwable {
+		sqlSession.update("Post.updateViews", params);
+	}
+
 
 }

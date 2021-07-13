@@ -39,5 +39,24 @@ public interface IMyGallaryDao {
 
 	public int getOtherDrawCnt(HashMap<String, String> params) throws Throwable;
 
+	public int postOnHeart(HashMap<String, String> params) throws Throwable;
+
+	public int postOffHeart(HashMap<String, String> params) throws Throwable;
+
+	public HashMap<String, String> postLikeCnt(HashMap<String, String> params) throws Throwable;
+
+	public int authorOnHeart(HashMap<String, String> params) throws Throwable;
+
+	public int authorOffHeart(HashMap<String, String> params) throws Throwable;
+
+	public HashMap<String, String> authorLikeCnt(HashMap<String, String> params) throws Throwable;
+
+	public HashMap<String, String> authorIsHeart(HashMap<String, String> params) throws Throwable;
+
+	public HashMap<String, String> authorLikeCnt2(HashMap<String, String> params) throws Throwable;
+
+	public void updateViews(HashMap<String, String> params) throws Throwable;
+
+
 
 }

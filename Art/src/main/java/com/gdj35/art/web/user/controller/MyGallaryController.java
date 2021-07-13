@@ -59,15 +59,21 @@ public class MyGallaryController {
 	
 	// 나의 갤러리 페이지
 	@RequestMapping(value = "/mygallary")
-	public ModelAndView mygallary(@RequestParam HashMap<String, String> params,
-								  ModelAndView mav) {
+	public ModelAndView mygallary(HttpSession session,
+								  @RequestParam HashMap<String, String> params,
+								  ModelAndView mav) throws Throwable {
 
 		int page= 1;
 		if(params.get("page") != null) {
 			page = Integer.parseInt(params.get("page"));
 		}
 		
+		params.put("userNo", String.valueOf(session.getAttribute("sUserNo")));
+		
+		HashMap<String, String> data = iMyGallaryService.authorLikeCnt2(params);
+		
 		mav.addObject("page", page);
+		mav.addObject("data", data);
 		
 		mav.setViewName("JY/mygallary");
 
@@ -78,12 +84,16 @@ public class MyGallaryController {
 	// 다른사람 갤러리 페이지
 	@RequestMapping(value = "/othergallary")
 	public ModelAndView othergallary(@RequestParam HashMap<String, String> params,
-								  ModelAndView mav) {
+								  ModelAndView mav) throws Throwable {
 
 		int page= 1;
-		if(params.get("page") != null && params.get("page") != "") {
+		if(params.get("page") != null) {
 			page = Integer.parseInt(params.get("page"));
 		}
+		
+		HashMap<String, String> data = iMyGallaryService.authorIsHeart(params);
+		
+		mav.addObject("data", data);
 		
 		mav.addObject("page", page);
 		
@@ -104,7 +114,7 @@ public class MyGallaryController {
 	public String mypicGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
-		
+		System.out.println("========================" + params);
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
 		int page = Integer.parseInt(params.get("page"));
@@ -252,6 +262,7 @@ public class MyGallaryController {
 		
 		int cnt = iMyGallaryService.getPicCnt(params);
 		
+		
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 16, 5);
 		
 	
@@ -311,7 +322,9 @@ public class MyGallaryController {
 	public ModelAndView detail(HttpSession session,
 								@RequestParam HashMap<String, String> params,
 								 ModelAndView mav) throws Throwable {
-
+		
+		
+		iMyGallaryService.updateViews(params);
 		
 		HashMap<String, String> data = iMyGallaryService.getPost(params);
 		
@@ -489,4 +502,173 @@ public class MyGallaryController {
 	
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	// 작품 좋아요 눌렀을 때
+	@RequestMapping(value = "/postOnHeart",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String postOnHeart(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+				
+		try {
+			int cnt = iMyGallaryService.postOnHeart(params);
+			
+			System.out.println("--------------------------------------" + params);
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	// 작품 좋아요 취소했을 때
+	@RequestMapping(value = "/postOffHeart",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String postOffHeart(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+				
+		try {
+			int cnt = iMyGallaryService.postOffHeart(params);
+			
+			System.out.println("--------------------------------------" + params);
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	// 작품 좋아요 수
+	@RequestMapping(value = "/postLikeCnt",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String postLikeCnt(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		HashMap<String, String> data = iMyGallaryService.postLikeCnt(params);
+				
+		modelMap.put("data", data);
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+	
+	// 작가 좋아요 눌렀을 때
+	@RequestMapping(value = "/authorOnHeart",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String authorOnHeart(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+				
+		try {
+			int cnt = iMyGallaryService.authorOnHeart(params);
+			
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	// 작가 좋아요 취소했을 때
+	@RequestMapping(value = "/authorOffHeart",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String authorOffHeart(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+				
+		try {
+			int cnt = iMyGallaryService.authorOffHeart(params);
+			
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	
+	// 작가 좋아요 수
+		@RequestMapping(value = "/authorLikeCnt",
+						method = RequestMethod.POST,
+						produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String authorLikeCnt(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+			ObjectMapper mapper = new ObjectMapper();
+			
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			HashMap<String, String> data = iMyGallaryService.authorLikeCnt(params);
+			
+
+			modelMap.put("data", data);
+
+			return mapper.writeValueAsString(modelMap);
+		}
+	
 }
