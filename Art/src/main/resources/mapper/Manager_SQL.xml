@@ -184,7 +184,8 @@
 	
 	<select id="getGallaryMCnt" resultType="Integer" parameterType="hashmap">
 		SELECT COUNT(*) AS CNT
-		FROM POST
+		FROM POST P INNER JOIN USERS U
+                     ON P.USER_NO = U.USER_NO
 		WHERE 1 = 1
 		<if test="srhYearFlag == 0 or srhYearFlag == 1">
 			<choose>
@@ -258,7 +259,7 @@
 	<select id="getPostList" parameterType="hashmap" resultType="hashmap">
 		SELECT *
 		FROM (SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME, P.DEL,
-				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YY-MM-DD') AS R_DATE,
+				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YY-MM-DD') AS REGISTER_DATE,
 				ROW_NUMBER() OVER(ORDER BY P.POST_NO DESC) AS RNUM, P.VIEWS, DECODE(L.LIKE_CNT, NULL, 0, L.LIKE_CNT) AS LIKE_CNT, P.EXPLAIN
 		FROM ((POST P LEFT OUTER JOIN USERS U
 		           				 ON P.USER_NO = U.USER_NO)
@@ -273,10 +274,10 @@
 		<if test="srhYearFlag != null and srhYearFlag != ''">
 			<choose>
 					<when test="srhYearFlag == 0">
-						AND TO_CHAR(R_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+						AND TO_CHAR(REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(R_DATE, 'YY') = '20'
+						AND TO_CHAR(REGISTER_DATE, 'YY') = '20'
 					</when>
 			</choose>
 		</if>
@@ -302,7 +303,7 @@
 					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 8">
-					AND TO_CHAR(R_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 		</if>
@@ -311,15 +312,15 @@
 			<choose>
 				<when test="startFlag != null and startFlag != ''
 						and endFlag == null and endFlag == ''">
-				AND R_DATE &gt;= #{startFlag}
+				AND REGISTER_DATE &gt;= #{startFlag}
 				</when>
 				<when test="startFlag == null and startFlag == ''
 						and endFlag != null and endFlag != ''">
-					AND R_DATE &lt;=  #{endFlag}
+					AND REGISTER_DATE &lt;=  #{endFlag}
 				</when>
 					<when test="startFlag != null and startFlag != ''
 						and endFlag != null and endFlag != ''">
-					AND R_DATE BETWEEN #{startFlag} AND #{endFlag}
+					AND REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
 				</when>
 			</choose>
 		</if>

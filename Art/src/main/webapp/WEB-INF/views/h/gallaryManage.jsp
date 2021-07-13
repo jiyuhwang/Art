@@ -112,15 +112,6 @@ $(document).ready(function(){
 		drawPopup();
 	});
 	
-	//상세보기 수정시 editor
-	/* 	CKEDITOR.replace("explainCK", {
-		resize_enabled : false,
-		language : "ko",
-		enterMode : "2",
-		width: "1330",
-		height: "500",
-		removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
-	}); */
 	
 	//검색버튼 누르면 준비중입니다 알람
 	$(".btn_notyet").on("click", function(){
@@ -154,7 +145,53 @@ $(document).ready(function(){
 		loadPostList();
 	});
 	
-	
+	//삭제버튼 클릭시
+	$("#BtnDelete").on("click", function(){
+		var confirmFlag = confirm("삭제 하시겠습니까?");
+					
+		if(confirmFlag){
+			var checkCnt = $(".result_table input[class='table_checkbox']:checked").length;
+			var checkArr = new Array();
+			
+			$(".result_table input[class='table_checkbox']:checked").each(function(index,item) {
+				checkArr.push($(this).parent().parent().attr("name"));//item이 this라서 this로 많이쓴다나~
+			});
+			
+			if(checkCnt == 0){
+				alert("선택된 작품이 없습니다.");
+			} else {
+				
+			console.log(checkArr[0]);
+				
+			var params = $("#actionForm").serialize();
+				
+			$.ajax({
+				url: "deleteGallary",
+				type: "post",
+				dataType: "json",
+				data: params,
+				success: function(res){ 
+					
+					if(res.msg == "success"){
+						location.href = "entireList";	
+					} else if(res.msg == "failed"){
+						alert("삭제에 실패하였습니다.");
+					} else {
+						alert("삭제 중 문제가 발생하였습니다.");
+					}						
+				},
+				error: function(request, status, error){
+					console.log(error);
+					
+				}
+			
+			});					
+			}//else
+
+	}
+		
+		
+	});//delete button click
 	
 	
 	//전체체크하면 전체적으로 체크되게 하기
@@ -252,8 +289,8 @@ $(document).ready(function(){
 		} else {
 			for(var d of list){
 				++no;
-				html +="<tr pno=\"" + d.POST_NO + "\" class=\"table_tr\">";
-				html +="<td><input type=\"checkbox\"></td>";
+				html +="<tr name=\"" + d.POST_NO + "\" class=\"table_tr\">";
+				html +="<td><input type=\"checkbox\" class=\"table_checkbox\"></td>";
 				html +="<td>" + no + "</td>";
 				html +="<td>" + d.POST_NO + "</td>";
 				html +="<td>" + d.CATEGORY_NAME + "</td>";
@@ -582,59 +619,9 @@ $(document).ready(function(){
 		
 		html += "<div class=\"result_cnt\">결과: " + cnt +"개</div>";
 		html += "<div class=\"button_wrap\">";
-		html += "<input type=\"button\"  id=\"BtnReturn\" value=\"복원\"&nbsp;&nbsp;&nbsp;";
-		html += "<input type=\"button\" id=\"BtnDelete\" value=\"삭제\"";
 		html += "</div>";
 		
 		$(".cnt_wrap").html(html);
-		
-		$("#BtnDelete").on("click", function(){
-			var confirmFlag = confirm("삭제 하시겠습니까?");
-						
-			if(confirmFlag){
-				var checkCnt = $(".result_table input[pno=postNo]:checked").length;
-				var checkArr = new Array();
-				
-				$(".result_table tbody input[pno=postNo]:checked").each(function(index,item) {
-					checkArr.push($(this).val());//item이 this라서 this로 많이쓴다나~
-				});
-				
-				if(checkCnt == 0){
-					alert("선택된 작품이 없습니다.");
-				} else {
-					
-				$("#postNo").val(list);
-				console.log($("#postNo").val());
-					
-				var params = $("#actionForm").serialize();
-					
-				$.ajax({
-					url: "deleteGallary",
-					type: "post",
-					dataType: "json",
-					data: params,
-					success: function(res){ 
-						
-						if(res.msg == "success"){
-							location.href = "entireList";	
-						} else if(res.msg == "failed"){
-							alert("삭제에 실패하였습니다.");
-						} else {
-							alert("삭제 중 문제가 발생하였습니다.");
-						}						
-					},
-					error: function(request, status, error){
-						console.log(error);
-						
-					}
-				
-				});					
-				}//else
-	
-			
-		}
-			
-		});//delete button click
 		
 	}//SHOWCNT end
 	
@@ -741,6 +728,10 @@ $(document).ready(function(){
 						<input type="button" value="삭제포함" id="BtnWith"/>
 				</div>
 			</div>
+		</div>
+		<div class="del_wrap">
+			<input type="button"  id="BtnReturn" value="복원"/>
+			<input type="button" id="BtnDelete" value="삭제"/>		
 		</div>
 		<div class="cnt_wrap"></div>
 </form>

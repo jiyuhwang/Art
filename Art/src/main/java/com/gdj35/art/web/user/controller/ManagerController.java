@@ -335,44 +335,6 @@ public class ManagerController {
 	
 	}
 	
-
-	//업데이트 해보기
-	@RequestMapping(value="/drawEdit",
-			method=RequestMethod.POST,
-			produces="text/json;charset=UTF-8")
-	@ResponseBody
-	public String drawEdit(
-			@RequestParam HashMap<String, String> params,
-			ModelAndView mav) throws Throwable{
-		
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
-		//페이징처리
-		int page = Integer.parseInt(params.get("page"));
-		
-		try {
-			int cnt = iManagerService.getGallaryMCnt(params);
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
-			
-			params.put("endCnt", Integer.toString(pb.getEndCount()));
-			params.put("startCnt", Integer.toString(pb.getStartCount()));
-					
-			
-			//데이터취득
-			HashMap<String, String> data = iManagerService.getUserDetail(params);
-		
-			modelMap.put("data", data);
-			modelMap.put("pb", pb);
-		
-		} catch (Throwable e) {
-			e.printStackTrace();
-			modelMap.put("msg", "error");
-		}
-		return mapper.writeValueAsString(modelMap);
-	
-	}
-	
 	//업데이트하고 새로고침
 	@RequestMapping(value="/drawEdits",
 			method=RequestMethod.POST,
@@ -411,21 +373,21 @@ public class ManagerController {
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
 		
-		String getArr = params.get("postNo");
-		String [] postArry = getArr.split(",");
+		String checkArr = params.get("checkArr");
+		System.out.println(checkArr);
+		String [] postArry = checkArr.split(",");
+		System.out.println(postArry);
 		
-		int cnt = 0;
+		int checkCnt = Integer.parseInt(params.get("checkCnt"));
 		
-		System.out.println(Arrays.toString(postArry));
-		
-		for(int i =0 ; i <postArry.length; i++) {
-			params.put("postNo",postArry[i]);
-			cnt += iManagerService.deleteG(params);
+		for(int i =0 ; i <checkCnt; i++) {
+			params.put("postNo", postArry[i]);
+			checkCnt += iManagerService.deleteG(params);
 			params.remove("postNo");
 		}
 		
 		System.out.println(params);
-		System.out.println(cnt);
+		System.out.println(checkCnt);
 		
 		
 		return mapper.writeValueAsString(modelMap);
