@@ -74,6 +74,16 @@ $(document).ready(function() {
 		history.back();
 	});
 	
+	$('#video').hide();
+	$('.select').on("change", function() {
+		if($("select[name=category]").val() == '3') {
+			$('#video').show();
+		} else {
+			//$('.upload_wrap').show();
+			$('#video').hide();
+		}
+	});
+	
 
 	$("#btnSave").on("click", function(){
 		
@@ -84,13 +94,17 @@ $(document).ready(function() {
 		$('#tag2').val(Tag);
 		console.log($('#tag2').val());
 		
-		
-		if($("#uploadFile").attr("src") == "") {
-			alert("작품을 올려주세요");
+		if($("select[name=category]").val() == '0') {
+				alert("작품 카테고리를 선택해주세요.");
+				$(".select").focus();
+				return false;
+		} else if($("#postFile2").val() == "") {
+			alert("작품을 올려주세요.");
+			$("#upload").focus();
 			return false;// ajaxForm 실행 불가
-		} else if($("select[name=category]").val() == '0') {
-			alert("작품 카테고리를 선택해주세요.");
-			$(".select").focus();
+		} else if($('#video').val() == "" && $("select[name=category]").val() == '3') {
+			alert("영상 링크를 선택해주세요.");
+			$("#video").focus();
 			return false;
 		} else if($("#titleInput").val() == "") {
 			$("#titleInput").focus();
@@ -180,12 +194,6 @@ $(document).ready(function() {
 	</c:choose>
 	<input type="hidden" name="userNo" value="${sUserNo}">
 	<div class="wrap">
-		<div class="upload_wrap">
-			<!-- <img id="uploadFile" src="" width="400px" height="400px"> -->
-			<input type="button" id="upload"/>
-			<!-- <div class="upload_txt">작품을 올려주세요.</div> -->
-			<input type="hidden" name="postFile2" id="postFile2" value=""/>  
-		</div>
 		<div class="select_w">
 			<select class="select" name="category">
 				<option value="0" selected="selected">카테고리</option>
@@ -194,6 +202,13 @@ $(document).ready(function() {
 				<option value="3">영상작품관</option>
 			</select>
 		</div>
+		<div class="upload_wrap">
+			<!-- <img id="uploadFile" src="" width="400px" height="400px"> -->
+			<input type="button" id="upload"/>
+			<!-- <div class="upload_txt">작품을 올려주세요.</div> -->
+			<input type="hidden" name="postFile2" id="postFile2" value=""/>  
+		</div>
+		<input type="text" id="video" name="postFile3" placeholder="유투브 링크를 입력해주세요." />
 		<div class="title_input_w"><input name="title" id="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
 		<div class="contents_in_w"><textarea id="contentsIn" name="explain" cols="80" rows="10" placeholder="작품을 뽐내주세요."></textarea></div>
 

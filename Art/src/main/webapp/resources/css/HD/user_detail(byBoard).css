@@ -12,6 +12,20 @@
 .Pmain table th{
 	background-color: #cccccc;
 }
+.Pmain .content_box input{
+	width: inherit;
+	background-color: inherit;
+	margin: 0;
+}
+
+
+textarea{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: inherit;
+}
+
 .Pmain{
 	width : 900px;
 	height : 900px;
@@ -55,7 +69,8 @@
 	width : 180px;
 	height: 180px;
 	background-color: rgba;
-	
+	margin-top:40px;
+	border-radius: 50%;
 }
 .Pmain .pName{
 	margin-top : 50px;
@@ -151,7 +166,7 @@
 	background-color: inherit;
 	font-size: 12pt;
 	box-sizing: border-box;
-	overflow: auto;
+	overflow: hidden;
 	word-wrap: break-word;
 }
 

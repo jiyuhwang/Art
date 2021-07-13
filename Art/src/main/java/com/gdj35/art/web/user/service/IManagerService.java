@@ -31,6 +31,12 @@ public interface IManagerService {
 
 	public int deleteOneRow(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> getDMList(HashMap<String, String> params) throws Throwable;
+
+	public int updateUser(HashMap<String, String> params)throws Throwable;
+
+	public List<HashMap<String, String>> getTList(HashMap<String, String> params) throws Throwable;
+
 	public int updatePostDetail(HashMap<String, String> params) throws Throwable;
 
 	public int getReportMCnt(HashMap<String, String> params) throws Throwable;

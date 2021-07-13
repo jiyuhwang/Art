@@ -233,46 +233,12 @@ body {
 	left: 85%;
 }
 
-#pic1 {
-	background-image: url("../../images/JY/짱구1.jpg");
-}
-
-#pic2 {
-	background-image: url("../../images/JY/짱구2.jpg");
-}
-
-#pic3 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#pic4 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-
-#pic5 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#pic6 {
-	background-image: url("../../images/JY/짱구4.jpg");
-}
-
-#pic7 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-#pic8 {
-	background-image: url("../../images/JY/짱구1.jpg");
-}
-#pic9 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-.pic_wrap {
+.pic_wrap, .draw_wrap, .video_wrap {
 	position: absolute;
 	margin-top: 20px;
 }
 
-.pic_wrap :not(:nth-child(3n)) {
+.pic_wrap :not(:nth-child(3n)), .draw_wrap :not(:nth-child(3n)), .video_wrap :not(:nth-child(3n)) {
 	margin-right: 15px;
 }
 

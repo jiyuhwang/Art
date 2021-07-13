@@ -306,12 +306,12 @@ input[type="checkbox"] {
 }
 
 
-.pic_wrap {
+.pic_wrap, .draw_wrap, .video_wrap {
 	position: absolute;
 	margin-top: 20px;
 }
 
-.pic_wrap :not(:nth-child(3n)) {
+.pic_wrap :not(:nth-child(3n)), .draw_wrap :not(:nth-child(3n)), .video_wrap :not(:nth-child(3n)) {
 	margin-right: 15px;
 }
 
