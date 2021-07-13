@@ -118,6 +118,7 @@ table th:hover{
 	margin-left: 6px;
 }
 
+
 .bigClass-2:hover{
 	display : inline-block;
 	height: 60px;
@@ -204,7 +205,7 @@ table th:hover{
 	border-radius: 5px;
 }
 
-#pagingWrap{
+.pagingWrap{
 	font-size: 15pt;
 	text-align: center;
 	margin-top: 12px;
