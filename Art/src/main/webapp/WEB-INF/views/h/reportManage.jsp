@@ -226,7 +226,9 @@ $(document).ready(function(){
 			success: function(res){ 
 				
 				if(res.msg == "success"){
-					loadPostList();	
+					$("#page").val(1);
+					$("#checkAll").prop("checked", false);
+					loadPostList();
 				} else if(res.msg == "failed"){
 					alert("삭제에 실패하였습니다.");
 				} else {
@@ -253,6 +255,8 @@ $(document).ready(function(){
 			success: function(res){ 
 				
 				if(res.msg == "success"){
+					$("#page").val(1);
+					$("#checkAll").prop("checked", false);
 					location.href = "reportManage";	
 				} else if(res.msg == "failed"){
 					alert("복원에 실패하였습니다.");
