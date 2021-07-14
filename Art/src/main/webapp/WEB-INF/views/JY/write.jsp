@@ -84,6 +84,11 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('#titleInput').each(function() {
+		var text = $(this).text();
+		$(this).text(text.replace("\"", "&quot;"));
+	});
+	
 
 	$("#btnSave").on("click", function(){
 		

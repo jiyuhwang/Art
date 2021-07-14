@@ -80,11 +80,15 @@ $(document).ready(function() {
 		$("#postFile").click();
 	});
 	
-
+	$('#titleInput').each(function() {
+		var text = $(this).text();
+		$(this).text(text.replace("\"", "&quot;"));
+	});
+	
+	
 	$("#btnSave").on("click", function(){
 		
 		$("#contentsIn").val(CKEDITOR.instances['contentsIn'].getData());
-
 		var Text = $( '.badge' ).text();
 		var Tag = Text.split('x');
 		$('#tag2').val(Tag);
@@ -116,7 +120,7 @@ $(document).ready(function() {
 			return false;
 		} else {
 			
-
+			
 			
 			var params= $("#updateForm").serialize();
 			
@@ -207,7 +211,7 @@ $(document).ready(function() {
 						<input type="button" id="upload"/>
 						<input type="hidden" name="postFile2" id="postFile2" value=""/>  
 					</div>
-					<input type="text" id="video" name="postFile3" value="${data.VIDEO_LINK}" placeholder="유투브 링크를 입력해주세요." />
+					<input type="text" id="video" name="postFile3" value='${data.VIDEO_LINK}' maxlength="150" placeholder="유투브 링크를 입력해주세요." />
 			</c:when>
 
 			<c:otherwise>
@@ -234,7 +238,7 @@ $(document).ready(function() {
 
 		</div> --%>
 			
-		<div class="title_input_w"><input name="title" id="titleInput" type="text" value="${data.TITLE}" placeholder="제목을 입력해주세요."></div>
+		<div class="title_input_w"><input name="title" id="titleInput" type="text" value='${data.TITLE}' placeholder="제목을 입력해주세요."></div>
 		<div class="contents_in_w"><textarea id="contentsIn" name="explain" cols="80" rows="10" placeholder="작품을 뽐내주세요.">${data.EXPLAIN}</textarea></div>
 
 		<div class="tag_input_w">

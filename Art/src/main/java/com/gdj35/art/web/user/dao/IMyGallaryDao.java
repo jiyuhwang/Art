@@ -75,6 +75,10 @@ public interface IMyGallaryDao {
 
 	public List<HashMap<String, String>> otherVideoList(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> postCommentCnt(HashMap<String, String> params) throws Throwable;
+
+	public int getCommentCnt(HashMap<String, String> params) throws Throwable;
+
 
 
 }

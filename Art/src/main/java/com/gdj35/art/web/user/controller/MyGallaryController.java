@@ -674,6 +674,24 @@ public class MyGallaryController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	// 작품 댓글 수 Ajax
+	@RequestMapping(value = "/postCommentCnt",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String postCommentCnt(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+			ObjectMapper mapper = new ObjectMapper();
+			
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			HashMap<String, String> data = iMyGallaryService.postCommentCnt(params);
+					
+			modelMap.put("data", data);
+
+			return mapper.writeValueAsString(modelMap);
+		}
+	
 	
 	
 	
@@ -796,19 +814,19 @@ public class MyGallaryController {
 		
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		//int page = Integer.parseInt(params.get("page"));
+		int page = Integer.parseInt(params.get("page"));
 		
-		//int cnt = iMyGallaryService.getCommentCnt(params);
+		int cnt = iMyGallaryService.getCommentCnt(params);
 		
-		//PagingBean pb = iPagingService.getPagingBean(page, cnt);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 10, 5);
 		
-		//params.put("startCnt", Integer.toString(pb.getStartCount()));
-		//params.put("endCnt", Integer.toString(pb.getEndCount()));
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
 				
 		List<HashMap<String, String>> list = iMyGallaryService.commentList(params);
 		
 		modelMap.put("list", list);		
-		//modelMap.put("pb", pb);
+		modelMap.put("pb", pb);
 		
 		return mapper.writeValueAsString(modelMap);
 	

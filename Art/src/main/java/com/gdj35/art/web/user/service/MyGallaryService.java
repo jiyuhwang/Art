@@ -190,5 +190,16 @@ public class MyGallaryService implements IMyGallaryService{
 		return iMyGallaryDao.otherVideoList(params);
 	}
 
+	@Override
+	public HashMap<String, String> postCommentCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.postCommentCnt(params);
+	}
+
+	@Override
+	public int getCommentCnt(HashMap<String, String> params) throws Throwable {		// TODO Auto-generated method stub
+		return iMyGallaryDao.getCommentCnt(params);
+
+	}
+
 
 }
