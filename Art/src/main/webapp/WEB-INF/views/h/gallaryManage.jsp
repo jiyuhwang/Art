@@ -129,6 +129,7 @@ $(document).ready(function(){
 	$("#BtnWith").off("click");
 	$("#BtnWith").on("click", function(){
 		$("#delFlag").val("");
+		$("#page").val(1);
 		console.log($("#delFlag").val());
 		loadPostList();
 	});
@@ -136,12 +137,14 @@ $(document).ready(function(){
 	$("#BtnWithDel").off("click");
 	$("#BtnWithDel").on("click", function(){
 		$("#delFlag").val("0");
+		$("#page").val(1);
 		loadPostList();
 	});
 	
 	$("#BtnWithoutDel").off("click");
 	$("#BtnWithoutDel").on("click", function(){
 		$("#delFlag").val("1");
+		$("#page").val(1);
 		loadPostList();
 	});
 	
@@ -325,6 +328,7 @@ $(document).ready(function(){
 			success: function(res){ 
 				
 				if(res.msg == "success"){
+					$("#checkAll").prop("checked", false);
 					loadPostList();	
 				} else if(res.msg == "failed"){
 					alert("삭제에 실패하였습니다.");
@@ -352,6 +356,7 @@ $(document).ready(function(){
 			success: function(res){ 
 				
 				if(res.msg == "success"){
+					$("#checkAll").prop("checked", false);
 					location.href = "gallaryManage";	
 				} else if(res.msg == "failed"){
 					alert("복원에 실패하였습니다.");
