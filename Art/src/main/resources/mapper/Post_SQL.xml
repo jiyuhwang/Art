@@ -562,6 +562,7 @@
 		SELECT COUNT(*) AS COMMENTCNT
 		FROM COMMENTS
 		WHERE POST_NO = #{postNo}
+		AND DEL = 1
 	</select>
 	
 	
@@ -615,9 +616,9 @@
 		                    ON C.USER_NO = U.USER_NO
 		WHERE C.POST_NO = #{postNo} -->
 		SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, C.RNUM,
-                C.CONTENT, C.REGISTER_DATE, C.USER_NICKNAME, C.PROFILE_IMG_PATH
+                C.CONTENT, C.REGISTER_DATE, C.USER_NICKNAME, C.PROFILE_IMG_PATH, C.DEL
 		FROM(SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY NVL(C.TOP_COMMENT_NO, C.COMMENT_NO) ASC, C.COMMENT_NO ASC) AS RNUM,
-		                    C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH
+		                    C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH, C.DEL
 		    FROM COMMENTS C INNER JOIN USERS U
 		                        ON C.USER_NO = U.USER_NO
 		    WHERE C.POST_NO = #{postNo}) C
@@ -636,4 +637,16 @@
 		FROM COMMENTS
 		WHERE POST_NO = #{postNo}
 	</select>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteComment" parameterType="hashmap">
+		UPDATE COMMENTS SET DEL = 0
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
+	
+	<!-- 답글 삭제 -->
+	<update id="deleteReplyComment" parameterType="hashmap">
+		UPDATE COMMENTS SET DEL = 0
+		WHERE COMMENT_NO = #{ReplyCommentNo}
+	</update>
 </mapper>

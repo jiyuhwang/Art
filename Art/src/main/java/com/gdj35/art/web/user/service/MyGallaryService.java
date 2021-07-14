@@ -201,5 +201,16 @@ public class MyGallaryService implements IMyGallaryService{
 
 	}
 
+	@Override
+	public int deleteComment(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.deleteComment(params);
+
+	}
+
+	@Override
+	public int deleteReplyComment(HashMap<String, String> params) throws Throwable {		// TODO Auto-generated method stub
+		return iMyGallaryDao.deleteReplyComment(params);
+	}
+
 
 }

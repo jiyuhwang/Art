@@ -79,6 +79,10 @@ public interface IMyGallaryDao {
 
 	public int getCommentCnt(HashMap<String, String> params) throws Throwable;
 
+	public int deleteComment(HashMap<String, String> params) throws Throwable;
+
+	public int deleteReplyComment(HashMap<String, String> params) throws Throwable;
+
 
 
 }

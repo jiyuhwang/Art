@@ -289,5 +289,15 @@ public class MyGallaryDao implements IMyGallaryDao{
 
 	}
 
+	@Override
+	public int deleteComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Post.deleteComment", params);
+	}
+
+	@Override
+	public int deleteReplyComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Post.deleteReplyComment", params);
+	}
+
 
 }

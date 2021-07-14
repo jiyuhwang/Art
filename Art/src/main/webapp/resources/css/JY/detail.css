@@ -565,7 +565,7 @@ body {
 	height: 100%;
 	position: relative;
 	margin-top: 20px;
-	
+	font-size: 12pt;
 }
 
 .reply_comment_write_w{
@@ -621,6 +621,7 @@ body {
 	height: 100%;
 	border-bottom: 1px solid #cccccc;
 	padding: 20px 0;
+	font-size: 12pt;
 }
 
 .reply_comment_form1 {

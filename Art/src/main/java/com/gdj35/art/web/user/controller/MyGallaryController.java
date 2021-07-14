@@ -804,6 +804,7 @@ public class MyGallaryController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	// 댓글리스트 Ajax
 	@RequestMapping(value = "/commentList",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
@@ -858,6 +859,60 @@ public class MyGallaryController {
 			modelMap.put("msg", "error");
 		}
 
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	// 댓글삭제 Ajax
+	@RequestMapping(value = "/deleteComment",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String deleteComment(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+	
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iMyGallaryService.deleteComment(params);
+			if(cnt > 0) {		
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	// 답글삭제 Ajax
+	@RequestMapping(value = "/deleteReplyComment",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String deleteReplyComment(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+	
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iMyGallaryService.deleteReplyComment(params);
+			if(cnt > 0) {		
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+	
 		return mapper.writeValueAsString(modelMap);
 	}
 }
