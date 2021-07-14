@@ -165,17 +165,6 @@ public class ManagerController {
 		System.out.println(params);
 		System.out.println(cnt);
 		
-		/* int cnt = iManagerService.deleteOneRow(params); */
-		
-		
-		 /*
-		 * PagingBean pb = iPagingService.getPagingBean(page, maxCount, viewCnt,
-		 * pageCnt)
-		 */
-		
-		
-		/* modelMap.put("pb",pb); */
-		/* modelMap.put("cnt", cnt); */
 		
 		return mapper.writeValueAsString(modelMap);
 	}
@@ -251,9 +240,11 @@ public class ManagerController {
 	@RequestMapping(value="/gong_board")
 	public ModelAndView gong_board(ModelAndView mav) throws Throwable {
 		
-		  List<HashMap<String,String>> list = iManagerService.getGList();
-		
-		 mav.addObject("list", list);
+		/*
+		 * List<HashMap<String,String>> list = iManagerService.getGList();
+		 * 
+		 * mav.addObject("list", list);
+		 */
 		
 		mav.addObject("now", "gong");
 		mav.setViewName("HD/gong_board");
@@ -261,16 +252,69 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value="/tag_board")
-	public ModelAndView tag_board(ModelAndView mav, HashMap<String, String> params) throws Throwable {
+	public ModelAndView tag_board(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
+		
+		System.out.println("this is params" + params);
 		
 		List<HashMap<String, String>> tList = iManagerService.getTList(params);
 		
+		int cnt = iManagerService.getTagCnt(params);
 		
 		
+		
+		mav.addObject("cnt", cnt);
 		mav.addObject("tList", tList);
 		mav.addObject("now", "tag");
 
 		mav.setViewName("HD/tag_board");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/addTag")
+	public ModelAndView addTag(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
+		
+
+		int cnt = iManagerService.addTag(params);
+		
+		if(cnt>0) {
+			mav.addObject("msg", "success");
+		}else {
+			mav.addObject("msg", "failed");
+		}
+		
+		
+		mav.addObject("now", "tag");
+		
+		mav.setViewName("redirect:/tag_board");
+	
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/delTag")
+	public ModelAndView delTag(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
+		
+		
+		/*
+		 * String[] arr = {params.get("tagNo")};
+		 * System.out.println(Arrays.toString(arr));
+		 */
+		
+		int cnt = iManagerService.delTag(params); 
+		
+		if(cnt>0) {
+			mav.addObject("msg", "success");
+		}else {
+			mav.addObject("msg", "failed");
+		}
+		
+		
+		mav.addObject("now", "tag");
+		
+		mav.setViewName("redirect:/tag_board");
+		
+		
 		return mav;
 	}
 	

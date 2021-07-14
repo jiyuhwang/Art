@@ -45,4 +45,10 @@ public interface IManagerDao {
 
 	public int deleteG(HashMap<String, String> params) throws Throwable;
 
+	public int getTagCnt(HashMap<String, String> params) throws Throwable;
+
+	public int addTag(HashMap<String, String> params)throws Throwable;
+
+	public int delTag(HashMap<String, String> params)throws Throwable;
+
 }
