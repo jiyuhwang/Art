@@ -127,7 +127,6 @@ table td{
 
 .date_srh {
 	display: inline-block;
-	
 }
 
 .del_wrap {
@@ -135,12 +134,12 @@ table td{
 }
 
 .del_wrap input[type="button"] {
-	width: 100px;
+	width: 70px;
 	position: absolute;
 }
 
 .del_wrap input[type="button"]:first-child {
-	right: 110px;
+	right: 74px;
 }
 
 .del_wrap input[type="button"]:last-child {
@@ -160,10 +159,6 @@ table td{
 	display: inline-block;
 	right: 0px;
 	position: absolute;
-}
-
-#Btndelete {
-	width: 100px;
 }
 
 .result_table {

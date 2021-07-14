@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+iframe {
+	max-width: 100%;
+	min-width: 80%;
+	min-height: 500px;
+	margin-left: 150px;
+}
+
 body {
 	font-size: 0pt;
 	margin: 0;
@@ -483,7 +490,9 @@ body {
 .contents_wrap {
 	width: 100%;
 	height: 50%;
+	margin-top: 100px;
 }
+
 
 .contents_img {
 	display: block;
@@ -556,7 +565,7 @@ body {
 	height: 100%;
 	position: relative;
 	margin-top: 20px;
-	
+	font-size: 12pt;
 }
 
 .reply_comment_write_w{
@@ -612,6 +621,7 @@ body {
 	height: 100%;
 	border-bottom: 1px solid #cccccc;
 	padding: 20px 0;
+	font-size: 12pt;
 }
 
 .reply_comment_form1 {
@@ -638,14 +648,14 @@ body {
 .comment1, .reply_comment1 {
 	width: 100%;
 	height: 100%;
-	margin-top: 15pt;
+	margin-top: 10pt;
 	font-size: 10pt;
 }
 
 .comment1_date, .reply_comment1_date {
 	width: 100%;
 	height: 15px;
-	margin-top: 5pt;
+	margin-top: 10pt;
 	font-size: 8pt;
 	color: gray;
 }
@@ -669,6 +679,7 @@ body {
     border: 1px solid #ffad33;
     padding: 5px;
 	border-radius: 5px;
+	margin-top: 10px;
 }
 
 #btnCommentDelete, #replyBtnCommentDelete {
@@ -695,15 +706,17 @@ body {
 	color: black;
 	padding: 8px 16px;
 	text-decoration: none;
+	margin: 0 5px;
+	cursor: pointer;
 }
 
-.pagination a.active {
+.on {
 	border: 1px solid black;
 	font-weight: bold;
 	border-radius: 5px;
 }
 
-.pagination a:hover:not(.active) {
+.pagination a:hover:not(.on) {
 	background-color: #ddd;
 	border-radius: 5px;
 }

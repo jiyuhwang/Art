@@ -462,27 +462,69 @@ public class ManagerController {
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
 		
-		String checkArr = params.get("checkArr");
-		System.out.println(checkArr);
+		String checkArr = params.get("checkedArr");
 		String [] postArry = checkArr.split(",");
-		System.out.println(postArry);
 		
-		int checkCnt = Integer.parseInt(params.get("checkCnt"));
+		int cnt = 0;
 		
-		for(int i =0 ; i <checkCnt; i++) {
+		try {
+		
+			for(int i =0 ; i <postArry.length; i++) {
 			params.put("postNo", postArry[i]);
-			checkCnt += iManagerService.deleteG(params);
+			cnt += iManagerService.deleteG(params);
 			params.remove("postNo");
 		}
 		
-		System.out.println(params);
-		System.out.println(checkCnt);
-		
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+				}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
 		
 		return mapper.writeValueAsString(modelMap);
 	}
 	
-	
+	//복원하기
+	@RequestMapping(value = "/returnDel",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String returnDel(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		String checkArr = params.get("checkedArr");
+		String [] postArry = checkArr.split(",");
+		
+		int cnt = 0;
+		
+		try {
+		
+			for(int i =0 ; i <postArry.length; i++) {
+			params.put("postNo", postArry[i]);
+			cnt += iManagerService.returnG(params);
+			params.remove("postNo");
+		}
+		
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+				}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+		
+		return mapper.writeValueAsString(modelMap);
+	}
 	
 	
 	
@@ -547,6 +589,119 @@ public class ManagerController {
 		
 				
 		return mapper.writeValueAsString(modelMap);
+	}
+	
+	//삭제하기
+	@RequestMapping(value = "/deleteReport",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String deleteReport(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		String checkArr = params.get("checkedArr");
+		String [] postArry = checkArr.split(",");
+		
+		int cnt = 0;
+		
+		try {
+		
+			for(int i =0 ; i <postArry.length; i++) {
+			params.put("rNo", postArry[i]);
+			cnt += iManagerService.deleteR(params);
+			params.remove("rNo");
+		}
+		
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+				}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	//복원하기
+	@RequestMapping(value = "/returnDelr",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String returnDelr(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		String checkArr = params.get("checkedArr");
+		String [] postArry = checkArr.split(",");
+		
+		int cnt = 0;
+		
+		try {
+		
+			for(int i =0 ; i <postArry.length; i++) {
+			params.put("rNo", postArry[i]);
+			cnt += iManagerService.returnR(params);
+			params.remove("rNo");
+		}
+		
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+				}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	//신고내용보기
+	@RequestMapping(value="/drawReportPopup",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String drawReportPopup(
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		//페이징처리
+		int page = Integer.parseInt(params.get("page"));
+		
+		try {
+			int cnt = iManagerService.getReportMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+					
+			
+			//데이터취득
+			HashMap<String, String> data = iManagerService.getReportDetail(params);
+		
+			modelMap.put("data", data);
+			modelMap.put("pb", pb);
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}		
+		
+		return mapper.writeValueAsString(modelMap);
+	
 	}
 	
 }

@@ -72,7 +72,7 @@ body {
     margin-left: 20px;
 }
 
-.pic, .draw {
+.pic, .draw, .video {
 	display: inline-block;
 	cursor: pointer;
 	width: 310px;
@@ -105,6 +105,13 @@ body {
 
 .draw:hover .contents_title, .draw:hover .contents_in, .draw:hover .contents_heart,
 	.draw:hover .contents_name {
+	opacity: 1;
+	color: white;
+	z-index: 300;
+}
+
+.video:hover .contents_title, .video:hover .contents_in, .video:hover .contents_heart,
+	.video:hover .contents_name {
 	opacity: 1;
 	color: white;
 	z-index: 300;

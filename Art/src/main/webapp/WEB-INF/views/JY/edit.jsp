@@ -80,11 +80,15 @@ $(document).ready(function() {
 		$("#postFile").click();
 	});
 	
-
+	$('#titleInput').each(function() {
+		var text = $(this).text();
+		$(this).text(text.replace("\"", "&quot;"));
+	});
+	
+	
 	$("#btnSave").on("click", function(){
 		
 		$("#contentsIn").val(CKEDITOR.instances['contentsIn'].getData());
-
 		var Text = $( '.badge' ).text();
 		var Tag = Text.split('x');
 		$('#tag2').val(Tag);
@@ -99,12 +103,13 @@ $(document).ready(function() {
 		}
 		console.log($('#postFile2').val());
 		
-		if($("#uploadFile").attr("src") == "") {
-			alert("작품을 올려주세요");
+		if($("#postFile2").val() == "") {
+			alert("작품을 올려주세요.");
+			$("#upload").focus();
 			return false;// ajaxForm 실행 불가
-		} else if($("select[name=category]").val() == '0') {
-			alert("작품 카테고리를 선택해주세요.");
-			$(".select").focus();
+		} else if($('#video').val() == "" && $("select[name=category]").val() == '3') {
+			alert("영상 링크를 첨부해주세요.");
+			$("#video").focus();
 			return false;
 		} else if($("#titleInput").val() == "") {
 			$("#titleInput").focus();
@@ -115,7 +120,7 @@ $(document).ready(function() {
 			return false;
 		} else {
 			
-
+			
 			
 			var params= $("#updateForm").serialize();
 			
@@ -197,13 +202,32 @@ $(document).ready(function() {
 	</c:choose>
 	<input type="hidden" name="userNo" value="${data.USER_NO}">
 	<div class="wrap">
-		<div class="upload_wrap">
-			<img id="uploadFile" src="resources/upload/${data.POST_FILE}" width="400px" height="400px">
-			<input type="hidden" id="postFileKeep" value="${data.POST_FILE}"/>  			
-			<input type="button" id="upload"/>
-			<input type="hidden" name="postFile2" id="postFile2" value=""/>  
-		</div>
-		<div class="select_w">
+	
+	<c:choose>		
+			<c:when test="${data.CATEGORY_NO eq '3'}">
+					<div class="upload_wrap">
+						<img id="uploadFile" src="resources/upload/${data.POST_FILE}" width="400px" height="400px">
+						<input type="hidden" id="postFileKeep" value="${data.POST_FILE}"/>  			
+						<input type="button" id="upload"/>
+						<input type="hidden" name="postFile2" id="postFile2" value=""/>  
+					</div>
+					<input type="text" id="video" name="postFile3" value='${data.VIDEO_LINK}' maxlength="150" placeholder="유투브 링크를 입력해주세요." />
+			</c:when>
+
+			<c:otherwise>
+				<div class="upload_wrap">
+					<img id="uploadFile" src="resources/upload/${data.POST_FILE}" width="400px" height="400px">
+					<input type="hidden" id="postFileKeep" value="${data.POST_FILE}"/>  			
+					<input type="button" id="upload"/>
+					<input type="hidden" name="postFile2" id="postFile2" value=""/>
+					<input type="hidden" id="video" name="postFile3" value="" />
+				</div>
+			</c:otherwise>	
+		</c:choose>
+	
+	
+		
+		<%-- <div class="select_w">
 		<c:set var="Category" value="${data.CATEGORY_NO}" />
 			<select name="category" class="select">
 				<option value="0">카테고리</option>
@@ -212,9 +236,9 @@ $(document).ready(function() {
 				<option value="3" <c:if test="${Category eq '3'}">selected</c:if>>영상작품관</option>
 			</select>
 
-		</div>
+		</div> --%>
 			
-		<div class="title_input_w"><input name="title" id="titleInput" type="text" value="${data.TITLE}" placeholder="제목을 입력해주세요."></div>
+		<div class="title_input_w"><input name="title" id="titleInput" type="text" value='${data.TITLE}' placeholder="제목을 입력해주세요."></div>
 		<div class="contents_in_w"><textarea id="contentsIn" name="explain" cols="80" rows="10" placeholder="작품을 뽐내주세요.">${data.EXPLAIN}</textarea></div>
 
 		<div class="tag_input_w">

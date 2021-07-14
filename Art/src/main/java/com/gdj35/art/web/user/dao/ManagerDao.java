@@ -151,6 +151,26 @@ public class ManagerDao implements IManagerDao {
 		return cnt;
 	}
 
+	@Override
+	public int returnG(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.returnG",params);
+	}
+
+	@Override
+	public int deleteR(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.deleteR",params);
+	}
+
+	@Override
+	public int returnR(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.returnR",params);
+	}
+
+	@Override
+	public HashMap<String, String> getReportDetail(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Manager.getReportDetail", params);
+	}
+
 
 
 

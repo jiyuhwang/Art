@@ -229,5 +229,75 @@ public class MyGallaryDao implements IMyGallaryDao{
 		sqlSession.update("Post.updateViews", params);
 	}
 
+	@Override
+	public int addComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("Post.addComment", params);	
+	}
+
+	@Override
+	public List<HashMap<String, String>> commentList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.commentList", params);
+	}
+
+	@Override
+	public int addReplyComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("Post.addReplyComment", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> videoList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.videoList", params);
+	}
+
+	@Override
+	public int getVideoCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getVideoCnt", params);
+	}
+
+	@Override
+	public int getMyVideoCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getMyVideoCnt", params);
+
+	}
+
+	@Override
+	public List<HashMap<String, String>> myVideoList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.myVideoList", params);
+
+	}
+
+	@Override
+	public int getOtherVideoCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getOtherVideoCnt", params);
+
+	}
+
+	@Override
+	public List<HashMap<String, String>> otherVideoList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.otherVideoList", params);
+
+	}
+
+	@Override
+	public HashMap<String, String> postCommentCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.postCommentCnt", params);
+	}
+
+	@Override
+	public int getCommentCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getCommentCnt", params);
+
+	}
+
+	@Override
+	public int deleteComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Post.deleteComment", params);
+	}
+
+	@Override
+	public int deleteReplyComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Post.deleteReplyComment", params);
+	}
+
 
 }

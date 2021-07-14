@@ -46,7 +46,7 @@ $(document).ready(function() {
 		reloadList();
 	});
 	
-	$(".pic_wrap, .draw_wrap").on("dblclick", "div", function() {
+	$(".pic_wrap, .draw_wrap, .video_wrap").on("dblclick", "div", function() {
 		$("#pNo").val($(this).attr("pno"));
 		$("#postNo").val($(this).attr("pno"));
 		$("#actionForm").attr("action", "detail");
@@ -132,6 +132,9 @@ $(document).ready(function() {
 		case "1" :
 			urlTxt = "drawgallarys";
 			break;
+		case "2" :
+			urlTxt = "videogallarys";
+			break;
 		}
 		
 		$.ajax({
@@ -146,6 +149,9 @@ $(document).ready(function() {
 					break;
 				case "1" :
 					drawList(res.list);
+					break;
+				case "2" :
+					videoList(res.list);
 					break;
 				}
 				
@@ -205,6 +211,30 @@ $(document).ready(function() {
 		for(var p of list) {
 			$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
 		}		
+	}	
+	
+	function videoList(list) {
+		var html = "";
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"video" + p.POST_NO + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			if(p.REGISTER_DATE == null) {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+			} else {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+			}
+			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+	
+		}
+		$(".video_wrap").html(html);
+		for(var p of list) {
+			//$('#video' + p.POST_NO).css('background-image', 'url(resources/images/JY/who.png)');
+			$('#video' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+		}
 	}	
 	
 	/* function drawList(list) {

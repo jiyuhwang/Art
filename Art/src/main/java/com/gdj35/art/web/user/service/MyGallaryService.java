@@ -145,5 +145,72 @@ public class MyGallaryService implements IMyGallaryService{
 		iMyGallaryDao.updateViews(params);
 	}
 
+	@Override
+	public int addComment(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.addComment(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> commentList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.commentList(params);
+	}
+
+	@Override
+	public int addReplyComment(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.addReplyComment(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> videoList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.videoList(params);
+	}
+
+	@Override
+	public int getVideoCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getVideoCnt(params);
+	}
+
+	@Override
+	public int getMyVideoCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getMyVideoCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> myVideoList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.myVideoList(params);
+	}
+
+	@Override
+	public int getOtherVideoCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getOtherVideoCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> otherVideoList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.otherVideoList(params);
+	}
+
+	@Override
+	public HashMap<String, String> postCommentCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.postCommentCnt(params);
+	}
+
+	@Override
+	public int getCommentCnt(HashMap<String, String> params) throws Throwable {		// TODO Auto-generated method stub
+		return iMyGallaryDao.getCommentCnt(params);
+
+	}
+
+	@Override
+	public int deleteComment(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.deleteComment(params);
+
+	}
+
+	@Override
+	public int deleteReplyComment(HashMap<String, String> params) throws Throwable {		// TODO Auto-generated method stub
+		return iMyGallaryDao.deleteReplyComment(params);
+	}
+
 
 }

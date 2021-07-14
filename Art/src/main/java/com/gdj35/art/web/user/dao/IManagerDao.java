@@ -51,4 +51,17 @@ public interface IManagerDao {
 
 	public int delTag(HashMap<String, String> params)throws Throwable;
 
+	public int returnG(HashMap<String, String> params) throws Throwable;
+
+	public int deleteR(HashMap<String, String> params) throws Throwable;
+	
+	public int returnR(HashMap<String, String> params) throws Throwable;
+
+	public HashMap<String, String> getReportDetail(HashMap<String, String> params) throws Throwable;
+	
+	
+	
+	
+	
+
 }
