@@ -12,6 +12,14 @@
 $(document).ready(function() {
 	reloadLikeCnt();
 	reloadList();
+	reloadCommentCnt();
+	
+	$("#goForm").on("keypress", "input", function(event) {
+		if(event.keyCode == 13) { // 엔터키를 눌렀을 때
+			return false; // 페이지가 안넘어간다.
+		}
+	});
+
 	
 	console.log($('#listPage').val());
 	$('#leftArrow').click(function() {
@@ -27,16 +35,24 @@ $(document).ready(function() {
 		}
 	})
 	
+	$(".pagination").on("click", "a",  function() {
+		$("#page").val($(this).attr("page"));
+		reloadList();
+		var offset = $('.comment_wrap1').offset();
+
+        $('html').animate({scrollTop : offset.top}, 400);
+	});
+	
 	if($("#userNo").val() != $("#authorNo").val()) {
 		$(".btnCommentDelete").hide();
-		$("#replyBtnCommentDelete").hide();
+		//$("#replyBtnCommentDelete").hide();
 		$(".header").hide();
 		$(".share_wrap").hide();
 		$(".header2").show();
 		$(".share_wrap2").show();
 	} else {
 		$(".btnCommentDelete").show();
-		$("#replyBtnCommentDelete").show();
+		//$("#replyBtnCommentDelete").show();
 		$(".header").show();
 		$(".share_wrap").show();
 		$(".header2").hide();
@@ -284,6 +300,7 @@ $('body').on("click", '.heart', function() {
 				success: function(res) { // 성공 시 다음 함수 실행
 					if(res.msg == "success") {
 						reloadList();
+						reloadCommentCnt();
 						$('#commentWrite').val("");
 					} else if(res.msg == "failed") {
 						alert("댓글 작성에 실패하였습니다.")
@@ -314,6 +331,7 @@ function reloadList() {
 		success: function(res) { // 성공 시 다음 함수 실행
 			
 			commentList(res.list);	
+			drawPaging(res.pb);	
 		},
 		error: function(request, status, error) { // 실패 시 다음 함수 실행
 			console.log(error);
@@ -340,14 +358,15 @@ function commentList(list) {
 			html += "<div class=\"comment1\">" + p.CONTENT + "</div>";
 			html += "<div class=\"comment1_date\">" + p.REGISTER_DATE + "<a class=\"comment_declation\" href=\"#\">신고하기</a></div>";
 			html += "<div class=\"btn_reply_upload_comment_delete_w\" cNo=\"" + p.COMMENT_NO +"\" >";
+			html += "<input type=\"hidden\" class=\"commentUserNo\" value=\"" + p.USER_NO + "\">";
 			html += "<input type=\"button\" class=\"btnReplyUpload\" id=\"btnReplyUpload\" value=\"답글\">";
 			html += "<input type=\"button\" class=\"btnCommentDelete\" id=\"btnCommentDelete\" value=\"삭제\">";
 			html += "</div>";
 			html += "</div>";
 			html += "<div class=\"reply_comment_form1_w1\">";
-			html += "<form action=\"#\" cNo=\"" + p.COMMENT_NO + "\" id=\"go" + p.COMMENT_NO + "\" method=\"post\">";
+			html += "<form action=\"#\" class=\"commentform\" id=\"go" + p.COMMENT_NO + "\" method=\"post\">";
 			html += "<input type=\"hidden\" name=\"topCommentNo\" value=\"" + p.COMMENT_NO + "\">";
-			html += "<input type=\"hidden\" name=\"userNo\" value=\"${sUserNo}\">";
+			html += "<input type=\"hidden\" class=\"userNo\" name=\"userNo\" value=\"${sUserNo}\">";
 			html += "<input type=\"hidden\" name=\"postNo\" value=\"" + p.POST_NO + "\">";
 			html += "<span class=\"reply\"></span>";
 			html += "<div class=\"reply_comment_write_w\"><input id=\"replyCommentWrite\" name=\"replyCommentWrite\"type=\"text\" placeholder=\"답글을 남겨보세요.\"></div>";
@@ -369,7 +388,7 @@ function commentList(list) {
 			html += "<div class=\"reply_comment1\">" + p.CONTENT + "</div>";
 			html += "<div class=\"reply_comment1_date\">" + p.REGISTER_DATE + "<a class=\"reply_comment_declation\" href=\"#\">신고하기</a></div>";
 			html += "<div class=\"reply_btn_reply_upload_comment_delete_w\">";
-			html += "<input type=\"button\" id=\"replyBtnCommentDelete" + p.COMMENT_NO +  "\" value=\"삭제\">";
+			html += "<input type=\"button\" id=\"replyBtnCommentDelete\" value=\"삭제\">";
 			html += "</div>";
 			html += "</div>";
 			html += "</div>";
@@ -381,8 +400,8 @@ function commentList(list) {
 		
 		$(".replyBtnCommentUpload").on("click", function() {
 			if($('#userNo').val() != "") {
-				var cNo = $(this).parent().parent().attr("cNo");
-				var params= $("#go" + cNo).serialize();
+				//var cNo = $(this).parent().parent().attr("cNo");
+				var params= $(this).parent().parent().serialize();
 
 				$.ajax({
 					url: "replyCommentWrite", // 접속 주소
@@ -392,6 +411,7 @@ function commentList(list) {
 					success: function(res) { // 성공 시 다음 함수 실행
 						if(res.msg == "success") {
 							reloadList();
+							reloadCommentCnt();
 						} else if(res.msg == "failed") {
 							alert("답글 작성에 실패하였습니다.")
 						} else {
@@ -418,23 +438,60 @@ function commentList(list) {
 		})
 		
 		
-		if($("#userNo").val() != $("#authorNo").val()) {
+		if($(".userNo").val() != $(".commentUserNo").val()) {
+			$('#btnCommentDelete').hide();
+			$('.reply_btn_reply_upload_comment_delete_w').hide();
+		} else {
+			$('#btnCommentDelete').show();
+			$('.reply_btn_reply_upload_comment_delete_w').show();
+		}
+		
+		/*if($("#userNo").val() != list.USER_NO) {
 			$('.btnCommentDelete').hide();
 			$('.reply_btn_reply_upload_comment_delete_w').hide();
 		} else {
 			$('.btnCommentDelete').show();
 			$('.reply_btn_reply_upload_comment_delete_w').show();
-		}
+		} */
 		
-		if($("#userNo").val() != list.USER_NO) {
-			$('.btnCommentDelete').hide();
-			$('.reply_btn_reply_upload_comment_delete_w').hide();
+		
+		$(".commentform").on("keypress", "input", function(event) {
+			if(event.keyCode == 13) { // 엔터키를 눌렀을 때
+				return false; // 페이지가 안넘어간다.
+			}
+		});
+		
+		
+}
+
+function drawPaging(pb) {
+	var html ="";
+	
+	html += "<a page=\"1\"><<</a>";
+	if($("#page").val() == "1") {
+		html += "<a page=\"1\"><</a>";		
+	} else {
+		html += "<a page=\"" + ($("#page").val() - 1) + "\"><</a>";
+	}
+	
+	for(var i = pb.startPcount ; i <= pb.endPcount; i++){
+		if($("#page").val() == i) {
+			html += "<a class=\"on\" page=\"" + i + "\">" + i + "</a>";			
 		} else {
-			$('.btnCommentDelete').show();
-			$('.reply_btn_reply_upload_comment_delete_w').show();
+			html += "<a page=\"" + i + "\">" + i + "</a>";			
+			
 		}
-		
-		
+	}
+	
+	if($("#page").val() == pb.maxPcount) {
+		html += "<a page=\"" + pb.maxPcount + "\">></a>";
+	} else {
+		html += "<a page=\"" + ($("#page").val() * 1 + 1) + "\">></a>";
+	}
+	
+	html += "<a page=\"" + pb.maxPcount + "\">>></a";
+	
+	$(".pagination").html(html);
 }
 
 function reloadLikeCnt() {
@@ -468,6 +525,44 @@ function likeCnt(data) {
 	}
 	
 	$(".like_cnt_wrap").html(html);
+
+}
+
+function reloadCommentCnt() {
+	
+	var params= $("#goForm").serialize();
+	$.ajax({
+		url : "postCommentCnt",
+		type : "post",
+		dataType : "json",
+		data : params,
+		success: function(res) { // 성공 시 다음 함수 실행
+			CommentCnt(res.data)
+		},
+		error: function(request, status, error) { // 실패 시 다음 함수 실행
+			console.log(error);
+		}
+	});
+}
+
+function CommentCnt(data) {
+	var html = "";
+	var html2 = "";
+	
+	html2 += data.COMMENTCNT;
+		
+	if($('#userNo').val() == $('#authorNo').val()) {
+
+		html += "<span class=\"comment_cnt\">" + data.COMMENTCNT +  "</span>";
+	
+} else {
+
+		html += "<span class=\"comment_cnt12\">" + data.COMMENTCNT + "</span>";
+	
+}
+
+	$(".comment_cnt_wrap").html(html);
+	$(".comment_cnt2").html(html2);
 
 }
 
@@ -515,13 +610,11 @@ function CopyUrl2()
 			</c:otherwise>
 		</c:choose>
 
-
-
 		<div class="like_cnt_wrap">
 			<%-- <div id="likeCnt" class="like_cnt">${data.LIKECNT}</div> --%>
 		</div>
 		<img src="resources/images/JY/comment2.png" id="btnComment" alt="댓글" width="20px" height="20px">
-		<span class="comment_cnt">30</span>
+		<div class="comment_cnt_wrap"></div>
 		<img src="resources/images/JY/share.png" id="btnShare" alt="공유" width="20px" height="20px">
 		<img src="resources/images/JY/dot1.png" id="btnDot1" alt="메뉴" width="25px" height="25px">
 		<img src="resources/images/JY/dot2.png" id="btnDot2" alt="메뉴" width="25px" height="25px">
@@ -540,7 +633,7 @@ function CopyUrl2()
 		<img src="resources/images/JY/menu.png" id="btnMenu2" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo3" alt="로고" width="70px" height="40px"></a>
 		<img src="resources/images/JY/comment2.png" id="btnComment2" alt="댓글" width="20px" height="20px">
-		<span class="comment_cnt12">30</span>
+		<div class="comment_cnt_wrap"></div>
 		<c:choose>
 			<c:when test="${empty data.RD}">
 				<img src="resources/images/JY/heart.png" id="btnLike2" class="heart" alt="투명하트" width="25px" height="25px">
@@ -643,7 +736,7 @@ function CopyUrl2()
 			<input type="hidden" name="page" id="page" value="${param.page}" />
 			<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
 			<input type="hidden" id="listPage" name="listPage" value="${param.listPage}" />
-			<div class="comment_title">댓글 <span class="comment_cnt2"> 5</span></div>
+			<div class="comment_title">댓글 <span class="comment_cnt2"></span></div>
 			<div class="comment_write_w"><input id="commentWrite" name="commentWrite" type="text" placeholder="댓글을 남겨보세요."></div>
 			<div class="btn_comment_upload_w"><input type="button" id="btnCommentUpload" value="댓글 작성"></div>
 		</form>
@@ -653,15 +746,7 @@ function CopyUrl2()
 				
 			
 
-			<div class="pagination">
-					<a href="#">&laquo;</a>
-					<a href="#" class="active">1</a> 
-					<a href="#">2</a>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<a href="#">&raquo;</a>
-			</div>
+			<div class="pagination"></div>
 		</div>
 		<div class="profile2_wrap">
 		

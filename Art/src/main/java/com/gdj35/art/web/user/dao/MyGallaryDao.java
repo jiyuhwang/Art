@@ -278,5 +278,16 @@ public class MyGallaryDao implements IMyGallaryDao{
 
 	}
 
+	@Override
+	public HashMap<String, String> postCommentCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.postCommentCnt", params);
+	}
+
+	@Override
+	public int getCommentCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.getCommentCnt", params);
+
+	}
+
 
 }

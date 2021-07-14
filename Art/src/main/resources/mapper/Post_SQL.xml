@@ -557,6 +557,13 @@
 		WHERE POST_NO = #{postNo}
 	</select>
 	
+	<!-- 작품 댓글 수 -->
+	<select id="postCommentCnt" parameterType="hashmap" resultType="hashmap">
+		SELECT COUNT(*) AS COMMENTCNT
+		FROM COMMENTS
+		WHERE POST_NO = #{postNo}
+	</select>
+	
 	
 	
 	<!-- 작가 좋아요 눌렀을 때 -->
@@ -602,11 +609,19 @@
 	
 	<!-- 댓글 목록 -->
 	<select id="commentList" parameterType="hashmap" resultType="hashmap">
-		SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY NVL(C.TOP_COMMENT_NO, C.COMMENT_NO) ASC, C.COMMENT_NO ASC) AS RNK,
+		<!-- SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY NVL(C.TOP_COMMENT_NO, C.COMMENT_NO) ASC, C.COMMENT_NO ASC) AS RNK,
 						C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH
 		FROM COMMENTS C INNER JOIN USERS U
 		                    ON C.USER_NO = U.USER_NO
-		WHERE C.POST_NO = #{postNo}
+		WHERE C.POST_NO = #{postNo} -->
+		SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, C.RNUM,
+                C.CONTENT, C.REGISTER_DATE, C.USER_NICKNAME, C.PROFILE_IMG_PATH
+		FROM(SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY NVL(C.TOP_COMMENT_NO, C.COMMENT_NO) ASC, C.COMMENT_NO ASC) AS RNUM,
+		                    C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH
+		    FROM COMMENTS C INNER JOIN USERS U
+		                        ON C.USER_NO = U.USER_NO
+		    WHERE C.POST_NO = #{postNo}) C
+		WHERE C.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 	
 	<!-- 답글 쓰기 -->
@@ -614,4 +629,11 @@
 		INSERT INTO COMMENTS(COMMENT_NO, USER_NO, POST_NO, TOP_COMMENT_NO, CONTENT)
 		VALUES(COMMENTS_SEQ.NEXTVAL, #{userNo}, #{postNo}, #{topCommentNo}, #{replyCommentWrite})
 	</insert>
+	
+	<!-- 작품 댓글 수 -->
+	<select id="getCommentCnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*) AS COMMENTCNT
+		FROM COMMENTS
+		WHERE POST_NO = #{postNo}
+	</select>
 </mapper>
