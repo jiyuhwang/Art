@@ -406,7 +406,7 @@ $(document).ready(function(){
 				html +="	</div>";
 				html +="	<div class=\"category\">"+ result.data.CATEGORY_NAME +"</div>";
 				html +="	<div class=\"title\">"+ result.data.TITLE +"</div>";
-				html +="	<div class=\"contents_date\"> 작성시간: "+ result.data.REGISTER_DATE +"&nbsp;&nbsp;"							
+				html +="	<div class=\"contents_date\"> 작성시간: "+ result.data.REGISTER_DATE +"&nbsp;&nbsp;";					
 				html +="조회수: "+ result.data.VIEWS +"&nbsp;&nbsp;좋아요수: "+ result.data.LIKE_CNT +"&nbsp;&nbsp;";					
 					
 				var checkV = result.data.VISIBILITY;
@@ -508,9 +508,7 @@ $(document).ready(function(){
 //-------------------------------------------------------------------수정하기해보자
 	function drawEdit(){
 		var params = $("#actionForm").serialize();
-		
-
-		
+	
 		$.ajax({
 			url: "drawUserPopup",
 			type: "post",

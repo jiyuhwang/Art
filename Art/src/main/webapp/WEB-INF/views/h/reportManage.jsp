@@ -13,6 +13,7 @@ tbody tr:hover {
 
 </style>
 <link rel="stylesheet" href="resources/css/h/report_manage.css"/>
+<link rel="stylesheet" href="resources/css/h/report_detail_popup.css"/>
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -82,6 +83,14 @@ $(document).ready(function(){
 		$("#page").val(1);
 		loadPostList();
 	});
+	
+	$("tbody").on("dblclick", "tr", function(){
+		$("#rNo").val($(this).attr("name"));
+		drawPopup();
+	});
+	
+	
+	
 	
 	//삭제버튼 클릭시
 	$("#BtnDelete").on("click", function(){
@@ -195,7 +204,7 @@ $(document).ready(function(){
 		} else {
 			for(var d of list){
 				++no;
-				html +="<tr rno=\"" + d.REPORT_NO + "\" class=\"table_tr\">";
+				html +="<tr name=\"" + d.REPORT_NO + "\" class=\"table_tr\">";
 				html +="<td><input type=\"checkbox\" name=\"checkbox\" value=\"" + d.REPORT_NO + "\"></td>";
 				html +="<td>" + no + "</td>";
 				html +="<td>" + d.REPORT_NO + "</td>";
@@ -274,6 +283,137 @@ $(document).ready(function(){
 	}
 	
 	
+	//-------------------------------------------------------상세보기그리기
+	function drawPopup(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url: "drawReportPopup",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(result){
+				
+				var html = "";
+                								
+			html +="	<div class=\"background9\"></div>";
+			html +="	<div class=\"ctts9\">";
+			html +="	<span class=\"report_no\">신고번호 "+ result.data.REPORT_NO +"</span>";
+			html +="	<form id=\"detailForm\">";
+			html +="	<input type=\"hidden\" name=\"rNo\" value=\"rNo\"/>";
+			html +="	</form>";
+			html +="		<div class=\"top_info\">";
+			html +="			<div class=\"info1\">";
+			html +="				<div>신고내용</div>";
+			html +="			</div>";
+			html +="			<div class=\"info2\">";
+			html +="			최근 6개월동안 신고한 내용을 확인할 수 있습니다.";
+			html +="			</div>";
+			html +="			<div class=\"info3\">";
+			html +="			신고 내용 중 개인정보가 포함되어 있거나 중복된 경우 삭제될 수 있습니다.";
+			html +="			</div>";
+			html +="			<div class=\"top_date\">";
+			html +="				<div class=\"date1\"><div>신고날짜</div></div>";
+			html +="				<div class=\"date2\"><div>"+ result.data.REGISTER_DATE +"</div></div>";
+			html +="				<div class=\"status1\"><div>처리상태</div></div>";
+			html +="				<div class=\"status2\"><div>";
+			
+				if(result.data.REPORT_STATUS == 0){
+					html += "대기중";
+				} else if(result.data.REPORT_STATUS == 1){
+					html += "철회";
+				} else if(result.data.REPORT_STATUS == 2){
+					html += "접수완료";
+				}else {
+					html += "처리완료";
+				}					
+			
+			html +="</div></div>";
+			html +="			</div>";
+			html +="			<div class=\"top_writer\">";
+			html +="				<div class=\"writer1\">작가 닉네임</div>";
+			html +="				<div class=\"writer2\">"+ result.data.WRITER_NICK +"</div>";
+			html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
+			html +="				<div class=\"writer4\">"+ result.data.WRITER_NAME + "(" + result.data.WRITER_ID +")</div>";
+			html +="			</div>";
+			html +="			<div class=\"top_post\">";
+			html +="				<div class=\"post1\">신고된 작품 제목</div>";
+			html +="				<div class=\"post2\">"+ result.data.TITLE +"</div>";
+			html +="			</div>";
+			html +="			<div class=\"top_flag\">";
+			html +="				<div class=\"flag1\">신고사유</div>";
+			html +="				<div class=\"flag2\">"+ result.data.TYPE_NAME +"</div>";
+			html +="			</div>";
+			html +="			<div class=\"top_content\">";
+			html +="				<div class=\"content1\">내용</div>";
+			html +="				<div class=\"content2\">"+ result.data.CONTENTS +"</div>";
+			html +="			</div>";
+			html +="		</div>";
+			html +="		<div class=\"btm_ctts\">";
+			html +="			<div class=\"btm_reporter\">";
+			html +="				<div class=\"reporter1\">신고자</div>";
+			html +="				<div class=\"reporter2\">닉네임: "+ result.data.R_NICK +"&nbsp;&nbsp;";	
+			html +="이름(아이디): " + result.data.R_NAME + "(" + result.data.R_ID +")</div>";
+			html +="			</div>";
+			html +="			<div class=\"btm_memo\">메모</div>";
+			html +="			<a class=\"btn_update\">수정</a>";
+			html +="			<a class=\"btn_close\">닫기</a>";
+			html +="		</div>";
+			html +="	</div>";
+				
+				
+				$("body").prepend(html);
+				
+				$(".background9").hide();
+				$(".ctts9").hide();				
+				$(".background9").fadeIn();
+				$(".ctts9").fadeIn();
+				
+				$(".btn_close").off("click");
+				$(".btn_close").on("click", function(){
+					closePopup();
+				});
+				
+				$(".background9").off("click");
+				$(".background9").on("click", function(){
+					closePopup();
+				});
+				
+				/*----------------------------------------------수정버튼 클릭할 때  */
+				$(".btn_update").off("click");
+				$(".btn_update").on("click", function(){
+					closePopup();
+
+				});
+				
+				
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
+	
+	
+	
+
+	//상세팝업닫기
+	function closePopup() {
+		$(".background9").fadeOut(function(){
+			$(".background9").remove();
+		});
+		
+		$(".ctts9").fadeOut(function(){
+			$(".ctts9").remove();
+		});
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	//총 tr 개수 가져오기
 	function showCnt(cnt){
@@ -340,7 +480,7 @@ $(document).ready(function(){
 		<div class="menu_txt_wrap">
 			<div class="menu_txt">
 				<span><span class="font-red">검색어를 입력</span>하여 검색할 수 있습니다.</span><br/>
-				<span><span class="font-red">제목</span>을 연속으로 두 번 클릭하시면 상세페이지로 이동합니다.</span><br/>
+				<span><span class="font-red">신고내용</span>을 연속으로 두 번 클릭하시면 상세페이지로 이동합니다.</span><br/>
 				<span><span class="font-red">데이터가 많은 경우</span> 느려질 수 있습니다.</span>
 			</div>
 		</div>

@@ -621,4 +621,43 @@ public class ManagerController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	
+	//신고내용보기
+	@RequestMapping(value="/drawReportPopup",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String drawReportPopup(
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		//페이징처리
+		int page = Integer.parseInt(params.get("page"));
+		
+		try {
+			int cnt = iManagerService.getReportMCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+					
+			
+			//데이터취득
+			HashMap<String, String> data = iManagerService.getReportDetail(params);
+		
+			modelMap.put("data", data);
+			modelMap.put("pb", pb);
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}		
+		
+		return mapper.writeValueAsString(modelMap);
+	
+	}
+	
 }

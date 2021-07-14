@@ -560,7 +560,31 @@
 	</update>
 	
 	
-	
+	<select id="getReportDetail" parameterType="hashmap" resultType="hashmap">
+		SELECT A.REPORT_NO, A.ADMIN_NO, A.R_NO, A.COMMENT_NO,
+					A.POST_NO, A.CONTENTS, A.REPORT_STATUS, A.DEL,
+					A.TYPE_NO, A.TYPE_NAME, TO_CHAR(A.REGISTER_DATE, 'YY-MM-DD') AS REGISTER_DATE,
+		        	A.R_NAME, A.R_ID, A.R_NICK, B.TITLE,
+                    B.WRITER_NO, B.WRITER_NAME, B.WRITER_ID, B.WRITER_NICK
+		FROM (SELECT NR.REPORT_NO, NR.ADMIN_NO, NR.USER_NO AS R_NO, NR.COMMENT_NO,
+                            NR.POST_NO, NR.CONTENTS, NR.REPORT_STATUS, NR.REGISTER_DATE, 
+                             NR.DEL, NR.TYPE_NO, NR.TYPE_NAME,
+                            U.NAME AS R_NAME, U.USER_ID AS R_ID, U.USER_NICKNAME AS R_NICK
+                      FROM (SELECT R.REPORT_NO, R.ADMIN_NO, R.USER_NO, R.COMMENT_NO, R.POST_NO,
+								R.CONTENTS, R.REPORT_STATUS, R.REGISTER_DATE, R.DEL,
+		       					 RT.TYPE_NO, RT.TYPE_NAME
+                             FROM (REPORT R INNER JOIN REPORT_REPORT_TYPE RRT
+		                         			  ON R.REPORT_NO = RRT.REPORT_NO) INNER JOIN REPORT_TYPE RT
+		                                                                 ON RRT.TYPE_NO = RT.TYPE_NO) NR
+		              INNER JOIN USERS U
+		              ON NR.USER_NO = U.USER_NO) A
+		LEFT OUTER JOIN (SELECT P.POST_NO, P.TITLE, U.USER_NO AS WRITER_NO, U.NAME AS WRITER_NAME, U.USER_ID AS WRITER_ID,
+						U.USER_NICKNAME AS WRITER_NICK
+		              FROM POST P INNER JOIN USERS U
+        				 ON P.USER_NO = U.USER_NO) B
+        		ON A.POST_NO = B.POST_NO	
+		WHERE A.REPORT_NO = #{rNo}
+	</select>
 	
 	
 	
