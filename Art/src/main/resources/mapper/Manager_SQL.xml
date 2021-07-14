@@ -434,7 +434,7 @@
 					AND REPORT_NO LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 5">
-					AND TO_CHAR(REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(REGISTER_DATE, 'YYYY-MM-DD') LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 		</if>
@@ -515,7 +515,7 @@
 					AND REPORT_NO LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 5">
-					AND TO_CHAR(REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(REGISTER_DATE, 'YYYY-MM-DD') LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 		</if>
