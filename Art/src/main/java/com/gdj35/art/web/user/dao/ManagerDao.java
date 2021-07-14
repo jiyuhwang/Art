@@ -135,6 +135,11 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.update("Manager.returnR",params);
 	}
 
+	@Override
+	public HashMap<String, String> getReportDetail(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Manager.getReportDetail", params);
+	}
+
 
 
 

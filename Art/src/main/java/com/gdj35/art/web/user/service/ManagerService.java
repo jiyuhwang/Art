@@ -137,6 +137,11 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.returnR(params);
 	}
 
+	@Override
+	public HashMap<String, String> getReportDetail(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.getReportDetail(params);
+	}
+
 
 
 }
