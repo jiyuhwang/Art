@@ -234,10 +234,10 @@
 		<if test="srhYearFlag == 0 or srhYearFlag == 1">
 			<choose>
 					<when test="srhYearFlag == 0">
-						AND TO_CHAR(REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(REGISTER_DATE, 'YY') = '20'
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '20'
 					</when>
 			</choose>
 		</if>
@@ -263,7 +263,7 @@
 					OR EXPLAIN LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 8">
-					AND TO_CHAR(REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(REGISTER_DATE, 'YYYY') LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 		</if>
@@ -303,7 +303,7 @@
 	<select id="getPostList" parameterType="hashmap" resultType="hashmap">
 		SELECT *
 		FROM (SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME, P.DEL,
-				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YY-MM-DD') AS REGISTER_DATE,
+				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE,
 				ROW_NUMBER() OVER(ORDER BY P.POST_NO DESC) AS RNUM, P.VIEWS, DECODE(L.LIKE_CNT, NULL, 0, L.LIKE_CNT) AS LIKE_CNT, P.EXPLAIN
 		FROM ((POST P LEFT OUTER JOIN USERS U
 		           				 ON P.USER_NO = U.USER_NO)
@@ -318,10 +318,10 @@
 		<if test="srhYearFlag != null and srhYearFlag != ''">
 			<choose>
 					<when test="srhYearFlag == 0">
-						AND TO_CHAR(REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(REGISTER_DATE, 'YY') = '20'
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '20'
 					</when>
 			</choose>
 		</if>
@@ -347,7 +347,7 @@
 					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 8">
-					AND TO_CHAR(REGISTER_DATE, 'YY') LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(REGISTER_DATE, 'YYYY') LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 		</if>
@@ -439,10 +439,10 @@
 		<if test="srhYearFlag != null and srhYearFlag != ''">
 			<choose>
 					<when test="srhYearFlag == 0">
-						AND TO_CHAR(REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(REGISTER_DATE, 'YY') = '20'
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '20'
 					</when>
 			</choose>
 		</if>
@@ -495,7 +495,7 @@
 		SELECT *
 		FROM (SELECT A.REPORT_NO, A.ADMIN_NO, A.R_NO, A.COMMENT_NO,
 					A.POST_NO, A.CONTENTS, A.REPORT_STATUS, A.DEL,
-					A.TYPE_NO, A.TYPE_NAME, TO_CHAR(A.REGISTER_DATE, 'YY-MM-DD') AS REGISTER_DATE,
+					A.TYPE_NO, A.TYPE_NAME, TO_CHAR(A.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE,
 		        	A.R_NAME, A.R_ID, A.R_NICK,
                     B.WRITER_NO, B.WRITER_NAME, B.WRITER_ID,
 					B.WRITER_NICK, ROW_NUMBER() OVER(ORDER BY A.REGISTER_DATE DESC) AS RNUM
@@ -520,10 +520,10 @@
 		<if test="srhYearFlag != null and srhYearFlag != ''">
 			<choose>
 					<when test="srhYearFlag == 0">
-						AND TO_CHAR(REGISTER_DATE, 'YY') = TO_CHAR(SYSDATE, 'YY')
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(REGISTER_DATE, 'YY') = '20'
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '20'
 					</when>
 			</choose>
 		</if>
@@ -587,7 +587,7 @@
 	<select id="getReportDetail" parameterType="hashmap" resultType="hashmap">
 		SELECT A.REPORT_NO, A.ADMIN_NO, A.R_NO, A.COMMENT_NO,
 					A.POST_NO, A.CONTENTS, A.REPORT_STATUS, A.DEL,
-					A.TYPE_NO, A.TYPE_NAME, TO_CHAR(A.REGISTER_DATE, 'YY-MM-DD') AS REGISTER_DATE,
+					A.TYPE_NO, A.TYPE_NAME, TO_CHAR(A.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE,
 		        	A.R_NAME, A.R_ID, A.R_NICK, B.TITLE,
                     B.WRITER_NO, B.WRITER_NAME, B.WRITER_ID, B.WRITER_NICK
 		FROM (SELECT NR.REPORT_NO, NR.ADMIN_NO, NR.USER_NO AS R_NO, NR.COMMENT_NO,
