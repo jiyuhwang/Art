@@ -8,7 +8,6 @@ body {
 	font-size: 0pt;
 	margin: 0;
 	font-family: '돋움';
-	/* overflow-x: hidden; */
 	min-width: 1000px;
 }
 
@@ -17,33 +16,36 @@ body {
 	margin-top: 100px;
 }
 
-.pic_wrap, .drawing_wrap, .video_wrap {
+.pic_wrap, .draw_wrap, .video_wrap {
 	width: 100%;
 	height: 30%;
 	position: relative;
 }
 
-.pic_wrap, .drawing_wrap {
+.pic_wrap, .draw_wrap {
 	border-bottom: 5px dotted #dadad8;
 }
 
-.pic_title, .drawing_title, .video_title {
+.pic_title, .draw_title, .video_title {
 	font-size: 30pt;
 	height: 50px;
 	margin-left: 50px;
 	margin-bottom: 20px;
 }
 
-.drawing_title, .video_title {
+.draw_title, .video_title {
 	padding-top: 100px;
 }
 
 .img_wrap, .img_wrap2, .img_wrap3 {
 	width: 100%;
 	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	cursor: pointer;
 }
 
-#leftArrow, #rightArrow {
+#leftArrow, #rightArrow, #leftArrow2, #rightArrow2, #leftArrow3, #rightArrow3 {
 	cursor: pointer;
 	position: absolute;
 	z-index: 600;
@@ -53,11 +55,11 @@ body {
 	opacity: 0.5;
 }
 
-#leftArrow {
+#leftArrow, #leftArrow2, #leftArrow3 {
 	left: 20px;
 }
 
-#rightArrow {
+#rightArrow, #rightArrow2, #rightArrow3 {
 	right: 20px;
 }
 
@@ -70,9 +72,9 @@ body {
 	position: relative;
 }
 
-.pic, .drawing, .video {
+.pic, .draw, .video {
     position: relative;
-    width: 25%;
+    width: 6.25%;
     display: inline-block;
     padding: 0;
     margin: 0;
@@ -81,59 +83,16 @@ body {
 	position: relative;
 }
 
-.pic:after, .drawing:after, .video:after {
+.pic:after, .draw:after, .video:after {
  	content: "";
   	display: block;
  	padding-bottom: 100%;
 }
 
-#pic1 {
-	background-image: url("../../images/JY/짱구1.jpg");
+.pic_main_wrap, .draw_main_wrap , .video_main_wrap {
+	width: 400%;
 }
 
-#pic2 {
-	background-image: url("../../images/JY/짱구2.jpg");
-}
-
-#pic3 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#pic4 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-
-#drawing1 {
-	background-image: url("../../images/JY/짱구1.jpg");
-}
-
-#drawing2 {
-	background-image: url("../../images/JY/짱구2.jpg");
-}
-
-#drawing3 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#drawing4 {
-	background-image: url("../../images/JY/짱구4.jpg");
-}
-
-#video1 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#video2 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
-
-#video3 {
-	background-image: url("../../images/JY/짱구3.jpg");
-}
-
-#video4 {
-	background-image: url("../../images/JY/짱구5.jpg");
-}
 
 .contents_title, .contents_in, .contents_heart, .contents_name {
 	position: absolute;
@@ -157,7 +116,7 @@ body {
 }
 
 .contents_in {
-	top: 10vh;
+	top: 12vh;
 	font-size: 1vw;
 	width: 90%;
 	height: auto;
@@ -203,13 +162,4 @@ body {
 .pic:hover .bg {
 	background-color: gray;
 	opacity: 0.7;
-}
-
-.drawing:hover #background {
-	background-color: gray;
-	opacity: 0.7;
-}
-
-.video iframe:hover {
-	filter: brightness(35%);
 }
