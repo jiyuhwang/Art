@@ -63,5 +63,9 @@ public interface IManagerService {
 
 	public HashMap<String, String> getMemoDetail(HashMap<String, String> params) throws Throwable;
 
+	public int updateReportMemo(HashMap<String, String> params) throws Throwable;
+
+	public int deleteReportMemo(HashMap<String, String> params) throws Throwable;
+
 
 }

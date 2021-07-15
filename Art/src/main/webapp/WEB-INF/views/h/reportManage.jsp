@@ -481,11 +481,13 @@ $(document).ready(function(){
 			html += "				<tr>";
 			html += "					<td>작성자</td>";
 			html += "					<td colspan=\"3\">" + result.memo.ADMIN_NAME + "&nbsp;&nbsp;&nbsp;관리자</td>	";
-			html += "				</tr>";
+			html += "				</tr>";		
 			html += "				<tr>";
 			html += "					<td>발생일</td>";
-			html += "					<td colspan=\"3\">" + result.memo.ACCUR_DATE + "</td>";
-			html += "				</tr>";
+			html += "					<td colspan=\"3\">";
+			html += "						<div class=\"accur_div\">" +result.memo.ACCUR_DATE + "</div>";
+			html += "<input type=\"text\" class=\"update_input\" size=\"38\" name=\"occur\" id=\"accur\" value=\"" + result.memo.ACCUR_DATE + "\" />";		
+			html += "				</td></tr>";
 			html += "				<tr>";
 			html += "					<td>작성일</td>";
 			html += "					<td colspan=\"3\">" + result.memo.MEMO_REGI + "</td>";
@@ -495,19 +497,20 @@ $(document).ready(function(){
 			html += "						<div class=\"detail_ctts\">";
 			html += result.memo.CONTENTS;
 			html += "						</div>";
-			html += "<textarea class=\"update_input\" rows=\"23\" name=\"contents\" id=\"contents\">" + result.memo.MEMO_CTT + "</textarea>";
+			html += "<textarea class=\"update_input\" rows=\"17\" name=\"contents\" id=\"contents\">" + result.memo.CONTENTS + "</textarea>";
 			html += "					</td> ";
 			html += "				</tr> ";
 			html += "			</table>";
 			html += "		<div class=\"btn_div\" id=\"btn_div\">";
-			html += "			<input type=\"button\" value=\"수정\" id=\"updateBtn\">";
-			html += "			<input type=\"button\" value=\"삭제\" id=\"deleteBtn\">";
+			html += "			<input type=\"button\" value=\"수정\" id=\"BtnUpdate\">";
+			html += "			<input type=\"button\" value=\"삭제\" id=\"BtnDelete\">";
 			html += "		</div>	";
 			html += "		<div class=\"update_btn_div\" id=\"update_btn_div\">	";
-			html += "			<input type=\"button\" value=\"저장\" id=\"updateResultBtn\">";
-			html += "			<input type=\"button\" value=\"취소\" id=\"updateCancelBtn\">	";
+			html += "			<input type=\"button\" value=\"저장\" id=\"BtnSave\">";
+			html += "			<input type=\"button\" value=\"취소\" id=\"BtnCancel\">	";
 			html += "		</div>	";
 			html += "	</div>";
+			html += "	</form>";
 			html += "</div>  ";
 			
 			$("body").prepend(html);
@@ -527,10 +530,78 @@ $(document).ready(function(){
 				closeMemoDetail();
 				drawPopup();
 			});
-	
+			
+			
+			//----------------------------------------------수정버튼 누를 때
+			$("#BtnUpdate").off("click");
+			$("#BtnUpdate").on("click", function(){
+				$(".accur_div").css("display", "none");
+				$(".detail_ctts").css("display", "none");
+				$(".btn_div").css("display", "none");
+				$(".update_input").each(function(){
+					$(this).css("display", "block");
+				});
+				$("#update_btn_div").css("display", "block");
+			});
+			
+			//----------------------------------------------취소버튼 누를 때
+			$("#BtnCancel").off("click");
+			$("#BtnCancel").on("click", function(){
+				$(".accur_div").css("display", "block");
+				$(".detail_ctts").css("display", "block");
+				$(".btn_div").css("display", "block");
+				$(".update_input").each(function(){
+					$(this).css("display", "none");
+				});
+				$("#update_btn_div").css("display", "none");
+			});
+			
+			//----------------------------------------------저장할 때
+			$("#BtnSave").off("click");
+			$("#BtnSave").on("click", function(){
+				var params = $("#memoForm").serialize();
+				
+				$.ajax({
+					type : "post",
+					url : "saveReportMemo",
+					dataType : "json",
+					data : params,
+					success : function(result) {
+						closeMemoDetail();
+						drawPopup();
+						alert("수정되었습니다.");
+					},
+					error : function(result) {
+						alert("수정에 실패했습니다.");
+					}
+				});
+			});
+			
+			//----------------------------------------------삭제할 때
+			
+			$("#BtnDelete").off("click");
+			$("#BtnDelete").on("click", function(){
+				var params = $("#memoForm").serialize();
+				
+				$.ajax({
+					type : "post",
+					url : "delReportMemo",
+					dataType : "json",
+					data : params,
+					success : function(result) {
+						closeMemoDetail();
+						drawPopup();
+						alert("삭제되었습니다.");
+					},
+					error : function(result) {
+						alert("삭제에 실패했습니다.");
+					}
+				});
+			});
+			
 		},
-		error : function(result) {
-			makePopup("알림", "조회에 실패했습니다.");
+		error: function(request, status, error){
+			console.log(error);
 		}
 	});
 }

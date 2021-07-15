@@ -171,6 +171,16 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getMemoDetail(params);
 	}
 
+	@Override
+	public int updateReportMemo(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.updateReportMemo(params);
+	}
+
+	@Override
+	public int deleteReportMemo(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.deleteReportMemo(params);
+	}
+
 
 
 }

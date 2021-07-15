@@ -634,7 +634,16 @@
 		WHERE M.MEMO_NO = #{mNo}
 	</select>
 
+	<update id="updateReportMemo" parameterType="hashmap">
+		UPDATE MEMO
+		SET ACCUR_DATE = #{occur}, CONTENTS = #{contents}
+		WHERE MEMO_NO = #{mNo}
+	</update>
 	
+	<update id="deleteReportMemo" parameterType="hashmap">
+		UPDATE MEMO SET DEL = 0
+		WHERE MEMO_NO = #{mNo}
+	</update>
 	
 	
 	
