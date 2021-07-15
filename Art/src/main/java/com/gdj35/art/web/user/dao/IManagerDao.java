@@ -58,6 +58,10 @@ public interface IManagerDao {
 	public int returnR(HashMap<String, String> params) throws Throwable;
 
 	public HashMap<String, String> getReportDetail(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> getReportMemo(HashMap<String, String> params) throws Throwable;
+
+	public HashMap<String, String> getMemoDetail(HashMap<String, String> params) throws Throwable;
 	
 	
 	

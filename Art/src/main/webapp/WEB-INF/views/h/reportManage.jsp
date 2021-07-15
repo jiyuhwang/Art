@@ -14,6 +14,7 @@ tbody tr:hover {
 </style>
 <link rel="stylesheet" href="resources/css/h/report_manage.css"/>
 <link rel="stylesheet" href="resources/css/h/report_detail_popup.css"/>
+<link rel="stylesheet" href="resources/css/h/memo_detail.css"/>
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -88,6 +89,8 @@ $(document).ready(function(){
 		$("#rNo").val($(this).attr("name"));
 		drawPopup();
 	});
+	
+
 	
 	
 	
@@ -300,7 +303,7 @@ $(document).ready(function(){
 			html +="	<div class=\"ctts9\">";
 			html +="	<span class=\"report_no\">신고번호 "+ result.data.REPORT_NO +"</span>";
 			html +="	<form id=\"detailForm\">";
-			html +="	<input type=\"hidden\" name=\"rNo\" value=\"rNo\"/>";
+			html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
 			html +="	</form>";
 			html +="		<div class=\"top_info\">";
 			html +="			<div class=\"info1\">";
@@ -355,9 +358,9 @@ $(document).ready(function(){
 			html +="				<div class=\"reporter2\">닉네임: "+ result.data.R_NICK +"&nbsp;&nbsp;";	
 			html +="이름(아이디): " + result.data.R_NAME + "(" + result.data.R_ID +")</div>";
 			html +="			</div>";
-			html +="			<div class=\"btm_memo\"><table class=\"memo_table\"></table</div>";
-			html +="			<a class=\"btn_update\">수정</a>";
-			html +="			<a class=\"btn_close\">닫기</a>";
+			html +="			<div class=\"btm_memo\"><table class=\"memo_table\" name=\""+ result.data.REPORT_NO +"\"></table></div>";
+			html +="			<div class=\"btn_update\">메모추가</div>";
+			html +="			<div class=\"btn_close\">닫기</div>";
 			html +="		</div>";
 			html +="	</div>";
 				
@@ -369,6 +372,8 @@ $(document).ready(function(){
 				$(".background9").fadeIn();
 				$(".ctts9").fadeIn();
 				
+				drawMeMoTable(result.list);
+				
 				$(".btn_close").off("click");
 				$(".btn_close").on("click", function(){
 					closePopup();
@@ -379,7 +384,19 @@ $(document).ready(function(){
 					closePopup();
 				});
 				
-				/*----------------------------------------------수정버튼 클릭할 때  */
+				
+				$(".btm_memo").on("dblclick", "tr", function(){
+					
+					if(result.list.length != 0) {
+						$("#mNo").val($(this).attr("name"));
+						console.log("메모넘버: " +$(this).attr("name"));
+						showMeMo();
+					} else {
+						alert("메모가 없습니다.");
+					}
+				});
+
+				//----------------------------------------------추가버튼 클릭할 때
 				$(".btn_update").off("click");
 				$(".btn_update").on("click", function(){
 					closePopup();
@@ -394,6 +411,131 @@ $(document).ready(function(){
 		});
 	}
 	
+	//----------------------------------------------메모 테이블 불러오기
+		 function drawMeMoTable(list) {
+			var html="";
+			var no = 0;
+			
+			html += "	<colgroup>";
+			html += "		<col width=\"100px\"/>";
+			html += "		<col width=\"100px\"/>";
+			html += "		<col width=\"700px\"/>";
+			html += "	</colgroup>";
+			html +=	"	  <thead>";
+			html +=	"		  <tr>";
+			html +=	"			  <th>번호</th>";
+			html +=	"			  <th>날짜</th>";
+			html +=	"			  <th>메모내용</th>";
+			html +=	"		  </tr>";
+			html +=	"	  </thead>";
+			html +=	"	  <tbody>";
+			
+			if(list.length == 0) {
+				html += "<tr>";
+				html += "<td colspan=\"5\">등록된 글이 없습니다.</td>";
+				html += "</tr>";
+			} else {
+			
+					for(var d of list){
+						no++;
+						html+= "	<tr name=\""+  d.MEMO_NO +"\">";
+						html+= "		<td> " + no +"</td>";
+						html+= "		<td>  "+ d.REGISTER_DATE +"</td>";
+						html+= "		<td>  "+ d.CONTENTS +"</td>";
+						html+= "	</tr>";
+					}
+			}		
+				html +=	"	</tbody>";
+	
+				$(".btm_memo table").html(html);
+		}
+	
+		//----------------------------------------------메모 상세보기
+		function showMeMo() {
+			var params = $("#actionForm").serialize();
+			
+			$.ajax({
+				url:"reportMemo",
+				type:"post",
+				dataType :"json",
+				data:params,
+				success : function (result) {
+
+			var html = "";
+			
+			html += "<div class=\"background8\"></div>";
+			html += "<div class=\"ctts8\">";
+			html += "	<div class=\"top_div\">";
+			html += "		<div class=\"memo_title\">메모</div>";
+			html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
+			html += "	</div>";
+			html += "	<div class=\"memo_ctts_div\">";
+			html += "		<form id=\"memoForm\">";
+			html += "			<input type=\"hidden\" name=\"mNo\" value=\"" + result.memo.MEMO_NO + "\" />	";
+			html += "			<table>";
+			html += "				<colgroup>";    
+			html += "					<col width=\"210px\"/>";
+			html += "					<col width=\"80px\"/>";
+			html += "					<col width=\"210px\"/>";
+			html += "				</colgroup>";	
+			html += "				<tr>";
+			html += "					<td>작성자</td>";
+			html += "					<td colspan=\"3\">" + result.memo.ADMIN_NAME + "&nbsp;&nbsp;&nbsp;관리자</td>	";
+			html += "				</tr>";
+			html += "				<tr>";
+			html += "					<td>발생일</td>";
+			html += "					<td colspan=\"3\">" + result.memo.ACCUR_DATE + "</td>";
+			html += "				</tr>";
+			html += "				<tr>";
+			html += "					<td>작성일</td>";
+			html += "					<td colspan=\"3\">" + result.memo.MEMO_REGI + "</td>";
+			html += "				</tr>";
+			html += "				<tr>";
+			html += "					<td colspan=\"4\"> ";
+			html += "						<div class=\"detail_ctts\">";
+			html += result.memo.CONTENTS;
+			html += "						</div>";
+			html += "<textarea class=\"update_input\" rows=\"23\" name=\"contents\" id=\"contents\">" + result.memo.MEMO_CTT + "</textarea>";
+			html += "					</td> ";
+			html += "				</tr> ";
+			html += "			</table>";
+			html += "		<div class=\"btn_div\" id=\"btn_div\">";
+			html += "			<input type=\"button\" value=\"수정\" id=\"updateBtn\">";
+			html += "			<input type=\"button\" value=\"삭제\" id=\"deleteBtn\">";
+			html += "		</div>	";
+			html += "		<div class=\"update_btn_div\" id=\"update_btn_div\">	";
+			html += "			<input type=\"button\" value=\"저장\" id=\"updateResultBtn\">";
+			html += "			<input type=\"button\" value=\"취소\" id=\"updateCancelBtn\">	";
+			html += "		</div>	";
+			html += "	</div>";
+			html += "</div>  ";
+			
+			$("body").prepend(html);
+			
+			$(".background8").hide();
+			$(".ctts8").hide();
+			$(".background8").fadeIn();
+			$(".ctts8").fadeIn();
+			
+			$(".background8").off("click");
+			$(".background8").on("click", function(){
+				closeMemoDetail();
+			});
+			
+			$("#closeMemo").off("click");
+			$("#closeMemo").on("click", function(){
+				closeMemoDetail();
+				drawPopup();
+			});
+	
+		},
+		error : function(result) {
+			makePopup("알림", "조회에 실패했습니다.");
+		}
+	});
+}
+
+	
 	
 	
 
@@ -405,8 +547,18 @@ $(document).ready(function(){
 		
 		$(".ctts9").fadeOut(function(){
 			$(".ctts9").remove();
+		});	
+	}
+	
+	//상세보기 메모 닫기
+	function closeMemoDetail() {
+		$(".background8").fadeOut(function(){
+			$(".background8").remove();
 		});
 		
+		$(".ctts8").fadeOut(function(){
+			$(".ctts8").remove();
+		});	
 	}
 	
 	
@@ -490,6 +642,7 @@ $(document).ready(function(){
 			<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
 			<input type="hidden" id="page" name="page" value="${page}"/>
 			<input type="hidden" id="checkedArr" name="checkedArr"/>
+			<input type="hidden" id="mNo" name="mNo"/>
 		
 		<div class ="search_flag_div">
 			<div class="search_flag">

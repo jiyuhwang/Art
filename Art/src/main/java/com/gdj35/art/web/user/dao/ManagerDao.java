@@ -171,6 +171,16 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.selectOne("Manager.getReportDetail", params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getReportMemo(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Manager.getReportMemo", params);
+	}
+
+	@Override
+	public HashMap<String, String> getMemoDetail(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Manager.getMemoDetail", params);
+	}
+
 
 
 
