@@ -1,5 +1,6 @@
 package com.gdj35.art.web.user.dao;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -118,6 +119,36 @@ public class ManagerDao implements IManagerDao {
 	@Override
 	public int deleteG(HashMap<String, String> params) throws Throwable {
 		return sqlSession.update("Manager.deleteG",params);
+	}
+
+	@Override
+	public int getTagCnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Manager.getTagCnt",params);
+	}
+
+	@Override
+	public int addTag(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("Manager.addTag",params);
+	}
+
+	@Override
+	public int delTag(HashMap<String, String> params) throws Throwable {
+		int cnt =0;
+		String arr = params.get("tagNo");
+		String[] arrA = arr.split(",");
+		 System.out.println(Arrays.toString(arrA));
+		 
+		 for(int i =0; i<arrA.length; i++) {
+			 params.put("tagNo", arrA[i]);
+			 System.out.println(params.get("tagNo"));
+			 cnt += sqlSession.update("Manager.delTag",params);
+			 params.remove("tagNo");
+		 }
+		
+		
+		return cnt;
 	}
 
 	@Override

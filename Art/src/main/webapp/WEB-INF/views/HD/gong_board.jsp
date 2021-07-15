@@ -116,7 +116,7 @@
 					<th>삭제여부</th>
 					<th>수정/삭제</th>
 				</tr>
-				<c:forEach var="data" items=list>
+				<%-- <c:forEach var="data" items=list></c:forEach> --%>
 					<tr>
 						<td>
 	                        <input type="checkbox" id="ex_chk"> 
@@ -133,7 +133,7 @@
 	                        <input type="button" value="삭제"/></td>
 						
 					</tr>
-				</c:forEach>
+				
 				<tr>
 					<td>
                         <input type="checkbox" id="ex_chk"> 

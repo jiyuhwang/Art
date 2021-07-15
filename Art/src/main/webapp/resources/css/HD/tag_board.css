@@ -18,7 +18,7 @@ body{
         color:inherit; /*기본*/
     }
     
-    table{
+   /*  table{
          border-collapse: collapse;
          text-align: center;
          font-size: 10pt;
@@ -31,9 +31,21 @@ body{
         opacity: 1;
         cursor: pointer;
     }
-
-    table td:hover{
+	*/
+    .main3-table .td:hover{
         background-color: #6C7A89;
+        cursor: pointer;
+    }
+    
+
+    .main3-table .td{
+    width: 10%;
+    height: 80px;
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 15pt;
+    text-align: center;
+    line-height: 80px;
     }
     
     .main{
@@ -128,8 +140,18 @@ body{
     }
     
     .main1-1>span {
-            vertical-align: middle;
-            margin-left: 10px;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+    .active{
+    	background-color: #6C7A89;
+    	width: 10%;
+	    height: 80px;
+	    display: inline-block;
+	    box-sizing: border-box;
+	    font-size: 15pt;
+	    text-align: center;
+	    line-height: 80px;
     }
     
     .font-red {
@@ -154,16 +176,24 @@ body{
         
     }
     .main3{/* 저장 삭제 있는 div */
-        width : 100px;
+        width : 400px;
         height: 30px;
         background-color: grba;
         float: right;
         font-size: 2px;
-        text-align: left;
+        text-align: right;
         margin-bottom: 10px;
         display: inline-block;
         vertical-align: top;
         margin-top: 20px;
+        font-size: 15pt;
+    }
+    
+    .main3 [type=text]{
+    	display:none;
+    	background-color: inherit;
+    	border: 1px solid gray;
+    	border-radius: 5px;
     }
     .main3-table::-webkit-scroller{
     	display: none;

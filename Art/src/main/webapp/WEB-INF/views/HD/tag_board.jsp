@@ -13,7 +13,9 @@
 	<script type="text/javascript"
 			src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
+	var arr = new Array();
 		$(document).ready( function () {
+		//----------------------------------------------사이드 바 변경
 			var now ='${now}';
 			console.log(now);
 			$('.'+now).attr("id","active");
@@ -40,11 +42,71 @@
 				}
 				
 			});
+			//--------------------------------------------검색 기능
+			$("#searchBtn").on("click", function () {
+				$("#searchForm").submit();			
+			});
+			
+			
+			//-------------------------------------------- 등록하기 
+			$("#startAdd").on("click", function () {
+				if($(".main3 #startAdd").val() =="등록하기"){
+					$(".main3 [type =text]").css({"display":"inline-block"});
+					$(".main3 #startAdd").val("등록");
+				}else{
+					$(".main3 [type =text]").css({"display":"none"});
+					$(".main3 #startAdd").val("등록하기");
+					
+					$("#addTag").val($("#addContent").val());
+					if($("#addTag").val() != null && $("#addTag").val() !=''){
+						$("#updateTagForm").submit();
+					}
+				}
+			
+			});
+			//------------------------------------------- 각 요소 선택시 색 변경 및 번호 저장
+			
+			$(".main3-table .td").on("click", function () {
+				
+				if($(this).attr("class") != "active"){// 백그라운드가 배경색이면 저걸로 바꿔
+					$(this).attr("class","active");
+					arr.push($(this).attr("id"));
+					console.log(arr);
+				}else{
+					$(this).attr("class","td");
+						for(var i =0; i < arr.length; i++){
+							if($(this).attr("id") == arr[i]){
+							arr.splice(i,1);
+							console.log("this is" + arr);
+							}
+						}
+				}
+				
+				$("#tagNo").val(arr);
+				console.log($("#tagNo").val());
+				
+			});
+			
+			
+			
+			//------------------------------------------ 삭제하기
+			$("#deleteBtn").on("click", function () {
+				$("#updateTagForm").attr("action","delTag");
+				$("#updateTagForm").submit();
+			});
+			
+		
 		});
 		//document ready done
+		
+		
 	</script>
 </head>
 <body>
+	<form action="addTag" method="post" id="updateTagForm">
+		<input type="hidden" name="tagNo" id="tagNo">
+		<input type="hidden" name="addTag" id="addTag">
+	</form>
     <div class="wrapper">
     <div class="content">
        <c:import url="managerSide.jsp"></c:import>
@@ -63,48 +125,35 @@
                     <span><span class="font-red">데이터가 많은 경우</span> 느려질 수 있습니다.</span>
                 </div>
             </div>
-            <div class ="main2">
-                <div class="main2-1">
-                    <label>검색</label>
-                     <input type="text" placeholder="태그를 입력해주세요.">
-                     <button>검색</button>
-                    <div class="date_search">
-                        <label>날짜분류</label>
-                            <input type="date">
-                            <span> ~ </span>
-                            <input type="date">
-                            <button>검색</button>
-                        </div>
-                    </div>
-                    <div class="main3">
-                        <input type="button" value="등록"/>
-                        <input type="button" value="삭제"/>
-                    </div>
-            </div>
+            <form action="tag_board" id="searchForm" method="post">
+	            <div class ="main2">
+	                <div class="main2-1">
+	                    <label>검색</label>
+	                     <input type="text" placeholder="태그를 입력해주세요."  id="searchTxt" name="searchTxt" value="${param.searchTxt }">
+	                    <div class="date_search">
+	                        <label>날짜분류</label>
+	                            <input type="date" name="startDate">
+	                            <span> ~ </span>
+	                            <input type="date" name="endDate">
+	                        </div>
+	                     <input type="button" id="searchBtn" value="검색">
+	                    </div>
+	                    <div class="main3">
+	                    	#<input type="text" id="addContent">
+	                        <input type="button" id="startAdd" value="등록하기"/>
+	                        <input type="button" value="삭제" id="deleteBtn"/>
+	                    </div>
+	            </div>
+            </form>
             <div class="main3-table">
-                <table>
-                   <colgroup>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            
-                    </colgroup>
-                    <tr>
-                    <%-- <c:forEach var>
-                        <td>#태그</td>
-                    </c:forEach> --%>
-                    </tr>
-                    
-                   
-                </table>
+             	<c:forEach var="data" items="${tList}">
+             		<c:if test="${empty data.TAG_NAME} and ${data.TAG_NAME }">
+             			<div class="td" id="${data.TAG_NO}">없음</div>
+             		</c:if>
+             		<div class="td" id="${data.TAG_NO}">#${data.TAG_NAME}</div>
+             	</c:forEach>
             </div>
-            <div class ="status"> 전체 : 100개</div>
+            <div class ="status"> 전체 : ${cnt} 개</div>
         </div>
     
     </div>

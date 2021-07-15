@@ -123,6 +123,24 @@ public class ManagerService implements IManagerService {
 	}
 
 	@Override
+	public int getTagCnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getTagCnt(params);
+	}
+
+	@Override
+	public int addTag(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.addTag(params);
+	}
+
+	@Override
+	public int delTag(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.delTag(params);
+	}
+
+	@Override
 	public int returnG(HashMap<String, String> params) throws Throwable {
 		return iManagerDao.returnG(params);
 	}

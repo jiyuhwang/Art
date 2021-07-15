@@ -355,7 +355,7 @@ $(document).ready(function(){
 			html +="				<div class=\"reporter2\">닉네임: "+ result.data.R_NICK +"&nbsp;&nbsp;";	
 			html +="이름(아이디): " + result.data.R_NAME + "(" + result.data.R_ID +")</div>";
 			html +="			</div>";
-			html +="			<div class=\"btm_memo\">메모</div>";
+			html +="			<div class=\"btm_memo\"><table class=\"memo_table\"></table</div>";
 			html +="			<a class=\"btn_update\">수정</a>";
 			html +="			<a class=\"btn_close\">닫기</a>";
 			html +="		</div>";
