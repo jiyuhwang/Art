@@ -356,7 +356,7 @@ function commentList(list) {
 				html += "<img class=\"profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
 				}
 				html += "</div>";
-				html += "<div class=\"comment_name1\"><a href=\"other_gallary\">" + p.USER_NICKNAME + "</a></div>";
+				html += "<div class=\"comment_name1\">" + p.USER_NICKNAME + "</div>";
 				html += "<div class=\"comment1\">" + p.CONTENT + "</div>";
 				html += "<div class=\"comment1_date\">" + p.REGISTER_DATE + "<a class=\"comment_declation\" href=\"#\">신고하기</a></div>";
 				html += "<div class=\"btn_reply_upload_comment_delete_w\" cNo=\"" + p.COMMENT_NO +"\" >";
@@ -393,8 +393,9 @@ function commentList(list) {
 					html += "<img class=\"reply_profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
 				}
 				html += "</div>";
-				html += "<div class=\"reply_comment_name1\"><a href=\"other_gallary\">" + p.USER_NICKNAME + "</a></div>";
+				html += "<div class=\"reply_comment_name1\">" + p.USER_NICKNAME + "</div>";
 				html += "<div class=\"reply_comment1\">" + p.CONTENT + "</div>";
+				html += "<input type=\"hidden\" class=\"commentUserNo2\" value=\"" + p.USER_NO + "\">";
 				html += "<div class=\"reply_comment1_date\">" + p.REGISTER_DATE + "<a class=\"reply_comment_declation\" href=\"#\">신고하기</a></div>";
 				html += "<div class=\"reply_btn_reply_upload_comment_delete_w\" cNo2 = \"" +  p.COMMENT_NO + "\">";
 				if("${sUserNo}" == p.USER_NO) {
@@ -407,7 +408,7 @@ function commentList(list) {
 				html += "<div class=\"reply_comment_form1_w2\">";
 				html += "<span class=\"reply\"></span>";
 				html += "<div class=\"reply_comment_form1\">";
-				html += "삭제된 댓글입니다.";
+				html += "삭제된 답글입니다.";
 				html += "</div>";
 				html += "</div>";
 				html += "</div>";
@@ -520,9 +521,10 @@ function commentList(list) {
 			})
 			}
 		})
+	
 		
 		
-
+		
 		
 		$(".commentform").on("keypress", "input", function(event) {
 			if(event.keyCode == 13) { // 엔터키를 눌렀을 때

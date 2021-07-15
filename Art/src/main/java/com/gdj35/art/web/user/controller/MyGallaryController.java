@@ -915,4 +915,27 @@ public class MyGallaryController {
 	
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	// 메인갤러리 Ajax
+	@RequestMapping(value = "/mainList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String mainList(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+				
+		List<HashMap<String, String>> list1 = iMyGallaryService.mainPicList(params);
+		List<HashMap<String, String>> list2 = iMyGallaryService.mainDrawList(params);
+		List<HashMap<String, String>> list3 = iMyGallaryService.mainVideoList(params);
+		
+		modelMap.put("list1", list1);	
+		modelMap.put("list2", list2);	
+		modelMap.put("list3", list3);	
+		
+		return mapper.writeValueAsString(modelMap);
+	}
 }

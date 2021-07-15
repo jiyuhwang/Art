@@ -108,14 +108,6 @@ $(document).ready(function() {
 		}
 	});
 	
-/* 	$("#heart").on("click", function() {
-		if ($(this).attr("src") == "resources/images/JY/heart.png") {
-			$(this).attr("src", "resources/images/JY/heart2.png");
-		} else {
-			$(this).attr("src", "resources/images/JY/heart.png");
-		}
-	});
-	 */
 	
 	
 	$(".heart").on("click", function() {
