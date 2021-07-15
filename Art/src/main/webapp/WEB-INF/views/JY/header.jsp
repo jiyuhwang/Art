@@ -124,10 +124,20 @@ body {
 	height: 200px;
 }
 
+.side_bar_menu1:hover, .side_bar_menu2:hover, .side_bar_menu3:hover, .side_bar_menu4:hover {
+	color: #ffad33;
+	font-weight: bold;
+}
+
 #btnLogout {
 	position: absolute;
 	top: 550px;
 	left: 95px;
+}
+
+.side_bar_menu1x, .side_bar_menu2x, .side_bar_menu3x, .side_bar_menu4x {
+	color: #ffad33;
+	font-weight: bold;
 }
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
@@ -194,17 +204,48 @@ $(document).ready(function() {
 			value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
-			<div class="side_bar_menu1">
-				<a href="mygallary">나의 작업실</a>
-			</div>
+			
+			<c:choose>
+				<c:when test="${param.url == 'mygallary'}">
+					<div class="side_bar_menu1x">
+						<a href="mygallary">나의 작업실</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="side_bar_menu1">
+						<a href="mygallary">나의 작업실</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+
 			<br />
-			<div class="side_bar_menu2">
-				<a href="gallary">작품 보러가기</a>
-			</div>
+			<c:choose>
+				<c:when test="${param.url == 'gallary'}">
+					<div class="side_bar_menu2x">
+						<a href="gallary">작품 보러가기</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="side_bar_menu2">
+						<a href="gallary">작품 보러가기</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
 			<br />
-			<div class="side_bar_menu3">
-				<a href="profile">개인정보 수정</a>
-			</div>
+			
+			<c:choose>
+				<c:when test="${param.url == 'profile'}">
+					<div class="side_bar_menu3x">
+						<a href="profile">개인정보 수정</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="side_bar_menu3">
+						<a href="profile">개인정보 수정</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+
 			<br />
 			<div class="side_bar_menu4">
 				<a href="gongji">공지사항</a>

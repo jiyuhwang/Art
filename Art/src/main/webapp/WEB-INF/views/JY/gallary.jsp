@@ -13,15 +13,14 @@ $(document).ready(function() {
 	if("${param.selectGbn}" != "") {
 		$(".select").val("${param.selectGbn}");
 	}
+		
 	
-	/* $("input[name=tab]").val($('#tabtab').val()); */
+	if("${param.tab}" != "") {
+		$("input[name=tab]").prop("checked", false);
+		$("input[name=tab][value='${param.tab}']").prop("checked", true);
+	}
 	
-	
-	/* if($('#tabtab').val() != "") {
-		$("input[name=tab]").val($('#tabtab').val());
-	} */
-	
-	//console.log($('#tabtab').val());
+
 		
 	reloadList();
 	
@@ -43,6 +42,7 @@ $(document).ready(function() {
 	
 	$(".tabs").on("change", "[type='radio']", function() {
 		$("#page").val("1");
+		$(".select").val("0");
 		reloadList();
 	});
 	
@@ -54,7 +54,7 @@ $(document).ready(function() {
 	});
 	
 	$(".gallary").on("click", '.contents_heart', function() {
-		
+		if($('#userNo').val() != "") {
 
 		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
 			console.log($(this).parent().parent().attr("pno"));
@@ -103,11 +103,9 @@ $(document).ready(function() {
 						//alert("좋아요를 취소하였습니다.");
 						
 					} else if(res.msg == "failed") {
-						alert("로그인 후 이용해주세요.");
-						location.href = "login";
+						alert("에러 발생");
 					} else {
-						alert("로그인 후 이용해주세요.");
-						location.href = "login";
+						alert("문제 발생");
 					}
 
 				},
@@ -116,6 +114,9 @@ $(document).ready(function() {
 				}
 			});
 		}
+		} else {
+			alert("로그인 후 이용해주세요.");
+		}	
 	});
 	
 });
@@ -294,10 +295,14 @@ $(document).ready(function() {
 
 	<c:choose>
 		<c:when test="${empty sUserNo}">
-			<c:import url="header2.jsp"></c:import>
+			<c:import url="header2.jsp">
+				<c:param name="url" value="gallary"></c:param>
+			</c:import>
 		</c:when>
 		<c:otherwise>
-			<c:import url="header.jsp"></c:import>
+			<c:import url="header.jsp">
+				<c:param name="url" value="gallary"></c:param>
+			</c:import>
 		</c:otherwise>
 	</c:choose>
 <form action="#" id="actionForm" method="post">
@@ -306,7 +311,6 @@ $(document).ready(function() {
 			<input type="hidden" id="page" name="page" value="${page}" />
 			<input type="hidden" id="mainGallary" name="listPage" value="0"/>	
 			<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"/>	
-			<input type="hidden" id="tabtab" name="tabtab" value="${param.tab}"/>	
 	<div class="wrap">
 		<div class="gallary">
 			<div class="tabs">

@@ -10,7 +10,6 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	reloadList();
 		
 	
 	if("${param.selectGbn}" != "") {
@@ -18,16 +17,30 @@ $(document).ready(function() {
 	}
 	
 	
+	if("${param.tab}" != "") {
+		$("input[name=tab]").prop("checked", false);
+		$("input[name=tab][value='${param.tab}']").prop("checked", true);
+	}
+	
+	if("${param.visibility}" != "") {
+		$("#visibility").val("${param.visibility}");
+		if($("#visibility").val() == "1"){
+			$("#checkbox").prop("checked", false);
+		} else {
+			$("#checkbox").prop("checked", true);
+		}
+	}
+	
+	reloadList();
+
+
 	$('#label').on("click", function() {
-		 if($('#checkbox').is(":checked")){
-			    $('#visibility').val("1");
-				console.log($('#visibility').val());
-				reloadList();
-			} else {
-				$('#visibility').val("0");
-				console.log($('#visibility').val());
-				reloadList();
-			}
+		if($('#checkbox').is(":checked")){
+		    $('#visibility').val("1");
+		} else {
+			$('#visibility').val("0");
+		}
+		 reloadList();
 	});
    
 	
@@ -60,10 +73,12 @@ $(document).ready(function() {
 	
 	$(".tabs").on("change", "[type='radio']", function() {
 		$("#page").val("1");
+		$(".select").val("0");
 		reloadList();
 	});
 	
 	$(".gallary_wrap").on("click", '.contents_heart', function() {
+		if($('#userNo').val() != "") {
 		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
 			console.log($(this).parent().parent().attr("pno"));
 			$(this).attr("src", "resources/images/JY/heart2.png");
@@ -109,9 +124,9 @@ $(document).ready(function() {
 						//alert("좋아요를 취소하였습니다.");
 						
 					} else if(res.msg == "failed") {
-						alert("오류 발생3");
+						alert("오류 발생");
 					} else {
-						alert("오류 발생4");
+						alert("문제 발생");
 					}
 
 				},
@@ -119,6 +134,9 @@ $(document).ready(function() {
 					console.log(error);
 				}
 			});
+		}
+		} else {
+			alert("로그인 후 이용해주세요.");
 		}
 	});
 	
@@ -278,7 +296,9 @@ function drawPaging(pb) {
 			<c:import url="header2.jsp"></c:import>
 		</c:when>
 		<c:otherwise>
-			<c:import url="header.jsp"></c:import>
+			<c:import url="header.jsp">
+				<c:param name="url" value="mygallary"></c:param>
+			</c:import>
 		</c:otherwise>
 	</c:choose>
 <form action="#" id="actionForm" method="post">

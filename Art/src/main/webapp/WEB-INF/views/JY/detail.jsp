@@ -21,6 +21,7 @@ $(document).ready(function() {
 	});
 	
 	
+	
 	console.log($('#listPage').val());
 	$('#leftArrow').click(function() {
 		if($('#listPage').val() == "0") {
@@ -803,9 +804,10 @@ function CopyUrl2()
 			<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>
 			<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}"/>
 			<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}"/>
-			<input type="hidden" id="tabtab" name="tab" value="${param.tab}"/>
+			<input type="hidden" id="tab" name="tab" value="${param.tab}"/>
 			<input type="hidden" name="page" id="page" value="${param.page}" />
 			<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
+			<input type="hidden" name="visibility" value="${param.visibility}" />
 			<input type="hidden" name="commentNo" id="commentNo" value="" />
 			<input type="hidden" name="ReplyCommentNo" id="ReplyCommentNo" value="" />
 			<input type="hidden" id="listPage" name="listPage" value="${param.listPage}" />

@@ -115,8 +115,8 @@ $(document).ready(function() {
 	});
 	
 	$(".wrap").on("click", '.contents_heart', function() {
+		if($('#userNo').val() != "") {
 		
-
 		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
 			//console.log($(this).parent().parent().attr("pno"));
 			$(this).attr("src", "resources/images/JY/heart2.png");
@@ -164,11 +164,11 @@ $(document).ready(function() {
 						//alert("좋아요를 취소하였습니다.");
 						
 					} else if(res.msg == "failed") {
-						alert("로그인 후 이용해주세요.");
+						alert("에러 발생");
 						location.href = "login";
 					} else {
-						alert("로그인 후 이용해주세요.");
-						location.href = "login";
+						alert("문제 발생");
+						
 					}
 
 				},
@@ -176,6 +176,10 @@ $(document).ready(function() {
 					console.log(error);
 				}
 			});
+		}
+		} else {
+			alert("로그인 후 이용해주세요.");
+			location.href = "login";
 		}
 	});
 });
@@ -281,7 +285,9 @@ function videoList(list3) {
 <body>
 	<c:choose>
 		<c:when test="${empty sUserNo}">
-			<c:import url="header_main2.jsp"></c:import>
+			<c:import url="header_main2.jsp">
+				<c:param name="url" value="main"></c:param>
+			</c:import>
 		</c:when>
 		<c:otherwise>
 			<c:import url="header_main.jsp"></c:import>

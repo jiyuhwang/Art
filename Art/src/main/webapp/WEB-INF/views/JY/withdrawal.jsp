@@ -94,7 +94,9 @@ $(document).ready(function() {
 			<c:import url="header2.jsp"></c:import>
 		</c:when>
 		<c:otherwise>
-			<c:import url="header.jsp"></c:import>
+			<c:import url="header.jsp">
+				<c:param name="url" value="profile"></c:param>
+			</c:import>
 		</c:otherwise>
 	</c:choose>
 	
