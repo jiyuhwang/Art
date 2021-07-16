@@ -30,11 +30,16 @@ ul { list-style: none;}
 	margin-left: -440px;
 	background-color: #E1DDDB;
 	padding: 16px;
-	z-index: 1000;
+	z-index: 200;
 	overflow-y: hidden;
     overflow-x: hidden;
 	align-items: center;
 	text-align: center;
+}
+
+.star_table_img {
+	height: 16px;
+	width: 16px;
 }
 
 .report_no {
@@ -42,7 +47,7 @@ ul { list-style: none;}
     position: absolute;
     top: 6px;
     font-weight: bold;
-    z-index: 1100;
+    z-index: 200;
     left: 22px;
 }
 
@@ -289,6 +294,7 @@ ul { list-style: none;}
 }
 
 .btn_update {
+	display: inline-block;
 	position: absolute;
 	left: calc(41%);
 	text-decoration:none;
@@ -309,6 +315,7 @@ ul { list-style: none;}
 }
 
 .btn_close {
+	display: inline-block;
 	position: absolute;
 	left: calc(52%);
 	text-decoration:none;

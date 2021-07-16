@@ -299,5 +299,22 @@ public class MyGallaryDao implements IMyGallaryDao{
 		return sqlSession.update("Post.deleteReplyComment", params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> mainPicList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.mainPicList", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> mainDrawList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.mainDrawList", params);
+
+	}
+
+	@Override
+	public List<HashMap<String, String>> mainVideoList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.mainVideoList", params);
+
+	}
+
 
 }

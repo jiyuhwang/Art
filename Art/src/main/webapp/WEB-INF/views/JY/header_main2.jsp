@@ -41,6 +41,21 @@ a {
 	left: 80px;
 }
 
+#btnStart2 {
+	position: absolute;
+	right: 100px;
+	border: 1px solid #ffad33;
+	color: #ffad33;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15pt;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 20px;
+	background-color: white;
+}
+
 #btnSearch {
 	width: 100%;
 	height: 100%;
@@ -84,7 +99,8 @@ a {
 #btnStart {
 	position: absolute;
 	top: 170px;
-	left: 80px;
+	left: 70px;
+	padding: 10px;
 	border: 1px solid #ffad33;
 	color: #ffad33;
 	text-align: center;
@@ -107,6 +123,11 @@ a {
 	font-size: 18pt;
 }
 
+.side_bar_menu1:hover, .side_bar_menu2:hover {
+	color: #ffad33;
+	font-weight: bold;
+}
+
 .forget {
 	position: absolute;
 	bottom:30px;
@@ -114,6 +135,12 @@ a {
 	text-decoration: underline;
 	font-size: 10pt;
 }
+
+.side_bar_menu1x, .side_bar_menu2x {
+	color: #ffad33;
+	font-weight: bold;
+}
+
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
@@ -136,7 +163,7 @@ a {
 
 		});
 		
-		$('#btnStart').click(function() {
+		$('#btnStart, #btnStart2').click(function() {
 			location.href = "login";
 		});
 		
@@ -148,6 +175,7 @@ a {
 	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
+		<input type="button" id="btnStart2" value="시작하기">
 		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
@@ -156,13 +184,36 @@ a {
 		<div class="side_bar_phrase">You can be an art writer.</div>
 		<input type="button" id="btnStart" value="Art 시작하기">
 		<div class="side_bar_menu">
-			<div class="side_bar_menu1">
-				<a href="main">Art 홈</a>
-			</div>
+		
+		
+			<c:choose>
+				<c:when test="${param.url == 'main'}">
+					<div class="side_bar_menu1x">
+							<a href="main">Art 홈</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="side_bar_menu1">
+						<a href="main">Art 홈</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
 			<br />
-			<div class="side_bar_menu2">
-				<a href="gallary">작품 보러가기</a>
-			</div>
+			
+			<c:choose>
+				<c:when test="${param.url == 'gallary'}">
+					<div class="side_bar_menu2x">
+						<a href="gallary">작품 보러가기</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="side_bar_menu2">
+						<a href="gallary">작품 보러가기</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 		<div class="forget">
 			<a href="idfind">계정을 잊어버리셨나요?</a>

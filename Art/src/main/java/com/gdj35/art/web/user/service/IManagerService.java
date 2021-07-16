@@ -63,5 +63,21 @@ public interface IManagerService {
 
 	public int gongRowsDel(HashMap<String, String> params)throws Throwable;
 
+	public List<HashMap<String, String>> getReportMemo(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> getMemoDetail(HashMap<String, String> params) throws Throwable;
+
+	public int updateReportMemo(HashMap<String, String> params) throws Throwable;
+
+	public int deleteReportMemo(HashMap<String, String> params) throws Throwable;
+
+	public int onStar(HashMap<String, String> params) throws Throwable;
+
+	public int offStar(HashMap<String, String> params) throws Throwable;
+	
+	
+	
+	
+	
+	
 }

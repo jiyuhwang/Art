@@ -12,7 +12,7 @@
 	background-color: black;
 	position: relative;
 	color: white;
-	margin-top: 200px;
+	/* margin-top: 200px; */
 }
 
 #btnLogo2 {

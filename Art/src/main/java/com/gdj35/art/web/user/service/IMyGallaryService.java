@@ -83,6 +83,12 @@ public interface IMyGallaryService {
 
 	public int deleteReplyComment(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> mainPicList(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> mainDrawList(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> mainVideoList(HashMap<String, String> params) throws Throwable;
+
 
 
 

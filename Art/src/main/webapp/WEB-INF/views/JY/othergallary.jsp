@@ -10,7 +10,6 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	reloadList();
 	reloadLikeCnt();
 
 
@@ -18,9 +17,12 @@ $(document).ready(function() {
 		$(".select").val("${param.selectGbn}");
 	}
 	
-	/* if("${param.tab}" != "") {
-		$("input[name=tab]").val("${param.tab}");
-	} */
+	if("${param.tab}" != "") {
+		$("input[name=tab]").prop("checked", false);
+		$("input[name=tab][value='${param.tab}']").prop("checked", true);
+	}
+	
+	reloadList();
 	
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 
@@ -36,6 +38,12 @@ $(document).ready(function() {
 		$('html').scrollTop(0);
 		reloadList();
 	});
+	
+	$(".tabs").on("change", "[type='radio']", function() {
+		$("#page").val("1");
+		$(".select").val("0");
+		reloadList();
+	});
 
 	
 	$(".pic_wrap, .draw_wrap, .video_wrap").on("dblclick", "div", function() {
@@ -46,6 +54,7 @@ $(document).ready(function() {
 	});
 	
 	$(".gallary_wrap").on("click", '.contents_heart', function() {
+		if($('#userNo').val() != "") {
 		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
 			console.log($(this).parent().parent().attr("pno"));
 			$(this).attr("src", "resources/images/JY/heart2.png");
@@ -93,10 +102,10 @@ $(document).ready(function() {
 						//alert("좋아요를 취소하였습니다.");
 						
 					} else if(res.msg == "failed") {
-						alert("로그인 후 이용해주세요.");
+						alert("에러 발생");
 						location.href = "login";
 					} else {
-						alert("로그인 후 이용해주세요.");
+						alert("문제 발생");
 						location.href = "login";
 					}
 
@@ -106,21 +115,16 @@ $(document).ready(function() {
 				}
 			});
 		}
-	});
-	
-/* 	$("#heart").on("click", function() {
-		if ($(this).attr("src") == "resources/images/JY/heart.png") {
-			$(this).attr("src", "resources/images/JY/heart2.png");
 		} else {
-			$(this).attr("src", "resources/images/JY/heart.png");
+			alert("로그인 후 이용해주세요.");
 		}
 	});
-	 */
+	
 	
 	
 	$(".heart").on("click", function() {
-		
-
+		if($('#userNo').val() != "") {
+	
 		if ($(this).attr("src") == "resources/images/JY/heart.png") {
 			$(this).attr("src", "resources/images/JY/heart2.png");
 
@@ -137,11 +141,9 @@ $(document).ready(function() {
 						//alert("좋아요가 눌렸습니다.");
 						reloadLikeCnt();
 					} else if(res.msg == "failed") {
-						alert("로그인 후 이용해주세요.");
-						location.href = "login";
+						alert("에러 발생");
 					} else {
-						alert("로그인 후 이용해주세요.");
-						location.href = "login";
+						alert("문제 발생");
 					}
 				},
 				error: function(request, status, error) { // 실패 시 다음 함수 실행
@@ -165,9 +167,9 @@ $(document).ready(function() {
 						//alert("좋아요를 취소하였습니다.");
 						reloadLikeCnt();
 					} else if(res.msg == "failed") {
-						alert("오류 발생3");
+						alert("오류 발생");
 					} else {
-						alert("오류 발생4");
+						alert("오류 발생");
 					}
 
 				},
@@ -176,16 +178,11 @@ $(document).ready(function() {
 				}
 			});
 		}
+		} else {
+			alert("로그인 후 이용해주세요.");
+		}
 	});
 	
-	
-	
-	
-	
-	$(".tabs").on("change", "[type='radio']", function() {
-		$("#page").val("1");
-		reloadList();
-	});
 	
 });
 
@@ -377,6 +374,11 @@ function drawPaging(pb) {
 		<input type="hidden" id="userNo2" name="userNo2" value="${param.authorNo}" />
 		<input type="hidden" id="page" name="page" value="${page}" />
 		<input type="hidden" id="mainGallary" name="listPage" value="2"/>	
+	
+	<div class="main_title_wrap">
+		<span id="mainTitle"><b>${param.userNickname}</b>님의 작업실</span>
+	</div>
+	<div class="background_wrap">
 	<div class="wrap">
 		<div class="profile_wrap">
 		
@@ -440,6 +442,7 @@ function drawPaging(pb) {
 			</div>
 			<div class="pagination"></div>
 		</div>
+	</div>
 	</div>
 </form>
 	<br />

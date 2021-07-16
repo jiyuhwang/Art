@@ -129,6 +129,10 @@ a {
 	width: 100%;
 	height: 200px;
 }
+.side_bar_menu1:hover, .side_bar_menu2:hover, .side_bar_menu3:hover, .side_bar_menu4:hover {
+	color: #ffad33;
+	font-weight: bold;
+}
 
 #btnLogout {
 	position: absolute;

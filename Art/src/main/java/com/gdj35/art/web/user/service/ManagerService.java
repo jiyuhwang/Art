@@ -172,6 +172,37 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.gongRowsDel(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getReportMemo(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.getReportMemo(params);
+	}
+
+	@Override
+	public HashMap<String, String> getMemoDetail(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getMemoDetail(params);
+	}
+
+	@Override
+	public int updateReportMemo(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.updateReportMemo(params);
+	}
+
+	@Override
+	public int deleteReportMemo(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.deleteReportMemo(params);
+	}
+
+	@Override
+	public int onStar(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.onStar(params);
+	}
+
+	@Override
+	public int offStar(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.offStar(params);
+	}
+
 
 
 }

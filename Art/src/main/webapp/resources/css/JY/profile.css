@@ -18,7 +18,7 @@ body {
 .wrap {
 	width: 1330px;
 	height: 100%;
-	margin: 110px auto;
+	margin: 110px auto 200px;
 }
 
 .btn_menu {

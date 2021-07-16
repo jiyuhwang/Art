@@ -551,5 +551,14 @@ public class MemberController {
 		
 		return mav;
 	}
+	
+	//신고하기
+	@RequestMapping(value = "/userReportPopup")
+	public ModelAndView userReportPopup(ModelAndView mav) {
+
+		mav.setViewName("h/userReportPopup");
+		
+		return mav;
+	}
 
 }

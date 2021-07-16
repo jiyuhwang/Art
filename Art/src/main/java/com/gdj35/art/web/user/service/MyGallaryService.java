@@ -212,5 +212,20 @@ public class MyGallaryService implements IMyGallaryService{
 		return iMyGallaryDao.deleteReplyComment(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> mainPicList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.mainPicList(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> mainDrawList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.mainDrawList(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> mainVideoList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.mainVideoList(params);
+	}
+
 
 }

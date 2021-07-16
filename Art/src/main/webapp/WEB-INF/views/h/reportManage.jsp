@@ -14,6 +14,7 @@ tbody tr:hover {
 </style>
 <link rel="stylesheet" href="resources/css/h/report_manage.css"/>
 <link rel="stylesheet" href="resources/css/h/report_detail_popup.css"/>
+<link rel="stylesheet" href="resources/css/h/memo_detail.css"/>
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -88,6 +89,8 @@ $(document).ready(function(){
 		$("#rNo").val($(this).attr("name"));
 		drawPopup();
 	});
+	
+
 	
 	
 	
@@ -300,7 +303,7 @@ $(document).ready(function(){
 			html +="	<div class=\"ctts9\">";
 			html +="	<span class=\"report_no\">신고번호 "+ result.data.REPORT_NO +"</span>";
 			html +="	<form id=\"detailForm\">";
-			html +="	<input type=\"hidden\" name=\"rNo\" value=\"rNo\"/>";
+			html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
 			html +="	</form>";
 			html +="		<div class=\"top_info\">";
 			html +="			<div class=\"info1\">";
@@ -355,9 +358,9 @@ $(document).ready(function(){
 			html +="				<div class=\"reporter2\">닉네임: "+ result.data.R_NICK +"&nbsp;&nbsp;";	
 			html +="이름(아이디): " + result.data.R_NAME + "(" + result.data.R_ID +")</div>";
 			html +="			</div>";
-			html +="			<div class=\"btm_memo\">메모</div>";
-			html +="			<a class=\"btn_update\">수정</a>";
-			html +="			<a class=\"btn_close\">닫기</a>";
+			html +="			<div class=\"btm_memo\"><table class=\"memo_table\" name=\""+ result.data.REPORT_NO +"\"></table></div>";
+			html +="			<div class=\"btn_update\">메모추가</div>";
+			html +="			<div class=\"btn_close\">닫기</div>";
 			html +="		</div>";
 			html +="	</div>";
 				
@@ -369,6 +372,8 @@ $(document).ready(function(){
 				$(".background9").fadeIn();
 				$(".ctts9").fadeIn();
 				
+				drawMeMoTable(result.list);
+				
 				$(".btn_close").off("click");
 				$(".btn_close").on("click", function(){
 					closePopup();
@@ -379,7 +384,18 @@ $(document).ready(function(){
 					closePopup();
 				});
 				
-				/*----------------------------------------------수정버튼 클릭할 때  */
+				$(".btm_memo").off("dbclick");
+				$(".btm_memo").on("dblclick", "tr", function(){
+					
+					if(result.list.length != 0) {
+						$("#mNo").val($(this).attr("name"));
+						showMeMo();
+					} else {
+						alert("메모가 없습니다.");
+					}
+				});
+
+				//----------------------------------------------추가버튼 클릭할 때
 				$(".btn_update").off("click");
 				$(".btn_update").on("click", function(){
 					closePopup();
@@ -394,6 +410,269 @@ $(document).ready(function(){
 		});
 	}
 	
+	//----------------------------------------------메모 테이블 불러오기
+		 function drawMeMoTable(list) {
+			var html="";
+			var no = 0;
+			
+			html += "	<colgroup>";
+			html += "		<col width=\"100px\"/>";
+			html += "		<col width=\"100px\"/>";
+			html += "		<col width=\"50px\"/>";
+			html += "		<col width=\"700px\"/>";
+			html += "	</colgroup>";
+			html +=	"	  <thead>";
+			html +=	"		  <tr>";
+			html +=	"			  <th>번호</th>";
+			html +=	"			  <th>날짜</th>";
+			html +=	"			  <th></th>";
+			html +=	"			  <th>메모내용</th>";
+			html +=	"		  </tr>";
+			html +=	"	  </thead>";
+			html +=	"	  <tbody>";
+			
+			if(list.length == 0) {
+				html += "<tr>";
+				html += "<td colspan=\"5\">등록된 글이 없습니다.</td>";
+				html += "</tr>";
+			} else {
+			
+					for(var d of list){
+						no++;
+						html+= "	<tr name=\""+  d.MEMO_NO +"\">";
+						html+= "		<td> " + no +"</td>";
+						html+= "		<td>  "+ d.REGISTER_DATE +"</td>";
+						
+						if(d.MARKING == 0){
+							html += "	<td><img class=\"star_table_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\"></td>";	
+						} else {
+							html+= "		<td> </td>";
+						}
+
+						html+= "		<td>  "+ d.CONTENTS +"</td>";
+						html+= "	</tr>";
+					}
+			}		
+				html +=	"	</tbody>";
+	
+				$(".btm_memo table").html(html);
+		}
+	
+		//----------------------------------------------메모 상세보기
+		function showMeMo() {
+			var params = $("#actionForm").serialize();
+			
+			$.ajax({
+				url:"reportMemo",
+				type:"post",
+				dataType :"json",
+				data:params,
+				success : function (result) {
+
+			var html = "";
+			
+			html += "<div class=\"background8\"></div>";
+			html += "<div class=\"ctts8\">";
+			html += "	<div class=\"top_div\">";
+			if(result.memo.MARKING == 0){
+				html += "<img class=\"star_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\">";					
+			} else {
+				html += "<img class=\"star_img\" id=\"starIconBlack\" alt=\"별\" src=\"resources/images/empty_star_icon.png\">";
+			}
+			html += "		<div class=\"memo_title\">메모</div>";			
+			html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
+			html += "	</div>";
+			html += "	<div class=\"memo_ctts_div\">";
+			html += "		<form id=\"memoForm\">";
+			html += "			<input type=\"hidden\" name=\"mNo\" value=\"" + result.memo.MEMO_NO + "\" />";
+			html += "			<input type=\"hidden\" name=\"marking\" value=\"" + result.memo.MARKING + "\" />";
+			html += "			<table>";
+			html += "				<colgroup>";    
+			html += "					<col width=\"210px\"/>";
+			html += "					<col width=\"80px\"/>";
+			html += "					<col width=\"210px\"/>";
+			html += "				</colgroup>";	
+			html += "				<tr>";
+			html += "					<td>작성자</td>";
+			html += "					<td colspan=\"3\">" + result.memo.ADMIN_NAME + "&nbsp;&nbsp;&nbsp;관리자</td>	";
+			html += "				</tr>";		
+			html += "				<tr>";
+			html += "					<td>발생일</td>";
+			html += "					<td colspan=\"3\">";
+			html += "						<div class=\"accur_div\">" +result.memo.ACCUR_DATE + "</div>";
+			html += "<input type=\"text\" class=\"update_input\" size=\"38\" name=\"occur\" id=\"accur\" value=\"" + result.memo.ACCUR_DATE + "\" />";		
+			html += "				</td></tr>";
+			html += "				<tr>";
+			html += "					<td>작성일</td>";
+			html += "					<td colspan=\"3\">" + result.memo.MEMO_REGI + "</td>";
+			html += "				</tr>";
+			html += "				<tr>";
+			html += "					<td colspan=\"4\"> ";
+			html += "						<div class=\"detail_ctts\">";
+			html += result.memo.CONTENTS;
+			html += "						</div>";
+			html += "<textarea class=\"update_input\" rows=\"16\" name=\"contents\" id=\"contents\">" + result.memo.CONTENTS + "</textarea>";
+			html += "					</td> ";
+			html += "				</tr> ";
+			html += "			</table>";
+			html += "		<div class=\"btn_div\" id=\"btn_div\">";
+			html += "			<input type=\"button\" value=\"수정\" id=\"BtnUpdate\">";
+			html += "			<input type=\"button\" value=\"삭제\" id=\"BtnDelete\">";
+			html += "		</div>	";
+			html += "		<div class=\"update_btn_div\" id=\"update_btn_div\">	";
+			html += "			<input type=\"button\" value=\"저장\" id=\"BtnSave\">";
+			html += "			<input type=\"button\" value=\"취소\" id=\"BtnCancel\">	";
+			html += "		</div>	";
+			html += "	</div>";
+			html += "	</form>";
+			html += "</div>  ";
+			
+			$("body").prepend(html);
+			
+			$(".background8").hide();
+			$(".ctts8").hide();
+			$(".background8").fadeIn();
+			$(".ctts8").fadeIn();
+			
+			
+			//-------------------------------------------------------------중요도 아이콘
+ 			$(".ctts8").on("click", ".star_img", function(){
+				if(($(this).attr("src") == "resources/images/empty_star_icon.png") &&
+						result.memo.MARKING == 1){
+							
+				var params= $("#memoForm").serialize();
+				
+				$.ajax({
+					url : "onStar",
+					type : "post",
+					dataType : "json",
+					data : params,
+					success: function(res) {
+						$(".star_img").attr("src", "resources/images/yellow_star_icon.png");
+						console.log("노란별!");
+					},
+					error: function(request, status, error) {
+						console.log(error);
+					}
+				});
+			
+				} else if(($(this).attr("src") == "resources/images/yellow_star_icon.png") &&
+						result.memo.MARKING == 0) {
+										
+					$.ajax({
+						url : "offStar",
+						type : "post",
+						dataType : "json",
+						data : params,
+						success: function(res) {
+							$(".star_img").attr("src", "resources/images/empty_star_icon.png");
+							console.log("검정별");
+							
+						},
+						error: function(request, status, error) {
+							console.log(error);
+						}
+					});
+				} else {
+					alert("중요도 변경시 오류가 발생했습니다.");
+				}
+
+			}); 
+			
+			
+			
+			$(".background8").off("click");
+			$(".background8").on("click", function(){
+				closeMemoDetail();
+			});
+			
+			$("#closeMemo").off("click");
+			$("#closeMemo").on("click", function(){
+				closeMemoDetail();
+				fastClosePopup();
+				drawPopup();
+				//setTimeout(function(){drawPopup();}, 400);
+					
+			});
+			
+			
+			//----------------------------------------------수정버튼 누를 때
+			$("#BtnUpdate").off("click");
+			$("#BtnUpdate").on("click", function(){
+				$(".accur_div").css("display", "none");
+				$(".detail_ctts").css("display", "none");
+				$(".btn_div").css("display", "none");
+				$(".update_input").each(function(){
+					$(this).css("display", "block");
+				});
+				$("#update_btn_div").css("display", "block");
+			});
+			
+			//----------------------------------------------취소버튼 누를 때
+			$("#BtnCancel").off("click");
+			$("#BtnCancel").on("click", function(){
+				$(".accur_div").css("display", "block");
+				$(".detail_ctts").css("display", "block");
+				$(".btn_div").css("display", "block");
+				$(".update_input").each(function(){
+					$(this).css("display", "none");
+				});
+				$("#update_btn_div").css("display", "none");
+			});
+			
+			//----------------------------------------------저장할 때
+			$("#BtnSave").off("click");
+			$("#BtnSave").on("click", function(){
+				var params = $("#memoForm").serialize();
+				
+				$.ajax({
+					type : "post",
+					url : "saveReportMemo",
+					dataType : "json",
+					data : params,
+					success : function(result) {
+						closeMemoDetail();
+						alert("수정되었습니다.");
+						closePopup();
+						drawPopup();					
+					},
+					error : function(result) {
+						alert("수정에 실패했습니다.");
+					}
+				});
+			});
+			
+			//----------------------------------------------삭제할 때
+			
+			$("#BtnDelete").off("click");
+			$("#BtnDelete").on("click", function(){
+				var params = $("#memoForm").serialize();
+				
+				$.ajax({
+					type : "post",
+					url : "delReportMemo",
+					dataType : "json",
+					data : params,
+					success : function(result) {
+						closeMemoDetail();
+						alert("삭제되었습니다.");
+						closePopup();
+						drawPopup();
+					},
+					error : function(result) {
+						alert("삭제에 실패했습니다.");
+					}
+				});
+			});
+			
+		},
+		error: function(request, status, error){
+			console.log(error);
+		}
+	});
+}
+
+	
 	
 	
 
@@ -405,9 +684,31 @@ $(document).ready(function(){
 		
 		$(".ctts9").fadeOut(function(){
 			$(".ctts9").remove();
+		});	
+	}
+	
+	//상세보기 메모 닫기
+	function closeMemoDetail() {
+		$(".background8").fadeOut(function(){
+			$(".background8").remove();
 		});
 		
+		$(".ctts8").fadeOut(function(){
+			$(".ctts8").remove();
+		});	
 	}
+	
+	function fastClosePopup() {
+		$(".ctts8").remove();
+		$(".background8").remove();
+		$(".background9").remove();
+		$(".ctts9").remove();
+
+	}
+	
+
+		
+
 	
 	
 	
@@ -490,6 +791,7 @@ $(document).ready(function(){
 			<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
 			<input type="hidden" id="page" name="page" value="${page}"/>
 			<input type="hidden" id="checkedArr" name="checkedArr"/>
+			<input type="hidden" id="mNo" name="mNo"/>
 		
 		<div class ="search_flag_div">
 			<div class="search_flag">
