@@ -855,6 +855,34 @@ public class ManagerController {
 	
 	}
 	
+	//메모 추가하기
+	@RequestMapping(value="/addMemo",
+				method=RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+	
+	@ResponseBody
+	public String addMemo(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iManagerService.addMemo(params);
+			
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	
 	
 }

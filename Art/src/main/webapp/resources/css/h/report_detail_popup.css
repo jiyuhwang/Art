@@ -293,7 +293,7 @@ ul { list-style: none;}
 	margin-left: 3px;
 }
 
-.btn_update {
+.btn_add {
 	display: inline-block;
 	position: absolute;
 	left: calc(41%);
@@ -309,7 +309,7 @@ ul { list-style: none;}
 	border-radius: 6px;
 }
 
-.btn_update:hover {
+.btn_add:hover {
 	background-color: #EF6C33;
 	color: white;
 }

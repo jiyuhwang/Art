@@ -359,7 +359,7 @@ $(document).ready(function(){
 			html +="이름(아이디): " + result.data.R_NAME + "(" + result.data.R_ID +")</div>";
 			html +="			</div>";
 			html +="			<div class=\"btm_memo\"><table class=\"memo_table\" name=\""+ result.data.REPORT_NO +"\"></table></div>";
-			html +="			<div class=\"btn_update\">메모추가</div>";
+			html +="			<div class=\"btn_add\">메모추가</div>";
 			html +="			<div class=\"btn_close\">닫기</div>";
 			html +="		</div>";
 			html +="	</div>";
@@ -395,12 +395,153 @@ $(document).ready(function(){
 					}
 				});
 
-				//----------------------------------------------추가버튼 클릭할 때
-				$(".btn_update").off("click");
-				$(".btn_update").on("click", function(){
-					closePopup();
+				//-----------------------------------------------------------추가버튼 클릭할 때
+				$(".btn_add").off("click");
+				$(".btn_add").on("click", function(){
 
-				});
+					var html = "";
+					
+					html += "<div class=\"background8\"></div>";
+					html += "<div class=\"ctts8\">";
+					html += "	<div class=\"top_div\">";
+					html += "<img class=\"star_img\" id=\"starIconBlack\" alt=\"별\" src=\"resources/images/empty_star_icon.png\">";
+					html += "		<div class=\"memo_title\">메모</div>";			
+					html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
+					html += "	</div>";
+					html += "	<div class=\"memo_ctts_div\">";
+					html += "		<form id=\"memoForm\">";
+					html +="	<input type=\"hidden\" name=\"marking\" id=\"marking\" value=\"1\"/>";
+					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
+					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\"/>";
+					html += "			<table>";
+					html += "				<tr>";
+					html += "					<td>작성자</td>";
+					html += "					<td><input type=\"text\" size=\"38\"id=\"a\" /></td>  ";
+					html += "				</tr>";		
+					html += "				<tr>";
+					html += "					<td>발생일</td>";
+					html += "					<td colspan=\"3\">";				
+					html += "<input type=\"date\" name=\"occur\" id=\"occur\" min=\"2021-01-01\"/>";
+					html += "				</td></tr>";
+					html += "				<tr>";
+					html += "					<td colspan=\"4\"> ";
+					html += "<textarea rows=\"16\" name=\"contents\" id=\"contents\"></textarea>";
+					html += "					</td> ";
+					html += "				</tr> ";
+					html += "			</table>";
+					html += "		<div class=\"save_btn_div\" id=\"save_btn_div\">	";
+					html += "			<input type=\"button\" value=\"저장\" id=\"BtnSave\">";
+					html += "			<input type=\"button\" value=\"취소\" id=\"BtnCancel\">	";
+					html += "		</div>	";
+					html += "	</div>";
+					html += "	</form>";
+					html += "</div>  ";
+					
+					$("body").prepend(html);
+					
+					$(".background8").hide();
+					$(".ctts8").hide();
+					$(".background8").fadeIn();
+					$(".ctts8").fadeIn();
+					
+					$("#memoForm").on("keypress", "input", function(event){
+						if(event.keyCode == 13){
+							return false;
+						}
+					});
+					
+					
+					//-------------------------------------------------------------중요도 아이콘
+		 			$(".ctts8").on("click", ".star_img", function(){
+						if($(this).attr("src") == "resources/images/empty_star_icon.png"){
+							$(".star_img").attr("src", "resources/images/yellow_star_icon.png");
+							$("#marking").val(0);
+						} else {
+							$(".star_img").attr("src", "resources/images/empty_star_icon.png");
+							$("#marking").val(1);
+						}
+
+					}); 
+					
+					
+					
+					$(".background8").off("click");
+					$(".background8").on("click", function(){
+						closeMemoDetail();
+					});
+					
+					$("#closeMemo").off("click");
+					$("#closeMemo").on("click", function(){
+						closeMemoDetail();
+						fastClosePopup();
+						drawPopup();
+						//setTimeout(function(){drawPopup();}, 400);
+							
+					});
+
+					
+					//----------------------------------------------취소버튼 누를 때
+					$("#BtnCancel").off("click");
+					$("#BtnCancel").on("click", function(){
+						closeMemoDetail();
+						fastClosePopup();
+						drawPopup();
+					});
+					
+					//----------------------------------------------저장할 때
+					$("#BtnSave").off("click");
+					$("#BtnSave").on("click", function(){
+						
+						var txt = $("#a").val();
+						var text = $.trim(txt);
+						
+						if($("#a").val() == "황지유"){
+							$("#admin").val(5);
+						} else if(txt == "정희두"){
+							$("#a").val(2);
+						} else if(txt == "홍길동"){
+							$("#admin").val(1);
+						} else if(txt == "이영민"){
+							$("#admin").val(4);
+						} else if(txt == "김현"){
+							$("#admin").val(3);
+						} else {
+							alert("존재하지 않는 관리자 입니다.")
+							$("#a").focus();
+						}
+						
+						
+						if($.trim($("#admin").val()) == ""){
+							alert("관리자를 입력해주세요");
+							$("#admin").focus();
+						} else if($("#occur").val() == ""){
+							alert("발생일을 입력하세요");
+							$("#occur").focus();
+						} else if($.trim($("#contents").val()) == ""){
+							alert("메모를 입력하세요");
+							$("#contents").focus();
+						}else {
+							
+							var params = $("#memoForm").serialize();
+							
+							$.ajax({
+								type : "post",
+								url : "addMemo",
+								dataType : "json",
+								data : params,
+								success : function(result) {
+									closeMemoDetail();
+									fastClosePopup();
+									drawPopup();					
+								},
+								error : function(result) {
+									alert("저장에 실패했습니다.");
+								}
+							});//addMemo ajax end
+						}
+					});//저장버튼누르면
+
+				});//메모추가버튼누르묜
 				
 				
 				
@@ -486,10 +627,11 @@ $(document).ready(function(){
 			html += "		<form id=\"memoForm\">";
 			html += "			<input type=\"hidden\" name=\"mNo\" value=\"" + result.memo.MEMO_NO + "\" />";
 			html += "			<input type=\"hidden\" name=\"marking\" value=\"" + result.memo.MARKING + "\" />";
+			html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + result.memo.R_NO + "\" />";
 			html += "			<table>";
 			html += "				<colgroup>";    
 			html += "					<col width=\"210px\"/>";
-			html += "					<col width=\"80px\"/>";
+			html += "					<col width=\"20px\"/>";
 			html += "					<col width=\"210px\"/>";
 			html += "				</colgroup>";	
 			html += "				<tr>";
@@ -549,7 +691,6 @@ $(document).ready(function(){
 					data : params,
 					success: function(res) {
 						$(".star_img").attr("src", "resources/images/yellow_star_icon.png");
-						console.log("노란별!");
 					},
 					error: function(request, status, error) {
 						console.log(error);
