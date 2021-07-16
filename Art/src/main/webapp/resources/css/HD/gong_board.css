@@ -24,6 +24,7 @@
          border-bottom: 1px solid black;
          font-size: 10pt;
          width: 1500px;
+         table-layout: fixed;
          
     }
     table th{
@@ -35,6 +36,8 @@
     }
     table td{
         padding : 5px;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     .main{
@@ -175,6 +178,14 @@
         line-height: 20px;
         padding-left: 10px;
         border-radius: 5px;
+    }
+    .pagingWrap{
+    	font-size: 15pt;
+    	margin-top: 10px;
+    	text-align: center;
+    }
+    .pagingWrap span{
+    	margin:0 5px;
     }
     
     select, input{

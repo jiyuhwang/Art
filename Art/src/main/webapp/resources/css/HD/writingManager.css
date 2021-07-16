@@ -16,6 +16,14 @@ a {
 	text-decoration: none;
 }
 
+#fileBtn{
+font-size:25pt;
+ margin-bottom:20px;
+ border:none;
+ background-color : inherit;
+ border-bottom : 2px solid #ccc;
+}
+
 .hdr {
 	margin-top: 20px;
 	position: relative;

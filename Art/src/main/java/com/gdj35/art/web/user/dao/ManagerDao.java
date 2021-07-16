@@ -28,8 +28,8 @@ public class ManagerDao implements IManagerDao {
 	
 
 	@Override
-	public List<HashMap<String, String>> getGList() throws Throwable {
-		return sqlSession.selectList("Manager.getGList");
+	public List<HashMap<String, String>> getGList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Manager.getGList",params);
 	
 	}
 
@@ -169,6 +169,37 @@ public class ManagerDao implements IManagerDao {
 	@Override
 	public HashMap<String, String> getReportDetail(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectOne("Manager.getReportDetail", params);
+	}
+
+	@Override
+	public int getGongCnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Manager.getGongCnt",params);
+	}
+
+	@Override
+	public int gongRowsDel(HashMap<String, String> params) throws Throwable {
+		System.out.println("이거 체크 박스 배열 값이여" + params);
+		System.out.println(params.get("noticeNo") instanceof String);// 스크링값
+		
+		int cnt =0;
+		String noticeNos = params.get("noticeNo");
+		String[] arr = noticeNos.split(",");//{}없이도 배열에 적용이 가능한 것 같다.
+		
+		System.out.println("받아온 배열값"+Arrays.toString(arr));
+		System.out.println(arr.length);
+	
+			for(int i =0; i < arr.length; i++) {
+				params.put("noticeNo", arr[i]);
+				System.out.println("포문 배열 찍기"+params.get("noticeNo"));
+				cnt += sqlSession.update("Manager.gongRowsDel",params);
+				/* params.remove("noticeNo"); */
+			}
+			
+		
+		
+		
+		return cnt;
 	}
 
 

@@ -98,7 +98,6 @@ $(document).ready( function () {
 	//---------------------------------------paging 이벤트
 	$(".Pmain #pagingWrap").on("click",".Pmain span", function () {
 		$(".Pmain #page").val($(this).attr("name"));
-		console.log($(".Pmain #page").val());
 		$(".Pmain #userForm").submit();
 	});
 	
@@ -166,6 +165,7 @@ $(document).ready( function () {
 		delOneRow();
 	});
 	
+	//----------------------------------------------------전체 선택 
 	$("#all_check").on("click", function () {
 		if($(this).is(":checked")){
 			$("input[type=checkbox]").prop("checked",true);
@@ -174,6 +174,9 @@ $(document).ready( function () {
 		}
 	});
 	
+	
+	
+	// 선택 삭제 버튼 클릭시
 	$("#selectDelBtn").on("click", function () {
 		var list = new Array();
 		$(".main3-table [name=userNo]:checked").each(function(index,item) {
@@ -920,12 +923,7 @@ function drawOutList() {
 <div id="pagingWrapOut" class="pagingWrap"></div>
 	</div>
 </div>
-<%-- <div>
-	<c:import url="login.jsp"></c:import>
-</div> --%>
-
 <div class="popupWrap">
-	<%-- <c:import url="user_detail(post).jsp"></c:import> --%>
 </div>
 <div>
 	<c:import url="email(send).jsp"></c:import>

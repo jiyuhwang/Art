@@ -34,9 +34,9 @@ public class ManagerService implements IManagerService {
 
 
 	@Override
-	public List<HashMap<String, String>> getGList() throws Throwable {
+	public List<HashMap<String, String>> getGList(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iManagerDao.getGList();
+		return iManagerDao.getGList(params);
 	}
 
 
@@ -158,6 +158,18 @@ public class ManagerService implements IManagerService {
 	@Override
 	public HashMap<String, String> getReportDetail(HashMap<String, String> params) throws Throwable {
 		return iManagerDao.getReportDetail(params);
+	}
+
+	@Override
+	public int getGongCnt(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getGongCnt(params);
+	}
+
+	@Override
+	public int gongRowsDel(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.gongRowsDel(params);
 	}
 
 
