@@ -28,13 +28,28 @@ $(document).ready(function() {
 		} else {
 			$('.side_bar').slideUp();
 		}
-	})
+	});
+	
+	$("#btnCcl").on("click", function () {
+		location.href="gong_board";
+	});
+	
+	$("#btnSave").on("click", function () {
+		
+	});
+	
+	$("#fileBtn").on("click", function () {
+		$("#att").click();
+		
+	});
 	
 });
 </script>
 </head>
-<body>
 	<body>
+	 <form action=fileUploadAjax id=fileForm method=post enctype=multipart/form-data>;
+		 	<input style="display:none;" type=file name=att id=att>;
+	 </form>;
 	<div class="hdr">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
@@ -72,9 +87,11 @@ $(document).ready(function() {
 		<!-- <div id="editPage">작품올리기</div> -->
 		<!-- <div id="glySet">작품관 선택</div>
 		<br /> -->
-		
+		<form action="#" id="goForm" method=></form>
 		<!-- <div id="title">제목</div> -->
 		<div id="titleInputW"><input id="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
+		<!--첨부 파일  -->
+		<input id="fileBtn" type="button" value="첨부파일 +">
 		<!-- <div id="ctts">작품설명</div> -->
 		<div id="cttsInW"><textarea id="cttsIn" name="cttsIn" cols="80" rows="10" placeholder="작품을 뽐내주세요."></textarea></div>
 		<!-- <div id="tag">태그</div> -->
@@ -95,5 +112,5 @@ $(document).ready(function() {
 		<div id="ftr4"><a href="#">홈페이지 서비스 안내</a></div>
 	</div>
 </body>
-</body>
+
 </html>

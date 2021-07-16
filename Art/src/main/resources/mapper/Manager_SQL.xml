@@ -132,8 +132,43 @@
 	<select id="getTCnt" resultType="Integer" parameterType="hashmap">
 		SELECT COUNT(*)AS CNT
 		FROM USERS
-		WHERE DEL=1
-		AND OUT_DATE IS NULL
+		WHERE OUT_DATE IS NULL
+	</select>
+	
+	<select id="getGList" resultType="hashmap" parameterType="hashmap">
+	SELECT RNUM,NOTICE_NO, ADMIN_NO, TITLE, CONTENTS, FILE_PATH, VIEWS, TO_CHAR(REGISTER_DATE)AS REGISTER_DATE,DEL
+	FROM(SELECT NOTICE_NO, ADMIN_NO, TITLE, CONTENTS, FILE_PATH, VIEWS, TO_CHAR(REGISTER_DATE)AS REGISTER_DATE
+            ,ROW_NUMBER() OVER(ORDER BY NOTICE_NO ASC) AS RNUM,DEL
+            FROM NOTICE
+        <choose>
+	        <when test="searchGbn != 3">
+	            WHERE DEL=1
+	        </when>
+	        <when test="searchGbn == 3">
+	            WHERE DEL=0
+	        </when>
+        </choose>
+		<if test="searchGbn != null and searchTxt != ''">
+		        <choose>
+		        	<when test="searchGbn == 0">
+		        	AND NOTICE_NO LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 1">
+					AND TITLE LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 2">
+					AND ADMIN_NO LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 3">
+					AND DEL = 0
+		        	</when>
+		        </choose>
+        </if>
+        <if test="(startDate != null and startDate !='')||(endDate != null and endDate != '')">
+        	AND REGISTER_DATE BETWEEN TO_DATE('${startDate}') AND TO_DATE('${endDate}')
+        </if>
+		)
+	WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 	
 	
@@ -206,6 +241,12 @@
 	</if>
 	</update>
 	
+	<update id="gongRowsDel" parameterType="hashmap">
+
+		UPDATE NOTICE SET DEL = CASE WHEN DEL = 1 THEN 0 ELSE 1 END
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
+	
 	
 	<update id="updateUser" parameterType="hashmap">
 		UPDATE USERS SET USER_NICKNAME = #{userNick}, PHONE_NO = #{phon_no}, PROFILE_IMG_PATH = #{fileName}, MAIL = #{email},
@@ -213,6 +254,27 @@
 		WHERE USER_NO = #{userNo}
 	</update>
 	
+	<select id="getGongCnt" resultType="Integer" parameterType="hashmap">
+		SELECT COUNT(*) AS CNT
+		FROM NOTICE
+		WHERE DEL=1
+		<if test="searchGbn != null and searchTxt != ''">
+		        <choose>
+		        	<when test="searchGbn == 0">
+		        	AND NOTICE_NO LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 1">
+					AND TITLE LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 2">
+					AND ADMIN_NO LIKE '%' || #{searchTxt} ||'%'
+		        	</when>
+		        	<when test="searchGbn == 3">
+					AND DEL = 0
+		        	</when>
+		        </choose>
+        </if>
+	</select>
 	
 	
 	

@@ -223,8 +223,7 @@ public class ManagerController {
 			
 			 if(cnt >0 ) { 
 				 modelMap.put("msg","success"); 
-			 }
-			 
+			 }	 
 		}catch(Throwable e){
 			e.printStackTrace();
 			modelMap.put("msg","error");
@@ -238,23 +237,83 @@ public class ManagerController {
 	
 	
 	@RequestMapping(value="/gong_board")
-	public ModelAndView gong_board(ModelAndView mav) throws Throwable {
+	public ModelAndView gong_board(ModelAndView mav,
+					@RequestParam HashMap<String,String> params) throws Throwable {
 		
-		/*
-		 * List<HashMap<String,String>> list = iManagerService.getGList();
-		 * 
-		 * mav.addObject("list", list);
-		 */
 		
 		mav.addObject("now", "gong");
 		mav.setViewName("HD/gong_board");
 		return mav;
 	}
 	
+	@RequestMapping(value = "/gong_boardA",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String gong_board(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println(params);
+		
+		int page =1;
+		
+		
+		try {
+			if(params.get("page") != null && params.get("page") != "") { page = Integer.parseInt(params.get("page"));
+			}
+		}catch(Throwable e){
+			e.printStackTrace();
+		}
+		 
+		//총 몇개의 공지사항이 있는지 표시해주기위해 개수를 카운트해서 가져온다.
+		int cnt = iManagerService.getGongCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 5);
+		
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		
+		
+		//공지사항 게시판을 만들기 위해 값을 가져온다.
+		 List<HashMap<String,String>> list = iManagerService.getGList(params);
+		 System.out.println("list를 찍어보자 "+list);
+		 
+		 System.out.println(list);
+		
+		modelMap.put("page", page);
+		modelMap.put("cnt", cnt);
+		modelMap.put("pb", pb);
+		modelMap.put("list", list);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	@RequestMapping(value = "/gongRowsDel",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String rowsDel(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println(params);
+		
+		
+		int cnt = iManagerService.gongRowsDel(params);
+		
+		System.out.println(cnt);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
 	@RequestMapping(value="/tag_board")
 	public ModelAndView tag_board(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
 		
-		System.out.println("this is params" + params);
 		
 		List<HashMap<String, String>> tList = iManagerService.getTList(params);
 		
@@ -287,7 +346,7 @@ public class ManagerController {
 		mav.addObject("now", "tag");
 		
 		mav.setViewName("redirect:/tag_board");
-	
+		
 		
 		return mav;
 	}

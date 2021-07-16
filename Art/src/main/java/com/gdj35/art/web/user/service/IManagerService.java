@@ -12,7 +12,7 @@ public interface IManagerService {
 
 	
 
-	public List<HashMap<String, String>> getGList() throws Throwable;
+	public List<HashMap<String, String>> getGList(HashMap<String, String> params) throws Throwable;
 	public List<HashMap<String, String>> getPostList(HashMap<String, String> params) throws Throwable;
 
 
@@ -58,6 +58,10 @@ public interface IManagerService {
 	public int returnR(HashMap<String, String> params) throws Throwable;
 
 	public HashMap<String, String> getReportDetail(HashMap<String, String> params) throws Throwable;
+
+	public int getGongCnt(HashMap<String, String> params)throws Throwable;
+
+	public int gongRowsDel(HashMap<String, String> params)throws Throwable;
 
 	public List<HashMap<String, String>> getReportMemo(HashMap<String, String> params) throws Throwable;
 
