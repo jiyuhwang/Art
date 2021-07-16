@@ -305,6 +305,10 @@ $(document).ready(function() {
 			</c:import>
 		</c:otherwise>
 	</c:choose>
+	<div class="main_title_wrap">
+		<span id="mainTitle">전체 갤러리</span>
+	</div>
+	<div class="background_wrap">
 <form action="#" id="actionForm" method="post">
 			<input type="hidden" id="pNo" name="pNo" />
 			<input type="hidden" id="postNo" name="postNo" />
@@ -339,6 +343,7 @@ $(document).ready(function() {
 	</div>
 	</form>
 	<br />
+	</div>
 	
 	<c:import url="footer.jsp"></c:import>
 </body>

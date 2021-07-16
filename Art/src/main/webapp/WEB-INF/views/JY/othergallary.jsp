@@ -374,6 +374,11 @@ function drawPaging(pb) {
 		<input type="hidden" id="userNo2" name="userNo2" value="${param.authorNo}" />
 		<input type="hidden" id="page" name="page" value="${page}" />
 		<input type="hidden" id="mainGallary" name="listPage" value="2"/>	
+	
+	<div class="main_title_wrap">
+		<span id="mainTitle"><b>${param.userNickname}</b>님의 작업실</span>
+	</div>
+	<div class="background_wrap">
 	<div class="wrap">
 		<div class="profile_wrap">
 		
@@ -437,6 +442,7 @@ function drawPaging(pb) {
 			</div>
 			<div class="pagination"></div>
 		</div>
+	</div>
 	</div>
 </form>
 	<br />

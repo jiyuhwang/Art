@@ -33,6 +33,7 @@ $(document).ready(function() {
 	
 	reloadList();
 
+	
 
 	$('#label').on("click", function() {
 		if($('#checkbox').is(":checked")){
@@ -43,6 +44,8 @@ $(document).ready(function() {
 		 reloadList();
 	});
    
+	
+	
 	
 	$("html, body").animate({ scrollTop: 0 }, "fast")
 
@@ -307,6 +310,11 @@ function drawPaging(pb) {
 		<input type="hidden" id="postNo" name="postNo" />
 		<input type="hidden" id="page" name="page" value="${page}" />
 		<input type="hidden" id="mainGallary" name="listPage" value="1"/>	
+	
+	<div class="main_title_wrap">
+		<span id="mainTitle">나의 작업실</span>
+	</div>
+	<div class="background_wrap">
 	<div class="wrap">
 		<div class="profile_wrap">
 
@@ -364,6 +372,7 @@ function drawPaging(pb) {
 			</div>
 			<div class="pagination"></div>
 		</div>
+	</div>
 	</div>
 </form>
 	<br />

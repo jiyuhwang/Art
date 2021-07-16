@@ -12,6 +12,25 @@
 $(document).ready(function() {
 	reloadList();
 	
+	$(".go_pic").on("click", function() {
+		$("#tab").val("0");
+		$("#actionForm").attr("action", "gallary");
+		$("#actionForm").submit();
+	});
+	
+	$(".go_draw").on("click", function() {
+		$("#tab").val("1");
+		$("#actionForm").attr("action", "gallary");
+		$("#actionForm").submit();
+	});
+	
+	$(".go_video").on("click", function() {
+		$("#tab").val("2");
+		$("#actionForm").attr("action", "gallary");
+		$("#actionForm").submit();
+	});
+	
+	
 	var a = 0;
 	var b = 0;
 	var c = 0;
@@ -297,7 +316,10 @@ function videoList(list3) {
 		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
 		<input type="hidden" id="pNo" name="pNo" />
 		<input type="hidden" id="postNo" name="postNo" />
+		<input type="hidden" id="tab" name="tab" />
 	</form>
+	<div class="background_wrap">
+
 	<div class="wrap">
 		<div class="pic_wrap">
 			<div class="img_wrap">
@@ -307,7 +329,7 @@ function videoList(list3) {
 			<img src="resources/images/JY/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px"> <br />
 			</div>	
 			<div class="more">
-				<a href="gallary">더 많은 작품 보러가기 ></a>
+				<div class="go_pic">더 많은 작품 보러가기 ></div>
 			</div>
 		</div>
 		<br />
@@ -319,7 +341,7 @@ function videoList(list3) {
 				<img src="resources/images/JY/right_arrow2.png" id="rightArrow2" alt="오른쪽 화살표" width="100px" height="100px">
 			</div>
 				<div class="more">
-					<a href="gallary">더 많은 작품 보러가기 ></a>
+					<div class="go_draw">더 많은 작품 보러가기 ></div>
 				</div>
 		</div>
 		<br />
@@ -331,9 +353,10 @@ function videoList(list3) {
 				<img src="resources/images/JY/right_arrow2.png" id="rightArrow3" alt="오른쪽 화살표" width="100px" height="100px">
 			</div>
 				<div class="more">
-					<a href="gallary">더 많은 작품 보러가기 ></a>
+					<div class="go_video">더 많은 작품 보러가기 ></div>
 				</div>
 		</div>
+	</div>
 	</div>
 	
 	<c:import url="footer.jsp"></c:import>
