@@ -736,6 +736,65 @@ public class ManagerController {
 	
 	}
 	
+	//메모 중요체크
+	@RequestMapping(value = "/onStar",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String onStar(
+			@RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+				
+		try {
+			int cnt = iManagerService.onStar(params);
+			
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	//메모 중요체크
+	@RequestMapping(value = "/offStar",
+					method = RequestMethod.POST,
+					produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String offStar(
+			@RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+				
+		try {
+			int cnt = iManagerService.offStar(params);
+			
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
 	//메모 수정하고 나서~
 	@RequestMapping(value="/saveReportMemo",
 			method=RequestMethod.POST,

@@ -645,6 +645,18 @@
 		WHERE MEMO_NO = #{mNo}
 	</update>
 	
+	<update id="onStar" parameterType="hashmap">
+		UPDATE MEMO
+		SET MARKING = 0
+		WHERE MEMO_NO = #{mNo}
+	</update>
+	
+	<update id="offStar" parameterType="hashmap">
+		UPDATE MEMO
+		SET MARKING = 1
+		WHERE MEMO_NO = #{mNo}
+	</update>
+	
 	
 	
 	

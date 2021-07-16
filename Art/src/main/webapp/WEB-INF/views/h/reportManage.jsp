@@ -384,12 +384,11 @@ $(document).ready(function(){
 					closePopup();
 				});
 				
-				
+				$(".btm_memo").off("dbclick");
 				$(".btm_memo").on("dblclick", "tr", function(){
 					
 					if(result.list.length != 0) {
 						$("#mNo").val($(this).attr("name"));
-						console.log("메모넘버: " +$(this).attr("name"));
 						showMeMo();
 					} else {
 						alert("메모가 없습니다.");
@@ -419,12 +418,14 @@ $(document).ready(function(){
 			html += "	<colgroup>";
 			html += "		<col width=\"100px\"/>";
 			html += "		<col width=\"100px\"/>";
+			html += "		<col width=\"50px\"/>";
 			html += "		<col width=\"700px\"/>";
 			html += "	</colgroup>";
 			html +=	"	  <thead>";
 			html +=	"		  <tr>";
 			html +=	"			  <th>번호</th>";
 			html +=	"			  <th>날짜</th>";
+			html +=	"			  <th></th>";
 			html +=	"			  <th>메모내용</th>";
 			html +=	"		  </tr>";
 			html +=	"	  </thead>";
@@ -441,6 +442,13 @@ $(document).ready(function(){
 						html+= "	<tr name=\""+  d.MEMO_NO +"\">";
 						html+= "		<td> " + no +"</td>";
 						html+= "		<td>  "+ d.REGISTER_DATE +"</td>";
+						
+						if(d.MARKING == 0){
+							html += "	<td><img class=\"star_table_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\"></td>";	
+						} else {
+							html+= "		<td> </td>";
+						}
+
 						html+= "		<td>  "+ d.CONTENTS +"</td>";
 						html+= "	</tr>";
 					}
@@ -466,12 +474,18 @@ $(document).ready(function(){
 			html += "<div class=\"background8\"></div>";
 			html += "<div class=\"ctts8\">";
 			html += "	<div class=\"top_div\">";
-			html += "		<div class=\"memo_title\">메모</div>";
+			if(result.memo.MARKING == 0){
+				html += "<img class=\"star_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\">";					
+			} else {
+				html += "<img class=\"star_img\" id=\"starIconBlack\" alt=\"별\" src=\"resources/images/empty_star_icon.png\">";
+			}
+			html += "		<div class=\"memo_title\">메모</div>";			
 			html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
 			html += "	</div>";
 			html += "	<div class=\"memo_ctts_div\">";
 			html += "		<form id=\"memoForm\">";
-			html += "			<input type=\"hidden\" name=\"mNo\" value=\"" + result.memo.MEMO_NO + "\" />	";
+			html += "			<input type=\"hidden\" name=\"mNo\" value=\"" + result.memo.MEMO_NO + "\" />";
+			html += "			<input type=\"hidden\" name=\"marking\" value=\"" + result.memo.MARKING + "\" />";
 			html += "			<table>";
 			html += "				<colgroup>";    
 			html += "					<col width=\"210px\"/>";
@@ -497,7 +511,7 @@ $(document).ready(function(){
 			html += "						<div class=\"detail_ctts\">";
 			html += result.memo.CONTENTS;
 			html += "						</div>";
-			html += "<textarea class=\"update_input\" rows=\"17\" name=\"contents\" id=\"contents\">" + result.memo.CONTENTS + "</textarea>";
+			html += "<textarea class=\"update_input\" rows=\"16\" name=\"contents\" id=\"contents\">" + result.memo.CONTENTS + "</textarea>";
 			html += "					</td> ";
 			html += "				</tr> ";
 			html += "			</table>";
@@ -520,6 +534,53 @@ $(document).ready(function(){
 			$(".background8").fadeIn();
 			$(".ctts8").fadeIn();
 			
+			
+			//-------------------------------------------------------------중요도 아이콘
+ 			$(".ctts8").on("click", ".star_img", function(){
+				if(($(this).attr("src") == "resources/images/empty_star_icon.png") &&
+						result.memo.MARKING == 1){
+							
+				var params= $("#memoForm").serialize();
+				
+				$.ajax({
+					url : "onStar",
+					type : "post",
+					dataType : "json",
+					data : params,
+					success: function(res) {
+						$(".star_img").attr("src", "resources/images/yellow_star_icon.png");
+						console.log("노란별!");
+					},
+					error: function(request, status, error) {
+						console.log(error);
+					}
+				});
+			
+				} else if(($(this).attr("src") == "resources/images/yellow_star_icon.png") &&
+						result.memo.MARKING == 0) {
+										
+					$.ajax({
+						url : "offStar",
+						type : "post",
+						dataType : "json",
+						data : params,
+						success: function(res) {
+							$(".star_img").attr("src", "resources/images/empty_star_icon.png");
+							console.log("검정별");
+							
+						},
+						error: function(request, status, error) {
+							console.log(error);
+						}
+					});
+				} else {
+					alert("중요도 변경시 오류가 발생했습니다.");
+				}
+
+			}); 
+			
+			
+			
 			$(".background8").off("click");
 			$(".background8").on("click", function(){
 				closeMemoDetail();
@@ -528,7 +589,10 @@ $(document).ready(function(){
 			$("#closeMemo").off("click");
 			$("#closeMemo").on("click", function(){
 				closeMemoDetail();
+				fastClosePopup();
 				drawPopup();
+				//setTimeout(function(){drawPopup();}, 400);
+					
 			});
 			
 			
@@ -568,8 +632,9 @@ $(document).ready(function(){
 					data : params,
 					success : function(result) {
 						closeMemoDetail();
-						drawPopup();
 						alert("수정되었습니다.");
+						closePopup();
+						drawPopup();					
 					},
 					error : function(result) {
 						alert("수정에 실패했습니다.");
@@ -590,8 +655,9 @@ $(document).ready(function(){
 					data : params,
 					success : function(result) {
 						closeMemoDetail();
-						drawPopup();
 						alert("삭제되었습니다.");
+						closePopup();
+						drawPopup();
 					},
 					error : function(result) {
 						alert("삭제에 실패했습니다.");
@@ -631,6 +697,18 @@ $(document).ready(function(){
 			$(".ctts8").remove();
 		});	
 	}
+	
+	function fastClosePopup() {
+		$(".ctts8").remove();
+		$(".background8").remove();
+		$(".background9").remove();
+		$(".ctts9").remove();
+
+	}
+	
+
+		
+
 	
 	
 	

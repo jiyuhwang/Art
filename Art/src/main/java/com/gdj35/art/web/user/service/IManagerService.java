@@ -67,5 +67,13 @@ public interface IManagerService {
 
 	public int deleteReportMemo(HashMap<String, String> params) throws Throwable;
 
+	public int onStar(HashMap<String, String> params) throws Throwable;
 
+	public int offStar(HashMap<String, String> params) throws Throwable;
+	
+	
+	
+	
+	
+	
 }

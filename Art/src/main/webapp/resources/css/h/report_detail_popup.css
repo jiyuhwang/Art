@@ -37,6 +37,11 @@ ul { list-style: none;}
 	text-align: center;
 }
 
+.star_table_img {
+	height: 16px;
+	width: 16px;
+}
+
 .report_no {
 	font-size: 14px;
     position: absolute;

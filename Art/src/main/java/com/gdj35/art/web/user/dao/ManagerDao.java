@@ -191,6 +191,16 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.update("Manager.deleteReportMemo",params);
 	}
 
+	@Override
+	public int onStar(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.onStar",params);
+	}
+
+	@Override
+	public int offStar(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.offStar",params);
+	}
+
 
 
 

@@ -181,6 +181,16 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.deleteReportMemo(params);
 	}
 
+	@Override
+	public int onStar(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.onStar(params);
+	}
+
+	@Override
+	public int offStar(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.offStar(params);
+	}
+
 
 
 }
