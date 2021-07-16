@@ -26,4 +26,6 @@ public interface IMemberDao {
 
 	public int updatePw(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> getAdmin(HashMap<String, String> params) throws Throwable;
+
 }

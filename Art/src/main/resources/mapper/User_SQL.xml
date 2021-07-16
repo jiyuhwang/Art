@@ -34,6 +34,15 @@
 		AND OUT_DATE IS NULL
 	</select>
 	
+	<!-- 로그인 시 관리자정보 가져오기 -->
+	<select id="getAdmin" parameterType="hashmap" resultType="hashmap">
+		SELECT ADMIN_NO, ADMIN_ID, NAME, PW
+		FROM ADMINISTRATOR
+		WHERE ADMIN_ID = #{userId}
+		AND PW = #{userPw}
+		AND DEL = 1
+	</select>
+	
 	<!-- 프로필 수정 -->
 	<update id="updateProfile" parameterType="hashmap">
 		UPDATE USERS SET PROFILE_IMG_PATH = #{profileImg}, USER_NICKNAME = #{userNickname}, INTRODUCE = #{userIntroduce}

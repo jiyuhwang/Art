@@ -12,6 +12,8 @@
 $(document).ready(function() {
 	reloadList();
 	
+
+	
 	$(".go_pic").on("click", function() {
 		$("#tab").val("0");
 		$("#actionForm").attr("action", "gallary");
@@ -308,10 +310,15 @@ function videoList(list3) {
 				<c:param name="url" value="main"></c:param>
 			</c:import>
 		</c:when>
+		<c:when test="${!empty sAdminNo}">
+			<c:import url="header_main.jsp"></c:import>
+		</c:when>
 		<c:otherwise>
 			<c:import url="header_main.jsp"></c:import>
 		</c:otherwise>
 	</c:choose>
+	
+
 	<form action="#" id="actionForm" method="post">
 		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
 		<input type="hidden" id="pNo" name="pNo" />

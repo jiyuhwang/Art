@@ -41,7 +41,7 @@ a {
 	left: 80px;
 }
 
-#btnStart2 {
+#btnStart2, #btnLogout2 {
 	position: absolute;
 	right: 100px;
 	border: 1px solid #ffad33;
@@ -167,6 +167,19 @@ a {
 			location.href = "login";
 		});
 		
+		$("#btnLogout2").on("click", function() {
+			$.ajax({
+				url: "Logout",
+				type: "post",
+				success: function(res) {
+					location.href = "main";
+				},
+				error: function(request, status, error) {
+					console.log(error);
+				}
+			});
+		});
+		
 	});
 </script>
 </head>
@@ -176,6 +189,16 @@ a {
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
 		<input type="button" id="btnStart2" value="시작하기">
+		
+		<c:choose>
+				<c:when test="${empty sAdminNo && empty sUserNo}">
+					<input type="button" id="btnStart2" value="시작하기" />
+				</c:when>
+				<c:when test="${!empty sAdminNo}">
+					<input type="button" id=btnLogout2 value="로그아웃" />
+				</c:when>
+
+		</c:choose>
 		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
