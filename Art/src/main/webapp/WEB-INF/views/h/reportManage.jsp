@@ -413,6 +413,7 @@ $(document).ready(function(){
 					html +="	<input type=\"hidden\" name=\"marking\" id=\"marking\" value=\"1\"/>";
 					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
 					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\"/>";
+					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + result.data.R_NO + "\" />";
 					html += "			<table>";
 					html += "				<tr>";
 					html += "					<td>작성자</td>";
@@ -484,8 +485,6 @@ $(document).ready(function(){
 					$("#BtnCancel").off("click");
 					$("#BtnCancel").on("click", function(){
 						closeMemoDetail();
-						fastClosePopup();
-						drawPopup();
 					});
 					
 					//----------------------------------------------저장할 때
@@ -530,13 +529,25 @@ $(document).ready(function(){
 								dataType : "json",
 								data : params,
 								success : function(result) {
-									closeMemoDetail();
-									fastClosePopup();
-									drawPopup();					
+									
+									if(result.msg == "success"){
+										closeMemoDetail();
+										fastClosePopup();
+										drawPopup();
+									} else if(result.msg == "failed"){
+										alert("저장에 실패했습니다.");
+									} else {
+										console.log(result);
+										alert("저장 중 문제가 발생했습니다.");
+									}						
+					
 								},
-								error : function(result) {
-									alert("저장에 실패했습니다.");
+								error: function(request, status, error){
+									console.log(error);
+									
 								}
+																	
+								
 							});//addMemo ajax end
 						}
 					});//저장버튼누르면
