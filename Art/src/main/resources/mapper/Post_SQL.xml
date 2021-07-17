@@ -612,11 +612,6 @@
 	
 	<!-- 댓글 목록 -->
 	<select id="commentList" parameterType="hashmap" resultType="hashmap">
-		<!-- SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY NVL(C.TOP_COMMENT_NO, C.COMMENT_NO) ASC, C.COMMENT_NO ASC) AS RNK,
-						C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH
-		FROM COMMENTS C INNER JOIN USERS U
-		                    ON C.USER_NO = U.USER_NO
-		WHERE C.POST_NO = #{postNo} -->
 		SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, C.RNUM,
                 C.CONTENT, C.REGISTER_DATE, C.USER_NICKNAME, C.PROFILE_IMG_PATH, C.DEL
 		FROM(SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY NVL(C.TOP_COMMENT_NO, C.COMMENT_NO) ASC, C.COMMENT_NO ASC) AS RNUM,
@@ -723,10 +718,37 @@
 	
 	<!-- 차트 -->
 	<select id="chart" parameterType="hashmap" resultType="hashmap">
-		SELECT PC.CATEGORY_NAME, P.CNT
-		FROM POST_CATEGORY PC INNER JOIN (SELECT COUNT(*) AS PICCNT, CATEGORY_NO
+		SELECT PC.CATEGORY_NAME, P.CNT 
+		FROM POST_CATEGORY PC INNER JOIN (SELECT COUNT(*) AS CNT, CATEGORY_NO
 		                                    FROM POST
 		                                    WHERE DEL =1
+		                                    <choose>
+		                                 	    <when test="period == 0">
+												</when>
+												<when test="period == 1">
+												 	AND REGISTER_DATE >= TO_CHAR(SYSDATE -7,'YYYYMMDD')
+												</when>
+												<when test="period == 2">
+												 	AND REGISTER_DATE >= TO_CHAR(ADD_MONTHS(SYSDATE, -1),'YYYYMMDD')
+												</when>
+												<when test="period == 3">
+												 	AND REGISTER_DATE >= TO_CHAR(ADD_MONTHS(SYSDATE, -12),'YYYYMMDD')
+												</when>
+											</choose>
+											<choose>
+												<when test="startDate != null and startDate != ''
+														and endDate == null and endDate == ''">
+													AND REGISTER_DATE >= #{startDate}
+												</when>
+												<when test="startDate == null and startDate == ''
+														and endDate != null and endDate != ''">
+													AND REGISTER_DATE &lt;=  #{endDate}
+												</when>
+												<when test="startDate != null and startFlag != ''
+														and endDate != null and endDate != ''">
+													AND REGISTER_DATE BETWEEN #{startDate} AND #{endDate}
+												</when>
+											</choose>
 		                                   GROUP BY CATEGORY_NO) P
 		                        ON PC.CATEGORY_NO = P.CATEGORY_NO
 	</select>

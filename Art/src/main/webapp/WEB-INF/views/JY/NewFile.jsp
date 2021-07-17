@@ -1,15 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/css/h/report_manage.css"/>
+
 <style type="text/css">
 .highcharts-figure, .highcharts-data-table table {
     min-width: 320px; 
     max-width: 800px;
+    width: 800px;
     margin: 1em auto;
+    margin-left: 150px;
+    display: inline-block;
 }
 
 .highcharts-data-table table {
@@ -43,6 +49,10 @@
 input[type="number"] {
 	min-width: 50px;
 }
+
+body {
+	overflow-x: hidden;
+}
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -53,16 +63,29 @@ input[type="number"] {
 $(document).ready(function() {	
 	getData();
 	
+	
+	
+	$("#period").on("change", function(){
+		getData();
+	});
+	
+	$("#startDate, #endDate").on("click", function(){
+		$("#period").val("0");
+	});
+	
+	$("#searchBtn").on("click", function(){
+		getData();
+	});
 })
 
 
 function getData() {
-	//var params =  $("#getForm").serialize();
+	var params =  $("#actionForm").serialize();
 	$.ajax({
 		type : "post",
 		url : "getChartData",
 		dataType : "json",
-		//data : params,
+		data : params,
 		success : function(result) {
 			makeChart(result.list);
 		},
@@ -74,6 +97,7 @@ function getData() {
 
 function makeChart(list) {
 	Highcharts.chart('container', {
+		colors: ['#ffb3b3', '#ffffb3', '#99ddff'],
 	    chart: {
 	        plotBackgroundColor: null,
 	        plotBorderWidth: null,
@@ -105,14 +129,14 @@ function makeChart(list) {
 	        name: '작품 수',
 	        colorByPoint: true,
 	        data: [{
-	            name: '사진 작품관',
-	            y: 100
+	            name: list[0].CATEGORY_NAME,
+	            y: list[0].CNT
 	        }, {
-	            name: '그림 작품관',
-	            y: 200
+	            name: list[1].CATEGORY_NAME,
+	            y: list[1].CNT
 	        }, {
-	            name: '영상 작품관',
-	            y: 50
+	            name: list[2].CATEGORY_NAME,
+	            y: list[2].CNT
 	        }]
 	    }]
 	});
@@ -121,10 +145,48 @@ function makeChart(list) {
 </script>		
 </head>
 <body>
-<figure class="highcharts-figure">
-    <div id="container"></div>
-    <p class="highcharts-description">
-    </p>
-</figure>
+
+<div class="main">
+	<c:import url="../h/managerSidebar.jsp"></c:import>
+	<div class ="ctts">
+			<!------------------------------게시글 신고 관리  -->
+		<div class ="blank2"></div>
+		
+		<div class="menu_tab_wrap">
+			<div id="gallary" class="tab">작품 수 통계</div>
+			<!-- <div id="comment" class="tab">댓글목록</div> -->		
+		</div>
+		<div class="menu_txt_wrap">
+
+		</div>
+		
+		<form action="#" id="actionForm" method="post" >
+
+		<div class ="search_flag_div">
+			<div class="search_flag">
+				<label>기간</label>
+				<select name="period" id="period">
+					<option value="0" selected="selected">전체기간</option>
+					<option value="1">지난 일주일</option>
+					<option value="2">지난 한 달</option>
+					<option value="3">지난 일 년</option>
+				</select>
+				<div class="date_srh">
+					<label>날짜분류</label>
+						<input type="date" id="startDate" name="startDate">
+						<span> ~ </span>
+						<input type="date" id="endDate" name="endDate">
+						<input type="button" value="검색" id="searchBtn"/>
+				</div>
+			</div>
+		</div>
+		<div class="cnt_wrap"></div>	
+	</form>
+	<figure class="highcharts-figure">
+	    <div id="container"></div>
+	    <p class="highcharts-description"></p>
+	</figure>
+	</div>
+</div>
 </body>
 </html>
