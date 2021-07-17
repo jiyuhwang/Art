@@ -218,7 +218,7 @@ $(document).ready(function() {
 });//document end
 </script>
 </head>
-<body>
+<body> 
 	 <div class="side">
 		<div class="blank" id=""></div>
 		<div class="member" id="">회원관리</div>
