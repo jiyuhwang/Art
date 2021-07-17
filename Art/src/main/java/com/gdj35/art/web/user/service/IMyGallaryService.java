@@ -89,7 +89,7 @@ public interface IMyGallaryService {
 
 	public List<HashMap<String, String>> mainVideoList(HashMap<String, String> params) throws Throwable;
 
-	public List<HashMap<String, String>> chart(HashMap<String, String> params) throws Throwable;
+	public List<HashMap<String, Object>> chart(HashMap<String, String> params) throws Throwable;
 
 
 

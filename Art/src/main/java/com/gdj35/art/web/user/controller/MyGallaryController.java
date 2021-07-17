@@ -955,7 +955,7 @@ public class MyGallaryController {
 		
 		//ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		
-		List<HashMap<String, String>> list = iMyGallaryService.chart(params);
+		List<HashMap<String, Object>> list = iMyGallaryService.chart(params);
 		
 		
 		//for(int s = 0 ; s < series ; s++) {
@@ -975,6 +975,8 @@ public class MyGallaryController {
 			
 			//list.add(data);
 		//}
+		
+		
 		System.out.println(">>>>>>>>" + params);
 		System.out.println(">>>>>>>>>>>>>>>>" + list);
 		

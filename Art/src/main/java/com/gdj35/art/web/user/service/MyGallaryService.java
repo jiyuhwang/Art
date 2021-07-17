@@ -228,7 +228,7 @@ public class MyGallaryService implements IMyGallaryService{
 	}
 
 	@Override
-	public List<HashMap<String, String>> chart(HashMap<String, String> params) throws Throwable {
+	public List<HashMap<String, Object>> chart(HashMap<String, String> params) throws Throwable {
 		return iMyGallaryDao.chart(params);
 	}
 
