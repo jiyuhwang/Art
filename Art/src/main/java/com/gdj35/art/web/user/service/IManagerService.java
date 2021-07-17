@@ -78,6 +78,8 @@ public interface IManagerService {
 	public int addGong(HashMap<String, String> params) throws Throwable;
 
 	public int addMemo(HashMap<String, String> params) throws Throwable;
+
+	public HashMap<String, String> getNotice(HashMap<String, String> params)throws Throwable;
 	
 	
 	

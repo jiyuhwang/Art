@@ -61,7 +61,7 @@ $(document).ready(function() {
 					var params = $("#goForm").serialize();
 					
 					$.ajax({
-						url : "editManagerUpdate",
+						url : "addGongs",
 						type : "post",
 						dataType : "json",
 						data : params,
@@ -149,14 +149,13 @@ $(document).ready(function() {
 		<br /> -->
 		<form action="#" id="goForm" method="method">
 			<input type="hidden" id="fileName" name="fileName" value="">
-			<input type="hidden" id="noticeNo">
 			<!-- <div id="title">제목</div> -->
-			<div id="titleInputW"><input id="titleInput" name="titleInput" type="text" value="${oneRow.TITLE }" placeholder="제목을 입력해주세요."></div>
+			<div id="titleInputW"><input id="titleInput" name="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
 			<!--첨부 파일  -->
 				<input id="fileBtn" type="button" value="첨부파일  : ">
-				<span id="fileNameOnBoard" style="font-size: 20pt;">${oneRow.FILE_PATH} </span>
+				<span id="fileNameOnBoard" style="font-size: 20pt;"> </span>
 			<!-- <div id="ctts">작품설명</div> -->
-			<div id="cttsInW"><textarea id="cttsIn" name="cttsIn" cols="80" rows="10" placeholder="작품을 뽐내주세요.">${oneRow.CONTENTS} </textarea></div>
+			<div id="cttsInW"><textarea id="cttsIn" name="cttsIn" cols="80" rows="10" placeholder="작품을 뽐내주세요."> </textarea></div>
 			 <!-- <div id="tag">태그</div> -->
 			<!--<div id="tagInputW"><input  name="tagInput"id="tagInput" type="text" value="" placeholder="태그를 입력해주세요.(예 : #구름)"></div> -->
 		</form>

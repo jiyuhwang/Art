@@ -58,8 +58,15 @@
 	left: 1180px;
 }
 </style>
+<script type="text/javascript"
+		src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-
+$(document).ready(function () {
+	$(".footer5").on("click", function () {
+		location.href="user_board"
+	});
+	
+});
 </script>
 </head>
 <body>

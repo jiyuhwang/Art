@@ -73,7 +73,7 @@
 		});
 		//-------------------------------------------------- 작성 버튼 클릭시
 		$("#addBtn").on("click", function () {
-			$("#everyForm").attr("action","editManager");
+			$("#everyForm").attr("action","addGong");
 			$("#everyForm").submit();
 			console.log("작동");
 			
@@ -132,12 +132,14 @@
 			
 			
 		});
+		
 		//--------------------------------------------------수정하기
 		$("body").on("click",".updateBtn", function () {
 			$("#noticeNo").val($(this).parent().parent().attr("name"));
-			$("#everyForm").attr("action","editManager");
+			$("#everyForm").attr("action","editManagerUpdate");
 			$("#everyForm").submit();
 		});
+		
 		//--------------------------------------------------
 		//--------------------------------------------------
 		//--------------------------------------------------
@@ -158,7 +160,6 @@
 			dataType :"json",
 			data:params,
 			success : function (res) {
-				console.log("아작스 도니?");
 				list(res.list, res.cnt);
 				drawPaging(res.pb);
 			},
@@ -212,8 +213,9 @@
 					html+= "				<td>" + b.FILE_PATH + "</td>";
 					html+= "				<td>" + b.VIEWS + "</td>";
 					html+= "				<td>" + b.REGISTER_DATE +"</td>";
+					if()
 					html+= "				<td><input type=\"button\" class=\"updateBtn\" value=\"수정\"/>";
-					html+= "		            <input type=\"button\" class=\"deleteBtn\"value=\"삭제\"/></t";
+					html+= "		            <input type=\"button\" class=\"deleteBtn\"value=\"삭제/복구\"/></t";
 					html+= "			</tr>";
 				}
 						

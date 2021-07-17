@@ -243,6 +243,12 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.insert("Manager.addMemo",params);
 	}
 
+	@Override
+	public HashMap<String, String> getNotice(HashMap<String, String> params) throws Throwable {
+		System.out.println(params);
+		return sqlSession.selectOne("Manager.getNotice", params);
+	}
+
 
 
 	

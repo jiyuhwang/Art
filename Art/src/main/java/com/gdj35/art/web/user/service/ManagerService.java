@@ -214,6 +214,12 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.addMemo(params);
 	}
 
+	@Override
+	public HashMap<String, String> getNotice(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getNotice(params);
+	}
+
 
 
 }

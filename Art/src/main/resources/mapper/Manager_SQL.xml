@@ -280,6 +280,12 @@
         </if>
 	</select>
 	
+	<select id="getNotice" parameterType="hashmap" resultType="hashmap">
+	SELECT *
+	FROM NOTICE
+	WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	
 	
 	
 	
