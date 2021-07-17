@@ -35,17 +35,77 @@ $(document).ready(function() {
 	});
 	
 	$("#btnSave").on("click", function () {
+		console.log("저장하기 버튼 클릭한거");
+		var fileForm = $("#fileForm");
+
 		
+		console.log(fileForm);
+		
+		fileForm.ajaxForm({ 
+			beforeSubmit: function (data, frm, opt) { 
+				console.log("파일폼 도는 거니?");
+				if($.trim($("#titleInput").val()) == ''){
+					alert("제목을 작성해주세요.");
+				} else if(CKEDITOR.instances.cttsIn.getData().length < 1){
+					alert("내용을 입력해주세요");
+				}
+				/* return true; */ // 처리할거 없으면 beforsSubmit 없애도 된다.
+			}, 
+			success: function(res){//매개변수로 여러개 받을 수 있다.
+				if(res.result =="SUCCESS"){
+					if(res.fileName.length >0){
+						$("#fileName").val(res.fileName[0]);
+					console.log($("#fileName").val());
+					}
+					$("#cttsIn").val(CKEDITOR.instances.cttsIn.getData());
+					var params = $("#goForm").serialize();
+					
+					$.ajax({
+						url : "addGong",
+						type : "post",
+						dataType : "json",
+						data : params,
+						success: function (res) {
+							if(res.msg == "success"){
+								location.href = "gong_board"						
+							} else if(res.msg == "failed"){
+								alert("작성에 실패하였습니다.")
+							} else{
+								alert("작성중 문제가 발생하였습니다.")
+							}
+						},
+						error : function (request, status, error) {
+							console.log(error);
+						}
+					});
+					
+					
+					
+				} else {
+					alert("저장실패");
+				} 
+			}, //ajax error
+			error: function(){
+				alert("에러발생!!"); 
+			}
+		});//fileForm done
+			fileForm.submit();
 	});
 	
 	$("#fileBtn").on("click", function () {
 		$("#att").click();
-		
 	});
+	
+	$("#att").on("change", function () {
+		$("#fileNameOnBoard").html($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+	});
+	
+	
 	
 });
 </script>
 </head>
+<!--여기는 두가지 form이 있다. 1.fileForm(그저 파일에 대한 요소들) 2.goForm(cont  -->
 	<body>
 	 <form action=fileUploadAjax id=fileForm method=post enctype=multipart/form-data>;
 		 	<input style="display:none;" type=file name=att id=att>;
@@ -87,16 +147,18 @@ $(document).ready(function() {
 		<!-- <div id="editPage">작품올리기</div> -->
 		<!-- <div id="glySet">작품관 선택</div>
 		<br /> -->
-		<form action="#" id="goForm" method=></form>
-		<!-- <div id="title">제목</div> -->
-		<div id="titleInputW"><input id="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
-		<!--첨부 파일  -->
-		<input id="fileBtn" type="button" value="첨부파일 +">
-		<!-- <div id="ctts">작품설명</div> -->
-		<div id="cttsInW"><textarea id="cttsIn" name="cttsIn" cols="80" rows="10" placeholder="작품을 뽐내주세요."></textarea></div>
-		<!-- <div id="tag">태그</div> -->
-		<div id="tagInputW"><input id="tagInput" type="text" value="" placeholder="태그를 입력해주세요.(예 : #구름)"></div>
-		
+		<form action="#" id="goForm" method="method">
+			<input type="hidden" id="fileName" name="fileName" value="">
+			<!-- <div id="title">제목</div> -->
+			<div id="titleInputW"><input id="titleInput" name="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
+			<!--첨부 파일  -->
+				<input id="fileBtn" type="button" value="첨부파일  : ">
+				<span id="fileNameOnBoard" style="font-size: 20pt;"></span>
+			<!-- <div id="ctts">작품설명</div> -->
+			<div id="cttsInW"><textarea id="cttsIn" name="cttsIn" cols="80" rows="10" placeholder="작품을 뽐내주세요."></textarea></div>
+			 <!-- <div id="tag">태그</div> -->
+			<!--<div id="tagInputW"><input  name="tagInput"id="tagInput" type="text" value="" placeholder="태그를 입력해주세요.(예 : #구름)"></div> -->
+		</form>
 		<br />
 		<div class="save_ccl">
 			<input id="btnSave" type="button" value="저장하기">

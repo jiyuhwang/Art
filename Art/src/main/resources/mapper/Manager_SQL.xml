@@ -171,6 +171,10 @@
 	WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 	
+	<insert id="addGong" parameterType="hashmap">
+	INSERT INTO NOTICE(NOTICE_NO,ADMIN_NO,TITLE,CONTENTS,FILE_PATH)
+	VALUES(NOTICE_SEQ.NEXTVAL, #{adminNo}, #{titleInput}, #{cttsIn}, #{fileName})
+	</insert>
 	
 	
 	<select id="getOutCnt" resultType="Integer" parameterType="hashmap">

@@ -74,6 +74,8 @@ public interface IManagerDao {
 	public int onStar(HashMap<String, String> params) throws Throwable;
 	
 	public int offStar(HashMap<String, String> params) throws Throwable;
+
+	public int addGong(HashMap<String, String> params)throws Throwable;
 	
 	
 	

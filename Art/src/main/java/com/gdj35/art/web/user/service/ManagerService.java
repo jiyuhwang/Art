@@ -203,6 +203,12 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.offStar(params);
 	}
 
+	@Override
+	public int addGong(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.addGong(params);
+	}
+
 
 
 }
