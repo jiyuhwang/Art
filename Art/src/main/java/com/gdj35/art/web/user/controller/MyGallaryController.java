@@ -943,8 +943,8 @@ public class MyGallaryController {
 	
 	@RequestMapping(value = "/getChartData", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String getChartData(
-			HttpServletRequest request, ModelAndView modelAndView) throws Throwable {
+	public String getChartData(@RequestParam HashMap<String, String> params,
+								ModelAndView modelAndView) throws Throwable {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -955,10 +955,11 @@ public class MyGallaryController {
 		
 		//ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		
-		List<HashMap<String, String>> list = iMyGallaryService.chart();
+		List<HashMap<String, String>> list = iMyGallaryService.chart(params);
+		
 		
 		//for(int s = 0 ; s < series ; s++) {
-			HashMap<String, Object> data = new HashMap<String, Object>();
+			//HashMap<String, Object> data = new HashMap<String, Object>();
 			
 			//data.put("name", "S" + s);
 			//data.put("pointInterval", 1);
@@ -974,6 +975,8 @@ public class MyGallaryController {
 			
 			//list.add(data);
 		//}
+		System.out.println(">>>>>>>>" + params);
+		System.out.println(">>>>>>>>>>>>>>>>" + list);
 		
 		modelMap.put("list", list);
 		
