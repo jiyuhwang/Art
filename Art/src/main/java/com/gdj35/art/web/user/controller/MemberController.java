@@ -553,15 +553,7 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 샘플
-	@RequestMapping(value = "/NewFile")
-	public ModelAndView NewFile(ModelAndView mav) {
 
-		mav.setViewName("JY/NewFile");
-
-		
-		return mav;
-	}
 	
 	//신고하기
 	@RequestMapping(value = "/userReportPopup")

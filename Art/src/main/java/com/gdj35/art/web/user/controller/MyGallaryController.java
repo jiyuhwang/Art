@@ -941,6 +941,17 @@ public class MyGallaryController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	// 통계관리 페이지
+	@RequestMapping(value = "/chart")
+	public ModelAndView NewFile(ModelAndView mav) {
+
+		mav.setViewName("JY/chart");
+
+		
+		return mav;
+	}
+	
+	// 통계관리 Ajax
 	@RequestMapping(value = "/getChartData", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String getChartData(@RequestParam HashMap<String, String> params,

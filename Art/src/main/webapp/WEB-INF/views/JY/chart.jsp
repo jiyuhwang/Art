@@ -53,6 +53,7 @@ input[type="number"] {
 body {
 	overflow-x: hidden;
 }
+
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -63,7 +64,8 @@ body {
 $(document).ready(function() {	
 	getData();
 	
-	
+	$(".chart").attr("id", "active");
+
 	
 	$("#period").on("change", function(){
 		getData();
