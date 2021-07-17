@@ -204,6 +204,12 @@ public class ManagerService implements IManagerService {
 	}
 
 	@Override
+	public int addGong(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.addGong(params);
+	}
+
+	@Override
 	public int addMemo(HashMap<String, String> params) throws Throwable {
 		return iManagerDao.addMemo(params);
 	}

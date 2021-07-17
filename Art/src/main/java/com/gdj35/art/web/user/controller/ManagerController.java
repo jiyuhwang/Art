@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +38,9 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value="/editManager")
-	public ModelAndView editManager(ModelAndView mav) {
+	public ModelAndView editManager(ModelAndView mav,@RequestParam HashMap<String,String> params) {
+		
+		System.out.println(params);
 		
 		mav.setViewName("HD/editManager");
 		return mav;
@@ -311,6 +315,38 @@ public class ManagerController {
 	}
 	
 	
+	
+	@RequestMapping(value = "/addGong",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String addGong(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		// httpSession 값 받아오기 그래야 관리자 번호 지정가능
+		// 로그인 구현하기
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		System.out.println(session.getAttribute("sUserNo"));
+		try {
+			params.put("adminNo",String.valueOf(session.getAttribute("sUserNo")));
+			
+			 System.out.println("this is parmas from addGong" + params);
+			
+		}catch(Throwable e) {
+			e.printStackTrace();
+		}
+		
+		int cnt = iManagerService.addGong(params);
+		
+		if(cnt>0) {
+			modelMap.put("msg", "success");
+		}else {
+			modelMap.put("msg", "failed");
+		}
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
 	@RequestMapping(value="/tag_board")
 	public ModelAndView tag_board(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
 		
@@ -324,7 +360,6 @@ public class ManagerController {
 		mav.addObject("cnt", cnt);
 		mav.addObject("tList", tList);
 		mav.addObject("now", "tag");
-
 		mav.setViewName("HD/tag_board");
 		
 		return mav;
