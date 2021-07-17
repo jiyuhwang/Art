@@ -66,5 +66,10 @@ public class MemberDao implements IMemberDao{
 		return sqlSession.update("User.updatePw", params);
 	}
 
+	@Override
+	public HashMap<String, String> getAdmin(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.getAdmin", params);
+	}
+
 
 }

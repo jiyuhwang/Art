@@ -75,7 +75,13 @@
 }
 
 .update_btn_div {
-		text-align: center;
+	text-align: center;
     padding-top: 10px;
 	display: none;
+}
+
+.save_btn_div {
+	text-align: center;
+    padding-top: 10px;
+	display: block;
 }

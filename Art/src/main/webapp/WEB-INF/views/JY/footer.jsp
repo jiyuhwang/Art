@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
 	left: 95px;
 }
 
-.footer1, .footer2, .footer3, .footer4 {
+.footer1, .footer2, .footer3, .footer4, .footer5 {
 	font-size: 10pt;
 	color: white;
 	position: absolute;
@@ -52,6 +53,10 @@
 .footer4 {
 	left: 990px;
 }
+
+.footer5 {
+	left: 1180px;
+}
 </style>
 <script type="text/javascript">
 
@@ -65,6 +70,17 @@
 		<div class="footer2"><a href="#">도움말 안내</a></div>
 		<div class="footer3"><a href="#">회원가입 및 글게시 안내</a></div>
 		<div class="footer4"><a href="#">홈페이지 서비스 안내</a></div>
+		
+		
+		<c:choose>
+			<c:when test="${empty sAdminNo}">
+			</c:when>
+			<c:otherwise>
+				<div class="footer5"><a href="#">관리자 페이지</a></div>
+			</c:otherwise>
+		</c:choose>
+		
+		
 	</div>
 </body>
 </html>

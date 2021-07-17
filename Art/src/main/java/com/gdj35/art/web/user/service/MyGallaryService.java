@@ -227,5 +227,10 @@ public class MyGallaryService implements IMyGallaryService{
 		return iMyGallaryDao.mainVideoList(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> chart() throws Throwable {
+		return iMyGallaryDao.chart();
+	}
+
 
 }

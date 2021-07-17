@@ -6,68 +6,125 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.badge {
-	display: inline-block;
-	min-width: 10px;
-	padding: 4px 7px;
-	font-size: 12px;
-	font-weight: 550;
-	line-height: 1;
-	color: #2f2f2f;
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 320px; 
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #EBEBEB;
+	margin: 10px auto;
 	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	background-color: #ececec;
-	border-radius: 5px;
-	margin-right: 8px;
-}
-.tags_input{	
 	width: 100%;
-	height: 34px;
-	padding: 6px 12px;
-	
+	max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
 }
 
-.xClass{
-	font-size: 10px;
-	color: #777;
-	margin-left: 4px;
-	cursor: pointer;
-	padding: 3px;
+input[type="number"] {
+	min-width: 50px;
 }
-
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {	
-	    	 for(var i= 0; i <10; i++) {
-	$('#tagId').keypress(function(event){
-	     if (event.which == 13) {
-	    	 var html = "";
-	    	 var text = $('#tagId').val();
-	    	 html += "<div class=\"badge\">" + text + "</div>" 
-
-	     }
-	    	 $(".tags_input").html(html);
-	     //$('#tagId').val("");
-	});
-	    	 }
+	getData();
 	
 })
-/* ------------ */
-/* function draw(text) {
-		var html = "";
-		for(var i of text) {
-			
-			html += "<span class=\"badge\">" + i + "</span>" 
 
+
+function getData() {
+	//var params =  $("#getForm").serialize();
+	$.ajax({
+		type : "post",
+		url : "getChartData",
+		dataType : "json",
+		//data : params,
+		success : function(result) {
+			makeChart(result.list);
+		},
+		error : function(request,status,error) {
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
-		$(".tags_input").html(html);
-	} */
+	});
+}
+
+function makeChart(list) {
+	Highcharts.chart('container', {
+	    chart: {
+	        plotBackgroundColor: null,
+	        plotBorderWidth: null,
+	        plotShadow: false,
+	        type: 'pie'
+	    },
+	    title: {
+	        text: '작품 수 통계'
+	    },
+	    tooltip: {
+	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%, {point.y}건</b>'
+	    },
+	    accessibility: {
+	        point: {
+	            valueSuffix: '%'
+	        }
+	    },
+	    plotOptions: {
+	        pie: {
+	            allowPointSelect: true,
+	            cursor: 'pointer',
+	            dataLabels: {
+	                enabled: true,
+	                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+	            }
+	        }
+	    },
+	    series: [{
+	        name: '작품 수',
+	        colorByPoint: true,
+	        data: [{
+	            name: '사진 작품관',
+	            y: 100
+	        }, {
+	            name: '그림 작품관',
+	            y: 200
+	        }, {
+	            name: '영상 작품관',
+	            y: 50
+	        }]
+	    }]
+	});
+}
+
 </script>		
 </head>
 <body>
-<input id="tagId" type="text" name="post_tag" class="form-control" />
-<div id="tag" class="tags_input"></div>
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+    </p>
+</figure>
 </body>
 </html>

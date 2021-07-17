@@ -117,7 +117,7 @@ a {
 					dataType: "json", // 받아올 데이터 형태
 					data: params, // 보낼 데이터(문자열 형태)
 					success: function(res) { // 성공 시 다음 함수 실행
-						if(res.resMsg == "success") {
+						if(res.resMsg == "success" || res.resMsg2 == "success") {
 							location.href = "main";
 						} else {
 							$('.incorrect').html("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다");

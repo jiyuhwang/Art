@@ -316,5 +316,10 @@ public class MyGallaryDao implements IMyGallaryDao{
 
 	}
 
+	@Override
+	public List<HashMap<String, String>> chart() throws Throwable {
+		return sqlSession.selectList("Post.chart");
+	}
+
 
 }

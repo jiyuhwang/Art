@@ -264,6 +264,7 @@ public class MemberController {
 		// System.out.println(Utils.decryptAES128(params.get("mPw")));
 
 		HashMap<String, String> data = iMemberService.getUser(params);
+		HashMap<String, String> data2 = iMemberService.getAdmin(params);
 
 		if (data != null) {
 			session.setAttribute("sUserNo", data.get("USER_NO"));
@@ -281,6 +282,16 @@ public class MemberController {
 			modelMap.put("resMsg", "success");
 		} else {
 			modelMap.put("resMsg", "failed");
+		}
+		
+		if (data2 != null) {
+			session.setAttribute("sAdminNo", data2.get("ADMIN_NO"));
+			session.setAttribute("sAdminId", data2.get("ADMIN_ID"));
+			session.setAttribute("sName", data2.get("NAME"));
+			session.setAttribute("sPw", data2.get("PW"));
+			modelMap.put("resMsg2", "success");
+		} else {
+			modelMap.put("resMsg2", "failed");
 		}
 
 		return mapper.writeValueAsString(modelMap);

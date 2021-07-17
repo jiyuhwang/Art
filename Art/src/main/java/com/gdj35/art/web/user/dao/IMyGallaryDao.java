@@ -89,6 +89,8 @@ public interface IMyGallaryDao {
 
 	public List<HashMap<String, String>> mainVideoList(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> chart() throws Throwable;
+
 
 
 

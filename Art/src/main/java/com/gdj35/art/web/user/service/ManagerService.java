@@ -209,6 +209,11 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.addGong(params);
 	}
 
+	@Override
+	public int addMemo(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.addMemo(params);
+	}
+
 
 
 }

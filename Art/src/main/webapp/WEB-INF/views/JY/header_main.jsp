@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+
 [type="button"] {
 	cursor: pointer;
 	font-family: '돋움';
@@ -173,6 +174,8 @@ a {
 				}
 			});
 		});
+		
+
 	});
 </script>
 </head>

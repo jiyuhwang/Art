@@ -238,6 +238,11 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.insert("Manager.addGong",params);
 	}
 
+	@Override
+	public int addMemo(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("Manager.addMemo",params);
+	}
+
 
 
 	

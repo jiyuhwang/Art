@@ -720,4 +720,14 @@
 		      WHERE U.OUT_DATE IS NULL) UP
 		WHERE UP.RNUM BETWEEN 1 AND 16
 	</select>
+	
+	<!-- 차트 -->
+	<select id="chart" parameterType="hashmap" resultType="hashmap">
+		SELECT PC.CATEGORY_NAME, P.CNT
+		FROM POST_CATEGORY PC INNER JOIN (SELECT COUNT(*) AS PICCNT, CATEGORY_NO
+		                                    FROM POST
+		                                    WHERE DEL =1
+		                                   GROUP BY CATEGORY_NO) P
+		                        ON PC.CATEGORY_NO = P.CATEGORY_NO
+	</select>
 </mapper>

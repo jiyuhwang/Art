@@ -723,7 +723,10 @@
 		WHERE MEMO_NO = #{mNo}
 	</update>
 	
-	
+	<insert id="addMemo" parameterType="hashmap">
+		INSERT INTO MEMO(MEMO_NO, REPORT_NO, USER_NO ,ADMIN_NO, ACCUR_DATE, MARKING, CONTENTS)
+		VALUES (MEMO_SEQ.NEXTVAL, #{rNo}, #{uNo}, #{admin}, #{occur}, #{marking}, #{contents})
+	</insert>
 	
 	
 	
