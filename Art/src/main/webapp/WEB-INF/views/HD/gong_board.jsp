@@ -59,7 +59,8 @@
 			$("#page").val($(this).attr("name"));
 			console.log("이거 페이지 변경 값이 안들어가네"+ $("#page").val());
 			drawList();
-		});		
+		});	
+		
 		//-------------------------------------------------- 검색버튼 클릭시
 		$("#searchBtn").on("click", function () {
 			$("#searchGbnForm").val($("#searchGbn").val());
@@ -71,6 +72,7 @@
 			$("#startDate").val(0);
 			$("#endDate").val(0);
 		});
+		
 		//-------------------------------------------------- 작성 버튼 클릭시
 		$("#addBtn").on("click", function () {
 			$("#everyForm").attr("action","addGong");
@@ -105,6 +107,7 @@
 				}
 			});
 		});
+		
 		//--------------------------------------------------단일 행 삭제
 		$("body").on("click","table .deleteBtn", function () {
 			console.log("작동은 하니?");
@@ -136,11 +139,13 @@
 		//--------------------------------------------------수정하기
 		$("body").on("click",".updateBtn", function () {
 			$("#noticeNo").val($(this).parent().parent().attr("name"));
-			$("#everyForm").attr("action","editManagerUpdate");
+			$("#everyForm").attr("action","editManager");
 			$("#everyForm").submit();
 		});
 		
-		//--------------------------------------------------
+		
+		
+		
 		//--------------------------------------------------
 		//--------------------------------------------------
 		//--------------------------------------------------
@@ -213,9 +218,14 @@
 					html+= "				<td>" + b.FILE_PATH + "</td>";
 					html+= "				<td>" + b.VIEWS + "</td>";
 					html+= "				<td>" + b.REGISTER_DATE +"</td>";
-					if()
+					
+					if("${sAdminNo}" == b.ADMIN_NO){
 					html+= "				<td><input type=\"button\" class=\"updateBtn\" value=\"수정\"/>";
-					html+= "		            <input type=\"button\" class=\"deleteBtn\"value=\"삭제/복구\"/></t";
+					html+= "		            <input type=\"button\" class=\"deleteBtn\"value=\"삭제/복구\"/></td>";
+					}else{
+					html+= "				<td>권한없음</td>";
+					}
+					
 					html+= "			</tr>";
 				}
 						
@@ -226,6 +236,14 @@
 		html += "전체 "+ cnt +" 개"
 		
 		$(".status").html(html);
+		
+		//-------------------------------------------------- 상세보기
+		
+		$(".main3-table table").on("dblclick","tr", function () {
+			$("#noticeNo").val($(this).attr("name"));
+			$("#everyForm").attr("action","goGongDetail");
+			$("#everyForm").submit();
+		});
 		
 		//--------------------------------------------------삭제 버튼 
 		/* $("table .deleteBtn").on("click", function () {
@@ -281,6 +299,7 @@
 <body>
 <form action="#" id="everyForm" method="post">
 	<input type="hidden" name="page" id="page" value="1">
+	<input type="hidden" name="fileName" id="fileName">
 	<input type="hidden" name="noticeNo" id="noticeNo">
 	<input type="hidden" name="searchGbn" id="searchGbnForm">
 	<input type="hidden" name="searchTxt" id="searchTxtForm">
