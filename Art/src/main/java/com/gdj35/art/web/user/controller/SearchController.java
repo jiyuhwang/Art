@@ -26,11 +26,6 @@ public class SearchController {
 	
 	
 	
-	@RequestMapping(value="/searchGallaryPage")
-	public ModelAndView searchGallaryPage(ModelAndView mav) {
-		
-		mav.setViewName("h/searchGallaryPage");
-		return mav;
-	}
+
 
 }

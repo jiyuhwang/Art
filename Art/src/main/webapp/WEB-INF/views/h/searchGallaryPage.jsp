@@ -14,24 +14,185 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$(".srh_result").hide();//hide all contents
-	$("#srhTab li:first").addClass("tab_selected").show();//active first tab
-	$(".srh_result:first").show();
-	
-	//srhTab클릭했을 때 
-	$("#srhTab").on("click", "li", function(){
-		
-		$("#srhTab li").attr("class", "");
-		$(this).attr("class", "tab_selected");
-		$(".srh_result").hide();
-		
-		var tab = $(this).find("a").attr("href");
-		$(tab).fadeIn("fast");
-		return false;//이걸 안하면 스크롤이 중간에...
-		
+	$(".tabs").on("change", "[type='radio']", function() {
+		//$("#page").val("1");
+		//정확도 좋아요 최신 벨류 0
+		reloadList();
 	});
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---------------------------------------------------------탭 클릭시
+	function reloadList() {
+		var params= $("#actionForm").serialize();
+		
+		var urlTxt = "";
+		switch($(".tabs [type='radio']:checked").val()) {
+		case "0" :
+			urlTxt = "searchPic";
+			break;
+		case "1" :
+			urlTxt = "searchDraw";
+			break;
+		case "2" :
+			urlTxt = "searchVideo";
+			break;
+		case "3" :
+			urlTxt = "searchWriter";
+			break;
+		}
+		
+		$.ajax({
+			url: urlTxt, 
+			type: "post", 
+			dataType: "json", 
+			data: params, 
+			success: function(res) { 
+				switch($(".tabs [type='radio']:checked").val()) {
+				case "0" :
+					picList(res.list);
+					break;
+				case "1" :
+					drawList(res.list);
+					break;
+				case "2" :
+					videoList(res.list);
+					break;
+				case "3" :
+					writerList(res.list);
+					break;
+				}
+				
+				drawPaging(res.pb);	
+			},
+			error: function(request, status, error) { // 실패 시 다음 함수 실행
+				console.log(error);
+			}
+		});
+	}
+	
+	
+	
+	function picList(list) {
+		var html = "";
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + p.POST_NO + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			if(p.REGISTER_DATE == null) {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+			} else {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+			}
+			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+	
+		}
+		$(".pic_wrap").html(html);
+		for(var p of list) {
+			$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+		}		
+}
+
+	function drawList(list) {
+		var html = "";
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"draw" + p.POST_NO + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			if(p.REGISTER_DATE == null) {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+			} else {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+			}
+			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+	
+		}
+		$(".draw_wrap").html(html);
+		for(var p of list) {
+			$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+		}		
+	}
+
+	function videoList(list) {
+		var html = "";
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"video" + p.POST_NO + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			if(p.REGISTER_DATE == null) {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+			} else {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+			}
+			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+	
+		}
+		$(".video_wrap").html(html);
+		for(var p of list) {
+			$('#video' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+		}		
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 });//document end
 
@@ -41,17 +202,26 @@ $(document).ready(function() {
 	<c:import url="../JY/header.jsp"></c:import>
 	<div class="input_txt_wrap">
 		<div id="srhTxt">
-			<form action="searchPage" id="searchForm" method="post">
-			<input type="text" placeholder="검색어를 입력해주세요."/>
-			</form>
+		<form action="#" id="actionForm" method="post">
+			<input type="hidden" id="visibility" name="visibility" value="0"/>
+			<input type="text" name="searchTxt" placeholder="검색어를 입력해주세요."/>
+
+
+
+
+		</form>
 		</div>		
 	</div>
 	<div class="search_tab_wrap">
-		<div id="srhTab">
-			<ul>
-				<li><a href="#tabResult1">작품</a></li>
-				<li><a href="#tabResult2">작가</a></li>
-			</ul>
+		<div class="tabs">
+			<input id="tabP" type="radio" value="0" name="tab" checked="checked" />
+			<input id="tabD" type="radio" value="1" name="tab" />
+			<input id="tabV" type="radio" value="2" name="tab" />
+			<input id="tabW" type="radio" value="3" name="tab" />		
+			<label for="tabP">사진</label>
+			<label for="tabD">그림</label>
+			<label for="tabV">영상</label>
+			<label for="tabW">작가</label>
 		</div>
 	</div>
 	<div class="main">
@@ -66,49 +236,9 @@ $(document).ready(function() {
 					</ul>
 				</div>
 			</div>
-			<div id="tabResult1" class="srh_result">
-				<div class="img_box">
+			<div class="gallary_contents">
+				<div class="gallary_div">
 					<img id="boxImg3" class="box_img"/>
-					<div class="box_img_txt">
-						<div class="box_img_txt_title">제목나온다</div>
-						<div class="box_img_txt_writer_div">
-							<span class="writer_flag">by </span>
-							<span class="box_img_txt_writer">내가작가다</span>
-						</div>
-					</div>
-				</div>
-				<div class="img_box">
-					<img id="boxImg1" class="box_img"/>
-					<div class="box_img_txt">
-						<div class="box_img_txt_title">제목나온다 제목을 짧게도 적을 수 있고 길게도 적을 수 있고 이렇게 &nbsp;&nbsp;&nbsp;&nbsp; 여백을 줄 수도 있고</div>
-						<div class="box_img_txt_writer_div">
-							<span class="writer_flag">by </span>
-							<span class="box_img_txt_writer">내가작가다</span>
-						</div>
-					</div>
-				</div>
-				<div class="img_box">
-					<div id="boxImg2" class="box_img"></div>
-					<div class="box_img_txt">
-						<div class="box_img_txt_title">제목나온다</div>
-						<div class="box_img_txt_writer_div">
-							<span class="writer_flag">by </span>
-							<span class="box_img_txt_writer">내가작가다</span>
-						</div>
-					</div>
-				</div>
-				<div class="img_box">
-					<img id="boxImg3" class="box_img"/>
-					<div class="box_img_txt">
-						<div class="box_img_txt_title">제목나온다</div>
-						<div class="box_img_txt_writer_div">
-							<span class="writer_flag">by </span>
-							<span class="box_img_txt_writer">내가작가다</span>
-						</div>
-					</div>
-				</div>
-				<div class="img_box">
-					<img id="boxImg4" class="box_img"/>
 					<div class="box_img_txt">
 						<div class="box_img_txt_title">제목나온다</div>
 						<div class="box_img_txt_writer_div">
@@ -118,8 +248,30 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</div>
-			<div id="tabResult2" class="srh_result">
-				<div class="writer_box">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-------------------------------------------------------------작가검색시  -->
+
+
+			<div class="writer_contents">
+				<div class="writer_div">
 					<img id="writerImg1" class="writer_img"/>
 					<div class="writer_box_txt">
 						<div class="writer_name"><h5>나는 작가다.</h5></div>
@@ -127,26 +279,7 @@ $(document).ready(function() {
 							<span> 소개입니다.</span>
 						</div>
 					</div>
-				</div>
-				<div class="writer_box">
-					<img id="writerImg2" class="writer_img"/>
-					<div class="writer_box_txt">
-						<div class="writer_name"><h5>작가님.</h5></div>
-						<div class="writer_introduce">
-							<span> 소개입니다.</span>
-						</div>
-					</div>
-				</div>
-				<div class="writer_box">
-					<img id="writerImg3" class="writer_img"/>
-					<div class="writer_box_txt">
-						<div class="writer_name"><h5>뇽뇽.</h5></div>
-						<div class="writer_introduce">
-							<span> 소개입니다.</span>
-						</div>
-					</div>
-				</div>
-				
+				</div>				
 			</div>
 			<!------------------------------------------------------------------------ 페이징 -->
 			<div class="paging_area">
