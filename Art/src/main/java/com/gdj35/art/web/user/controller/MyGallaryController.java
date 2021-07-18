@@ -941,6 +941,17 @@ public class MyGallaryController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	// 통계관리 페이지
+	@RequestMapping(value = "/chart")
+	public ModelAndView NewFile(ModelAndView mav) {
+
+		mav.setViewName("JY/chart");
+
+		
+		return mav;
+	}
+	
+	// 통계관리 Ajax
 	@RequestMapping(value = "/getChartData", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String getChartData(@RequestParam HashMap<String, String> params,
@@ -955,7 +966,7 @@ public class MyGallaryController {
 		
 		//ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		
-		List<HashMap<String, String>> list = iMyGallaryService.chart(params);
+		List<HashMap<String, Object>> list = iMyGallaryService.chart(params);
 		
 		
 		//for(int s = 0 ; s < series ; s++) {
@@ -975,6 +986,8 @@ public class MyGallaryController {
 			
 			//list.add(data);
 		//}
+		
+		
 		System.out.println(">>>>>>>>" + params);
 		System.out.println(">>>>>>>>>>>>>>>>" + list);
 		

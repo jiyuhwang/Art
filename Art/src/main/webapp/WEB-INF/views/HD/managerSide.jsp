@@ -145,6 +145,29 @@
 	cursor: pointer;
 	position: relative;
 }
+
+.chart{
+	height : 60px;
+	background-color: RGBA;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+}
+.chart:hover{
+	height : 60px;
+	background-color: #0C4A60;
+	font-style: bold;
+	font-size: 17pt;
+	text-align: center;
+	line-height: 60px;
+	box-shadow: 5px 5px 5px grey;
+	border-radius: 5px;
+	color: white;
+	font-style: 고딕;
+	cursor: pointer;
+	position: relative;
+}
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -170,6 +193,17 @@ $(document).ready(function() {
 	$(".gong").on("click", function(){
 		location.href = "gong_board";
 	});
+	
+	$(".chart").on("click", function(){
+		location.href = "chart";
+	});
+	
+	$(".side div").on("click", function(){
+		if(this.attr("class") != blank){
+			$("div").attr("id", "");
+			this.attr("id", "active");
+		}
+	});
 
 });//document end
 </script>
@@ -182,6 +216,7 @@ $(document).ready(function() {
 		<div class="gallary" id="">작품관리</div>
 		<div class="report" id="">신고관리</div>
 		<div class="gong" id="">공지사항</div>
+		<div class="chart" id="">통계관리</div>
 	 </div>
 </body>
 </html>

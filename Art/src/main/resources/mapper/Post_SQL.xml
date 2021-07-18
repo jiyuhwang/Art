@@ -718,7 +718,7 @@
 	
 	<!-- 차트 -->
 	<select id="chart" parameterType="hashmap" resultType="hashmap">
-		SELECT PC.CATEGORY_NAME, P.CNT 
+		SELECT PC.CATEGORY_NAME AS "name", P.CNT AS "y"
 		FROM POST_CATEGORY PC INNER JOIN (SELECT COUNT(*) AS CNT, CATEGORY_NO
 		                                    FROM POST
 		                                    WHERE DEL =1

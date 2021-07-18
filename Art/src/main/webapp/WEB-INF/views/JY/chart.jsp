@@ -53,6 +53,7 @@ input[type="number"] {
 body {
 	overflow-x: hidden;
 }
+
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -63,10 +64,16 @@ body {
 $(document).ready(function() {	
 	getData();
 	
-	
+	$(".chart").attr("id", "active");
+
 	
 	$("#period").on("change", function(){
 		getData();
+	});
+	
+	$("#period").on("click", function(){
+		$("#startDate").val("yyyy-MM-dd");
+		$("#endDate").val("yyyy-MM-dd");
 	});
 	
 	$("#startDate, #endDate").on("click", function(){
@@ -87,7 +94,17 @@ function getData() {
 		dataType : "json",
 		data : params,
 		success : function(result) {
+			/* var jsonEncode = JSON.stringify(result);
+
+
+
+			var jsonDecode = JSON.parse(jsonEncode);
+
+			console.log(jsonDecode); */
+			
 			makeChart(result.list);
+			
+			
 		},
 		error : function(request,status,error) {
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -128,16 +145,7 @@ function makeChart(list) {
 	    series: [{
 	        name: '작품 수',
 	        colorByPoint: true,
-	        data: [{
-	            name: list[0].CATEGORY_NAME,
-	            y: list[0].CNT
-	        }, {
-	            name: list[1].CATEGORY_NAME,
-	            y: list[1].CNT
-	        }, {
-	            name: list[2].CATEGORY_NAME,
-	            y: list[2].CNT
-	        }]
+	        data: list
 	    }]
 	});
 }
