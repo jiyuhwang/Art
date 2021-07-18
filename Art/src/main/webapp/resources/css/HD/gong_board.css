@@ -27,6 +27,11 @@
          table-layout: fixed;
          
     }
+    
+    table tr:hover{
+ 		cursor: pointer;   
+    }
+    
     table th{
          font-size: 10pt;
          border-top: 0.5px solid black;
@@ -34,11 +39,13 @@
          padding: 3px;
          height: 30px;
     }
+    
     table td{
         padding : 5px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        height: 32px;
     }
 
     .main{

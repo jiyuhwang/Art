@@ -58,10 +58,11 @@ $(document).ready(function() {
 					console.log($("#fileName").val());
 					}
 					$("#cttsIn").val(CKEDITOR.instances.cttsIn.getData());
+					$("#fileName").val()
 					var params = $("#goForm").serialize();
 					
 					$.ajax({
-						url : "editManagerUpdate",
+						url : "editManagerUpdates",
 						type : "post",
 						dataType : "json",
 						data : params,
@@ -97,7 +98,8 @@ $(document).ready(function() {
 	});
 	
 	$("#att").on("change", function () {
-		$("#fileNameOnBoard").html($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+		$("#fileName").html($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+		$("#changedFileName").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
 	});
 	
 	
@@ -108,13 +110,14 @@ $(document).ready(function() {
 <!--여기는 두가지 form이 있다. 1.fileForm(그저 파일에 대한 요소들) 2.goForm(cont  -->
 	<body>
 	 <form action=fileUploadAjax id=fileForm method=post enctype=multipart/form-data>;
-		 	<input style="display:none;" type=file name=att id=att>;
-	 </form>;
+		 	<input style="display:none;" type=file name=att id=att>
+	 </form>
 	<div class="hdr">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
 		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
+	
 	<div class="side_bar">
 		<div class="pfe">
 			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
@@ -143,18 +146,19 @@ $(document).ready(function() {
 		</div>
 		<input type="button" id="btnLot" value="로그아웃">
 	</div>
+	
 	<div class="wrap">
 		<!-- <div id="editPage">작품올리기</div> -->
 		<!-- <div id="glySet">작품관 선택</div>
 		<br /> -->
 		<form action="#" id="goForm" method="method">
-			<input type="hidden" id="fileName" name="fileName" value="">
-			<input type="hidden" id="noticeNo">
+			<input type="hidden" id="noticeNo" name="noticeNo" value=${param.noticeNo }>
+			<input type="hidden" id="changedFileName" name="changedFileName">
 			<!-- <div id="title">제목</div> -->
 			<div id="titleInputW"><input id="titleInput" name="titleInput" type="text" value="${oneRow.TITLE }" placeholder="제목을 입력해주세요."></div>
 			<!--첨부 파일  -->
 				<input id="fileBtn" type="button" value="첨부파일  : ">
-				<span id="fileNameOnBoard" style="font-size: 20pt;">${oneRow.FILE_PATH} </span>
+				<span id="fileName" name="fileName" style="font-size: 20pt;" val="">${oneRow.FILE_PATH} </span>
 			<!-- <div id="ctts">작품설명</div> -->
 			<div id="cttsInW"><textarea id="cttsIn" name="cttsIn" cols="80" rows="10" placeholder="작품을 뽐내주세요.">${oneRow.CONTENTS} </textarea></div>
 			 <!-- <div id="tag">태그</div> -->

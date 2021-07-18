@@ -286,6 +286,11 @@
 	WHERE NOTICE_NO = #{noticeNo}
 	</select>
 	
+	<update id="updateGong" parameterType="hashmap">
+	UPDATE NOTICE SET TITLE= #{titleInput}, CONTENTS = #{cttsIn}, FILE_PATH = #{changedFileName},REGISTER_DATE=SYSDATE
+	WHERE NOTICE_NO = #{noticeNo}
+	</update>
+	
 	
 	
 	
