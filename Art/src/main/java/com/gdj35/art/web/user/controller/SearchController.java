@@ -58,16 +58,17 @@ public class SearchController {
 			
 			int cnt;
 			
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
-			
-		
-			params.put("startCnt", Integer.toString(pb.getStartCount()));
-			params.put("endCnt", Integer.toString(pb.getEndCount()));
-					
-			List<HashMap<String, String>> list;
-			
-			modelMap.put("list", list);		
-			modelMap.put("pb", pb);
+		/*
+		 * PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+		 * 
+		 * 
+		 * params.put("startCnt", Integer.toString(pb.getStartCount()));
+		 * params.put("endCnt", Integer.toString(pb.getEndCount()));
+		 * 
+		 * List<HashMap<String, String>> list;
+		 * 
+		 * modelMap.put("list", list); modelMap.put("pb", pb);
+		 */
 			
 			return mapper.writeValueAsString(modelMap);
 		}
