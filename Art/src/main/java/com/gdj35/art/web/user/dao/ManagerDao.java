@@ -249,6 +249,12 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.selectOne("Manager.getNotice", params);
 	}
 
+	@Override
+	public int updateGong(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Manager.updateGong",params);
+	}
+
 
 
 	

@@ -32,6 +32,7 @@ ul { list-style: none;}
 	height: 900px;
 	background-color: #E1DDDB;
 	text-align: center;
+	border-radius: 16px;
 }
 
 .top-ctt>* {

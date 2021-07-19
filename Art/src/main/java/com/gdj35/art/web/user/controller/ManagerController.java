@@ -37,21 +37,6 @@ public class ManagerController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/editManagerUpdate")
-	public ModelAndView editManagerUpdate(ModelAndView mav,@RequestParam HashMap<String,String> params) throws Throwable {
-		
-		System.out.println(params);
-		
-		HashMap<String,String> row = iManagerService.getNotice(params);
-		
-		System.out.println(row);
-		
-		mav.addObject("oneRow", row);
-		
-		mav.setViewName("HD/editManager");
-		return mav;
-	}
-	
 	@RequestMapping(value="/editManager")
 	public ModelAndView editManager(ModelAndView mav,@RequestParam HashMap<String,String> params) throws Throwable {
 		
@@ -62,10 +47,27 @@ public class ManagerController {
 		System.out.println(row);
 		
 		mav.addObject("oneRow", row);
+		System.out.println(row);
 		
 		mav.setViewName("HD/editManager");
 		return mav;
 	}
+	
+	/*
+	 * @RequestMapping(value="/editManager") public ModelAndView
+	 * editManager(ModelAndView mav,@RequestParam HashMap<String,String> params)
+	 * throws Throwable {
+	 * 
+	 * System.out.println(params);
+	 * 
+	 * HashMap<String,String> row = iManagerService.getNotice(params);
+	 * 
+	 * System.out.println(row);
+	 * 
+	 * mav.addObject("oneRow", row);
+	 * 
+	 * mav.setViewName("HD/editManager"); return mav; }
+	 */
 	
 	@RequestMapping(value="/addGong")
 	public ModelAndView addGong(ModelAndView mav,@RequestParam HashMap<String,String> params) throws Throwable {
@@ -374,7 +376,7 @@ public class ManagerController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
-	@RequestMapping(value = "/editManagerUpdate",
+	@RequestMapping(value = "/editManagerUpdates",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -387,13 +389,13 @@ public class ManagerController {
 		try {
 			params.put("adminNo",String.valueOf(session.getAttribute("sUserNo")));
 			
-			System.out.println("this is parmas from addGong" + params);
+			System.out.println("this is parmas from updateGong" + params);
 			
 		}catch(Throwable e) {
 			e.printStackTrace();
 		}
 		
-		int cnt = iManagerService.addGong(params);
+		int cnt = iManagerService.updateGong(params);
 		
 		if(cnt>0) {
 			modelMap.put("msg", "success");

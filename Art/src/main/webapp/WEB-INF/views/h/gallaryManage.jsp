@@ -38,6 +38,7 @@ tbody tr:hover {
 	z-index: 1000;
 	overflow-y: scroll;
     overflow-x: hidden;
+    border-radius: 16px;
 }
 
 #BtnSave {
@@ -90,18 +91,19 @@ $(document).ready(function(){
 		$(".menu_tab_wrap div").attr("class", "tab");
 		$(this).attr("class", "tab_selected");
 		
-/* 		if($(this).attr("id", "entire")){
+ 		if($(this).attr("id") == "entire"){
+ 			$("#menuTabFlag").val(0);
 			
-		} else if($(this).attr("id", "picture")){
+		} else if($(this).attr("id") == "picture"){
+			$("#menuTabFlag").val(1);
 			
-		} else if($(this).attr("id", "drawing")){
-
+		} else if($(this).attr("id") == "drawing"){
+			$("#menuTabFlag").val(2);
 			
 		} else{
-			
-		}	 */
-		
-		
+			$("#menuTabFlag").val(3);
+		}	 
+				
 		loadPostList();
 		
 	});
@@ -753,6 +755,7 @@ $(document).ready(function(){
 	<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
 	<input type="hidden" id="page" name="page" value="${page}"/>
 	<input type="hidden" id="checkedArr" name="checkedArr"/>
+	<input type="hidden" id="menuTabFlag" name="menuTabFlag" value="0"/>
 	
 		<div class ="search_flag_div">
 			<div class="search_flag">
