@@ -255,6 +255,17 @@ a {
     text-overflow: ellipsis;
 }
 
+/*------------------------------------------------------검색없을 때 */
+.search_nothing {
+	display: inline-block;
+	width: 500px;
+	height: 500px;
+	font-size: 30px;
+	margin: auto;
+	position: relative;
+	top: 100px;
+}
+
 /*-----------------------------------------------------paging */
 
 .paging_area {
