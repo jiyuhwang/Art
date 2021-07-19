@@ -388,7 +388,6 @@ public class MemberController {
 		session.setAttribute("sUserNickname", params.get("userNickname"));
 		session.setAttribute("sUserIntroduce", params.get("userIntroduce"));
 
-		
 		try {
 			int cnt = iMemberService.updateProfile(params);
 			if (cnt > 0) {
@@ -488,22 +487,12 @@ public class MemberController {
 				modelMap.put("msg", "failed");
 			}
 
-
 		} catch (Throwable e) {
 			e.printStackTrace();
 			modelMap.put("msg", "error");
 		}
 
 		return mapper.writeValueAsString(modelMap);
-	}
-
-	
-	// 공지사항 페이지
-	@RequestMapping(value = "/gongji")
-	public ModelAndView gongji(ModelAndView mav) {
-
-		mav.setViewName("/HD/gongji");
-		return mav;
 	}
 
 	// 아이디 찾기 페이지
