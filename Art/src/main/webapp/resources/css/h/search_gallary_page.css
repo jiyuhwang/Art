@@ -96,41 +96,6 @@ a {
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*-----------------------------------------------------------메인  */
 .main {
 	background-color: #fbfbfb;
@@ -248,30 +213,6 @@ a {
 	font-style: italic;
 	color: #cccccc;
 	font-size: bold;
-}
-
-#boxImg1 {
-	background-image: url("../../images/JY/짱구1.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
-#boxImg2 {
-	background-image: url("../../images/JY/짱구2.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
-#boxImg3 {
-	background-image: url("../../images/JY/짱구3.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
-#boxImg4 {
-	background-image: url("../../images/JY/짱구4.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
 }
 
 /* ----------------------------------------------------------------tab2결과 박스 */
