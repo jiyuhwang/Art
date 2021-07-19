@@ -95,24 +95,39 @@ $(document).ready(function() {
 	
 	
 	
+/* 	
+	
+	<div class="gallary_div">
+		<img id="boxImg3" class="box_img"/>
+		<div class="box_img_txt">
+			<div class="box_img_txt_title">제목나온다</div>
+			<div class="box_img_txt_writer_div">
+				<span class="writer_flag">by </span>
+				<span class="box_img_txt_writer">내가작가다</span>
+			</div>
+		</div>
+	</div>
+
+	 */
+
+	
 	function picList(list) {
 		var html = "";
 		for(var p of list) {
-			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + p.POST_NO + "\">";					
-			html += "<div class=\"bg\">";
-			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-			if(p.REGISTER_DATE == null) {
-				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
-			} else {
-				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
-			}
-			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
-			html += "</div>";
-			html += "</div>";
+			                                                                    
+		html +=" <div class=\"gallary_div\">";
+		html += "<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"pic" + p.POST_NO + "\">";
+		html +=" 		<div class=\"box_img_txt\">";
+		html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "다</div>";
+		html +=" 			<div class=\"box_img_txt_writer_div\">";
+		html +=" 				<span class=\"writer_flag\">by </span>";
+		html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
+		html +=" 			</div>";
+		html +=" 		</div>";
+		html +=" 	</div>";
 	
 		}
-		$(".pic_wrap").html(html);
+		$(".gallary_contents").html(html);
 		for(var p of list) {
 			$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
 		}		
@@ -121,18 +136,7 @@ $(document).ready(function() {
 	function drawList(list) {
 		var html = "";
 		for(var p of list) {
-			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"draw" + p.POST_NO + "\">";					
-			html += "<div class=\"bg\">";
-			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-			if(p.REGISTER_DATE == null) {
-				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
-			} else {
-				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
-			}
-			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
-			html += "</div>";
-			html += "</div>";
+
 	
 		}
 		$(".draw_wrap").html(html);
@@ -144,18 +148,7 @@ $(document).ready(function() {
 	function videoList(list) {
 		var html = "";
 		for(var p of list) {
-			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"video" + p.POST_NO + "\">";					
-			html += "<div class=\"bg\">";
-			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-			if(p.REGISTER_DATE == null) {
-				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
-			} else {
-				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
-			}
-			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
-			html += "</div>";
-			html += "</div>";
+
 	
 		}
 		$(".video_wrap").html(html);
@@ -236,18 +229,7 @@ $(document).ready(function() {
 					</ul>
 				</div>
 			</div>
-			<div class="gallary_contents">
-				<div class="gallary_div">
-					<img id="boxImg3" class="box_img"/>
-					<div class="box_img_txt">
-						<div class="box_img_txt_title">제목나온다</div>
-						<div class="box_img_txt_writer_div">
-							<span class="writer_flag">by </span>
-							<span class="box_img_txt_writer">내가작가다</span>
-						</div>
-					</div>
-				</div>
-			</div>
+			<div class="gallary_contents"></div>
 			
 			
 			
