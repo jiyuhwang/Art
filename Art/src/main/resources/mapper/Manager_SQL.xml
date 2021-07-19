@@ -168,7 +168,7 @@
         	AND REGISTER_DATE BETWEEN TO_DATE('${startDate}') AND TO_DATE('${endDate}')
         </if>
 		)
-	WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
+	 WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 	
 	<insert id="addGong" parameterType="hashmap">

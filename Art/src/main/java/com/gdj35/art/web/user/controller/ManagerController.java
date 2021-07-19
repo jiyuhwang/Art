@@ -75,6 +75,41 @@ public class ManagerController {
 		mav.setViewName("HD/addGong");
 		return mav;
 	}
+	
+
+	// 공지사항 페이지
+	@RequestMapping(value = "/gongji")
+	public ModelAndView gongji(ModelAndView mav,@RequestParam HashMap<String,String> params) throws Throwable {
+
+		
+		mav.setViewName("/HD/gongji");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/gongji_page",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String gongji_page(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		String startCnt = "1";
+		String endCnt= "13";
+		
+		params.put("startCnt",startCnt);
+		params.put("endCnt",endCnt);
+		int cnt = iManagerService.getGongCnt(params);
+		List<HashMap<String,String>> list = iManagerService.getGList(params);
+		System.out.println(list);
+		modelMap.put("list", list);
+		modelMap.put("cnt", cnt);
+		/* modelMap.put("user", user); */
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+
 
 	@RequestMapping(value="/user_detail(memo)")
 	public ModelAndView user_detailM(ModelAndView mav) {
@@ -174,6 +209,8 @@ public class ManagerController {
 		
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	
 	
 	@RequestMapping(value = "/delOneRow",
 			method = RequestMethod.POST,
@@ -277,6 +314,16 @@ public class ManagerController {
 		
 		mav.addObject("now", "gong");
 		mav.setViewName("HD/gong_board");
+		return mav;
+	}
+	
+	@RequestMapping(value="/gong_detail")
+	public ModelAndView gong_detail(ModelAndView mav,
+			@RequestParam HashMap<String,String> params) throws Throwable {
+		
+		
+		mav.addObject("now", "gong");
+		mav.setViewName("HD/gong_detail");
 		return mav;
 	}
 	

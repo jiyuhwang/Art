@@ -460,14 +460,6 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
-	// 공지사항 페이지
-	@RequestMapping(value = "/gongji")
-	public ModelAndView gongji(ModelAndView mav) {
-
-		mav.setViewName("/HD/gongji");
-		return mav;
-	}
-
 	// 아이디 찾기 페이지
 	@RequestMapping(value = "/idfind")
 	public ModelAndView idfind(ModelAndView mav) {
