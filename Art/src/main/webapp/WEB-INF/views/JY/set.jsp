@@ -45,6 +45,8 @@ var code = "";                //이메일전송 인증번호 저장위한 코드
 
 $(document).ready(function() {
 	
+
+	
 	$("#pw").change(function(){
 	    checkPassword($('#pw').val());
 	});
@@ -92,6 +94,7 @@ $(document).ready(function() {
 	    
 	});
 	
+	
 	$(".profile_manage").on("click", function() {
 		location.href = "profile";
 	});
@@ -104,8 +107,38 @@ $(document).ready(function() {
 		location.href = "withdrawal";
 	});
 	
-	$("#btnSave").on("click", function(){
-	    
+	$("table tr:nth-child(2)").hide();
+	$("table tr:nth-child(3)").hide();
+	/* $("#btnEditPw").on("click", function() {
+		if($("table tr:nth-child(2)").css("display") == "none") {
+			$("table tr:nth-child(2)").show();
+			$("table tr:nth-child(3)").show();
+		} else {
+			$("table tr:nth-child(2)").hide();
+			$("table tr:nth-child(3)").hide();
+		}
+	}); */
+	
+	$("#btnEditPw").on("click", function() {
+		if($('#nowPw').val() == "") {
+			alert("비밀번호를 입력해주세요.");
+		} else if($('#nowPw').val() != "${sUserPw}") {
+			alert("비밀번호가 틀립니다.");
+		} else {
+			if($("table tr:nth-child(2)").css("display") == "none") {
+				$("table tr:nth-child(2)").show();
+				$("table tr:nth-child(3)").show();
+			} else {
+				$("table tr:nth-child(2)").hide();
+				$("table tr:nth-child(3)").hide();
+			}
+		}
+	});
+	
+	
+	$("#pwSend").on("click", function(){
+		$("#sendPw").val($("#pw").val());
+		
 		if($("#pw").val() == "") {
 			$("#pw").focus();
 		} else if($("#pwCheck").val() == "") {
@@ -114,7 +147,36 @@ $(document).ready(function() {
 			$("#pw").val("");
 			$("#pwCheck").val("");
 			$("#pw").focus();
-		} else if($("#name").val() == "") {
+		} else {
+			var params= $("#pwForm").serialize();
+			
+			$.ajax({
+				url: "pwsets", // 접속 주소
+				type: "post", // 전송 방식: get, post
+				dataType: "json", // 받아올 데이터 형태
+				data: params, // 보낼 데이터(문자열 형태)
+				success: function(res) { // 성공 시 다음 함수 실행
+				    if(res.msg == "success") {
+						alert("비밀번호 수정이 완료되었습니다.");
+						$("#pwForm").attr("action", "set");
+						$("#pwForm").submit();
+					} else if(res.msg == "failed") {
+						alert("작성에 실패하였습니다.");
+					} else {
+						alert("작성 중 문제가 발생하였습니다.")
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+		}
+		
+	});
+	
+	$("#btnSave").on("click", function(){
+	    
+		if($("#name").val() == "") {
 			$("#name").focus();
 		} else if($("#phone").val() == "") {
 			$("#phone").focus();
@@ -181,6 +243,10 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<form action="#" id="pwForm" method="post">
+	<input type="hidden" id="sendPw" name="userPw" value="">
+	<input type="hidden" name="userNo" value="${sUserNo}">
+</form>
 <form action="#" id="setForm" method="post">
 	<input type="hidden" name="userNo" value="${sUserNo}">
 	
@@ -206,12 +272,23 @@ $(document).ready(function() {
 			<div class="title">개인정보 관리</div>
 			<table cellspacing="0" class="table">
 				<tr>
+					<th>현재 비밀번호</th>
+					<td>
+						<input id="nowPw" type="password" size="10" maxlength="200"/>
+						<input id="btnEditPw" type="button" value="수정"/>
+					</td>
+				</tr>
+				<tr>
 					<th>새 비밀번호</th>
-					<td><input id="pw" type="password" name="userPw" onchange="check_pw()" size="10" maxlength="200"/></td>
+					<td><input id="pw" type="password" onchange="check_pw()" size="10" maxlength="200"/></td>
 				</tr>
 				<tr>
 					<th>새비밀번호 확인</th>
-					<td><input id="pwCheck" type="password" onchange="check_pw()" size="10" maxlength="200"/><br/><span id="check2"></span></td>
+					<td><input id="pwCheck" type="password" onchange="check_pw()" size="10" maxlength="200"/>
+						<input id="pwSend" type="button" value="수정하기">
+						<br/>
+						<span id="check2"></span>
+					</td>
 				</tr>
 				<tr>
 					<th>이름</th>

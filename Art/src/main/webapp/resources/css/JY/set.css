@@ -22,12 +22,16 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /*----------------------------------------------------------테이블 */
+table tr:nth-child(2), table tr:nth-child(3) {
+	display: none;
+}
+
 
 tr {
 	height: 50px;
 }
 
-#pw, #pwCheck, #name {
+#pw, #name {
 	width: 96%;
 	height: 50px;
 }
@@ -53,7 +57,7 @@ tr {
 	height: 50px;
 }
 
-#email3, #phone4 {
+#email3, #pwCheck, #nowPw, #phone4 {
 	width: 400px;
 	height: 50px;
 	padding: 1px;
@@ -64,7 +68,7 @@ tr {
 	height: 50px;
 }
 
-#nicknameCheck, #emailCheck {
+#pwSend, #btnEditPw, #emailCheck {
 	width: 75px;
 	height: 50px;
 }

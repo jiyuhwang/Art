@@ -28,4 +28,6 @@ public interface IMemberDao {
 
 	public HashMap<String, String> getAdmin(HashMap<String, String> params) throws Throwable;
 
+	public int editPw(HashMap<String, String> params) throws Throwable;
+
 }
