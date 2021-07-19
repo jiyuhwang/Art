@@ -107,6 +107,10 @@ $(document).ready(function() {
 		location.href = "withdrawal";
 	});
 	
+	$(".report").on("click", function() {
+		location.href = "myreport";
+	});
+	
 	$("table tr:nth-child(2)").hide();
 	$("table tr:nth-child(3)").hide();
 	/* $("#btnEditPw").on("click", function() {
@@ -141,12 +145,20 @@ $(document).ready(function() {
 		
 		if($("#pw").val() == "") {
 			$("#pw").focus();
+			return false;
 		} else if($("#pwCheck").val() == "") {
 			$("#pwCheck").focus();
+		} else if($("#pw").val() == $('#nowPw').val()) {
+			alert("기존 비밀번호와 다르게 설정해주세요.");
+			$("#pw").val("");
+			$("#pwCheck").val("");
+			$("#pw").focus();
+			return false;
 		} else if($("#pw").val() != $("#pwCheck").val()) {
 			$("#pw").val("");
 			$("#pwCheck").val("");
 			$("#pw").focus();
+			return false;
 		} else {
 			var params= $("#pwForm").serialize();
 			
@@ -178,21 +190,29 @@ $(document).ready(function() {
 	    
 		if($("#name").val() == "") {
 			$("#name").focus();
+			return false;
 		} else if($("#phone").val() == "") {
+			return false;
 			$("#phone").focus();
 		} else if($("#year").val() == "") {
 			$("#year").focus();
+			return false;
 		} else if($("select[name=birthMonth]").val() == '월') {
 			$(".month").focus();
+			return false;
 		} else if($('#day').val() == "") {
 			$("#day").focus();
+			return false;
 		} else if($("#email").val() == "") {
 			$("#email").focus();
-		} else if($("#email").val() != "${data.MAIL}" && $("#email3").val() != code) {
-			alert("이메일을 인증해주세요.")
-		} else if($("#email3").val() != code) {
+			return false;
+		} else if($("#email3").val() != "") {
+			alert("이메일 인증번호를 입력해주세요.")
+			return false;
+		}  else if($("#email3").val() != code) {
 			alert("이메일 인증번호가 틀립니다.")
-		}  else {
+			return false;
+		} else {
 			
 			var params= $("#setForm").serialize();
 		
@@ -264,6 +284,7 @@ $(document).ready(function() {
 	<div class="wrap">
 		<div class="btn_menu">
 			<div class="set">설정</div>
+			<div class="report">나의 신고목록</div>
 			<div class="profile_manage">프로필관리</div>
 			<div class="privacy">개인정보관리</div>
 			<div class="stop">탈퇴하기</div>

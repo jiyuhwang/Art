@@ -1048,4 +1048,5 @@ public class MyGallaryController {
 		
         return mapper.writeValueAsString(modelMap);
 	}
+	
 }

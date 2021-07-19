@@ -209,7 +209,7 @@ a {
 			<br />
 			<div class="side_bar_menu2"><a href="gallary">작품 보러가기</a></div>
 			<br />
-			<div class="side_bar_menu3"><a href="profile">개인정보 수정</a></div>
+			<div class="side_bar_menu3"><a href="profile">마이페이지</a></div>
 			<br />
 			<div class="side_bar_menu4"><a href="gongji">공지사항</a></div>
 		</div>

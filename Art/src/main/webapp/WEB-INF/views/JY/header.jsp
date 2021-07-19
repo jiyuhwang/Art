@@ -241,7 +241,7 @@ $(document).ready(function() {
 				</c:when>
 				<c:otherwise>
 					<div class="side_bar_menu3">
-						<a href="profile">개인정보 수정</a>
+						<a href="profile">마이페이지</a>
 					</div>
 				</c:otherwise>
 			</c:choose>

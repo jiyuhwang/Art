@@ -22,60 +22,17 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /*----------------------------------------------------------테이블 */
-table tr:nth-child(2), table tr:nth-child(3) {
-	display: none;
-}
 
+.cancel, .cancel2 {
+	width: 80px;
+	height: 45px;
+	border-radius: 10px;
+}
 
 tr {
 	height: 50px;
-}
-
-#pw, #name {
-	width: 96%;
-	height: 50px;
-}
-
-#year, #day {
-	width: 160px;
-	height: 50px;
-}
-
-.month {
-	width: 140px;
-	height: 55px;
-}
-
-.sex {
-	width: 97%;
-	height: 30px;
-	padding-top: 10px;
-}
-
-#email {
-	width: 370px;
-	height: 50px;
-}
-
-#email3, #pwCheck, #nowPw, #phone4 {
-	width: 400px;
-	height: 50px;
-	padding: 1px;
-}
-
-#phone {
-	width: 96%;
-	height: 50px;
-}
-
-#pwSend, #btnEditPw, #emailCheck {
-	width: 75px;
-	height: 50px;
-}
-
-#emailSend {
-	width: 100px;
-	height: 50px;
+	text-align: center;
+	cursor: pointer;
 }
 
 .agree {
@@ -89,6 +46,8 @@ tr {
 	width: 1330px;
 	height: 100%;
 	margin: 110px auto;
+    margin-bottom: 100px;
+
 }
 
 .btn_menu {
@@ -106,7 +65,7 @@ tr {
 }
 
 .contents {
-	width: 700px;
+	width: 930px;
 	height: 800px;
 	display: inline-block;
 	vertical-align: top;
@@ -119,7 +78,6 @@ tr {
 	font-size: 25pt;
 	font-weight: bold;
 	text-align: center;
-	margin-bottom: 30px;
 }
 
 .profile_manage, .privacy, .stop, .report {
@@ -135,7 +93,7 @@ tr {
 	margin-bottom: 5px;
 }
 
-.privacy {
+.report {
 	background-color: black;
 	color: white;
 }
@@ -167,39 +125,70 @@ table {
 
 td, th {
 	border-bottom: 1px solid #d9d9d9;
-	padding: 10px;
+	text-align: center;
 }
 
 th {
-	width: 120px;
 	background-color: #e6e6e6;
 }
 
-td {
-	width: 500px;
-}
 
-.save_cancel {
-	width: 200px;
-	height: 50px;
-	margin: 0 auto;
-}
-
-#btnSave, #btnCancel {
-	padding: 15px;
-	border: 0px;
-	border-radius: 5px;
-	cursor: pointer;
-	margin-top: 50px;
-	font-size: 10pt;
+.report_wrap {
+	width: 980px;
+	height: 600px;
 	display: inline-block;
-	background-color: #e6e6e6;
-	color: black;
+	vertical-align: top;
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 100px;
+	
 }
 
-#btnSave {
-	margin-right: 15px;
-	background-color: #ffad33;
-	color: white;
+.report_wrap2 {
+	width: 100%;
+	position: absolute;
 }
 
+#reportMenu1, .tabs input:nth-of-type(1) ~ div:nth-of-type(1), #reportMenu2, .tabs input:nth-of-type(2) ~ div:nth-of-type(2) {
+    display:none;
+}
+.tabs input:nth-of-type(1):checked ~ div:nth-of-type(1), .tabs input:nth-of-type(2):checked ~ div:nth-of-type(2) {
+    display: inline-block;
+}
+
+.tabs > label {
+    display:inline-block;
+    font-size: 12pt;
+    padding:5px;
+    text-align:center;
+    width:130px;
+    line-height:1.8em;
+    font-weight:700;
+    border-radius:3px 3px 0 0;
+    background: white;
+    color: black;
+    border:1px solid #ccc;
+    border-width:1px 1px 0;
+}
+.tabs > label:hover {
+    cursor:pointer;
+}
+
+.tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), .tabs > label[for=gallaryMenu1]:hover {
+    background-color: #ffad33;
+    color:#fff;
+}
+.tabs input:nth-of-type(2):checked ~ label:nth-of-type(2), .tabs > label[for=gallaryMenu2]:hover {
+    background-color: #ffad33;
+    color:#fff;
+}
+.tabs input:nth-of-type(3):checked ~ label:nth-of-type(3), .tabs > label[for=gallaryMenu3]:hover {
+    background-color: #ffad33;
+    color:#fff;
+}
+.tabs .report_menu1_contents, .tabs .report_menu2_contents {
+    padding: 2px;
+    border: 1px solid #ddd;
+    width: 930px;
+    height: 600px;
+}

@@ -23,6 +23,10 @@ $(document).ready(function() {
 		location.href = "withdrawal";
 	});
 	
+	$(".report").on("click", function() {
+		location.href = "myreport";
+	});
+	
 	$("#btnProfileDelete").on("click", function() {
 		$('#profileImg').val("");
 		$("#profileEditImg").attr("src", "resources/images/JY/who.png");
@@ -151,6 +155,7 @@ $(document).ready(function() {
 	<div class="wrap">
 		<div class="btn_menu">
 			<div class="set">설정</div>
+			<div class="report">나의 신고목록</div>
 			<div class="profile_manage">프로필관리</div>
 			<div class="privacy">개인정보관리</div>
 			<div class="stop">탈퇴하기</div>
