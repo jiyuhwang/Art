@@ -27,6 +27,8 @@ public interface IMemberService {
 	public int updatePw(HashMap<String, String> params) throws Throwable;
 
 	public HashMap<String, String> getAdmin(HashMap<String, String> params) throws Throwable;
+
+	public int editPw(HashMap<String, String> params) throws Throwable;
 	
 
 

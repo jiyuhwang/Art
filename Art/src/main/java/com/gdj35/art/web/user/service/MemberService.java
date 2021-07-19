@@ -72,4 +72,9 @@ public class MemberService implements IMemberService{
 		return iMemberDao.getAdmin(params);
 	}
 
+	@Override
+	public int editPw(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.editPw(params);
+	}
+
 }

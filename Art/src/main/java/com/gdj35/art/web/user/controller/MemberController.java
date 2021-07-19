@@ -443,9 +443,44 @@ public class MemberController {
 		session.setAttribute("sUserMail", params.get("userMail"));
 		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
 		
-
 		try {
 			int cnt = iMemberService.updateSet(params);
+		
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	// 비밀번호 수정 Ajax
+	@RequestMapping(value = "/pwsets", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String pwsets(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		
+		session.setAttribute("sUserPw", params.get("userPw"));
+		session.setAttribute("sUserName", params.get("userName"));
+		session.setAttribute("sUserSex", params.get("gender"));
+		session.setAttribute("sUserPhone", params.get("userPhone"));
+		session.setAttribute("sUserMail", params.get("userMail"));
+		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
+		
+		try {
+			int cnt = iMemberService.editPw(params);
+			
 			if (cnt > 0) {
 				modelMap.put("msg", "success");
 			} else {
@@ -458,14 +493,6 @@ public class MemberController {
 		}
 
 		return mapper.writeValueAsString(modelMap);
-	}
-
-	// 공지사항 페이지
-	@RequestMapping(value = "/gongji")
-	public ModelAndView gongji(ModelAndView mav) {
-
-		mav.setViewName("/HD/gongji");
-		return mav;
 	}
 
 	// 아이디 찾기 페이지

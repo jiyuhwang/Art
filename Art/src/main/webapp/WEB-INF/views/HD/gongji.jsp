@@ -7,8 +7,9 @@
 <title>공지사항</title>
 <link rel="stylesheet" type="text/css" href="resources/css/HD/gongji.css"/>
 <script type="text/javascript"
-	src="src/main/webapp/resources/script/jquery/jquery-1.12.4.min.js"></script>
+	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+	loadList();
 $(document).ready(function() {
 	$('#btnMenu').click(function() {
 		if ($('.side_bar').css('display') == 'none') {
@@ -35,11 +36,72 @@ $(document).ready(function() {
 			}
 		}
 	}
+	
+	//-------------------------------------------------- 게시판 출력 아작스
+	function loadList() {
+		$("#actionForm").attr("action","gongji_page")
+		var params = $("#actionFrom").serialize();
+		
+		$.ajax({
+			url : "gongji_page",
+			type : "post",
+			dataType : "json",
+			data : params,
+			success: function (res) {
+				console.log(res.list);
+					drawList(res.list, res.cnt);
+			},
+			error : function (request, status, error) {
+				console.log(error);
+			}
+		});
+	}
+	
+	
+	
+	
+	//-------------------------------------------------- 게시판 리스트 출력
+	
+	function drawList(list,cnt) {
+		var html ='';
+		" + + "
+		for(var d of list){
+			html+= "	<div class=\"main_ctt2\">";
+			html+= "		<div class=\"main_ctt2_cover\">";
+			html+= "			<div class=\"second\">";
+			if(d.FILE_PATH =="" && d.FILE_PATH == null ){
+				html+= "				<img src=\"resources/images/JY/art2.png\" alt=\"content\">";
+			}else{
+				console.log("여기 실행은 되니? 엘스 창이야");
+				html+= "				<img src=\"resources/upload/" + d.FILE_PATH + "\" alt=\"content\">";
+			}
+			
+			html+= "			</div>";
+			html+= "			<div class=\"first\">";
+			html+= "				<h5> " + d.TITLE + "</h5>";
+			html+= "				<div class=\"sub-ctt\">";
+			html+= "					<span>" + d.CONTENTS + "</span>";
+			html+= "				</div>";
+			html+= "				<span class=\"sub-ctt-bottom\">by Art </span>";
+			html+= "			</div>";
+			html+= "		</div>";
+			html+= "	</div>";
+		}
+		
+		$(".main_ctt").append(html);
+		
+		html = cnt + "개의 글";
+		
+		$(".left").html(html);
+	}
 
 
 </script>
 </head>
 <body>
+	<form action="#" id="actionFrom" method="post">
+		<input type="hidden" id="noticeNo" name="noticeNo">
+	</form>
 	<div class="hdr">
 	<div class="inner_hdr">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
@@ -87,119 +149,7 @@ $(document).ready(function() {
 				</ul>
 			</div>
 		</div>
-		<div class="main_ctt2">
-			<div class="main_ctt2_cover">
-				<div class="second">
-					<img src="resources/images/JY/짱구3.jpg" alt="content">
-				</div>
-				<div class="first">
-					<h5> 제목입니다.</h5>
-					<div class="sub-ctt">
-						<span>this area for text but it's not working well cause i want to make this perfect but my stet is so low and also it's not beautifuldfdgdgdfsdfafas dfgdfgdfgdsdfdf</span>
-					</div>
-					<span class="sub-ctt-bottom">답글 3  좋아요 3 by Art </span>
-				</div>
-			</div>
-
-		</div>
 		
-		<div class="main_ctt2">
-			<div class="main_ctt2_cover">
-				<div class="second">
-					<img src="resources/images/JY/art2.png" alt="content">
-				</div>
-				<div class="first">
-					<h5> 제목입니다.</h5>
-					<div class="sub-ctt">
-						<span>this area for text but it's not working well cause i want to make this perfect but my stet is so low and also it's not beautifuldfdgdgdfsdfafas dfgdfgdfgdsdfdf</span>
-					</div>
-					<span class="sub-ctt-bottom">답글 3  좋아요 3 by Art </span>
-				
-
-				</div>
-			</div>
-
-		</div>
-		<div class="main_ctt2">
-			<div class="main_ctt2_cover">
-				<div class="second">
-					<img src="resources/images/JY/art2.png" alt="content">
-				</div>
-				<div class="first">
-					<h5> 제목입니다.</h5>
-					<div class="sub-ctt">
-						<span>this area for text but it's not working well cause i want to make this perfect but my stet is so low and also it's not beautifuldfdgdgdfsdfafas dfgdfgdfgdsdfdf</span>
-					</div>
-					<span class="sub-ctt-bottom">답글 3  좋아요 3 by Art </span>
-				
-
-				</div>
-			</div>
-		</div>
-		
-		<div class="main_ctt2">
-			<div class="main_ctt2_cover">
-				<div class="second">
-					<img src="resources/images/JY/art2.png" alt="content">
-				</div>
-				<div class="first">
-					<h5> 제목입니다.</h5>
-					<div class="sub-ctt">
-						<span>this area for text but it's not working well cause i want to make this perfect but my stet is so low and also it's not beautifuldfdgdgdfsdfafas dfgdfgdfgdsdfdf</span>
-					</div>
-					<span class="sub-ctt-bottom">답글 3  좋아요 3 by Art </span>
-				
-
-				</div>
-			</div>
-		</div>
-		
-		<div class="main_ctt2">
-			<div class="main_ctt2_cover">
-				<div class="second">
-					<img src="resources/images/JY/art2.png" alt="content">
-				</div>
-				<div class="first">
-					<h5> 제목입니다.</h5>
-					<div class="sub-ctt">
-						<span>this area for text but it's not working well cause i want to make this perfect but my stet is so low and also it's not beautifuldfdgdgdfsdfafas dfgdfgdfgdsdfdf</span>
-					</div>
-					<span class="sub-ctt-bottom">답글 3  좋아요 3 by Art </span>
-				
-
-				</div>
-			</div>
-		</div>
-		
-		<div class="main_ctt2">
-			<div class="main_ctt2_cover">
-				<div class="second">
-					<img src="resources/images/JY/art2.png" alt="content">
-				</div>
-				<div class="first">
-					<h5> 제목입니다.</h5>
-					<div class="sub-ctt">
-						<span>this area for text but it's not working well cause i want to make this perfect but my stet is so low and also it's not beautifuldfdgdgdfsdfafas dfgdfgdfgdsdfdf</span>
-					</div>
-					<span class="sub-ctt-bottom">답글 3  좋아요 3 by Art </span>
-				</div>
-			</div>
-		</div>
-		
-		<div class="main_ctt2">
-			<div class="main_ctt2_cover">
-				<div class="second">
-					<img src="resources/images/JY/art2.png" alt="content">
-				</div>
-				<div class="first">
-					<h5> 제목입니다.</h5>
-					<div class="sub-ctt">
-						<span>this area for text but it's not working well cause i want to make this perfect but my stet is so low and also it's not beautifuldfdgdgdfsdfafas dfgdfgdfgdsdfdf</span>
-					</div>
-					<span class="sub-ctt-bottom">답글 3  좋아요 3 by Art </span>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
 <div class="ftr">

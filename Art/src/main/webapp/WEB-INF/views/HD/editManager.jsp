@@ -55,6 +55,8 @@ $(document).ready(function() {
 				if(res.result =="SUCCESS"){
 					if(res.fileName.length >0){
 						$("#fileName").val(res.fileName[0]);
+						$("#changedFileName").val(res.fileName[0]);
+						
 					console.log($("#fileName").val());
 					}
 					$("#cttsIn").val(CKEDITOR.instances.cttsIn.getData());
@@ -99,7 +101,6 @@ $(document).ready(function() {
 	
 	$("#att").on("change", function () {
 		$("#fileName").html($(this).val().substring($(this).val().lastIndexOf("\\")+1));
-		$("#changedFileName").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
 	});
 	
 	

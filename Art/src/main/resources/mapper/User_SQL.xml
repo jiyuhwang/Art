@@ -49,9 +49,15 @@
 		WHERE USER_NO = #{userNo}
 	</update>
 	
+	<!--비밀번호 수정 -->
+	<update id="editPw" parameterType="hashmap">
+		UPDATE USERS SET PW = #{userPw}
+		WHERE USER_NO = #{userNo}
+	</update>
+	
 	<!-- 개인정보 수정 -->
 	<update id="updateSet" parameterType="hashmap">
-		UPDATE USERS SET PW = #{userPw}, NAME = #{userName}, BIRTHDAY = #{birthYear}||'-'||#{birthMonth}||'-'||#{birthDay}, PHONE_NO = #{userPhone}, SEX = #{gender}, MAIL = #{userMail}, EVENT_AGREEMENT = #{userEventAgree}
+		UPDATE USERS SET NAME = #{userName}, BIRTHDAY = #{birthYear}||'-'||#{birthMonth}||'-'||#{birthDay}, PHONE_NO = #{userPhone}, SEX = #{gender}, MAIL = #{userMail}, EVENT_AGREEMENT = #{userEventAgree}
 		WHERE USER_NO = #{userNo}
 	</update>
 	
