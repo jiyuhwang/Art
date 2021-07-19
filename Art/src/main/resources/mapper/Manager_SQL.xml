@@ -379,7 +379,7 @@
 	
 	<select id="getPostList" parameterType="hashmap" resultType="hashmap">
 		SELECT *
-		FROM (SELECT P.POST_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME, P.DEL,
+		FROM (SELECT P.POST_NO, P.CATEGORY_NO, PC.CATEGORY_NAME, P.TITLE, U.USER_NICKNAME AS NICKNAME, P.DEL,
 				U.NAME, U.USER_ID, TO_CHAR(P.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE,
 				ROW_NUMBER() OVER(ORDER BY P.POST_NO DESC) AS RNUM, P.VIEWS, DECODE(L.LIKE_CNT, NULL, 0, L.LIKE_CNT) AS LIKE_CNT, P.EXPLAIN
 		FROM ((POST P LEFT OUTER JOIN USERS U
@@ -392,6 +392,19 @@
 		               									 GROUP BY P.POST_NO) L
 		         		  ON P.POST_NO = L.POST_NO
 		WHERE 1 = 1
+		<if test="menuTabFlag != null and menuTabFlag != ''">
+			<choose>
+					<when test="menuTabFlag == 1">
+						AND P.CATEGORY_NO = 1
+					</when>
+					<when test="menuTabFlag == 2">
+						AND P.CATEGORY_NO = 2
+					</when>
+					<when test="menuTabFlag == 3">
+						AND P.CATEGORY_NO = 3
+					</when>
+			</choose>
+		</if>
 		<if test="srhYearFlag != null and srhYearFlag != ''">
 			<choose>
 					<when test="srhYearFlag == 0">
