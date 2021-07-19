@@ -1,0 +1,281 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>개인정보 관리</title>
+<link rel="stylesheet" href="resources/css/JY/myreport.css">
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	reportList();
+	
+	
+	$(".profile_manage").on("click", function() {
+		location.href = "profile";
+	});
+	
+	$(".privacy").on("click", function() {
+		location.href = "set";
+	});
+	
+	$(".stop").on("click", function() {
+		location.href = "withdrawal";
+	});
+	
+	$(".report").on("click", function() {
+		location.href = "myreport";
+	});
+	
+	$(".post_wrap, .comment_wrap").on("dblclick", "td:not(:last-child)", function() {
+		$("#pNo").val($(this).parent().attr("pno"));
+		$("#postNo").val($(this).parent().attr("pno"));
+		console.log($(this).parent().attr("del"));
+		if($(this).parent().attr("del") == "1") {
+			$("#goForm").attr("action", "detail");
+			$("#goForm").submit();
+		} else {
+			alert("삭제된 작품입니다.");
+		}
+	});
+	
+
+});
+
+function reportList(){
+	var params = $("#goForm").serialize();
+
+	$.ajax({
+		url: "myReportList",
+		type: "post",
+		dataType: "json",
+		data: params,
+		success: function(result){
+			
+			drawReportPostList(result.list);
+			drawReportCommentList(result.list2);
+			
+		}, error: function(request, status, error){
+			console.log(error);
+		}
+	});
+}
+
+function drawReportPostList(list){
+	var html = "";
+	
+	
+	if(list.length == 0) {
+		html += "<tr>";
+		html += "<td colspan=\"6\">신고 내역이 없습니다.</td>";
+		html += "</tr>";
+	} else {
+		for(var d of list){
+			html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
+			html +="<td>" + d.TYPE_NAME + "</td>";
+			html +="<td>" + d.USER_NICKNAME + "</td>";
+			html +="<td>" + d.CONTENTS + "</td>";
+			html +="<td>" + d.REGISTER_DATE + "</td>";
+			html +="<td>" + d.REPORT_STATUS + "</td>";
+			if(d.DEL == "1") {
+				html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel\" value=\"취소하기\"></td>";
+			} else {
+			}
+			html +="</tr>";
+		}	
+	}
+	
+	$(".post_wrap tbody").html(html);
+	
+	$(".cancel").on("click", function() {
+		$("#reportNo").val($(this).parent().parent().attr("name"));
+		var result = confirm('정말 취소하시겠습니까?');
+		
+		if(result) {
+		var params = $("#goForm").serialize();
+
+		$.ajax({
+			url: "deleteMyReport",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res){
+				if(res.msg == "success") {
+					alert("정상적으로 신고 접수가 취소되었습니다.");
+					reportList();
+				} else if(res.msg == "failed") {
+					alert("삭제 중 오류가 발생하였습니다.");
+				} else {
+					alert("삭제 중 문제가 발생하였습니다.")
+				}
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
+	});
+	
+
+}
+
+function drawReportCommentList(list2){
+	var html = "";
+	
+	if(list2.length == 0) {
+		html += "<tr>";
+		html += "<td colspan=\"6\">신고 내역이 없습니다.</td>";
+		html += "</tr>";
+	} else {
+		for(var d of list2){
+			html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
+			html +="<td>" + d.TYPE_NAME + "</td>";
+			html +="<td>" + d.USER_NICKNAME + "</td>";
+			html +="<td>" + d.CONTENTS + "</td>";
+			html +="<td>" + d.REGISTER_DATE + "</td>";
+			html +="<td>" + d.REPORT_STATUS + "</td>";
+			if(d.DEL == "1") {
+				html += "<td><input type=\"button\" id=\"cancel2\" class=\"cancel2\" value=\"취소하기\"></td>";
+			} else {
+			}
+			html +="</tr>";
+		}	
+	}
+	
+	$(".comment_wrap tbody").html(html);
+	
+	$(".cancel2").on("click", function() {
+		$("#reportNo").val($(this).parent().parent().attr("name"));
+		console.log($("#reportNo").val());
+		var result = confirm('정말 취소하시겠습니까?');
+		
+		if(result) {
+		var params = $("#goForm").serialize();
+
+		$.ajax({
+			url: "deleteMyReport",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res){
+				if(res.msg == "success") {
+					alert("정상적으로 신고 접수가 취소되었습니다.");
+					reportList();
+				} else if(res.msg == "failed") {
+					alert("삭제 중 오류가 발생하였습니다.");
+				} else {
+					alert("삭제 중 문제가 발생하였습니다.")
+				}
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
+	}
+	});
+	
+}
+</script>
+</head>
+<body>
+<form action="#" id="goForm" method="post">
+	<input type="hidden" name="userNo" value="${sUserNo}">
+	<input type="hidden" id="reportNo" name="reportNo" value="">
+	<input type="hidden" id="pNo" name="pNo" value="">
+	<input type="hidden" id="postNo" name="postNo" value="">
+</form>
+	
+	<c:choose>
+		<c:when test="${empty sUserNo}">
+			<c:import url="header2.jsp"></c:import>
+		</c:when>
+		<c:otherwise>
+			<c:import url="header.jsp">
+				<c:param name="url" value="profile"></c:param>
+			</c:import>
+		</c:otherwise>
+	</c:choose>
+	
+	<div class="wrap">
+		<div class="btn_menu">
+			<div class="set">설정</div>
+			<div class="report">나의 신고목록</div>
+			<div class="profile_manage">프로필관리</div>
+			<div class="privacy">개인정보관리</div>
+			<div class="stop">탈퇴하기</div>
+		</div>
+		<div class="contents">
+			<div class="title">신고목록</div>
+			<div class="report_wrap">
+			<div class="report_wrap2">
+				<div class="tabs">
+					<input id="reportMenu1" type="radio" value="0" name="tab" checked="checked" />
+					<input id="reportMenu2" type="radio" value="1" name="tab" />
+					<label for="reportMenu1">작품 신고 내역</label>
+					<label for="reportMenu2">댓글 신고 내역</label>
+					
+
+					<div class="report_menu1_contents">
+						<div class="post_wrap">
+						<table cellspacing="0" class="table">
+							<colgroup>
+								<col width="80px"/>
+								<col width="160px"/>
+								<col width="400px"/>
+								<col width="100px"/>
+								<col width="100px"/>
+								<col width="100px"/>
+							</colgroup>
+							<thead>
+							<tr>
+								<th>신고타입</th>
+								<th>작성자(닉네임)</th>
+								<th>신고내용</th>
+								<th>신고일</th>
+								<th>처리상태</th>
+								<th></th>
+							</tr>
+							</thead>
+							<tbody></tbody>	
+						</table>				
+						</div> 
+					</div>
+					
+					<div class="report_menu2_contents">
+						<div class="comment_wrap">
+						<table cellspacing="0" class="table">
+							<colgroup>
+								<col width="80px"/>
+								<col width="160px"/>
+								<col width="400px"/>
+								<col width="100px"/>
+								<col width="100px"/>
+								<col width="100px"/>
+							</colgroup>
+							<thead>
+							<tr>
+								<th>신고타입</th>
+								<th>작성자(닉네임)</th>
+								<th>신고내용</th>
+								<th>신고일</th>
+								<th>처리상태</th>
+								<th>취소하기</th>
+							</tr>
+							</thead>
+							<tbody></tbody>	
+						</table>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	<c:import url="footer.jsp"></c:import>
+</body>
+</html>

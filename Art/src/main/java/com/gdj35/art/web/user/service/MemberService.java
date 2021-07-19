@@ -1,6 +1,7 @@
 package com.gdj35.art.web.user.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,6 +76,22 @@ public class MemberService implements IMemberService{
 	@Override
 	public int editPw(HashMap<String, String> params) throws Throwable {
 		return iMemberDao.editPw(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> reportPost(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.reportPost(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> reportComment(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.reportComment(params);
+	}
+
+	@Override
+	public int deleteMyReport(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.deleteMyReport(params);
+
 	}
 
 }

@@ -97,5 +97,46 @@
 		UPDATE USERS SET PW = #{pw}
 		WHERE USER_ID = #{userId}
 	</update>
+	
+	<!-- 나의 작품 신고내역 -->
+	<select id="reportPost" parameterType="hashmap" resultType="hashmap">
+		SELECT R1.REPORT_NO, R3.TYPE_NAME, R1.POST_NO, U.USER_NICKNAME, R1.POST_NO, R1.USER_NO, R1.CONTENTS, R1.REPORT_STATUS, TO_CHAR(R1.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE, P.DEL
+		FROM REPORT R1 INNER JOIN REPORT_REPORT_TYPE R2
+		            ON R1.REPORT_NO = R2.REPORT_NO
+		                INNER JOIN REPORT_TYPE R3
+		            ON R2.TYPE_NO = R3.TYPE_NO
+		                INNER JOIN USERS U
+		            ON R1.USER_NO = U.USER_NO
+		                INNER JOIN POST P
+		            ON R1.POST_NO = P.POST_NO
+		WHERE R1.USER_NO = #{userNo}
+		AND R1.POST_NO IS NOT NULL
+		AND R1.DEL = 1
+	</select>
+	
+	
+	<!-- 나의 댓글 신고내역 -->
+	<select id="reportComment" parameterType="hashmap" resultType="hashmap">
+		SELECT R1.REPORT_NO, C.POST_NO, R3.TYPE_NAME, U.USER_NICKNAME, R1.COMMENT_NO, R1.USER_NO, R1.CONTENTS, R1.REPORT_STATUS, TO_CHAR(R1.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE, P.DEL
+		FROM REPORT R1 INNER JOIN REPORT_REPORT_TYPE R2
+		            ON R1.REPORT_NO = R2.REPORT_NO
+		                INNER JOIN REPORT_TYPE R3
+		            ON R2.TYPE_NO = R3.TYPE_NO
+		                INNER JOIN USERS U
+		            ON R1.USER_NO = U.USER_NO
+		                INNER JOIN COMMENTS C
+		            ON R1.COMMENT_NO = C.COMMENT_NO
+		                INNER JOIN POST P
+		            ON C.POST_NO = P.POST_NO
+		WHERE R1.USER_NO = #{userNo}
+		AND R1.COMMENT_NO IS NOT NULL
+		AND R1.DEL = 1
+	</select>
+	
+	<!-- 나의 신고 내역 삭제 -->
+	<update id="deleteMyReport" parameterType="hashmap">
+		UPDATE REPORT SET DEL = 0
+		WHERE REPORT_NO = #{reportNo}
+	</update>
 
 </mapper>
