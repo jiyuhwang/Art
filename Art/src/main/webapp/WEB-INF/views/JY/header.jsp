@@ -140,8 +140,6 @@ body {
 	font-weight: bold;
 }
 </style>
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -236,7 +234,7 @@ $(document).ready(function() {
 			<c:choose>
 				<c:when test="${param.url == 'profile'}">
 					<div class="side_bar_menu3x">
-						<a href="profile">개인정보 수정</a>
+						<a href="profile">마이페이지</a>
 					</div>
 				</c:when>
 				<c:otherwise>

@@ -44,11 +44,15 @@ function checkPassword(password){
 var code = "";                //이메일전송 인증번호 저장위한 코드
 
 $(document).ready(function() {
-	
 
 	
 	$("#pw").change(function(){
 	    checkPassword($('#pw').val());
+	});
+	
+	
+	$('#pw, #pwCheck').on("propertychange change keyup paste input", function(){
+		check_pw();
 	});
 	
 	
@@ -206,7 +210,7 @@ $(document).ready(function() {
 		} else if($("#email").val() == "") {
 			$("#email").focus();
 			return false;
-		} else if($("#email3").val() != "") {
+		} else if($("#email3").val() == "") {
 			alert("이메일 인증번호를 입력해주세요.")
 			return false;
 		}  else if($("#email3").val() != code) {
@@ -251,13 +255,14 @@ $(document).ready(function() {
         
         if(document.getElementById('pw').value !='' && document.getElementById('pwCheck').value!=''){
             if(document.getElementById('pw').value==document.getElementById('pwCheck').value){
-                document.getElementById('check2').innerHTML='비밀번호가 일치합니다.'
+                document.getElementById('check2').innerHTML='비밀번호가 일치합니다.';
                 document.getElementById('check2').style.color='green';
-            }
-            else{
+            } else{
                 document.getElementById('check2').innerHTML='비밀번호가 일치하지 않습니다.';
                 document.getElementById('check2').style.color='red';
             }
+        } else {
+        	document.getElementById('check2').innerHTML='';
         }
 	}
 </script>

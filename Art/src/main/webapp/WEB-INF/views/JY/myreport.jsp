@@ -43,6 +43,14 @@ $(document).ready(function() {
 		}
 	});
 	
+	
+	$(".report_menu1_contents").scroll(function(){
+		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+			drawReportPostList();
+		} 
+	});
+
+	
 
 });
 
@@ -58,6 +66,8 @@ function reportList(){
 			
 			drawReportPostList(result.list);
 			drawReportCommentList(result.list2);
+		
+
 			
 		}, error: function(request, status, error){
 			console.log(error);
@@ -80,10 +90,17 @@ function drawReportPostList(list){
 			html +="<td>" + d.USER_NICKNAME + "</td>";
 			html +="<td>" + d.CONTENTS + "</td>";
 			html +="<td>" + d.REGISTER_DATE + "</td>";
-			html +="<td>" + d.REPORT_STATUS + "</td>";
-			if(d.DEL == "1") {
+			if(d.REPORT_STATUS == "0") {
+				html +="<td>대기중</td>";
+			} else if(d.REPORT_STATUS == "1") {
+				html +="<td>철회</td>";
+			} else if(d.REPORT_STATUS == "2") {
+				html +="<td>접수완료</td>";
+			} else if(d.REPORT_STATUS == "3") {
+				html +="<td>처리완료</td>";
+			}
+			if(d.DEL == "1" && d.REPORT_STATUS != "3") {
 				html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel\" value=\"취소하기\"></td>";
-			} else {
 			}
 			html +="</tr>";
 		}	
@@ -119,9 +136,8 @@ function drawReportPostList(list){
 		});
 	}
 	});
-	
-
 }
+
 
 function drawReportCommentList(list2){
 	var html = "";
@@ -137,10 +153,17 @@ function drawReportCommentList(list2){
 			html +="<td>" + d.USER_NICKNAME + "</td>";
 			html +="<td>" + d.CONTENTS + "</td>";
 			html +="<td>" + d.REGISTER_DATE + "</td>";
-			html +="<td>" + d.REPORT_STATUS + "</td>";
-			if(d.DEL == "1") {
+			if(d.REPORT_STATUS == "0") {
+				html +="<td>대기중</td>";
+			} else if(d.REPORT_STATUS == "1") {
+				html +="<td>철회</td>";
+			} else if(d.REPORT_STATUS == "2") {
+				html +="<td>접수완료</td>";
+			} else if(d.REPORT_STATUS == "3") {
+				html +="<td>처리완료</td>";
+			}
+			if(d.DEL == "1" && d.REPORT_STATUS != "3") {
 				html += "<td><input type=\"button\" id=\"cancel2\" class=\"cancel2\" value=\"취소하기\"></td>";
-			} else {
 			}
 			html +="</tr>";
 		}	
@@ -263,7 +286,7 @@ function drawReportCommentList(list2){
 								<th>신고내용</th>
 								<th>신고일</th>
 								<th>처리상태</th>
-								<th>취소하기</th>
+								<th></th>
 							</tr>
 							</thead>
 							<tbody></tbody>	

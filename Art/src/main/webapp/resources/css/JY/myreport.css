@@ -33,6 +33,8 @@ tr {
 	height: 50px;
 	text-align: center;
 	cursor: pointer;
+	border-bottom: 1px solid #d9d9d9;
+	
 }
 
 .agree {
@@ -124,7 +126,6 @@ table {
 }
 
 td, th {
-	border-bottom: 1px solid #d9d9d9;
 	text-align: center;
 }
 

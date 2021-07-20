@@ -346,73 +346,79 @@ function commentList(list) {
 	
 	var html = "";
 	var html2 = "";
-	for(var p of list) {
-	if(p.TOP_COMMENT_NO == null) {
-			if(p.DEL == 1) {
-				html += "<div class=\"comment_form1\">";
-				html += "<div class=\"profile3\">";
-				if(p.PROFILE_IMG_PATH != null) {
-				html += "<img class=\"profile_img3\" src=\"resources/upload/" + p.PROFILE_IMG_PATH + "\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
-				} else {
-				html += "<img class=\"profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
-				}
-				html += "</div>";
-				html += "<div class=\"comment_name1\">" + p.USER_NICKNAME + "</div>";
-				html += "<div class=\"comment1\">" + p.CONTENT + "</div>";
-				html += "<div class=\"comment1_date\">" + p.REGISTER_DATE + "<a class=\"comment_declation\" href=\"#\">신고하기</a></div>";
-				html += "<div class=\"btn_reply_upload_comment_delete_w\" cNo=\"" + p.COMMENT_NO +"\" >";
-				html += "<input type=\"hidden\" class=\"commentUserNo\" value=\"" + p.USER_NO + "\">";
-				html += "<input type=\"button\" class=\"btnReplyUpload\" id=\"btnReplyUpload\" value=\"답글\">";
-				if("${sUserNo}" == p.USER_NO) {
-					html += "<input type=\"button\" class=\"btnCommentDelete\" id=\"btnCommentDelete\" value=\"삭제\">";
-				}
-				html += "</div>";
-				html += "</div>";
-				html += "<div class=\"reply_comment_form1_w1\">";
-				html += "<form action=\"#\" class=\"commentform\" id=\"go" + p.COMMENT_NO + "\" method=\"post\">";
-				html += "<input type=\"hidden\" name=\"topCommentNo\" value=\"" + p.COMMENT_NO + "\">";
-				html += "<input type=\"hidden\" class=\"userNo\" name=\"userNo\" value=\"${sUserNo}\">";
-				html += "<input type=\"hidden\" name=\"postNo\" value=\"" + p.POST_NO + "\">";
-				html += "<span class=\"reply\"></span>";
-				html += "<div class=\"reply_comment_write_w\"><input id=\"replyCommentWrite\" name=\"replyCommentWrite\"type=\"text\" placeholder=\"답글을 남겨보세요.\"></div>";
-				html += "<div class=\"reply_btn_comment_upload_w\"><input type=\"button\" class=\"replyBtnCommentUpload\" id=\"replyBtnCommentUpload\" value=\"답글 작성\"></div>";
-				html += "</form>";
-				html += "</div>";
-			} else {
-				html += "<div class=\"comment_form1\">삭제된 댓글입니다</div>";
-			}
-			
+	if(list.length == 0) {
+		html += "<div class=\"comment_form1\">";
+		html += "등록된 댓글이 없습니다.";
+		html += "</div>"
 	} else {
-			if(p.DEL == 1) {
-				html += "<div class=\"reply_comment_form1_w2\">";
-				html += "<span class=\"reply\"></span>";
-				html += "<div class=\"reply_comment_form1\">";
-				html += "<div class=\"reply_profile3\">";
-				if(p.PROFILE_IMG_PATH != null) {
-					html += "<img class=\"reply_profile_img3\" src=\"resources/upload/" + p.PROFILE_IMG_PATH + "\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+		for(var p of list) {
+		if(p.TOP_COMMENT_NO == null) {
+				if(p.DEL == 1) {
+					html += "<div class=\"comment_form1\">";
+					html += "<div class=\"profile3\">";
+					if(p.PROFILE_IMG_PATH != null) {
+					html += "<img class=\"profile_img3\" src=\"resources/upload/" + p.PROFILE_IMG_PATH + "\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+					} else {
+					html += "<img class=\"profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+					}
+					html += "</div>";
+					html += "<div class=\"comment_name1\">" + p.USER_NICKNAME + "</div>";
+					html += "<div class=\"comment1\">" + p.CONTENT + "</div>";
+					html += "<div class=\"comment1_date\">" + p.REGISTER_DATE + "<a class=\"comment_declation\" href=\"#\">신고하기</a></div>";
+					html += "<div class=\"btn_reply_upload_comment_delete_w\" cNo=\"" + p.COMMENT_NO +"\" >";
+					html += "<input type=\"hidden\" class=\"commentUserNo\" value=\"" + p.USER_NO + "\">";
+					html += "<input type=\"button\" class=\"btnReplyUpload\" id=\"btnReplyUpload\" value=\"답글\">";
+					if("${sUserNo}" == p.USER_NO) {
+						html += "<input type=\"button\" class=\"btnCommentDelete\" id=\"btnCommentDelete\" value=\"삭제\">";
+					}
+					html += "</div>";
+					html += "</div>";
+					html += "<div class=\"reply_comment_form1_w1\">";
+					html += "<form action=\"#\" class=\"commentform\" id=\"go" + p.COMMENT_NO + "\" method=\"post\">";
+					html += "<input type=\"hidden\" name=\"topCommentNo\" value=\"" + p.COMMENT_NO + "\">";
+					html += "<input type=\"hidden\" class=\"userNo\" name=\"userNo\" value=\"${sUserNo}\">";
+					html += "<input type=\"hidden\" name=\"postNo\" value=\"" + p.POST_NO + "\">";
+					html += "<span class=\"reply\"></span>";
+					html += "<div class=\"reply_comment_write_w\"><input id=\"replyCommentWrite\" name=\"replyCommentWrite\"type=\"text\" placeholder=\"답글을 남겨보세요.\"></div>";
+					html += "<div class=\"reply_btn_comment_upload_w\"><input type=\"button\" class=\"replyBtnCommentUpload\" id=\"replyBtnCommentUpload\" value=\"답글 작성\"></div>";
+					html += "</form>";
+					html += "</div>";
 				} else {
-					html += "<img class=\"reply_profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+					html += "<div class=\"comment_form1\">삭제된 댓글입니다</div>";
 				}
-				html += "</div>";
-				html += "<div class=\"reply_comment_name1\">" + p.USER_NICKNAME + "</div>";
-				html += "<div class=\"reply_comment1\">" + p.CONTENT + "</div>";
-				html += "<input type=\"hidden\" class=\"commentUserNo2\" value=\"" + p.USER_NO + "\">";
-				html += "<div class=\"reply_comment1_date\">" + p.REGISTER_DATE + "<a class=\"reply_comment_declation\" href=\"#\">신고하기</a></div>";
-				html += "<div class=\"reply_btn_reply_upload_comment_delete_w\" cNo2 = \"" +  p.COMMENT_NO + "\">";
-				if("${sUserNo}" == p.USER_NO) {
-					html += "<input type=\"button\" class=\"replyBtnCommentDelete\" id=\"replyBtnCommentDelete\" value=\"삭제\">";
+				
+		} else {
+				if(p.DEL == 1) {
+					html += "<div class=\"reply_comment_form1_w2\">";
+					html += "<span class=\"reply\"></span>";
+					html += "<div class=\"reply_comment_form1\">";
+					html += "<div class=\"reply_profile3\">";
+					if(p.PROFILE_IMG_PATH != null) {
+						html += "<img class=\"reply_profile_img3\" src=\"resources/upload/" + p.PROFILE_IMG_PATH + "\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+					} else {
+						html += "<img class=\"reply_profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+					}
+					html += "</div>";
+					html += "<div class=\"reply_comment_name1\">" + p.USER_NICKNAME + "</div>";
+					html += "<div class=\"reply_comment1\">" + p.CONTENT + "</div>";
+					html += "<input type=\"hidden\" class=\"commentUserNo2\" value=\"" + p.USER_NO + "\">";
+					html += "<div class=\"reply_comment1_date\">" + p.REGISTER_DATE + "<a class=\"reply_comment_declation\" href=\"#\">신고하기</a></div>";
+					html += "<div class=\"reply_btn_reply_upload_comment_delete_w\" cNo2 = \"" +  p.COMMENT_NO + "\">";
+					if("${sUserNo}" == p.USER_NO) {
+						html += "<input type=\"button\" class=\"replyBtnCommentDelete\" id=\"replyBtnCommentDelete\" value=\"삭제\">";
+					}
+					html += "</div>";
+					html += "</div>";
+					html += "</div>";
+				} else {
+					html += "<div class=\"reply_comment_form1_w2\">";
+					html += "<span class=\"reply\"></span>";
+					html += "<div class=\"reply_comment_form1\">";
+					html += "삭제된 답글입니다.";
+					html += "</div>";
+					html += "</div>";
+					html += "</div>";
 				}
-				html += "</div>";
-				html += "</div>";
-				html += "</div>";
-			} else {
-				html += "<div class=\"reply_comment_form1_w2\">";
-				html += "<span class=\"reply\"></span>";
-				html += "<div class=\"reply_comment_form1\">";
-				html += "삭제된 답글입니다.";
-				html += "</div>";
-				html += "</div>";
-				html += "</div>";
 			}
 		}
 	}
