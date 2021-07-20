@@ -81,7 +81,7 @@ public class SearchController {
 				modelMap.put("list", list);
 				modelMap.put("pb", pb);
 				
-				if (cnt >= 0) {
+				if (cnt > 0) {
 					modelMap.put("msg", "success");
 				} else {
 					modelMap.put("msg", "failed");

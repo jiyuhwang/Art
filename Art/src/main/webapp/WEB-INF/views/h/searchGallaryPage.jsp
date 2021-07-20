@@ -21,6 +21,9 @@ $(document).ready(function() {
 				alert("검색어가 없습니다.");
 				$("#searchTxt").focus();
 			} else {
+				$("#page").val("1");
+				$("#orderFlag").val("0");
+				
 				reloadList();	
 			}
 		}

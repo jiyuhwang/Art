@@ -229,10 +229,11 @@ a {
 }
 
 .writer_img {
-	background-color: inherit;
-    width: 30%;
-    height: 100%;
-    float: left;
+	float: left;
+    width: 200px;
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .writer_box_txt {
