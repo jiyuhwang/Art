@@ -94,4 +94,14 @@ public class MemberService implements IMemberService{
 
 	}
 
+	@Override
+	public int getMyReportPostCnt(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.getMyReportPostCnt(params);
+	}
+
+	@Override
+	public int getMyReportCommentCnt(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.getMyReportCommentCnt(params);
+	}
+
 }

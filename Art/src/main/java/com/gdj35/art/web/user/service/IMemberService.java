@@ -36,6 +36,10 @@ public interface IMemberService {
 	public List<HashMap<String, String>> reportComment(HashMap<String, String> params) throws Throwable;
 
 	public int deleteMyReport(HashMap<String, String> params) throws Throwable;
+
+	public int getMyReportPostCnt(HashMap<String, String> params) throws Throwable;
+
+	public int getMyReportCommentCnt(HashMap<String, String> params) throws Throwable;
 	
 
 

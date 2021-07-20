@@ -133,6 +133,10 @@ th {
 	background-color: #e6e6e6;
 }
 
+.report_menu1_contents, .report_menu2_contents {
+	height: 600px;
+	overflow-y: scroll;
+}
 
 .report_wrap {
 	width: 980px;

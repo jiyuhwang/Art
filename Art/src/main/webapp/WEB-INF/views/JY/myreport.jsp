@@ -12,7 +12,8 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	reportList();
+	reportPostList();
+	reportCommentList();
 	
 	
 	$(".profile_manage").on("click", function() {
@@ -46,28 +47,54 @@ $(document).ready(function() {
 	
 	$(".report_menu1_contents").scroll(function(){
 		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
-			drawReportPostList();
+			$("#page").val($("#page").val() * 1 + 1);
+			reportPostList();
+		} 
+	});
+	
+	$(".report_menu2_contents").scroll(function(){
+		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+			$("#page").val($("#page").val() * 1 + 1);
+			reportCommentList();
 		} 
 	});
 
 	
-
+	console.log($("#page").val());
 });
 
-function reportList(){
+function reportPostList(){
 	var params = $("#goForm").serialize();
 
 	$.ajax({
-		url: "myReportList",
+		url: "myReportPostList",
 		type: "post",
 		dataType: "json",
 		data: params,
 		success: function(result){
 			
 			drawReportPostList(result.list);
-			drawReportCommentList(result.list2);
 		
 
+			
+		}, error: function(request, status, error){
+			console.log(error);
+		}
+	});
+}
+
+function reportCommentList(){
+	var params = $("#goForm").serialize();
+
+	$.ajax({
+		url: "myReportCommentList",
+		type: "post",
+		dataType: "json",
+		data: params,
+		success: function(result){
+			
+			drawReportCommentList(result.list2);
+		
 			
 		}, error: function(request, status, error){
 			console.log(error);
@@ -79,34 +106,29 @@ function drawReportPostList(list){
 	var html = "";
 	
 	
-	if(list.length == 0) {
-		html += "<tr>";
-		html += "<td colspan=\"6\">신고 내역이 없습니다.</td>";
-		html += "</tr>";
-	} else {
-		for(var d of list){
-			html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
-			html +="<td>" + d.TYPE_NAME + "</td>";
-			html +="<td>" + d.USER_NICKNAME + "</td>";
-			html +="<td>" + d.CONTENTS + "</td>";
-			html +="<td>" + d.REGISTER_DATE + "</td>";
-			if(d.REPORT_STATUS == "0") {
-				html +="<td>대기중</td>";
-			} else if(d.REPORT_STATUS == "1") {
-				html +="<td>철회</td>";
-			} else if(d.REPORT_STATUS == "2") {
-				html +="<td>접수완료</td>";
-			} else if(d.REPORT_STATUS == "3") {
-				html +="<td>처리완료</td>";
-			}
-			if(d.DEL == "1" && d.REPORT_STATUS != "3") {
-				html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel\" value=\"취소하기\"></td>";
-			}
-			html +="</tr>";
-		}	
-	}
+	for(var d of list){
+		html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
+		html +="<td>" + d.TYPE_NAME + "</td>";
+		html +="<td>" + d.USER_NICKNAME + "</td>";
+		html +="<td>" + d.CONTENTS + "</td>";
+		html +="<td>" + d.REGISTER_DATE + "</td>";
+		if(d.REPORT_STATUS == "0") {
+			html +="<td>대기중</td>";
+		} else if(d.REPORT_STATUS == "1") {
+			html +="<td>철회</td>";
+		} else if(d.REPORT_STATUS == "2") {
+			html +="<td>접수완료</td>";
+		} else if(d.REPORT_STATUS == "3") {
+			html +="<td>처리완료</td>";
+		}
+		if(d.DEL == "1" && d.REPORT_STATUS != "3") {
+			html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel\" value=\"취소하기\"></td>";
+		}
+		html +="</tr>";
+	}	
 	
-	$(".post_wrap tbody").html(html);
+	
+	$(".post_wrap tbody").append(html);
 	
 	$(".cancel").on("click", function() {
 		$("#reportNo").val($(this).parent().parent().attr("name"));
@@ -142,34 +164,29 @@ function drawReportPostList(list){
 function drawReportCommentList(list2){
 	var html = "";
 	
-	if(list2.length == 0) {
-		html += "<tr>";
-		html += "<td colspan=\"6\">신고 내역이 없습니다.</td>";
-		html += "</tr>";
-	} else {
-		for(var d of list2){
-			html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
-			html +="<td>" + d.TYPE_NAME + "</td>";
-			html +="<td>" + d.USER_NICKNAME + "</td>";
-			html +="<td>" + d.CONTENTS + "</td>";
-			html +="<td>" + d.REGISTER_DATE + "</td>";
-			if(d.REPORT_STATUS == "0") {
-				html +="<td>대기중</td>";
-			} else if(d.REPORT_STATUS == "1") {
-				html +="<td>철회</td>";
-			} else if(d.REPORT_STATUS == "2") {
-				html +="<td>접수완료</td>";
-			} else if(d.REPORT_STATUS == "3") {
-				html +="<td>처리완료</td>";
-			}
-			if(d.DEL == "1" && d.REPORT_STATUS != "3") {
-				html += "<td><input type=\"button\" id=\"cancel2\" class=\"cancel2\" value=\"취소하기\"></td>";
-			}
-			html +="</tr>";
-		}	
-	}
+	for(var d of list2){
+		html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
+		html +="<td>" + d.TYPE_NAME + "</td>";
+		html +="<td>" + d.USER_NICKNAME + "</td>";
+		html +="<td>" + d.CONTENTS + "</td>";
+		html +="<td>" + d.REGISTER_DATE + "</td>";
+		if(d.REPORT_STATUS == "0") {
+			html +="<td>대기중</td>";
+		} else if(d.REPORT_STATUS == "1") {
+			html +="<td>철회</td>";
+		} else if(d.REPORT_STATUS == "2") {
+			html +="<td>접수완료</td>";
+		} else if(d.REPORT_STATUS == "3") {
+			html +="<td>처리완료</td>";
+		}
+		if(d.DEL == "1" && d.REPORT_STATUS != "3") {
+			html += "<td><input type=\"button\" id=\"cancel2\" class=\"cancel2\" value=\"취소하기\"></td>";
+		}
+		html +="</tr>";
+	}	
 	
-	$(".comment_wrap tbody").html(html);
+	
+	$(".comment_wrap tbody").append(html);
 	
 	$(".cancel2").on("click", function() {
 		$("#reportNo").val($(this).parent().parent().attr("name"));
@@ -209,6 +226,7 @@ function drawReportCommentList(list2){
 	<input type="hidden" name="userNo" value="${sUserNo}">
 	<input type="hidden" id="reportNo" name="reportNo" value="">
 	<input type="hidden" id="pNo" name="pNo" value="">
+	<input type="hidden" id="page" name="page" value="1">
 	<input type="hidden" id="postNo" name="postNo" value="">
 </form>
 	

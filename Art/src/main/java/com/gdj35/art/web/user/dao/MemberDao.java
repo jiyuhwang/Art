@@ -92,5 +92,15 @@ public class MemberDao implements IMemberDao{
 		return sqlSession.update("User.deleteMyReport", params);
 	}
 
+	@Override
+	public int getMyReportPostCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.getMyReportPostCnt", params);
+	}
+
+	@Override
+	public int getMyReportCommentCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.getMyReportCommentCnt", params);
+	}
+
 
 }

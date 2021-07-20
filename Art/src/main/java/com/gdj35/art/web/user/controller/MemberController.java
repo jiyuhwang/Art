@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj35.art.common.bean.PagingBean;
 import com.gdj35.art.common.service.IPagingService;
 import com.gdj35.art.web.user.service.IMemberService;
 
@@ -601,7 +602,7 @@ public class MemberController {
 	}
 	
 	// 나의 작품 신고 내역 Ajax
-	@RequestMapping(value = "/myReportList",
+	@RequestMapping(value = "/myReportPostList",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -610,23 +611,51 @@ public class MemberController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		//int page = Integer.parseInt(params.get("page"));
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMemberService.getMyReportPostCnt(params);
+		
 				
-		//PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
 		
 	
-		//params.put("startCnt", Integer.toString(pb.getStartCount()));
-		//params.put("endCnt", Integer.toString(pb.getEndCount()));
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
 				
 		List<HashMap<String, String>> list = iMemberService.reportPost(params);
-		List<HashMap<String, String>> list2 = iMemberService.reportComment(params);
 		
 		modelMap.put("list", list);	
-		modelMap.put("list2", list2);	
-		//modelMap.put("pb", pb);
 		
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	// 나의 댓글 신고 내역 Ajax
+	@RequestMapping(value = "/myReportCommentList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+		public String myReportCommentList(@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+						
+			int cnt = iMemberService.getMyReportCommentCnt(params);
+
+					
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list2 = iMemberService.reportComment(params);
+			
+			modelMap.put("list2", list2);	
+			
+			return mapper.writeValueAsString(modelMap);
+		}
 	
 	// 나의 작품 신고 내역 삭제
 	@RequestMapping(value = "/deleteMyReport",
