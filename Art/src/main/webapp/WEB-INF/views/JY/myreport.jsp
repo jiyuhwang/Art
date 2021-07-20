@@ -274,7 +274,7 @@ function drawReportCommentList(list2){
 							<thead>
 							<tr>
 								<th>신고타입</th>
-								<th>작성자(닉네임)</th>
+								<th>피신고자</th>
 								<th>신고내용</th>
 								<th>신고일</th>
 								<th>처리상태</th>
@@ -300,7 +300,7 @@ function drawReportCommentList(list2){
 							<thead>
 							<tr>
 								<th>신고타입</th>
-								<th>작성자(닉네임)</th>
+								<th>피신고자</th>
 								<th>신고내용</th>
 								<th>신고일</th>
 								<th>처리상태</th>

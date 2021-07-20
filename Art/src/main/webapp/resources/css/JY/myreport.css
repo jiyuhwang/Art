@@ -34,7 +34,6 @@ tr {
 	text-align: center;
 	cursor: pointer;
 	border-bottom: 1px solid #d9d9d9;
-	
 }
 
 .agree {
@@ -127,6 +126,16 @@ table {
 
 td, th {
 	text-align: center;
+}
+
+td:nth-child(3) {
+	display: block;
+	width: 400px;
+	height: 50px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	line-height: 50px;
 }
 
 th {

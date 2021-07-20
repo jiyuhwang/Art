@@ -106,11 +106,11 @@
 		        FROM REPORT R1 INNER JOIN REPORT_REPORT_TYPE R2
 		                    ON R1.REPORT_NO = R2.REPORT_NO
 		                        INNER JOIN REPORT_TYPE R3
-		                    ON R2.TYPE_NO = R3.TYPE_NO
-		                        INNER JOIN USERS U
-		                    ON R1.USER_NO = U.USER_NO
+		                    ON R2.TYPE_NO = R3.TYPE_NO                      
 		                        INNER JOIN POST P
 		                    ON R1.POST_NO = P.POST_NO
+		                        INNER JOIN USERS U
+		                    ON P.USER_NO = U.USER_NO
 		        WHERE R1.USER_NO = #{userNo}
 		        AND R1.POST_NO IS NOT NULL
 		        AND R1.DEL = 1) R
@@ -126,13 +126,13 @@
 		        FROM REPORT R1 INNER JOIN REPORT_REPORT_TYPE R2
 		                    ON R1.REPORT_NO = R2.REPORT_NO
 		                        INNER JOIN REPORT_TYPE R3
-		                    ON R2.TYPE_NO = R3.TYPE_NO
-		                        INNER JOIN USERS U
-		                    ON R1.USER_NO = U.USER_NO
+		                    ON R2.TYPE_NO = R3.TYPE_NO 
 		                        INNER JOIN COMMENTS C
 		                    ON R1.COMMENT_NO = C.COMMENT_NO
 		                        INNER JOIN POST P
 		                    ON C.POST_NO = P.POST_NO
+		                        INNER JOIN USERS U
+		                    ON P.USER_NO = U.USER_NO
 		        WHERE R1.USER_NO = #{userNo}
 		        AND R1.COMMENT_NO IS NOT NULL
 		        AND R1.DEL = 1) R
