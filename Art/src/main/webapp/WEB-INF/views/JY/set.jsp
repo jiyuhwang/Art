@@ -117,15 +117,7 @@ $(document).ready(function() {
 	
 	$("table tr:nth-child(2)").hide();
 	$("table tr:nth-child(3)").hide();
-	/* $("#btnEditPw").on("click", function() {
-		if($("table tr:nth-child(2)").css("display") == "none") {
-			$("table tr:nth-child(2)").show();
-			$("table tr:nth-child(3)").show();
-		} else {
-			$("table tr:nth-child(2)").hide();
-			$("table tr:nth-child(3)").hide();
-		}
-	}); */
+
 	
 	$("#btnEditPw").on("click", function() {
 		if($('#nowPw').val() == "") {
@@ -362,7 +354,7 @@ $(document).ready(function() {
 				<tr>
 					<th>휴대폰번호</th>
 					<td>
-						<input id="phone" type="number" name="userPhone" size="10" value="${data.PHONE_NO}"/>
+						<input id="phone" type="number" name="userPhone" value="${data.PHONE_NO}"/>
 					</td>
 				</tr>
 				<tr>

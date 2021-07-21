@@ -24,7 +24,7 @@ ul { list-style: none;}
 	box-shadow: 5px 5px 5px grey;
 }
 .blank{
-	height : 60px;
+	height : 30px;
 	background-color: RGBA;
 }
 .member{
@@ -178,6 +178,27 @@ ul { list-style: none;}
 	cursor: pointer;
 	position: relative;
 }
+
+#logout {
+	height : 30px;
+	width: 50%;
+	margin: 0 auto;
+	background-color: RGBA;
+	font-size: 10pt;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	border: 1px solid #0C4A60;
+	border-radius: 20px;
+	margin-top: 30px;
+}
+
+#logout:hover {
+	background-color: #0C4A60;
+	color: white;
+}
+
+
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -208,11 +229,18 @@ $(document).ready(function() {
 		location.href = "chart";
 	});
 	
-	$(".side div").on("click", function(){
-		if(this.attr("class") != blank){
-			$("div").attr("id", "");
-			this.attr("id", "active");
-		}
+	$("#logout").on("click", function() {
+		console.log("aaa");
+		$.ajax({
+			url: "Logout",
+			type: "post",
+			success: function(res) {
+				location.href = "main";
+			},
+			error: function(request, status, error) {
+				console.log(error);
+			}
+		});
 	});
 
 });//document end
@@ -220,6 +248,7 @@ $(document).ready(function() {
 </head>
 <body> 
 	 <div class="side">
+		<div id="logout">로그아웃</div>
 		<div class="blank" id=""></div>
 		<div class="member" id="">회원관리</div>
 		<div class="tag" id="">태그관리</div>
