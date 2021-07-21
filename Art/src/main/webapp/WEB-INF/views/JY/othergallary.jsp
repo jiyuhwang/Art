@@ -258,8 +258,42 @@ function reloadList() {
 
 function picList(list) {
 		var html = "";
+		if(list.length == 0) {
+			html += "<div class=\"noPost\">";
+			html += "등록된 작품이 없습니다.";
+			html += "</div>"
+		} else {
+			for(var p of list) {
+				html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + p.POST_NO + "\">";					
+				html += "<div class=\"bg\">";
+				html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+				html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+				if(p.REGISTER_DATE == null) {
+					html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+				} else {
+					html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+				}
+				html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
+				html += "</div>";
+				html += "</div>";
+		
+			}
+		}
+		$(".pic_wrap").html(html);
 		for(var p of list) {
-			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + p.POST_NO + "\">";					
+			$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+		}		
+}
+
+function drawList(list) {
+	var html = "";
+	if(list.length == 0) {
+		html += "<div class=\"noPost\">";
+		html += "등록된 작품이 없습니다.";
+		html += "</div>"
+	} else {
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"draw" + p.POST_NO + "\">";					
 			html += "<div class=\"bg\">";
 			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
 			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
@@ -273,28 +307,6 @@ function picList(list) {
 			html += "</div>";
 	
 		}
-		$(".pic_wrap").html(html);
-		for(var p of list) {
-			$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
-		}		
-}
-
-function drawList(list) {
-	var html = "";
-	for(var p of list) {
-		html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"draw" + p.POST_NO + "\">";					
-		html += "<div class=\"bg\">";
-		html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-		html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-		if(p.REGISTER_DATE == null) {
-			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
-		} else {
-			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
-		}
-		html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
-		html += "</div>";
-		html += "</div>";
-
 	}
 	$(".draw_wrap").html(html);
 	for(var p of list) {
@@ -304,20 +316,26 @@ function drawList(list) {
 
 function videoList(list) {
 	var html = "";
-	for(var p of list) {
-		html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"video" + p.POST_NO + "\">";					
-		html += "<div class=\"bg\">";
-		html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-		html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
-		if(p.REGISTER_DATE == null) {
-			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
-		} else {
-			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+	if(list.length == 0) {
+		html += "<div class=\"noPost\">";
+		html += "등록된 작품이 없습니다.";
+		html += "</div>"
+	} else {
+		for(var p of list) {
+			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"video" + p.POST_NO + "\">";					
+			html += "<div class=\"bg\">";
+			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
+			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			if(p.REGISTER_DATE == null) {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
+			} else {
+				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart2.png\" alt=\"빨간하트\" width=\"40px\" height=\"40px\">";
+			}
+			html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
+			html += "</div>";
+			html += "</div>";
+	
 		}
-		html += "<div class=\"contents_name\"> " + p.USER_NICKNAME + "</div>";
-		html += "</div>";
-		html += "</div>";
-
 	}
 	$(".video_wrap").html(html);
 	for(var p of list) {

@@ -8,6 +8,11 @@ body {
 	font-family: '돋움';
 }
 
+.noPost {
+	font-size: 15pt;
+	width: 100%;
+}
+
 [type="button"] {
 	cursor: pointer;
 	font-family: '돋움';

@@ -119,7 +119,7 @@ body {
     text-align:center;
     width:200px;
     margin-top:5px;
-    line-height:65px;
+    line-height:70px;
     font-weight:700;
     border-radius:3px 3px 0 0;
     background: white;

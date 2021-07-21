@@ -1,6 +1,7 @@
 package com.gdj35.art.web.user.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj35.art.common.bean.PagingBean;
 import com.gdj35.art.common.service.IPagingService;
 import com.gdj35.art.web.user.service.IMemberService;
 
@@ -443,9 +445,44 @@ public class MemberController {
 		session.setAttribute("sUserMail", params.get("userMail"));
 		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
 		
-
 		try {
 			int cnt = iMemberService.updateSet(params);
+		
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	// 비밀번호 수정 Ajax
+	@RequestMapping(value = "/pwsets", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String pwsets(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		
+		session.setAttribute("sUserPw", params.get("userPw"));
+		session.setAttribute("sUserName", params.get("userName"));
+		session.setAttribute("sUserSex", params.get("gender"));
+		session.setAttribute("sUserPhone", params.get("userPhone"));
+		session.setAttribute("sUserMail", params.get("userMail"));
+		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
+		
+		try {
+			int cnt = iMemberService.editPw(params);
+			
 			if (cnt > 0) {
 				modelMap.put("msg", "success");
 			} else {
@@ -554,6 +591,100 @@ public class MemberController {
 		mav.setViewName("h/userReportPopup");
 		
 		return mav;
+	}
+	
+	// 나의 신고 페이지
+	@RequestMapping(value = "/myreport")
+	public ModelAndView myreport(ModelAndView mav) {
+		mav.setViewName("JY/myreport");
+
+		return mav;
+	}
+	
+	// 나의 작품 신고 내역 Ajax
+	@RequestMapping(value = "/myReportPostList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String myReportList(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMemberService.getMyReportPostCnt(params);
+		
+				
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMemberService.reportPost(params);
+		
+		modelMap.put("list", list);	
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	// 나의 댓글 신고 내역 Ajax
+	@RequestMapping(value = "/myReportCommentList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+		public String myReportCommentList(@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+						
+			int cnt = iMemberService.getMyReportCommentCnt(params);
+
+					
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list2 = iMemberService.reportComment(params);
+			
+			modelMap.put("list2", list2);	
+			
+			return mapper.writeValueAsString(modelMap);
+		}
+	
+	// 나의 작품 신고 내역 삭제
+	@RequestMapping(value = "/deleteMyReport",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String deleteMyReport(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	
+	ObjectMapper mapper = new ObjectMapper();
+	
+	Map<String, Object> modelMap = new HashMap<String, Object>();
+	
+			
+	try {
+		int cnt = iMemberService.deleteMyReport(params);
+				
+		if (cnt > 0) {
+			modelMap.put("msg", "success");
+		} else {
+			modelMap.put("msg", "failed");
+		}
+		
+	
+	} catch (Throwable e) {
+		e.printStackTrace();
+		modelMap.put("msg", "error");
+	}
+	
+	return mapper.writeValueAsString(modelMap);
 	}
 
 }

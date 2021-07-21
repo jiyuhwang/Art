@@ -96,41 +96,6 @@ a {
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*-----------------------------------------------------------메인  */
 .main {
 	background-color: #fbfbfb;
@@ -203,6 +168,10 @@ a {
 
 /* ----------------------------------------------------------------tab1결과 박스 */
 
+.gallary_contents, .writer_contents {
+	height: 1000px; 
+}
+
 .gallary_div {
 	display: inline-block;
 	width: 410px;
@@ -250,30 +219,6 @@ a {
 	font-size: bold;
 }
 
-#boxImg1 {
-	background-image: url("../../images/JY/짱구1.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
-#boxImg2 {
-	background-image: url("../../images/JY/짱구2.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
-#boxImg3 {
-	background-image: url("../../images/JY/짱구3.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
-#boxImg4 {
-	background-image: url("../../images/JY/짱구4.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-}
-
 /* ----------------------------------------------------------------tab2결과 박스 */
 
 .writer_div {
@@ -288,10 +233,11 @@ a {
 }
 
 .writer_img {
-	background-color: inherit;
-    width: 30%;
-    height: 100%;
-    float: left;
+	float: left;
+    width: 200px;
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .writer_box_txt {
@@ -314,6 +260,17 @@ a {
     text-overflow: ellipsis;
 }
 
+/*------------------------------------------------------검색없을 때 */
+.search_nothing {
+	display: inline-block;
+	width: 500px;
+	height: 500px;
+	font-size: 30px;
+	margin: auto;
+	position: relative;
+	top: 100px;
+}
+
 /*-----------------------------------------------------paging */
 
 .paging_area {
@@ -323,31 +280,22 @@ a {
 	font-size: medium;
 }
 
-#pagingWrap {
-	font-size: 15pt;
-	margin-top: 50px;
+.paging_area a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	margin: 0 5px;
+	cursor: pointer;
 }
 
-#pagingWrap span {
-	display: inline-block;
-	min-width: 30px;
-	padding: 5px;
-	margin: 0px 5px;
-	cursor: pointer;
+.on {
+	border: 1px solid black;
+	font-weight: bold;
 	border-radius: 5px;
 }
 
-.paging_selected {
-	display: inline-block;
-	min-width: 30px;
-	padding: 5px;
-	border: 1px solid #444;
-	margin: 0px 5px;
-	cursor: pointer;
-	border-radius: 5px;
-}
-
-#pagingWrap span:hover:not(.paging_selected) {
+.paging_area a:hover:not(.on) {
 	background-color: #ddd;
 	border-radius: 5px;
 }

@@ -1,6 +1,7 @@
 package com.gdj35.art.web.user.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,36 @@ public class MemberDao implements IMemberDao{
 	@Override
 	public HashMap<String, String> getAdmin(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectOne("User.getAdmin", params);
+	}
+
+	@Override
+	public int editPw(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("User.editPw", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> reportPost(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("User.reportPost", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> reportComment(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("User.reportComment", params);
+	}
+
+	@Override
+	public int deleteMyReport(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("User.deleteMyReport", params);
+	}
+
+	@Override
+	public int getMyReportPostCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.getMyReportPostCnt", params);
+	}
+
+	@Override
+	public int getMyReportCommentCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.getMyReportCommentCnt", params);
 	}
 
 

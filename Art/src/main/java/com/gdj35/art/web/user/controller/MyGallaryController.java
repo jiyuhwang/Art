@@ -941,58 +941,7 @@ public class MyGallaryController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
-	
-//------------------------------------------------검색페이지
-	
-	@RequestMapping(value="/searchGallaryPage")
-	public ModelAndView searchGallaryPage(ModelAndView mav) {
-		
-		mav.setViewName("h/searchGallaryPage");
-		return mav;
-	}
-	
-	// 나의 사진갤러리 Ajax
-	@RequestMapping(value = "/searchGallary",
-			method = RequestMethod.POST,
-			produces = "text/json;charset=UTF-8")
-	@ResponseBody
-	public String searchGallary(@RequestParam HashMap<String, String> params) throws Throwable {
-	
-		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("========================" + params);
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
-		int page = Integer.parseInt(params.get("page"));
-		
-		int cnt = iMyGallaryService.getMyPicCnt(params);
-		
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
-		
-	
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-				
-		List<HashMap<String, String>> list = iMyGallaryService.myPicList(params);
-		
-		modelMap.put("list", list);		
-		modelMap.put("pb", pb);
-		
-		return mapper.writeValueAsString(modelMap);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	// 통계관리 페이지
 	@RequestMapping(value = "/chart")
@@ -1048,4 +997,5 @@ public class MyGallaryController {
 		
         return mapper.writeValueAsString(modelMap);
 	}
+	
 }

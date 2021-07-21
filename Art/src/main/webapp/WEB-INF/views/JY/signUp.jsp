@@ -49,6 +49,10 @@ $(document).ready(function() {
 	    checkPassword($('#pwInput').val());
 	});
 	
+	$('#pwInput, #pwckInput').on("propertychange change keyup paste input", function(){
+		check_pw();
+	});
+	
 	$("#btnMailSend").click(function(){
 	    
 		  var email = $("#mailInput").val();            // 입력한 이메일
@@ -351,7 +355,9 @@ function check_pw(){
             $('.pw_input_re_3').css("display","none");
             $('.pwck_input_re_3').css("display","none");
         }
-    }   
+    } else {
+    	document.getElementById('check2').innerHTML='';
+    }
 }
 </script>
 </head>

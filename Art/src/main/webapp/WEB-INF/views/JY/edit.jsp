@@ -16,54 +16,49 @@
 <script type="text/javascript">
 function enterValue(){
 	
-	
-		var tagSpan = document.createElement('span');
-		var x = document.createElement('span');	
-		var xMark = 'x';
-		var result = document.getElementById('tag');
-		var input = document.getElementById('tagId');
-		tagSpan.className='badge';
-		x.setAttribute( 'onclick', 'removeTag()' );
-		x.className='xClass';
+	var tagSpan = document.createElement('span');
+	var x = document.createElement('span');	
+	var xMark = 'x';
+	var result = document.getElementById('tag');
+	var input = document.getElementById('tagId');
+	tagSpan.className='badge';
+	x.className='xClass';
 
-				
-		var content =  document.getElementById('tagId');
-		var string = content.value;
-		var string2 = string.trim();
-		var string3 = string2.replace("," , "");
-		
-		
-		
-		if(string3 !== ""){
-			tagSpan.append(string3);  
-			x.append(xMark);
-			tagSpan.append(x);
-			result.append(tagSpan);  			
-			input.value = null;		
-		}else if(string3 == string){}
-
-	}
+			
+	var content = document.getElementById('tagId');
+	var string = content.value;
+	var string2 = string.trim();
+	var string3 = string2.replace("," , "");
 	
-	function removeTag(){
-		var listSpan = document.getElementById("tag");
-		listSpan.removeChild(listSpan.childNodes[0]);
+	
+	
+	if(string3 !== ""){
+		tagSpan.append(string3);  
+		x.append(xMark);
+		tagSpan.append(x);
+		result.append(tagSpan);  			
+		input.value = null;		
+	}else if(string3 == string){
+		
 	}
 
-
-
+}
 
 
 $(document).ready(function() {
 	console.log($('#postNo').val());
 	console.log($('#uploadFile').attr("src"));
 	console.log($('#uploadFile').attr("src").substring(18)); 
-	//var filekeep = $('#uploadFile').attr("src").substring(18);
 	
 	$("#btnCancel").on("click", function () {
 		var Text = $( '.badge' ).text();
 		var Tag = Text.split('x');
 		$('#tag2').val(Tag);
 		console.log($('#tag2').val());
+	});
+	
+	$("#tag").on("click", ".xClass", function() {
+		$(this).parent().remove();
 	});
 	
 	CKEDITOR.replace("contentsIn", {
@@ -89,7 +84,7 @@ $(document).ready(function() {
 	$("#btnSave").on("click", function(){
 		
 		$("#contentsIn").val(CKEDITOR.instances['contentsIn'].getData());
-		var Text = $( '.badge' ).text();
+		var Text = $('.badge').text();
 		var Tag = Text.split('x');
 		$('#tag2').val(Tag);
 		console.log($('#tag2').val());

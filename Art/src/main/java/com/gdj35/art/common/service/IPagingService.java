@@ -1,5 +1,7 @@
 package com.gdj35.art.common.service;
 
+import java.util.HashMap;
+
 import com.gdj35.art.common.bean.PagingBean;
 
 public interface IPagingService {
