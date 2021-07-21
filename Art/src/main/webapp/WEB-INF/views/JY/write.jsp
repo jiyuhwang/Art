@@ -21,11 +21,10 @@ function enterValue(){
 		var result = document.getElementById('tag');
 		var input = document.getElementById('tagId');
 		tagSpan.className='badge';
-		x.setAttribute( 'onclick', 'removeTag()' );
 		x.className='xClass';
 
 				
-		var content =  document.getElementById('tagId');
+		var content = document.getElementById('tagId');
 		var string = content.value;
 		var string2 = string.trim();
 		var string3 = string2.replace("," , "");
@@ -38,24 +37,15 @@ function enterValue(){
 			tagSpan.append(x);
 			result.append(tagSpan);  			
 			input.value = null;		
-		}else if(string3 == string){}
+		}else if(string3 == string){
+			
+		}
 
 	}
 	
-	function removeTag(){
-		var listSpan = document.getElementById("tag");
-		listSpan.removeChild(listSpan.childNodes[0]);
-	}
-
-
-
-
-
 $(document).ready(function() {
 	
-		
 
-	
 	CKEDITOR.replace("contentsIn", {
 		resize_enabled : false,
 		language : "ko",
@@ -65,6 +55,9 @@ $(document).ready(function() {
 		removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
 	});
 	
+	$("#tag").on("click", ".xClass", function() {
+		$(this).parent().remove();
+	});
 	
 	$("#upload").on("click", function () {
 		$("#postFile").click();
@@ -94,7 +87,7 @@ $(document).ready(function() {
 		
 		$("#contentsIn").val(CKEDITOR.instances['contentsIn'].getData());
 
-		var Text = $( '.badge' ).text();
+		var Text = $('.badge').text();
 		var Tag = Text.split('x');
 		$('#tag2').val(Tag);
 		console.log($('#tag2').val());
