@@ -241,7 +241,7 @@
 		
 		$(".main3-table table").on("dblclick","tr", function () {
 			$("#noticeNo").val($(this).attr("name"));
-			$("#everyForm").attr("action","goGongDetail");
+			$("#everyForm").attr("action","gong_detail");
 			$("#everyForm").submit();
 		});
 		

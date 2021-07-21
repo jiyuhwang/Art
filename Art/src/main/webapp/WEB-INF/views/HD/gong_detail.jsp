@@ -776,50 +776,23 @@ function CopyUrl2()
 		</c:choose> --%>
 
 		<div class="category">공지사항</div>
-		<div class="title"><%-- ${data.TITLE} --%>여기는 제목</div>
+		<div class="title"><%-- ${data.TITLE} --%>${data.TITLE}</div>
 		<div class="middleLine">
 		<div class="byArt">by ArtTeam</div>
 		<div class="dot"></div>
-		<div class="contents_date"><%-- ${data.REGISTER_DATE} --%> 여기는 등록일</div>
+		<div class="contents_date"> ${data.REGISTER_DATE}</div>
 		<div class="views"> 조회수 ${data.VIEWS}</div>
 		</div>
 		<br />
 		<br />
 		<div class="contents" style="font-size:30pt;">
-		<%-- ${data.EXPLAIN} --%>여기는 내용입니다.
-		스포티비뉴스=고봉준 기자] 산뜻한 출발이었다. 김광현(33·세인트루이스 카디널스)이 후반기 첫 경기에서 5승째를 달성하며 순항을 예고했다.
-김광현은 18일(한국시간) 부시스타디움에서 열린 샌프란시스코 자이언츠와 홈경기에서 선발투수로 나와 6이닝 3피안타 1탈삼진 무실점으로 호투하고 3-1 승리를 이끌었다.
-
-전반기를 15경기 4승 5패 평균자책점 3.11로 마쳤던 김광현은 후반기 첫 등판에서 순조롭게 스타트를 끊으면서 올 시즌 전망을 밝혔다. 평균자책점도 2.87로 내렸다. 또, 최근 21이닝 내리 무실점으로 쾌조의 컨디션을 함께 뽐냈다.
-
-영리한 완급조절로 경기 초반 아웃카운트를 늘려간 김광현이었다. 시속 140㎞대 후반의 직구와 슬라이더, 체인지업, 커브를 섞어 던져 샌프란시스코 타선을 제압했다.
-
-김광현은 1회초 오스틴 슬레이터를 유격수 땅볼로 처리한 뒤 도노반 솔라노 역시 유격수 땅볼로 유도해 2아웃을 만들어냈다. 이어 마이크 야스트렘스키에게 볼넷을 내줬지만, 다린 러프를 우익수 뜬공으로 돌려세워 1회를 마쳤다.
-
-2회에는 삼자범퇴가 만들어졌다. 윌머 플로레스와 커트 카살리, 스티븐 더거를 모두 범타로 유도했다.
-
-그러는 사이 세인트루이스 타선은 김광현의 어깨를 가볍게 했다. 2회 선두타자 타일러 오닐이 앤서니 데스클라파니의 시속 145㎞짜리 슬라이더를 밀어쳐 우월 솔로홈런을 터뜨렸다.
-
-첫 위기는 4회 맞았다. 선두타자 솔라노에게 우전안타를 내줬다. 이날의 첫 안타 허용. 그러나 야스트렘스키를 2루수 땅볼로 유도한 뒤 러프를 유격수 방면 병살타로 처리해 실점을 막았다. 이어 5회에도 선두타자 플로레스에게 좌전안타를 허용했지만, 후속타자들을 모두 범타로 돌려세워 5이닝을 무실점으로 장식했다.
-
-호투는 계속됐다. 6회 1사 후 솔라노에게 좌전안타를 내준 김광현은 야스트렘스키와 러프를 각각 2루수 뜬공과 중견수 플라이로 돌려세웠다.
-
-세인트루이스는 곧바로 이어진 6회 공격에서 쐐기점을 뽑았다. 딜런 칼슨이 중월 2루타로 출루한 뒤 폴 골드슈미트가 큼지막한 우월 2점홈런을 터뜨려 리드를 3-0으로 벌렸다.
-
-승기를 잡은 세인트루이스 벤치는 7회 수비를 앞두고 김광현을 라이언 헤슬리를 올렸다. 그러나 헤슬리는 볼넷과 안타를 연속해 허용해 1실점했다. 그리고 1사 1·2루에서 마운드를 내려왔고, 뒤이어 올라온 제네시스 카브레라가 후속타자들을 범타로 처리해 추가 실점을 막았다.
+		${data.CONTENTS}
 		</div>
-		<c:if test="${!empty array}">
-		<c:forEach var="i" items="${array}">
-			<i class="tag"># ${i}</i>
-		</c:forEach>
-		</c:if>
-			
 			<div class="comment_wrap1">
 				<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
 				<div class="comment">댓글</div>
 			</div>
 		<br />
-		
 		<div class="comment_wrap2">
 		<form action="#" id="goForm" method="post">
 			<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />

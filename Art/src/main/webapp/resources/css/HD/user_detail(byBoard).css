@@ -147,6 +147,17 @@ textarea{
 	font-size: 12pt;
 	line-height: 80px;
 }
+
+.Pmain #updateBtnDM, #deleteBtnDM{
+	margin: 0;
+	width: 50px;
+	height: 30px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+
+
 .Pmain .introduce_box{
 	height: 165px;
 	width: 550px;
@@ -260,6 +271,7 @@ textarea{
 	width: 60px;
 	height: 40px;
 }
+
 .Pmain select{
 	width : 80px;
 	height: 40px;
@@ -283,7 +295,7 @@ textarea{
 .Pmain .blank2{
 	display: inline-block;
 	vertical-align: top;
-	width : 385px;
+	width : 450px;
 	height : 100%;
 	background-color: rgba;
 }
@@ -315,14 +327,16 @@ textarea{
 	 text-overflow: ellipsis;
 	 white-space: nowrap;
 	 display: table-caption;
-	 width: 300px;
+	 width: 240px;
+	 height: 30px;
 }
 .Pmain table td:nth-child(6){
 	 overflow: hidden;
 	 text-overflow: ellipsis;
 	 white-space: nowrap;
-	 display: table-caption;
-	 width: 100px;
+	 display: table-cell;
+	 width: 150px
+	 
 }
 
 .Pmain .check{

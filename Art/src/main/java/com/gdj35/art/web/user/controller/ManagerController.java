@@ -70,7 +70,9 @@ public class ManagerController {
 	 */
 	
 	@RequestMapping(value="/addGong")
-	public ModelAndView addGong(ModelAndView mav,@RequestParam HashMap<String,String> params) throws Throwable {
+	public ModelAndView addGong(HttpSession session, ModelAndView mav,@RequestParam HashMap<String,String> params) throws Throwable {
+		
+		System.out.println("this is addGong"+params);
 		
 		mav.setViewName("HD/addGong");
 		return mav;
@@ -128,7 +130,7 @@ public class ManagerController {
 	
 	
 	@RequestMapping(value="/user_board")
-	public ModelAndView user_board(ModelAndView mav,
+	public ModelAndView user_board(HttpSession session,ModelAndView mav,
 									@RequestParam HashMap<String,String> params) throws Throwable {
 		 
 		System.out.println(params);
@@ -177,7 +179,7 @@ public class ManagerController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String user_datailP(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String user_datailP(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -306,6 +308,36 @@ public class ManagerController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	@RequestMapping(value = "/add_memo",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String add_memo(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println("메모 등록을 위한 폼 >>> "+params);
+		
+		try {
+			int cnt = iManagerService.addMemo(params); 
+			
+			System.out.println("고객을 업데이트했는지 안했는지 >> " + cnt); 
+			
+			if(cnt >0 ) { 
+				modelMap.put("msg","success"); 
+			}	 
+		}catch(Throwable e){
+			e.printStackTrace();
+			modelMap.put("msg","error");
+		}
+		
+		
+//		modelMap.put("list", list);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	
 	@RequestMapping(value="/gong_board")
 	public ModelAndView gong_board(ModelAndView mav,
@@ -320,8 +352,13 @@ public class ManagerController {
 	@RequestMapping(value="/gong_detail")
 	public ModelAndView gong_detail(ModelAndView mav,
 			@RequestParam HashMap<String,String> params) throws Throwable {
+		System.out.println("공지사항 페이지"+params);
 		
 		
+		HashMap<String,String> data =iManagerService.getNotice(params);
+		
+		
+		mav.addObject("data", data);
 		mav.addObject("now", "gong");
 		mav.setViewName("HD/gong_detail");
 		return mav;
@@ -401,24 +438,25 @@ public class ManagerController {
 		ObjectMapper mapper = new ObjectMapper();
 		// httpSession 값 받아오기 그래야 관리자 번호 지정가능
 		// 로그인 구현하기
+		System.out.println(params);
 		Map<String, Object> modelMap = new HashMap<String,Object>();
-		System.out.println(session.getAttribute("sUserNo"));
+		System.out.println(session.getAttribute("sAdminNo"));
 		try {
-			params.put("adminNo",String.valueOf(session.getAttribute("sUserNo")));
+			params.put("adminNo",String.valueOf(session.getAttribute("sAdminNo")));
 			
 			 System.out.println("this is parmas from addGong" + params);
 			
+			 int cnt = iManagerService.addGong(params);
+			 
+			 if(cnt>0) {
+				 modelMap.put("msg", "success");
+			 }else {
+				 modelMap.put("msg", "failed");
+			 }
 		}catch(Throwable e) {
 			e.printStackTrace();
 		}
 		
-		int cnt = iManagerService.addGong(params);
-		
-		if(cnt>0) {
-			modelMap.put("msg", "success");
-		}else {
-			modelMap.put("msg", "failed");
-		}
 		
 		return mapper.writeValueAsString(modelMap);
 	}

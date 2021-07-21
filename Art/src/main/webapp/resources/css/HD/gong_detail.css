@@ -541,6 +541,7 @@ body {
 	display: block;
 	font-size: 12pt;
 	text-align: left;
+	word-break: break-word;
 }
 #none {
 	display: none;

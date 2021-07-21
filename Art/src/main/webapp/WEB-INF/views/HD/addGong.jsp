@@ -35,7 +35,6 @@ $(document).ready(function() {
 	});
 	
 	$("#btnSave").on("click", function () {
-		console.log("저장하기 버튼 클릭한거");
 		var fileForm = $("#fileForm");
 
 		
@@ -43,7 +42,6 @@ $(document).ready(function() {
 		
 		fileForm.ajaxForm({ 
 			beforeSubmit: function (data, frm, opt) { 
-				console.log("파일폼 도는 거니?");
 				if($.trim($("#titleInput").val()) == ''){
 					alert("제목을 작성해주세요.");
 				} else if(CKEDITOR.instances.cttsIn.getData().length < 1){
@@ -55,7 +53,6 @@ $(document).ready(function() {
 				if(res.result =="SUCCESS"){
 					if(res.fileName.length >0){
 						$("#fileName").val(res.fileName[0]);
-					console.log($("#fileName").val());
 					}
 					$("#cttsIn").val(CKEDITOR.instances.cttsIn.getData());
 					var params = $("#goForm").serialize();
@@ -149,6 +146,7 @@ $(document).ready(function() {
 		<br /> -->
 		<form action="#" id="goForm" method="method">
 			<input type="hidden" id="fileName" name="fileName" value="">
+			<%-- <input type="hidden" id="adminNo"  name="adminNo" value=${sAdminNo }> --%>
 			<!-- <div id="title">제목</div> -->
 			<div id="titleInputW"><input id="titleInput" name="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
 			<!--첨부 파일  -->

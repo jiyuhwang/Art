@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="resources/css/HD/login.css"/>
 <link rel="stylesheet" href="resources/css/HD/user_detail(byBoard).css">
 <link rel="stylesheet" href="resources/css/HD/email.css"/>
+<link rel="stylesheet" href="resources/css/HD/memo.css"/>
 <!-- <link rel="stylesheet" href="resources/css/HD/managerSide.css"/> -->
 
 
@@ -64,7 +65,6 @@ $(document).ready( function () {
 	
 //-----------------------------------------side 클릭시 변경 script
 	var now ='${now}';
-	console.log(now);
 	$('.'+now).attr("id","active");
 	
 	$(".side").on("click","div", function () {
@@ -184,7 +184,6 @@ $(document).ready( function () {
 		});
 		
 		$("#userNo").val(list);
-		console.log($("#userNo").val());
 		delOneRow(list); 
 		
 	});
@@ -232,7 +231,8 @@ function drawPopup() {
 			
 			$("#insideMiddle1").on("click", function () {
 				if($("#insideMiddle1").attr("class") != 'insideMiddle1'){
-				console.log("이거 찍히는데 뭐냐")
+				console.log("이거 찍히는데 뭐냐");
+				$(".topOfBox .topBar").empty();
 					$(".Pmain table").empty();
 					listDP(res.list)
 				}
@@ -241,6 +241,7 @@ function drawPopup() {
 				if($("#insideMiddle2").attr("class") != 'insideMiddle1'){
 					$(".Pmain table").empty();
 					listDM(res.listM);
+					$(".topOfBox .topBar").empty();
 				}
 			}); 
 		},
@@ -263,8 +264,24 @@ function drawUpdatePopup() {
 		success : function (res) {
 			
 			drawUpdateDP(res.user);
-			
-			
+			listDP(res.list);
+			$("#insideMiddle1").on("click", function () {
+				if($("#insideMiddle1").attr("class") != 'insideMiddle1'){
+				console.log("이거 찍히는데 뭐냐");
+				$(".topOfBox .topBar").empty();
+					$(".Pmain table").empty();
+					listDP(res.list)
+				}
+			});
+			 $("#insideMiddle2").on("click", function () {
+				if($("#insideMiddle2").attr("class") != 'insideMiddle1'){
+					$(".Pmain table").empty();
+					listDM(res.listM);
+					
+				}
+			});
+			 
+			 
 			
 		},
 		error: function (request, status, error) {
@@ -406,18 +423,6 @@ function drawOutList() {
 				html +=	"     <div class =\"boxForB\">";
 				html +=	"	  <div class =\"topOfBox\">";
 				html +=	"		  <div class =\"topBar\"></div>";
-				html +=	"		  <div class =\"searchBox\">";
-				html +=	"			  <select id=\"PsearchGbnDP\">";
-				html +=	"				  <option value=\"0\">선택없음</option>";
-				html +=	"				  <option value=\"1\">제목</option>";
-				html +=	"				  <option value=\"2\">태그</option>";
-				html +=	"			  </select>";
-				html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" id=\"PsearchTxtDP\" class=\"searchTxt\">";
-				html +=	"			  <input type=\"button\" value=\"검색\" class=\"btnDP\" id=\"searchBtnDP\">";
-				html +=	"			  <div class = \"blank2\"></div>";
-				html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtnDP\">";
-				html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtnDP\">";
-				html +=	"		  </div>";
 				html +=	"	  </div>";
 				html +=	"	  <div class =\"boxForBoard\">";
 				html +=	"	  <table>";
@@ -516,7 +521,7 @@ function drawOutList() {
 				html +=	"     <div class =\"boxForB\">";
 				html +=	"	  <div class =\"topOfBox\">";
 				html +=	"		  <div class =\"topBar\"></div>";
-				html +=	"		  <div class =\"searchBox\">";
+				/* html +=	"		  <div class =\"searchBox\">";
 				html +=	"			  <select id=\"PsearchGbnDP\">";
 				html +=	"				  <option value=\"0\">선택없음</option>";
 				html +=	"				  <option value=\"1\">제목</option>";
@@ -527,7 +532,7 @@ function drawOutList() {
 				html +=	"			  <div class = \"blank2\"></div>";
 				html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtnDP\">";
 				html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtnDP\">";
-				html +=	"		  </div>";
+				html +=	"		  </div>"; */
 				html +=	"	  </div>";
 				html +=	"	  <div class =\"boxForBoard\">";
 				html +=	"	  <table>";
@@ -543,13 +548,10 @@ function drawOutList() {
 	$(".Pmain .cButtonc").css("cursor", "pointer");
 	//위의 html을 그린 이후의 위의 html기반(id or class)의기능들은 여기서 부터 시작 됨으로 이 안에 적용시켜야한다. 안에 들어가 있어야한다.
 	$(".Pmain img").on("click", function () {
-		console.log("이거 파일 업로드 취소버튼");
 		$("#att").click();
-		console.log($("#fileName").val());
 	});
 	
 	$(".Pmain #att").on("change", function () {
-		console.log("이거 파일 업로드 취소버튼 이건 체인지");
 		$("#fileName").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
 		
 	});
@@ -557,7 +559,6 @@ function drawOutList() {
 	
  	
 	 $(".Pmain #decideBtn").on("click",function () {
-		 console.log("자 이제 업데이트 시작!!");
 		 
 		var fileForm = $("#fileForm");
 		console.log(fileForm);
@@ -580,7 +581,6 @@ function drawOutList() {
 				}
 		},
 		success : function (res) {
-			console.log(res);
 			if(res.result=="SUCCESS"){
 				// 올라간 파일명 저장 폼에 저장
 				if(res.fileName.length >0){
@@ -622,47 +622,270 @@ function drawOutList() {
  
 }  
  function listDM(listM) {
-	console.log("this is function listDM>>>" + listM + ">>done");
 	var html="";
+			html +=" <form id=\"memoForm\" method=\"post\" action=\"#\">";
+			html +="	<input type=\"hidden\" id=\"userNoMemo\" name=\"uNo\">";
+			html +="	<input type=\"hidden\" id=\"accurDateForm\" name=\"occur\">";
+			html +="	<input type=\"hidden\" id=\"accurTimeForm\" name=\"accurTime\">";
+			html +="	<input type=\"hidden\" id=\"memoWriterForm\" name=\"admin\">";
+			html +="	<input type=\"hidden\" id=\"contentsForm\" name=\"contents\">";
+			html +="	<input type=\"hidden\" id=\"importantForm\" name=\"marking\">";
+			html +="	<input type=\"hidden\" id=\"memoNo\" name=\"memoNo\">";
+			html +=" </form>";
+			html +=	"		  <div class =\"searchBox\">";
+			html +=	"			  <select id=\"PsearchGbnDP\">";
+			html +=	"				  <option value=\"0\">선택없음</option>";
+			html +=	"				  <option value=\"1\">제목</option>";
+			html +=	"				  <option value=\"2\">태그</option>";
+			html +=	"			  </select>";
+			html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" id=\"PsearchTxtDP\" class=\"searchTxt\">";
+			html +=	"			  <input type=\"button\" value=\"검색\" class=\"btnDP\" id=\"searchBtnDP\">"; 
+			html +=	"			  <div class = \"blank2\"></div>";
+			html +=	"			  <input type=\"button\" value=\"작성\" class=\"btnDP\" id=\"addBtnDP\">";
+			
 	
+	$(".topOfBox .topBar").html(html);
+	
+	
+	var html="";
+					
 					html += "	<colgroup>";
+					/* html += "		<col width=\"5%\"/>"; */
+					html += "		<col width=\"10%\"/>";
 					html += "		<col width=\"5%\"/>";
 					html += "		<col width=\"10%\"/>";
+					html += "		<col width=\"10%\"/>";
 					html += "		<col width=\"15%\"/>";
-					html += "		<col width=\"15%\"/>";
-					html += "		<col width=\"15%\"/>";
+					html += "		<col width=\"25%\"/>";
 					html += "	</colgroup>";
 					html += "	<tr>";
-					html += "	<th>";
+					/* html += "	<th>";
 					html += "	<input class = \"check\" type=\"checkbox\" id=\"ex_chk\">   ";
-					html += "	</th>";
+					html += "	</th>"; */
 					html += "	<th> no</th>";
 					html += "	<th> 중요도</th>";
 					html += "	<th> 등록일자</th>";
 					html += "	<th> 발생일자</th>";
+					html += "	<th> 수정/삭제</th>";
 					html += "	<th> 메모내용</th>";
 					html += "	</tr>";
 					for( var d of listM){
-						html += "	<tr>";
-						html += "	<td>";
+						html += "	<tr name=\""+ d.MEMO_NO +"\">";
+						/* html += "	<td>";
 						html += "	<input class = \"check\" type=\"checkbox\" id=\"ex_chk\">";
-						html += "	</td>";
+						html += "	</td>"; */
 						html += "	<td>"+ d.MEMO_NO +"</td>";
-						html += "	<td>"+ d.MARKING +"</td>";
+						if(d.MARKING == "1"){
+							html += "	<td><img class=\"star_table_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\"></td>";
+						}else{
+							html += "	<td></td>";
+						}
 						html += "	<td>"+ d.ACCUR_DATE +"</td>";
 						html += "	<td>"+ d.REGI_DATE +"</td>";
+						html += "	<td>";
+						html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtnDM\">";
+						html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtnDM\">"; 
+						html += "	</td>"; 
 						html += "	<td>"+ d.CONTENTS +"</td>";
 						html += "	</tr>";
 					}
-	$(".Pmain table").html(html);    
+					
+	$(".Pmain table").html(html);
+	
+	
+	$("#deleteBtnDM").on("click", function () {
+		$("#memoNo").val($(this).parent().parent().attr("name"));
+		
+		var params = $("#memoForm").serialize();
+		
+		$.ajax({
+			url : "deleteMemo",
+			type : "post",
+			dataType : "json",
+			data : params,
+			success: function (res) {
+				if(res.msg == "success"){
+					location.href = "user_board"						
+				} else if(res.msg == "failed"){
+					alert("작성에 실패하였습니다.")
+				} else{
+					alert("작성중 문제가 발생하였습니다.")
+				}
+			},
+			error : function (request, status, error) {
+				console.log(error);
+			}
+		});
+	});
+	
+	
+	$("#addBtnDP").on("click", function () {
+		 addMemoPop();
+	});
+	
+	//--------------------------------------------------- 더블 클릭 상세보기
+	$(".Pmain table").on("dblclick","tr", function () {
+		var list;
+		for(var d of listM){
+			if(d.MEMO_NO == $(this).attr("name")){
+				/* list.push(d);//그냥 오브젝트 담아버리기 혁명 */
+				list=d;
+			}
+		}
+		MemoPop(list);
+		
+	});
+	
+	//------------------------------------------------------- 수정하기
 	
 	
 };
+
+function MemoPop(list) {
+	console.log("실행된다.");
+	var html ="";
+	
+			html += "		<div class =\"memoBackground\"></div>                                                  ";
+			html += "		<div class=\"popMemo\">                                                                ";
+			html += "			<div class=\"blank\"></div>                                                        ";
+			html += "			<div class=\"title\">메모등록</div>                                                ";
+			html += "			<div class=\"blank\"></div>                                                        ";
+			html += "			<div class=\"ctt_box\">                                                            ";
+			html += "				<div class=\"what\">내용</div>                                                 ";
+			html += "				<div class=\"ctt\">                                                            ";
+			html += "					<div id=\"cttBox\">" + list.CONTENTS + "</div>                                                  ";
+			html += "				</div>                                                                         ";
+			html += "				<div class=\"blank\"></div>                                                    ";
+			html += "				<div class=\"date_box\">                                                       ";
+			html += "				<div class=\"what1\">작성자</div>                                              ";
+			html += "				<div class=\"what1\">" + list.NAME + "</div>                                              ";
+			html += "				                                                                               ";
+			html += "				</div>                                                                         ";
+			html += "				<div class=\"date_box\">                                                       ";
+			html += "					<div class=\"what1\">발생일</div>                                          ";
+			html += "					<div class=\"what1\">" + list.ACCUR_DATE + "</div>                                          ";
+			html += "				</div>                                                                         ";
+			html += "				<div class=\"date_box\">                                                       ";
+			html += "					<div class=\"what1\">중요 </div>                                           ";
+			html += "					<input type=\"checkbox\" id=\"check_test_box\" />                          ";
+			html += "					<label for=\"check_test_box\"> <span></span> 체크박스입니다</label>        ";
+			html += "				</div>                                                                         ";
+			html += "				<div class=\"last_box\">                                                       ";
+			html += "					<div class=\"last_box_blank\"></div>                                       ";
+			html += "					<input type=\"button\" value=\"취소\" class=\"btn\">                       ";
+			html += "				</div>                                                                         ";
+			html += "			</div>                                                                             ";
+			html += "		</div>                                                                                 ";
+	
+			 $("#memoWrap").html(html);
+			
+			 
+			if(list.MARKING == "1"){
+				console.log("실행함");
+				$("#memoWrap input:checkbox[id='check_test_box']").prop("checked","true");
+				$("#memoWrap #check_test_box").attr("disabled","true");
+			}
+			$("#memoWrap .last_box .btn").on("click", function () {
+				console.log("취소버튼 실행 ");
+				$("#memoWrap").empty();
+			});
+			
+			
+}
+//---------------------------------------------------------------메모 작성 팝업 띄우기
+function addMemoPop() {
+	console.log("${sName}");
+	console.log("${sAdminNo}");
+	var html="";
+			
+			
+			html +="<div class =\"memoBackground\"></div>";
+			html +="			<div class=\"popMemo\">";
+			html +="			<div class=\"blank\"></div>";
+			html +="			<div class=\"title\">메모등록</div>";
+			html +="			<div class=\"blank\"></div>";
+			html +="			<div class=\"ctt_box\">";
+			html +="				<div class=\"what\">내용</div>";
+			html +="				<div class=\"ctt\">";
+			html +="					<textarea class=\"text\"></textarea>";
+			html +="				</div>";
+			html +="				<div class=\"blank\"></div>";
+			html +="				<div class=\"date_box\">";
+			html +="				<div class=\"what1\" >작성자</div>";
+			html +="				<input type=\"text\" id=\"memoWriter\" value=\""+ "${sName}"  +"\" placeholder=\""+ "${sName}" + "\">";
+			html +="				</div>";
+			html +="				<div class=\"date_box\">";
+			html +="					<div class=\"what1\">발생일</div>";
+			html +="					<input type=\"date\" class=\"date1\">";
+			html +="					<input type=\"time\" class=\"time\">";
+			html +="				</div>";
+			html +="				<div class=\"date_box\">";
+			html +="					<div class=\"what1\">중요 </div>";
+			html +="					<input type=\"checkbox\" id=\"check_test_box\" />";
+			html +="					<label for=\"check_test_box\"> <span></span> 체크박스입니다</label>  ";
+			html +="				</div>";
+			html +="				<div class=\"last_box\">";
+			html +="					<div class=\"last_box_blank\"></div>";
+			html +="					<input type=\"button\" value=\"취소\" class=\"btn\" id=\"cancelBtn\">";
+			html +="					<input type=\"button\" value=\"등록\" class=\"btn\" id=\"addBtn\">";
+			html +="				</div>";
+			html +="			</div>";
+			html +="		</div>";
+		
+			
+		$("#memoWrap").html(html);
+		
+		
+		$("#userNoMemo").val($("#userNo").val());
+		var adminNo = "${sAdminNo}"
+		$("#memoWriterForm").val(adminNo);
+		
+		
+		$(".popMemo #cancelBtn").on("click", function () {
+			$("#memoWrap").empty();
+		});
+		
+		
+		$(".popMemo #addBtn").on("click", function () {
+			if($(".popMemo input[type=checkbox]").is(":checked") == true){
+				$("#importantForm").val("1");
+			}else{
+				$("#importantForm").val("0");
+			}
+			
+			$("#accurDateForm").val($(".date1").val());
+			$("#accurTimeForm").val($(".time").val());
+			$("#contentsForm").val($(".text").val());
+			
+			var params = $("#memoForm").serialize();
+			
+			$.ajax({
+				url : "add_memo",
+				type : "post",
+				dataType : "json",
+				data : params,
+				success: function (res) {
+					if(res.msg == "success"){
+						$("#memoWrap").empty();						
+					} else if(res.msg == "failed"){
+						alert("작성에 실패하였습니다.")
+					} else{
+						alert("작성중 문제가 발생하였습니다.")
+					}
+				},
+				error : function (request, status, error) {
+					console.log(error);
+				}
+			});
+		});
+}
+
+
  
  function listDP(list) {
 	var html="";
 				html += "				<colgroup>                  ";
-				html += "					<col width=\"5%\"/>     ";
+				/* html += "					<col width=\"5%\"/>     "; */
 				html += "					<col width=\"5%\"/>     ";
 				html += "					<col width=\"10%\"/>     ";
 				html += "					<col width=\"10%\"/>     ";
@@ -673,9 +896,9 @@ function drawOutList() {
 				html += "				</colgroup>                 ";
 				html +=	"	  <thead>";
 				html +=	"		  <tr>";
-				html +=	"		  	  <th>";
+				/* html +=	"		  	  <th>";
 				html +=	"			  <input class = \"check\" type=\"checkbox\" id=\"ex_chk\">";
-				html +=	"			  </th>";
+				html +=	"			  </th>"; */
 				html +=	"			  <th> no</th>";
 				html +=	"			  <th> 제목</th>";
 				html +=	"			  <th> 좋아요</th>";
@@ -689,9 +912,9 @@ function drawOutList() {
 				
 		for(var d of list){
 				html+= "	<tr>";
-				html+= "		<td>";
+				/* html+= "		<td>";
 				html+= "		<input class = \"check\" type=\"checkbox\" id=\"ex_chk\">"; 
-				html+= "		</td>";
+				html+= "		</td>"; */
 				html+= "		<td> " + d.POST_NO +"</td>";
 				html+= "		<td>  "+ d.TITLE +"</td>";
 				html+= "		<td>  "+ d.LIKE_CNT +"</td>";
@@ -928,5 +1151,6 @@ function drawOutList() {
 <div>
 	<c:import url="email(send).jsp"></c:import>
 </div>
+<div id="memoWrap"></div>
 </body>
 </html>
