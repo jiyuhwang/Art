@@ -23,4 +23,14 @@ public class SearchService implements ISearchService{
 		return iSearchDao.getSearchList(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getWriterList(HashMap<String, String> params) throws Throwable {
+		return iSearchDao.getWriterList(params);
+	}
+
+	@Override
+	public int getWCnt(HashMap<String, String> params) throws Throwable {
+		return iSearchDao.getWCnt(params);
+	}
+
 }

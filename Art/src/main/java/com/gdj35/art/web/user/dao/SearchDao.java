@@ -26,4 +26,14 @@ public class SearchDao implements ISearchDao{
 		return sqlSession.selectList("Srh.getSearchList",params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getWriterList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Srh.getWriterList",params);
+	}
+
+	@Override
+	public int getWCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Srh.getWCnt",params);
+	}
+
 }

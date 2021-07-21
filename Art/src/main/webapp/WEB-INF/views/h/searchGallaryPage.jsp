@@ -29,7 +29,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".tabs").on("change", "[type='radio']", function() {
+ 	$(".tabs").on("change", "[type='radio']", function() {
 		$("#page").val("1");
 		$("#orderFlag").val("0");
 		reloadList();
@@ -70,20 +70,35 @@ $(document).ready(function() {
 	//---------------------------------------------------------탭 클릭시
 	function reloadList() {
 		var params= $("#actionForm").serialize();
+		var urlTxt = "";
+		
+		switch($(".tabs [type='radio']:checked").val()) {
+		case "0" :
+			$("#tabFlag").val(0);
+			urlTxt = "picSearch";
+			break;
+		case "1" :
+			$("#tabFlag").val(1);
+			urlTxt = "drawSearch";
+			break;
+		case "2" :
+			$("#tabFlag").val(2);
+			urlTxt = "videoSearch";
+			break;
+		case "3" :
+			$("#tabFlag").val(3);
+			urlTxt = "writerSearch";
+			break;
+		}
 
 		$.ajax({
-			url: "searchList", 
+			url: urlTxt, 
 			type: "post", 
 			dataType: "json", 
 			data: params, 
 			success: function(res) {
 				
-				
-			
-				if(res.msg == "success"){
-
-					if(res.list.length == 0 && $("#page").val() == 1) {
-	
+/* 				if($("#page").val() == 1) {
 						html +="<div class=\"search_result\">";
 						html +="	<div class=\"search_nothing\">";
 						html +="		<b>검색어</b>에 대한 검색결과가 없습니다.<br/>";
@@ -91,33 +106,26 @@ $(document).ready(function() {
 						html +="	</div>";
 						html +="</div>";
 						
-					} else {
-						
-						switch($(".tabs [type='radio']:checked").val()) {
-						case "0" :
-							$("#tabFlag").val(0);
-							drawList(res.list);
-							break;
-						case "1" :
-							$("#tabFlag").val(1);
-							drawList(res.list);
-							break;
-						case "2" :
-							$("#tabFlag").val(2);
-							drawList(res.list);
-							break;
-						case "3" :
-							$("#tabFlag").val(3);
-							writerList(res.list);
-							break;
-						}
-					}
 					drawPaging(res.pb);	
-				} else if(res.msg == "failed"){
-					alert("로드에 실패하였습니다.");
-				} else {
-					alert("로드 중 문제가 발생하였습니다.");
-				}	
+					break;
+				}  */
+					
+					switch($(".tabs [type='radio']:checked").val()) {
+					case "0" :
+						picSearch(res.list);
+						break;
+					case "1" :
+						drawSearch(res.list);
+						break;
+					case "2" :
+						videoSearch(res.list);
+						break;
+					case "3" :
+						writerSearch(res.list);
+						break;
+					 }
+					drawPaging(res.pb);	
+					
 			},
 			error: function(request, status, error) { // 실패 시 다음 함수 실행
 				console.log(error);
@@ -126,13 +134,13 @@ $(document).ready(function() {
 	}
 
 	
-	function drawList(list) {
+	function picSearch(list) {
 		var html = "";
 
 		for(var p of list) {
 			                                                                    
 		html +=" <div class=\"gallary_div\">";
-		html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"searchImgs" + p.POST_NO + "\">";
+		html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"pic" + p.POST_NO + "\">";
 		html +=" 		<div class=\"box_img_txt\">";
 		html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
 		html +=" 			<div class=\"box_img_txt_writer_div\">";
@@ -149,21 +157,82 @@ $(document).ready(function() {
 		for(var p of list) {
 			
 			if(p.POST_FILE != null && p.POST_FILE != "") {
-				$('#searchImgs' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+				$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
 			} else {
-				$('#searchImgs' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
+				$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
+			}
+		}
+	}
+	
+	function drawSearch(list) {
+		var html = "";
+
+		for(var p of list) {
+			                                                                    
+		html +=" <div class=\"gallary_div\">";
+		html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"draw" + p.POST_NO + "\">";
+		html +=" 		<div class=\"box_img_txt\">";
+		html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
+		html +=" 			<div class=\"box_img_txt_writer_div\">";
+		html +=" 				<span class=\"writer_flag\">by </span>";
+		html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
+		html +=" 			</div>";
+		html +=" 	</div>";
+		html +=" </div>";
+	
+		}
+		
+		$(".gallary_contents").html(html);
+		
+		for(var p of list) {
+			
+			if(p.POST_FILE != null && p.POST_FILE != "") {
+				$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+			} else {
+				$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
+			}
+		}
+	}
+	
+	function videoSearch(list) {
+		var html = "";
+
+		for(var p of list) {
+			                                                                    
+		html +=" <div class=\"gallary_div\">";
+		html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"video" + p.POST_NO + "\">";
+		html +=" 		<div class=\"box_img_txt\">";
+		html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
+		html +=" 			<div class=\"box_img_txt_writer_div\">";
+		html +=" 				<span class=\"writer_flag\">by </span>";
+		html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
+		html +=" 			</div>";
+		html +=" 	</div>";
+		html +=" </div>";
+	
+		}
+		
+		$(".writer_contents").hide();
+		$(".gallary_contents").html(html);
+		
+		for(var p of list) {
+			
+			if(p.POST_FILE != null && p.POST_FILE != "") {
+				$('#video' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+			} else {
+				$('#video' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
 			}
 		}
 	}
 
 
-	function writerList(list) {
+	function writerSearch(list) {
 		var html = "";
 
 		for(var p of list) {
 			                                                                    
 		html +=" <div class=\"writer_div\">";
-		html += "	<div pno = \"" + p.USER_NO + "\"class = \"writer_img\" id=\"searchImgs" + p.USER_NO + "\">";
+		html += "	<div name = \"" + p.USER_NO + "\"class = \"writer_img\" id=\"writer" + p.USER_NO + "\"></div>";
 		html +=" 	<div class=\"writer_box_txt\">";
 		html +=" 		<div class=\"writer_name\"><h5>" + p.USER_NICKNAME + "</h5></div>";
 		html +=" 		<div class=\"writer_introduce\">";
@@ -174,14 +243,15 @@ $(document).ready(function() {
 	
 		}
 		
+		$(".gallary_contents").hide();
 		$(".writer_contents").html(html);
 		
 		for(var p of list) {
 			
 			if(p.PROFILE_IMG_PATH != null && p.PROFILE_IMG_PATH != "") {
-				$('#searchImgs' + p.USER_NO).css('background-image', 'url(\'resources/upload/' + p.PROFILE_IMG_PATH + '\')');
+				$('#writer' + p.USER_NO).css('background-image', 'url(\'resources/upload/' + p.PROFILE_IMG_PATH + '\')');
 			} else {
-				$('#searchImgs' + p.USER_NO).css('background-image', 'url(\'resources/images/JY/who.png\')');
+				$('#writer' + p.USER_NO).css('background-image', 'url(\'resources/images/JY/who.png\')');
 			}
 		}
 	}
@@ -252,8 +322,8 @@ $(document).ready(function() {
 			<input type="hidden" id="searchOldTxt" value="${param.searchTxt}"/>
 			<input type="hidden" id="tabFlag" name="tabFlag" value="0">
 			<input type="hidden" id="orderFlag" name="orderFlag" value="0">
-
-
+			<input type="hidden" id="pNo" name="pNo" />
+			<input type="hidden" id="page" name="page" value="${page}" />
 		</form>
 		</div>		
 	</div>
@@ -285,8 +355,7 @@ $(document).ready(function() {
 			<!-------------------------------------------------------------작가검색시  -->
 			<div class="writer_contents"></div>
 			<!------------------------------------------------------------------------ 페이징 -->
-			<div class="paging_area">
-			</div>
+			<div class="paging_area"></div>
 		</div>
 	</div>
 	<c:import url="../JY/footer.jsp"></c:import>

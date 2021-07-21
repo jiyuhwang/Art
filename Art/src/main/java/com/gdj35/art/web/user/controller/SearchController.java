@@ -41,22 +41,9 @@ public class SearchController {
 	//------------------------------------------------검색페이지
 	
 		@RequestMapping(value="/searchGallaryPage")
-		public ModelAndView searchGallaryPage(ModelAndView mav) {
-			
-			mav.setViewName("h/searchGallaryPage");
-			return mav;
-		}
-		
-		// 나의 사진, 그림갤러리 Ajax
-		@RequestMapping(value = "/searchList",
-				method = RequestMethod.POST,
-				produces = "text/json;charset=UTF-8")
-		@ResponseBody
-		public String searchList(
-				@RequestParam HashMap<String, String> params) throws Throwable {
-		
-			ObjectMapper mapper = new ObjectMapper();
-			Map<String, Object> modelMap = new HashMap<String, Object>();
+		public ModelAndView searchGallaryPage(
+				@RequestParam HashMap<String, String> params,
+				ModelAndView mav) throws Throwable {
 			
 			//페이징처리
 			int page = 1;
@@ -65,32 +52,130 @@ public class SearchController {
 				page = Integer.parseInt(params.get("page"));
 			}
 			
-			try {
+			mav.addObject("page", page);
+			mav.setViewName("h/searchGallaryPage");
+			return mav;
+		}
+		
+		// 사진검색 ajax
+		@RequestMapping(value = "/picSearch",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String picSearch(
+				@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> modelMap = new HashMap<String, Object>();
 			
-				int cnt = iSearchService.getSCnt(params);
+			int page = Integer.parseInt(params.get("page"));
 				
-				PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 5);
-				
+			int cnt = iSearchService.getSCnt(params);
 			
-				params.put("startCnt", Integer.toString(pb.getStartCount()));
-				params.put("endCnt", Integer.toString(pb.getEndCount()));
-						
-				List<HashMap<String, String>> list = iSearchService.getSearchList(params);
-				
-				modelMap.put("cnt", cnt);
-				modelMap.put("list", list);
-				modelMap.put("pb", pb);
-				
-				if (cnt > 0) {
-					modelMap.put("msg", "success");
-				} else {
-					modelMap.put("msg", "failed");
-				}
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 5);
 			
-			} catch (Throwable e) {
-				e.printStackTrace();
-				modelMap.put("msg", "error");
-			}
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iSearchService.getSearchList(params);
+			
+			modelMap.put("cnt", cnt);
+			modelMap.put("list", list);
+			modelMap.put("pb", pb);
+
+			return mapper.writeValueAsString(modelMap);
+		
+		}
+		
+		// 그림검색 ajax
+		@RequestMapping(value = "/drawSearch",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String drawSearch(
+				@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+			
+			int cnt = iSearchService.getSCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 5);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iSearchService.getSearchList(params);
+			
+			modelMap.put("cnt", cnt);
+			modelMap.put("list", list);
+			modelMap.put("pb", pb);
+
+			return mapper.writeValueAsString(modelMap);
+		
+		}
+		
+		// 영상검색 ajax
+		@RequestMapping(value = "/videoSearch",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String videoSearch(
+				@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+			
+			int cnt = iSearchService.getSCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 5);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iSearchService.getSearchList(params);
+			
+			modelMap.put("cnt", cnt);
+			modelMap.put("list", list);
+			modelMap.put("pb", pb);
+
+			return mapper.writeValueAsString(modelMap);
+		
+		}
+		
+		// 작가검색 ajax
+		@RequestMapping(value = "/writerSearch",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String writerSearch(
+				@RequestParam HashMap<String, String> params) throws Throwable {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			
+			int page = Integer.parseInt(params.get("page"));
+
+			int cnt = iSearchService.getWCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 5);
+			
+		
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+					
+			List<HashMap<String, String>> list = iSearchService.getWriterList(params);
+			
+			modelMap.put("cnt", cnt);
+			modelMap.put("list", list);
+			modelMap.put("pb", pb);
 			
 			return mapper.writeValueAsString(modelMap);
 		

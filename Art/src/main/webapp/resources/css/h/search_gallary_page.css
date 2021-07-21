@@ -168,6 +168,10 @@ a {
 
 /* ----------------------------------------------------------------tab1결과 박스 */
 
+.gallary_contents, .writer_contents {
+	height: 1000px; 
+}
+
 .gallary_div {
 	display: inline-block;
 	width: 410px;
@@ -276,31 +280,22 @@ a {
 	font-size: medium;
 }
 
-#pagingWrap {
-	font-size: 15pt;
-	margin-top: 50px;
+.paging_area a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	margin: 0 5px;
+	cursor: pointer;
 }
 
-#pagingWrap span {
-	display: inline-block;
-	min-width: 30px;
-	padding: 5px;
-	margin: 0px 5px;
-	cursor: pointer;
+.on {
+	border: 1px solid black;
+	font-weight: bold;
 	border-radius: 5px;
 }
 
-.paging_selected {
-	display: inline-block;
-	min-width: 30px;
-	padding: 5px;
-	border: 1px solid #444;
-	margin: 0px 5px;
-	cursor: pointer;
-	border-radius: 5px;
-}
-
-#pagingWrap span:hover:not(.paging_selected) {
+.paging_area a:hover:not(.on) {
 	background-color: #ddd;
 	border-radius: 5px;
 }

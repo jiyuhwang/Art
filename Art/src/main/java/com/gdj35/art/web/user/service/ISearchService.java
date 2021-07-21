@@ -9,4 +9,8 @@ public interface ISearchService {
 
 	public List<HashMap<String, String>> getSearchList(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> getWriterList(HashMap<String, String> params) throws Throwable;
+
+	public int getWCnt(HashMap<String, String> params) throws Throwable;
+
 }
