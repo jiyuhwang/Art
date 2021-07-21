@@ -55,7 +55,38 @@ tbody tr:hover {
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
+
+function enterValue(){
+	
+	var tagSpan = document.createElement('span');
+	var x = document.createElement('span');	
+	var xMark = 'x';
+	var result = document.getElementById('tag');
+	var input = document.getElementById('tagId');
+	tagSpan.className='badge';
+	x.className='xClass';
+
+			
+	var content = document.getElementById('tagId');
+	var string = content.value;
+	var string2 = string.trim();
+	var string3 = string2.replace("," , "");
+	
+	
+	
+	if(string3 !== ""){
+		tagSpan.append(string3);  
+		x.append(xMark);
+		tagSpan.append(x);
+		result.append(tagSpan);  			
+		input.value = null;		
+	}else if(string3 == string){
+		
+	}
+
+}
 $(document).ready(function(){
+	
 	
 	if("${param.searchFlag}" != "")
 		$("#searchFlag").val("${param.searchFlag}");
@@ -103,7 +134,6 @@ $(document).ready(function(){
 		} else{
 			$("#menuTabFlag").val(3);
 		}	 
-				
 		loadPostList();
 		
 	});
@@ -398,11 +428,17 @@ $(document).ready(function(){
 				html +="	</div>";
 				html +="	<div class=\"contents_wrap\">";
 				
-				if(result.data.POST_FILE != null && result.data.POST_FILE != "") {
-					html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
-								+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
+				
+				
+				if(result.data.CATEGORY_NAME == '영상작품관') {
+					html += result.data.VIDEO_LINK;
 				} else {
-					html +=" <img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" alt=\"사랑스런짱구\">";
+					if(result.data.POST_FILE != null && result.data.POST_FILE != "") {
+						html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
+									+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
+					} else {
+						html +=" <img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" alt=\"사랑스런짱구\">";
+					}
 				}
 
 				html +="	</div>";
@@ -519,10 +555,13 @@ $(document).ready(function(){
 			success: function(result){
 				
 				var html = "";
-                
+				html += "<form id=\"fileForm\" action=\"fileUploadAjax\" method=\"post\" enctype=\"multipart/form-data\">";
+				html += "<input type=\"file\" name=\"postFile\" id=\"postFile\" />";
+				html += "</form>";
 				html +="	<div class=\"background2\"></div>";
 				html +="	<div class=\"wrap2\">";
 				html += "		<form id=\"actionForm\">";
+				html +="<input type=\"hidden\" id=\"tag2\" name=\"tag\">"
 				html += "		<input type=\"hidden\" name=\"postNo\" value=\"" + result.data.POST_NO + "\" />";
 				html +="	<div class=\"popup_title\">관리자용 상세보기</div>";
 				html +="	<div class=\"save_btn_wrap\">";
@@ -532,8 +571,25 @@ $(document).ready(function(){
 				html +="	<div class=\"contents_wrap\">";
 				
 				if(result.data.POST_FILE != null && result.data.POST_FILE != "") {
-					html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
-								+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
+					/* html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
+								+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">"; */
+					if(result.data.CATEGORY_NAME == '영상작품관') {
+						html += "<div class=\"upload_wrap\">";
+						html += "<img id=\"uploadFile\" src=\"resources/upload/" + result.data.POST_FILE + "\" width=\"400px\" height=\"400px\">";
+						html += "<input type=\"hidden\" id=\"postFileKeep\" value=\"" + result.data.POST_FILE + "\"/>";  			
+						html += "<input type=\"button\" id=\"upload\"/>";
+						html += "<input type=\"hidden\" name=\"postFile2\" id=\"postFile2\"/>";
+						html += "</div>";
+						html += "<input type=\"text\" id=\"video\" name=\"postFile3\" value=\'" + result.data.VIDEO_LINK + "\' maxlength=\"150\" placeholder=\"유투브 링크를 입력해주세요.\" />";
+					} else {
+						html += "<div class=\"upload_wrap\">";
+						html += "<img id=\"uploadFile\" src=\"resources/upload/" + result.data.POST_FILE + "\" width=\"400px\" height=\"400px\">";
+						html += "<input type=\"hidden\" id=\"postFileKeep\" value=\"" + result.data.POST_FILE + "\"/>";  			
+						html += "<input type=\"button\" id=\"upload\"/>";
+						html += "<input type=\"hidden\" name=\"postFile2\" id=\"postFile2\"/>";
+						html += "<input type=\"hidden\" id=\"video\" name=\"postFile3\" value=\"\" />";
+						html += "</div>";
+					}
 				} else {
 					html +=" <img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" alt=\"사랑스런짱구\">";
 				}
@@ -544,18 +600,18 @@ $(document).ready(function(){
 				html +="	<div class=\"contents_date\"> 작성시간: "+ result.data.REGISTER_DATE +"&nbsp;&nbsp;"							
 				html +="조회수: "+ result.data.VIEWS +"&nbsp;&nbsp;좋아요수: "+ result.data.LIKE_CNT +"&nbsp;&nbsp;";					
 					
-				var checkV = result.data.VISIBILITY;
+				/* var checkV = result.data.VISIBILITY;
 					
 					if(checkV == "0"){
 						 html +="	공개</div><br/><br/>";						
 					} else {
 						 html +="	비공개</div><br/><br/>";
-					}
+					} */
 				
 				html +="	<div class=\"contents\">";
 				html +="	<textarea id=\"explainCK\" name=\"explain\" cols=\"50\" rows=\"10\" placeholder=\"작품을 뽐내주세요.\">" + result.data.EXPLAIN +"</textarea></div>";
 				
-				html +="	<div class=\"tag_wrap\">";
+				/* html +="	<div class=\"tag_wrap\">";
 
 				if(result.data.TAGS != null && result.data.TAGS != "") {
 					
@@ -564,12 +620,25 @@ $(document).ready(function(){
 					for(var t of tagSplit){
 						html +="<i class=\"small_tag\"># "+ t +"</i>";
 					}
+				} */
+				html +="<div class=\"secret\">공개 설정</div>";
+				html +="<div class=\"public_privacy\">";
+				if(result.data.VISIBILITY == 0) {
+					html +="<input name=\"public_privacy\" value=\"0\" type=\"radio\" checked=\"checked\" /><label id=\"public\">공개</label>";
+					html +="<input name=\"public_privacy\" value=\"1\" type=\"radio\" /><label id=\"privacy\">비공개</label>";
+				} else {
+					html +="<input name=\"public_privacy\" value=\"0\" type=\"radio\"/><label id=\"public\">공개</label>";
+					html +="<input name=\"public_privacy\" value=\"1\" type=\"radio\" checked=\"checked\" /><label id=\"privacy\">비공개</label>";
 				}
-				     
+				html +="</div>"
+				html +="<div class=\"tag_wrap\">"
+				html +="<input id=\"tagId\" value =\"" + result.data.TAGS + "\" type=\"text\" placeholder=\"태그 입력 후 스페이스나 엔터를 눌러주세요.\"  onkeyup=\"if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}\"/>"
+				html +="<div id=\"tag\" class=\"tagsinput\"></div>"
+				html +="</div>"
 				html +="	<div class=\"comment_wrap\">";
 				html +="	<img class=\"comment_img\" src=\"resources/images/JY/comment.png\" alt=\"댓글아이콘\">";
 				html +="	<div class=\"comment\">댓글 "+ result.data.COMMENT_CNT+"개</div>";
-				html +="	</div></div><br/>";
+				html +="	</div><br/>";
 				html +="	<div class=\"mini_profile_wrap\">";
 				html +="	<div class=\"mini_profile\">";
 				
@@ -598,6 +667,10 @@ $(document).ready(function(){
 					closePopup();
 				});
 				
+				$("#tag").on("click", ".xClass", function() {
+					$(this).parent().remove();
+				});
+				
 				$(".background2").off("click");
 				$(".background2").on("click", function(){
 					closePopup();
@@ -614,11 +687,59 @@ $(document).ready(function(){
 					height: "500",
 					removeButtons: 'Subscript,Superscript,Flash,PageBreak,Iframe,Language,BidiRtl,BidiLtr,CreateDiv,ShowBlocks,Save,NewPage,Preview,Templates,Image'
 				});
+				
+				$("#upload").on("click", function () {
+					$("#postFile").click();
+				});
+				
+				
+				$("#postFile").on("change", function() {
+					
+					var fileForm = $("#fileForm");
+					
+			
+					fileForm.ajaxForm({
+						beforeSubmit : function() {
+						
+			
+					},
+					success : function(res) {
+						if(res.result = "SUCCESS") {
+							 // 올라간 파일명 저장
+							 if(res.fileName.length > 0) {
+								 $("#postFile2").val(res.fileName[0]);
+							 }
+							  
+							$("#uploadFile").attr("src", "resources/upload/" + $('#postFile2').val());
+				 
+							
+							} else {
+								alert("파일업로드 중 문제 발생");
+							}
+						},
+						error : function() {
+							alert("파일업로드 중 문제 발생");
+						} 
+					}); // ajaxForm End
+			
+					fileForm.submit();
+				});
 								
 				
 				$("#BtnSave").on("click", function(){
 					$("#explainCK").val(CKEDITOR.instances['explainCK'].getData());			
 										
+					var Text = $('.badge').text();
+					var Tag = Text.split('x');
+					$('#tag2').val(Tag);
+					
+					var filekeep = $('#uploadFile').attr("src").substring(17);
+					
+					if($('#postFileKeep').val() == filekeep) {
+						$('#postFile2').val(filekeep);
+					}
+					
+					
 					if($.trim($("#title").val()) == ""){
 						alert("제목을 입력해주세요.");
 						$("#title").focus();
@@ -771,9 +892,7 @@ $(document).ready(function(){
 					<option value="3">내용</option>
 					<option value="4">작성자</option>
 					<option value="5">번호</option>
-					<option value="6">분류</option>
 					<option value="7">제목+내용</option>
-					<option value="8">작성일</option>
 				</select>
 				<input type="hidden" id="searchOldTxt" value="${param.searchTxt}"/>
 				<input type="text" name="searchTxt" id="searchTxt" value="${param.searchTxt}" placeholder="검색어를 입력해주세요."/>

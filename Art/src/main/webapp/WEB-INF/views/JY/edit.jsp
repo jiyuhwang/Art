@@ -50,12 +50,12 @@ $(document).ready(function() {
 	console.log($('#uploadFile').attr("src"));
 	console.log($('#uploadFile').attr("src").substring(18)); 
 	
-	$("#btnCancel").on("click", function () {
+/* 	$("#btnCancel").on("click", function () {
 		var Text = $( '.badge' ).text();
 		var Tag = Text.split('x');
 		$('#tag2').val(Tag);
 		console.log($('#tag2').val());
-	});
+	}); */
 	
 	$("#tag").on("click", ".xClass", function() {
 		$(this).parent().remove();
