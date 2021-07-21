@@ -40,13 +40,15 @@
 	
 	<select id="getSearchList" parameterType="hashmap" resultType="hashmap">
 		SELECT P1.*, DECODE(L.LIKE_CNT, NULL, 0, L.LIKE_CNT) AS LIKE_CNT
-		FROM (SELECT *
-				FROM POST P
-				WHERE DEL = 1 AND P.VISIBILITY = 0) P1
+		FROM (SELECT POST.*, U.USER_NICKNAME, ROW_NUMBER() OVER(ORDER BY POST.REGISTER_DATE) AS RNUM
+				FROM POST INNER JOIN USERS U
+									ON POST.USER_NO = U.USER_NO
+				WHERE POST.DEL = 1 AND POST.VISIBILITY = 0) P1
 		LEFT OUTER JOIN (SELECT POST_NO, COUNT(*) LIKE_CNT FROM POST_LIKE GROUP 
 				BY POST_NO) L
 		ON P1.POST_NO = L.POST_NO
 		WHERE 1 = 1
+		AND (P1.RNUM BETWEEN #{startCnt} AND #{endCnt})
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="tabFlag == 0">
@@ -83,8 +85,9 @@
 	</select>
 
 	<select id="getWriterList" parameterType="hashmap" resultType="hashmap">
-		SELECT USER_NO, USER_ID, USER_NICKNAME, INTRODUCE, PROFILE_IMG_PATH
-		FROM USERS			
+		SELECT U.USER_NO, U.USER_ID, U.USER_NICKNAME, U.INTRODUCE, U.PROFILE_IMG_PATH, U.RNUM
+        FROM (SELECT USERS.*, ROW_NUMBER() OVER(ORDER BY JOIN_DATE) AS RNUM
+				FROM USERS) U			
 		WHERE 1 = 1
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
@@ -93,7 +96,8 @@
 				</when>
 			</choose>
 		</if>
-		AND OUT_DATE IS NULL	
+		AND OUT_DATE IS NULL
+		AND (U.RNUM BETWEEN #{startCnt} AND #{endCnt})
 	</select>
 
 	<select id="getWCnt" parameterType="hashmap" resultType="Integer">
