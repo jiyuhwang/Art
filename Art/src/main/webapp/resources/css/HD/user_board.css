@@ -10,7 +10,10 @@ min-width: 1330px;
 	background-color: #E0E7E9;
 	
 }
-
+img{
+	width: 15px;
+	height: 15px;
+}
 a{ 
 	text-decoration: none; /*기본, 글자 중간에 선이든 뭐든 없음*/
 	color:inherit; /*기본*/
@@ -22,6 +25,7 @@ table{
 	 border-bottom: 1px solid black;
 	 font-size: 10pt;
 	 width: 1500px;
+	 table-layout: fixed;
 	 
 }
 table th{

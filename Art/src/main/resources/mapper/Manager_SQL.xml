@@ -232,10 +232,12 @@
 	
 	
 	<select id="getDMList" resultType="hashmap" parameterType="hashmap">
-		SELECT MEMO_NO, MARKING, TO_CHAR(ACCUR_DATE) AS ACCUR_DATE, TO_CHAR(REGISTER_DATE) AS REGI_DATE,CONTENTS
-		FROM MEMO
-		WHERE DEL=1
-		AND USER_NO = #{userNo}
+		SELECT M.MEMO_NO, M.MARKING, TO_CHAR(M.ACCUR_DATE) AS ACCUR_DATE,
+				TO_CHAR(M.REGISTER_DATE) AS REGI_DATE,M.CONTENTS,M.ADMIN_NO,A.NAME
+		FROM MEMO M INNER JOIN ADMINISTRATOR A
+                    ON M.ADMIN_NO = A.ADMIN_NO
+		WHERE M.DEL=1
+		AND M.USER_NO = #{userNo}
 	</select>
 	
 	<update id="deleteOneRow" parameterType="hashmap">
@@ -748,8 +750,8 @@
 	</update>
 	
 	<insert id="addMemo" parameterType="hashmap">
-		INSERT INTO MEMO(MEMO_NO, REPORT_NO, USER_NO ,ADMIN_NO, ACCUR_DATE, MARKING, CONTENTS)
-		VALUES (MEMO_SEQ.NEXTVAL, #{rNo}, #{uNo}, #{admin}, #{occur}, #{marking}, #{contents})
+		INSERT INTO MEMO(MEMO_NO, USER_NO ,ADMIN_NO, ACCUR_DATE, MARKING, CONTENTS)
+		VALUES (MEMO_SEQ.NEXTVAL, #{uNo}, #{admin}, #{occur}, #{marking}, #{contents})
 	</insert>
 	
 	

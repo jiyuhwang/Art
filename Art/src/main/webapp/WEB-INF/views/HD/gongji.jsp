@@ -17,7 +17,7 @@ $(document).ready(function() {
 		} else {
 			$('.side_bar').slideUp();
 		}
-	})
+	});
 	
 	$('#btnLook').click(function() {
 		if ($('#srhW').css('display') == 'none') {
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		} else {
 			$('#srhW').hide();
 		}
-	})
+	});
 });
 
 	function check(chk) {
@@ -64,7 +64,7 @@ $(document).ready(function() {
 	
 	function drawList(list,cnt) {
 		var html ='';
-		" + + "
+		
 		for(var d of list){
 			html+= "	<div class=\"main_ctt2\">";
 			html+= "		<div class=\"main_ctt2_cover\">";
