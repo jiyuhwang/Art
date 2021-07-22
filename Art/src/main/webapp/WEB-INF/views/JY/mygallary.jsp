@@ -311,7 +311,6 @@ function drawPaging(pb) {
 </script>
 </head>
 <body>
-	<c:import url="followPopup.jsp"></c:import>
 	<c:choose>
 		<c:when test="${empty sUserNo}">
 			<c:import url="header2.jsp"></c:import>
@@ -322,6 +321,7 @@ function drawPaging(pb) {
 			</c:import>
 		</c:otherwise>
 	</c:choose>
+	<c:import url="followPopup.jsp"></c:import>
 <form action="#" id="actionForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" />
 		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />

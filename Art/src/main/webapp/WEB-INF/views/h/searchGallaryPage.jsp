@@ -14,35 +14,81 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	/* 순서 지켜야 파람값 지정됨. */
+	if("${param.tabFlag}" != "") {
+		$("input[name=tabFlag]").prop("checked", false);
+		$("input[name=tabFlag][value='${param.tabFlag}']").prop("checked", true);
+		
+	}
+	
+	if($("#searchTxt").val() != "") {
+		reloadList();
+	}
+
 	$("#searchTxt").on("keypress", function(event){
 		if(event.keyCode == 13){
-			
-			if($.trim($("#searchTxt").val()) == ""){
+			if($.trim($(this).val()) == ""){
 				alert("검색어가 없습니다.");
-				$("#searchTxt").focus();
+				$(this).focus();
 			} else {
 				$("#page").val("1");
  				$("#orderFlag").val("0");
- 				
-				reloadList();	
+ 				$("#searchOldTxt").val($("#searchTxt").val());
+				reloadList();
 			}
+			return false;
 		}
 	});
 	
+	$('.tabs').on("change", function() {
+		if($('input[name="tabFlag"]:checked').val() == "3") {
+			$('.views_order').hide();
+		} else {
+			$('.views_order').show();
+		}
+	});
+	
+	$(".pic_contents, .draw_contents, .video_contents").on("click", ".box_img", function() {
+		$("#pNo").val($(this).attr("pno"));
+		$("#postNo").val($(this).attr("pno"));
+		$("#searchTxt").val($("#searchOldTxt").val());
+		$("#actionForm").attr("action", "detail");
+		$("#actionForm").submit();
+	});
+	
+	$(".writer_contents").on("click", ".writer_div", function() {
+		$("#authorNo").val($(this).children().attr("name"));
+		$("#userNo2").val($(this).children().attr("name"));
+		$("#userNo3").val($('#userNo').val());
+		$("#userNickname").val($(this).children().attr("nick"));
+		$("#userProfileImg").val($(this).children().attr("img"));
+		$("#userIntroduce").val($(this).children().attr("introduce"));		
+		$("#goForm").attr("action", "othergallary");
+		$("#goForm").submit();
+	});
 
 	
 	$(".srh_flag").on("click", "li", function(){
-		if($(this).attr("class") == "accuracy"){
-			console.log("정확도 순이다");
-			$("#orderFlag").val("0");
-		} else if($(this).attr("class") == "views_order"){
-			console.log("조회수 순이다");
-			$("#orderFlag").val("1");
-		} else {
-			console.log("최신 순이다");
-			$("#orderFlag").val("2");
-		}
 		
+		if($(this).attr("class") == "accuracy"){
+			$("#orderFlag").val("0");
+			$(this).attr("id", "active");
+			$(".views_order").attr("id", "");
+			$(".recency").attr("id", "");
+		} else if($(this).attr("class") == "views_order"){
+			$("#orderFlag").val("1");
+			$(this).attr("id", "active");
+			$(".accuracy").attr("id", "");
+			$(".recency").attr("id", "");
+		} else {
+			$("#orderFlag").val("2");
+			$(this).attr("id", "active");
+			$(".accuracy").attr("id", "");
+			$(".views_order").attr("id", "");
+		}
+		if($("#searchTxt").val() != "") {
+			reloadList();
+		}
 	});
 
 	
@@ -57,7 +103,10 @@ $(document).ready(function() {
  	$(".tabs").on("change", "[type='radio']", function() {
 		$("#page").val("1");
 		$("#orderFlag").val("0");
-		reloadList();
+		if($("#searchTxt").val() != "") {
+			reloadList();
+		}
+
 	});
 	
 	
@@ -76,23 +125,23 @@ $(document).ready(function() {
 	function reloadList() {
 		var params= $("#actionForm").serialize();
 		var urlTxt = "";
-		
+		console.log("==>" + $(".tabs [type='radio']:checked").val());
 		switch($(".tabs [type='radio']:checked").val()) {
 		case "0" :
-			$("#tabFlag").val(0);
 			urlTxt = "picSearch";
+			$('input[name="tabFlag"]:checked').val("0");
 			break;
 		case "1" :
-			$("#tabFlag").val(1);
 			urlTxt = "drawSearch";
+			$('input[name="tabFlag"]:checked').val("1");
 			break;
 		case "2" :
-			$("#tabFlag").val(2);
 			urlTxt = "videoSearch";
+			$('input[name="tabFlag"]:checked').val("2");
 			break;
 		case "3" :
-			$("#tabFlag").val(3);
 			urlTxt = "writerSearch";
+			$('input[name="tabFlag"]:checked').val("3");
 			break;
 		}
 
@@ -102,19 +151,23 @@ $(document).ready(function() {
 			dataType: "json", 
 			data: params, 
 			success: function(res) {
-									
+				console.log("===>" + $(".tabs [type='radio']:checked").val());
 					switch($(".tabs [type='radio']:checked").val()) {
 					case "0" :
 						picSearch(res.list, res.cnt);
+						$('input[name="tabFlag"]:checked').val("0");
 						break;
 					case "1" :
 						drawSearch(res.list, res.cnt);
+						$('input[name="tabFlag"]:checked').val("1");
 						break;
 					case "2" :
 						videoSearch(res.list, res.cnt);
+						$('input[name="tabFlag"]:checked').val("2");
 						break;
 					case "3" :
 						writerSearch(res.list, res.cnt);
+						$('input[name="tabFlag"]:checked').val("3");
 						break;
 					 }
 					drawPaging(res.pb);	
@@ -146,7 +199,8 @@ $(document).ready(function() {
 			$(".pic_contents").html(html);
 			
 		}  else {
-				
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
 			for(var p of list) {
 				                                                                    
 			html +=" <div class=\"gallary_div\">";
@@ -229,6 +283,7 @@ $(document).ready(function() {
 		}
 	}
 	
+	
 	function videoSearch(list, cnt) {
 		var html = "";
 		var cntObj = "";
@@ -307,9 +362,11 @@ $(document).ready(function() {
 			$(".spanCnt").html(cntObj);
 		
 			for(var p of list) {
-				                                                                    
+				                  
+				
 			html +=" <div class=\"writer_div\">";
-			html += "	<div name = \"" + p.USER_NO + "\"class = \"writer_img\" id=\"writer" + p.USER_NO + "\"></div>";
+			/* html += "	<div name = \"" + p.USER_NO + "\"class = \"writer_img\" id=\"writer" + p.USER_NO + "\"></div>"; */
+			html += "	<div name = \"" + p.USER_NO + "\"class = \"writer_img\" id=\"writer" + p.USER_NO + "\" img=\"" + p.PROFILE_IMG_PATH + "\" nick=\"" + p.USER_NICKNAME + "\" introduce=\"" + p.INTRODUCE + "\" class=\"follower\"></div>";
 			html +=" 	<div class=\"writer_box_txt\">";
 			html +=" 		<div class=\"writer_name\"><h5>" + p.USER_NICKNAME + "</h5></div>";
 			html +=" 		<div class=\"writer_introduce\">";
@@ -332,6 +389,8 @@ $(document).ready(function() {
 				}
 			}
 		}
+		
+
 
 	}
 	
@@ -392,26 +451,36 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<c:import url="../JY/header.jsp"></c:import>
+
+	<c:choose>
+		<c:when test="${empty sUserNo}">
+			<c:import url="../JY/header2.jsp"></c:import>
+		</c:when>
+		<c:otherwise>
+			<c:import url="../JY/header.jsp">
+				<c:param name="url" value="mygallary"></c:param>
+			</c:import>
+		</c:otherwise>
+	</c:choose>
+<form action="#" id="actionForm" method="post">
 	<div class="input_txt_wrap">
 		<div id="srhTxt">
-<form action="#" id="actionForm" method="post">
 			<input type="hidden" id="visibility" name="visibility" value="0"/>
 			<input type="text" id="searchTxt" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt}"/>
 			<input type="hidden" id="searchOldTxt" value="${param.searchTxt}"/>
 			<input type="hidden" id="orderFlag" name="orderFlag" value="0">
+			<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
 			<input type="hidden" id="pNo" name="pNo" />
+			<input type="hidden" id="postNo" name="postNo" />
 			<input type="hidden" id="page" name="page" value="${page}" />
-			<input type="hidden" id="tabFlag" name="tabFlag"/>
-			<input type="hidden" id="tabOldFlag" name="tabOldFlag" value="${param.tabFlag}"/>
-</form>
+<%-- 			<input type="hidden" id="tabOldFlag" name="tabOldFlag" value="${param.tabFlag}"/>--%>			<input type="hidden" id="mainGallary" name="listPage" value="3"/>
 		</div>
 		<div class="srh_cnt_div">
 			<div class="srh_cnt_box">	
 			<span class="srh_cnt">작품 검색 결과 <span class="spanCnt"></span>건</span>";				
 				<div class="srh_flag_div">
 					<ul class="srh_flag">
-						<li class="accuracy">정확도</li>
+						<li class="accuracy" id="active">좋아요수</li>
 						<li class="views_order">조회수</li>
 						<li class="recency">최신</li>
 					</ul>
@@ -423,10 +492,10 @@ $(document).ready(function() {
 		<div class="ctts">
 			<div class="search_tab_wrap">
 				<div class="tabs">
-					<input id="tabP" type="radio" value="0" name="tab" checked="checked" />
-					<input id="tabD" type="radio" value="1" name="tab" />
-					<input id="tabV" type="radio" value="2" name="tab" />
-					<input id="tabW" type="radio" value="3" name="tab" />		
+					<input id="tabP" type="radio" value="0" name="tabFlag" checked="checked" />
+					<input id="tabD" type="radio" value="1" name="tabFlag" />
+					<input id="tabV" type="radio" value="2" name="tabFlag" />
+					<input id="tabW" type="radio" value="3" name="tabFlag" />		
 					<label for="tabP">사진</label>
 					<label for="tabD">그림</label>
 					<label for="tabV">영상</label>
@@ -442,6 +511,17 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+</form>
+
+	<form id="goForm">
+		<input type="hidden" id="followpage" name="followpage" value="1">
+		<input type="hidden" id="authorNo" name="authorNo" value="">
+		<input type="hidden" id="userNo3" name="userNo" value="">
+		<input type="hidden" id="userNo2" name="userNo2" value="">
+		<input type="hidden" id="userNickname" name="userNickname" value="">"
+		<input type="hidden" id="userProfileImg" name="userProfileImg" value="">
+		<input type="hidden" id="userIntroduce" name="userIntroduce" value="">
+	</form>
 	<c:import url="../JY/footer.jsp"></c:import>
 </body>
 </html>

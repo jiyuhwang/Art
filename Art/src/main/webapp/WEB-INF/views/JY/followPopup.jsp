@@ -92,6 +92,7 @@ body {
 	width: 100%;
 	border-bottom: 1px solid #ccc;
 	padding: 5px 0px;
+	cursor: pointer;
 }
 
 .follower_img_wrap, .following_img_wrap {
@@ -112,7 +113,7 @@ body {
 .follower_profile_wrap, .following_profile_wrap {
 	display: inline-block;
 	text-align: center;
-	margin-left: 70px;
+	width: 200px;
 	vertical-align: top;
     margin-top: 5px;
 }

@@ -198,7 +198,7 @@ a {
 				</c:when>
 
 		</c:choose>
-		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
+		<a href="searchGallaryPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
 	</div>
 	<div class="side_bar">
 		<img id="sideBarLogo" src="resources/images/JY//art2.png" alt="로고" width="80px"

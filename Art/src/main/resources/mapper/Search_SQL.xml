@@ -31,9 +31,6 @@
 					AND (P.TITLE LIKE '%' || #{searchTxt} || '%'
 					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%')	
 				</when>
-				<when test="tabFlag == 3">
-					AND U.NAME LIKE '%' || #{searchTxt} || '%'
-				</when>
 			</choose>
 		</if>
 	</select>
@@ -86,19 +83,29 @@
 	</select>
 
 	<select id="getWriterList" parameterType="hashmap" resultType="hashmap">
-		SELECT U.USER_NO, U.USER_ID, U.USER_NICKNAME, U.INTRODUCE, U.PROFILE_IMG_PATH, U.RNUM
-        FROM (SELECT USERS.*, ROW_NUMBER() OVER(ORDER BY JOIN_DATE) AS RNUM
-				FROM USERS) U			
-		WHERE 1 = 1
-		<if test="searchTxt != null and searchTxt != ''">
+		SELECT A.*
+		FROM (SELECT U.USER_NO, U.USER_ID, U.USER_NICKNAME, U.INTRODUCE, U.PROFILE_IMG_PATH, AN.LIKE_CNT,
+		<if test="searchTxt != null and searchTxt != ''
+			and orderFlag!= null and orderFlag != ''">
 			<choose>
-				<when test="tabFlag == 3">
-					AND USER_NICKNAME LIKE '%' || #{searchTxt} || '%'
+				<when test="orderFlag == 0">
+					ROW_NUMBER() OVER(ORDER BY NVL(AN.LIKE_CNT, 0) DESC) AS RNUM
+				</when>
+				<when test="orderFlag == 2">
+					ROW_NUMBER() OVER(ORDER BY USER_NO DESC) AS RNUM
 				</when>
 			</choose>
 		</if>
-		AND OUT_DATE IS NULL
-		AND (U.RNUM BETWEEN #{startCnt} AND #{endCnt})
+		FROM (SELECT USERS.*
+		        FROM USERS
+		        WHERE OUT_DATE IS NULL
+	        	<if test="searchTxt != null and searchTxt != ''">
+					AND USER_NICKNAME LIKE '%' || #{searchTxt} || '%'
+				</if>) U LEFT OUTER JOIN (SELECT AUTHOR_NO, COUNT(*) LIKE_CNT
+                                          FROM AUTHOR_LIKE
+                                          GROUP BY AUTHOR_NO) AN
+                              ON U.USER_NO = AN.AUTHOR_NO) A
+		WHERE A.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 
 	<select id="getWCnt" parameterType="hashmap" resultType="Integer">
@@ -106,11 +113,7 @@
 		FROM USERS
 		WHERE 1 = 1
 		<if test="searchTxt != null and searchTxt != ''">
-			<choose>
-				<when test="tabFlag == 3">
-					AND NAME LIKE '%' || #{searchTxt} || '%'
-				</when>
-			</choose>
+			AND USER_NICKNAME LIKE '%' || #{searchTxt} || '%'
 		</if>
 		AND OUT_DATE IS NULL
 	</select>
