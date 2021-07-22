@@ -97,19 +97,38 @@ public class ManagerController {
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
 		
-		String startCnt = "1";
-		String endCnt= "13";
+		System.out.println("넘어 오는지 보자" + params);
 		
-		params.put("startCnt",startCnt);
-		params.put("endCnt",endCnt);
-		int cnt = iManagerService.getGongCnt(params);
-		List<HashMap<String,String>> list = iManagerService.getGList(params);
-		System.out.println(list);
-		modelMap.put("list", list);
-		modelMap.put("cnt", cnt);
-		/* modelMap.put("user", user); */
+		try {
+			int page =1;
+			
+			if(params.get("page") != null) {
+				page = Integer.parseInt(params.get("page"));
+			}
+			
+			int cnt = iManagerService.getGongCnt(params);
+			
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 7, 10);
+			
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			
+			
+			List<HashMap<String,String>> list = iManagerService.getGList(params);
+			System.out.println(list);
+			
+			
+			modelMap.put("pb", pb);
+			modelMap.put("list", list);
+			modelMap.put("cnt", cnt);
+			/* modelMap.put("user", user); */
+		}catch(Throwable e) {
+			e.printStackTrace();
+		}
+			
+			
+			return mapper.writeValueAsString(modelMap);
 		
-		return mapper.writeValueAsString(modelMap);
 	}
 
 
@@ -959,12 +978,13 @@ public class ManagerController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		
+		System.out.println(params);
 		try {
 			//데이터취득
 			HashMap<String, String> memo = iManagerService.getMemoDetail(params);
 			
 			modelMap.put("memo", memo);
+			modelMap.put("msg", "success");
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -1044,12 +1064,16 @@ public class ManagerController {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-
+		
+		
+		System.out.println("이거받아야함"+ params);
 		
 		try {
 			int cnt = iManagerService.updateReportMemo(params);
-			
+			List<HashMap<String, String>> list = iManagerService.getReportMemo(params);
 			if(cnt > 0) {
+				
+				modelMap.put("list", list);
 				modelMap.put("msg", "success");
 		} else {
 			modelMap.put("msg", "failed");
@@ -1074,12 +1098,16 @@ public class ManagerController {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
 
 		
 		try {
+			
 			int cnt = iManagerService.deleteReportMemo(params);
+			List<HashMap<String,String>> list = iManagerService.getDMList(params);
 			
 			if(cnt > 0) {
+				modelMap.put("list", list);
 				modelMap.put("msg", "success");
 		} else {
 			modelMap.put("msg", "failed");

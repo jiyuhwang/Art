@@ -9,8 +9,48 @@
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+
+var loadFlag = true;
 	loadList();
 $(document).ready(function() {
+	$("#recentPost").attr("class","selected");
+	
+	
+	
+//---------------------------------------------------------- 무한 스크롤 페이지	
+
+$(".main").scroll(function () {
+	if(loadFlag) {
+		if($(".ctts_wrap").height() <= $(".main").scrollTop() + $(".main").height()){
+
+			
+			$("#page").val(($("#page").val()*1) +1);
+			
+			loadList();
+			console.log("이제 여기에 아작스 찍자");
+			console.log($(".ctts_wrap").innerHeight() );
+		console.log("문서 높이" + $(document).height());
+		console.log("cttwrap 총 높이"+$(".ctts_wrap").height());
+		console.log("cttwrap 높이"+$(".ctts_wrap").scrollTop());
+		console.log("window 높이"+$(window).scrollTop());
+		console.log("window 높이"+$(window).height());
+		console.log("window 높이"+$(window).innerHeight());
+		
+		}
+	}
+	
+});
+
+
+
+
+
+
+
+
+
+//--------------------------------------------------------------
+	
 	$('#btnMenu').click(function() {
 		if ($('.side_bar').css('display') == 'none') {
 			$('.side_bar').slideDown();
@@ -26,6 +66,32 @@ $(document).ready(function() {
 			$('#srhW').hide();
 		}
 	});
+	//--------------------------------------- 오래된 클릭
+	$("#oldPost").on("click", function () {
+		$("#oldPost").attr("class","selected");
+		$("#recentPost").attr("class","recentPost");
+		$("#sortO").val(0);
+		$("#page").val(1);
+		$("div .main_ctt2").remove();
+		loadList();
+	});
+	
+	//---------------------------------------- 최신 클릭
+	$("#recentPost").on("click", function () {
+		$("#recentPost").attr("class","selected");
+		$("#oldPost").attr("class","recentPost");
+		$("#sortO").val(1);
+		$("#page").val(1);
+		$("div .main_ctt2").remove();
+		loadList();
+	});
+	
+	//---------------------------------------- 더블 클릭시 해당 상세페이지로 이동 시키기
+	
+	$(".main .main_ctt2_cover").on("dblclick", function () {
+		$("#noticeNo").val($(this).attr("name"));
+	});
+	
 });
 
 	function check(chk) {
@@ -39,6 +105,7 @@ $(document).ready(function() {
 	
 	//-------------------------------------------------- 게시판 출력 아작스
 	function loadList() {
+		console.log("발동");
 		$("#actionForm").attr("action","gongji_page")
 		var params = $("#actionFrom").serialize();
 		
@@ -64,11 +131,13 @@ $(document).ready(function() {
 	
 	function drawList(list,cnt) {
 		var html ='';
-		
+		if(list == null || list.length == 0) {
+			loadFlag = false;
+		}
 		for(var d of list){
 			html+= "	<div class=\"main_ctt2\">";
-			html+= "		<div class=\"main_ctt2_cover\">";
-			html+= "			<div class=\"second\">";
+			html+= "		<div class=\"main_ctt2_cover\" name=\"" + d.NOTICE_NO + "\">";
+			html+= "			<div class=\"second\" >";
 			if(d.FILE_PATH =="" && d.FILE_PATH == null ){
 				html+= "				<img src=\"resources/images/JY/art2.png\" alt=\"content\">";
 			}else{
@@ -88,7 +157,7 @@ $(document).ready(function() {
 			html+= "	</div>";
 		}
 		
-		$(".main_ctt").append(html);
+		$(".ctts_wrap").append(html);
 		
 		html = cnt + "개의 글";
 		
@@ -101,6 +170,8 @@ $(document).ready(function() {
 <body>
 	<form action="#" id="actionFrom" method="post">
 		<input type="hidden" id="noticeNo" name="noticeNo">
+		<input type="hidden" id="sortO" name="sortO" >
+		<input type="hidden" id="page" name="page" value="1">
 	</form>
 	<div class="hdr">
 	<div class="inner_hdr">
@@ -144,8 +215,8 @@ $(document).ready(function() {
 			<div class="left">n개의 글</div>
 			<div class="right">
 				<ul>
-					<li>오래된</li>
-					<li>최신</li>
+					<li id="oldPost" class="oldPost">오래된</li>
+					<li id="recentPost" class="recentPost">최신</li>
 				</ul>
 			</div>
 		</div>

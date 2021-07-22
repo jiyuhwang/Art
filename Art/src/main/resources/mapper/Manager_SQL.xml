@@ -169,6 +169,16 @@
         </if>
 		)
 	 WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
+	 <if test="sortO != null and sortO !=''">
+        	<choose>
+        		<when test="sortO == 0">
+        			ORDER BY REGISTER_DATE ASC
+        		</when>
+        		<when test="sortO == 1">
+        			ORDER BY REGISTER_DATE DESC
+        		</when>
+        	</choose>
+        </if>
 	</select>
 	
 	<insert id="addGong" parameterType="hashmap">
@@ -751,7 +761,7 @@
 	
 	<insert id="addMemo" parameterType="hashmap">
 		INSERT INTO MEMO(MEMO_NO, USER_NO ,ADMIN_NO, ACCUR_DATE, MARKING, CONTENTS)
-		VALUES (MEMO_SEQ.NEXTVAL, #{uNo}, #{admin}, #{occur}, #{marking}, #{contents})
+		VALUES (MEMO_SEQ.NEXTVAL, #{userNo}, #{admin}, #{occur}, #{marking}, #{contents})
 	</insert>
 	
 	
