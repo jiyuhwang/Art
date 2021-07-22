@@ -44,6 +44,9 @@ a {
 
 .search_tab_wrap {
 	text-align: center;
+    height: 60px;
+    width: 1330px;
+    margin: 0 auto;
 }
 
 .tabs {
@@ -69,6 +72,7 @@ a {
     margin-right: 6px;
     font-size: 24px;
     color: #666;
+    margin-top: 14px;
 }
 
 .tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), .tabs > label[for=tabP]:hover {
@@ -99,13 +103,16 @@ a {
 /*-----------------------------------------------------------메인  */
 .main {
 	background-color: #fbfbfb;
-
 }
 
 .ctts {
 	width: 1300px;
 	margin: 0 auto;
-	min-height: 1500px;
+	min-height: 2500px;
+}
+
+.srh_cnt_div {
+	text-align: center;
 }
 
 .srh_flag_div * {
@@ -115,6 +122,8 @@ a {
 
 .srh_cnt_box {
 	height: 60px;
+	width: 1330px;
+    margin: 0 auto;
 }
 
 .srh_cnt {
@@ -122,6 +131,7 @@ a {
 	color: #909090;
 	float: left;
 	margin-top: 26px;
+	margin-left: 14px;
 }
 
 .srh_flag_div {
@@ -166,15 +176,17 @@ a {
 	margin-left: -1em;
 }
 
-/* ----------------------------------------------------------------tab1결과 박스 */
-
-.gallary_contents, .writer_contents {
-	height: 1000px; 
+.pic_contents, .draw_contents, .video_contents, .writer_contents {
+	width: 1300px;
+	margin: 0 auto;
+	min-height: 730px;
+	top: 100px;
 }
+/* ----------------------------------------------------------------tab1결과 박스 */
 
 .gallary_div {
 	display: inline-block;
-	width: 410px;
+	width: 400px;
 	margin: 10px;
 	vertical-align: top;
 }
@@ -187,6 +199,8 @@ a {
 .box_img {
 	width: 410px;
 	height: 400px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .box_img_txt {
@@ -261,10 +275,18 @@ a {
 }
 
 /*------------------------------------------------------검색없을 때 */
+
+.search_result {
+	width: 1300px;
+	margin: 0 auto;
+	min-height: 1000px;
+	top: 100px;
+}
+
+
 .search_nothing {
 	display: inline-block;
 	width: 500px;
-	height: 500px;
 	font-size: 30px;
 	margin: auto;
 	position: relative;
@@ -274,10 +296,10 @@ a {
 /*-----------------------------------------------------paging */
 
 .paging_area {
-	text-align: center;
-	width: 701px;
+	display: inline-block;
 	margin: 0 auto;
-	font-size: medium;
+    margin-top: 20px;
+	font-size: 15pt;
 }
 
 .paging_area a {

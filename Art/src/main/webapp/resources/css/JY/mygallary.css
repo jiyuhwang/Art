@@ -88,6 +88,11 @@ body {
 	text-align: center;
 	top: 290px;
 	font-size: 11pt;
+	cursor: pointer;
+}
+.profile_like:hover {
+	font-weight: bold;
+	color: #ffad33;
 }
 
 .profile_like_cnt {

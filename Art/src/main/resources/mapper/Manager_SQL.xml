@@ -320,6 +320,17 @@
 		FROM POST P INNER JOIN USERS U
                      ON P.USER_NO = U.USER_NO
 		WHERE 1 = 1
+		<choose>
+			<when test="menuTabFlag == 1">
+				AND P.CATEGORY_NO = 1
+			</when>
+			<when test="menuTabFlag == 2">
+				AND P.CATEGORY_NO = 2
+			</when>
+			<when test="menuTabFlag == 3">
+				AND P.CATEGORY_NO = 3
+			</when>
+		</choose>
 		<if test="srhYearFlag == 0 or srhYearFlag == 1">
 			<choose>
 					<when test="srhYearFlag == 0">
@@ -488,13 +499,13 @@
 	
 	
 	<select id="getUserDetail" parameterType="hashmap" resultType="hashmap">
-		SELECT RN.POST_NO, RN.POST_FILE, SUBSTR(RN.POST_FILE, 21) AS POST_UFILE, RN.CATEGORY_NAME, RN.TITLE, RN.REGISTER_DATE,
+		SELECT RN.POST_NO, RN.POST_FILE, RN.VIDEO_LINK, SUBSTR(RN.POST_FILE, 21) AS POST_UFILE, RN.CATEGORY_NAME, RN.TITLE, RN.REGISTER_DATE,
 				RN.EXPLAIN, RN.USER_NICKNAME, RN.PROFILE_IMG_PATH, SUBSTR(RN.PROFILE_IMG_PATH, 21) AS PROFILE_IMG_UPATH,
 				RN.INTRODUCE, RN.TAGS, DECODE(RC.COMMENT_CNT, NULL, 0,RC.COMMENT_CNT) AS COMMENT_CNT,
 				RN.VISIBILITY, RN.VIEWS, DECODE(L.LIKE_CNT, NULL, 0, L.LIKE_CNT) AS LIKE_CNT
 		FROM ((SELECT P.POST_NO, P.POST_FILE, C.CATEGORY_NAME, P.TITLE,
 						TO_CHAR(P.REGISTER_DATE, 'YYYY-MM-DD HH24:MI:SS') AS REGISTER_DATE,
-						P.VISIBILITY ,P.VIEWS ,P.EXPLAIN, U.USER_NICKNAME, U.PROFILE_IMG_PATH, U.INTRODUCE, N.TAGS
+						P.VISIBILITY ,P.VIEWS ,P.EXPLAIN, P.VIDEO_LINK, U.USER_NICKNAME, U.PROFILE_IMG_PATH, U.INTRODUCE, N.TAGS
 		        FROM ((POST P INNER JOIN USERS U
 		                    		ON P.USER_NO = U.USER_NO) INNER JOIN POST_CATEGORY C
 																	ON P.CATEGORY_NO = C.CATEGORY_NO)
@@ -518,7 +529,10 @@
 	<select id="updatePostDetail" parameterType="hashmap">
 		UPDATE POST
 		SET TITLE = #{title},
-			EXPLAIN = #{explain}
+			EXPLAIN = #{explain},
+			VISIBILITY = #{public_privacy},
+			POST_FILE = #{postFile2},
+			VIDEO_LINK = #{postFile3}
 		WHERE POST_NO = #{postNo}	
 	</select>
 	

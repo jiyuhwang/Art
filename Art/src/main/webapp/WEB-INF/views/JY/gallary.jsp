@@ -46,6 +46,7 @@ $(document).ready(function() {
 		reloadList();
 	});
 	
+	
 	$(".pic_wrap, .draw_wrap, .video_wrap").on("dblclick", "div", function() {
 		$("#pNo").val($(this).attr("pno"));
 		$("#postNo").val($(this).attr("pno"));

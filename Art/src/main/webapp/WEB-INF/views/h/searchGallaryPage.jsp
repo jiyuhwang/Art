@@ -22,18 +22,14 @@ $(document).ready(function() {
 				$("#searchTxt").focus();
 			} else {
 				$("#page").val("1");
-				$("#orderFlag").val("0");
-				
+ 				$("#orderFlag").val("0");
+ 				
 				reloadList();	
 			}
 		}
 	});
 	
- 	$(".tabs").on("change", "[type='radio']", function() {
-		$("#page").val("1");
-		$("#orderFlag").val("0");
-		reloadList();
-	});
+
 	
 	$(".srh_flag").on("click", "li", function(){
 		if($(this).attr("class") == "accuracy"){
@@ -50,10 +46,19 @@ $(document).ready(function() {
 	});
 
 	
+	//페이지 클릭시
+	$(".paging_area").on("click", "a",  function() {
+		$("#page").val($(this).attr("page"));
+		$('html').scrollTop(0);
+		reloadList();
+	});
 	
 	
-	
-	
+ 	$(".tabs").on("change", "[type='radio']", function() {
+		$("#page").val("1");
+		$("#orderFlag").val("0");
+		reloadList();
+	});
 	
 	
 	
@@ -97,31 +102,19 @@ $(document).ready(function() {
 			dataType: "json", 
 			data: params, 
 			success: function(res) {
-				
-/* 				if($("#page").val() == 1) {
-						html +="<div class=\"search_result\">";
-						html +="	<div class=\"search_nothing\">";
-						html +="		<b>검색어</b>에 대한 검색결과가 없습니다.<br/>";
-						html +="		다시 검색해 보세요.";
-						html +="	</div>";
-						html +="</div>";
-						
-					drawPaging(res.pb);	
-					break;
-				}  */
-					
+									
 					switch($(".tabs [type='radio']:checked").val()) {
 					case "0" :
-						picSearch(res.list);
+						picSearch(res.list, res.cnt);
 						break;
 					case "1" :
-						drawSearch(res.list);
+						drawSearch(res.list, res.cnt);
 						break;
 					case "2" :
-						videoSearch(res.list);
+						videoSearch(res.list, res.cnt);
 						break;
 					case "3" :
-						writerSearch(res.list);
+						writerSearch(res.list, res.cnt);
 						break;
 					 }
 					drawPaging(res.pb);	
@@ -134,126 +127,212 @@ $(document).ready(function() {
 	}
 
 	
-	function picSearch(list) {
+	function picSearch(list, cnt) {
 		var html = "";
-
-		for(var p of list) {
-			                                                                    
-		html +=" <div class=\"gallary_div\">";
-		html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"pic" + p.POST_NO + "\">";
-		html +=" 		<div class=\"box_img_txt\">";
-		html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
-		html +=" 			<div class=\"box_img_txt_writer_div\">";
-		html +=" 				<span class=\"writer_flag\">by </span>";
-		html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
-		html +=" 			</div>";
-		html +=" 	</div>";
-		html +=" </div>";
-	
-		}
+		var cntObj = "";
 		
-		$(".gallary_contents").html(html);
-		
-		for(var p of list) {
+		if(list.length == 0 && $("#page").val() == 1) {
 			
-			if(p.POST_FILE != null && p.POST_FILE != "") {
-				$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
-			} else {
-				$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
+			
+			html +="<div class=\"search_result\">";
+			html +="	<div class=\"search_nothing\">";
+			html +="		<b>검색어</b>에 대한 검색결과가 없습니다.<br/>";
+			html +="		다시 검색해 보세요.";
+			html +="	</div>";
+			html +="</div>";
+			
+			$(".pic_contents").html(html);
+			
+		}  else {
+				
+			for(var p of list) {
+				                                                                    
+			html +=" <div class=\"gallary_div\">";
+			html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"pic" + p.POST_NO + "\"></div>";
+			html +=" 		<div class=\"box_img_txt\">";
+			html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
+			html +=" 			<div class=\"box_img_txt_writer_div\">";
+			html +=" 				<span class=\"writer_flag\">by </span>";
+			html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
+			html +=" 			</div>";
+			html +=" 	</div>";
+			html +=" </div>";
+		
 			}
+			
+			$(".pic_contents").html(html);
+			
+			for(var p of list) {
+				
+				if(p.POST_FILE != null && p.POST_FILE != "") {
+					$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+				} else {
+					$('#pic' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
+				}
+			}
+
+		}
+
+	}
+	
+	function drawSearch(list, cnt) {
+		var html = "";
+		var cntObj = "";
+		
+		if(list.length == 0 && $("#page").val() == 1) {
+			
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
+			
+			html +="<div class=\"search_result\">";
+			html +="	<div class=\"search_nothing\">";
+			html +="		<b>검색어</b>에 대한 검색결과가 없습니다.<br/>";
+			html +="		다시 검색해 보세요.";
+			html +="	</div>";
+			html +="</div>";
+			
+			$(".draw_contents").html(html);
+			
+		}  else {
+			
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
+			
+			for(var p of list) {
+				                                                                    
+			html +=" <div class=\"gallary_div\">";
+			html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"draw" + p.POST_NO + "\"></div>";
+			html +=" 		<div class=\"box_img_txt\">";
+			html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
+			html +=" 			<div class=\"box_img_txt_writer_div\">";
+			html +=" 				<span class=\"writer_flag\">by </span>";
+			html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
+			html +=" 			</div>";
+			html +=" 	</div>";
+			html +=" </div>";
+		
+			}
+			
+			$(".draw_contents").html(html);
+			
+			for(var p of list) {
+				
+				if(p.POST_FILE != null && p.POST_FILE != "") {
+					$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+				} else {
+					$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
+				}
+			}
+
 		}
 	}
 	
-	function drawSearch(list) {
+	function videoSearch(list, cnt) {
 		var html = "";
-
-		for(var p of list) {
-			                                                                    
-		html +=" <div class=\"gallary_div\">";
-		html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"draw" + p.POST_NO + "\">";
-		html +=" 		<div class=\"box_img_txt\">";
-		html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
-		html +=" 			<div class=\"box_img_txt_writer_div\">";
-		html +=" 				<span class=\"writer_flag\">by </span>";
-		html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
-		html +=" 			</div>";
-		html +=" 	</div>";
-		html +=" </div>";
-	
-		}
+		var cntObj = "";
 		
-		$(".gallary_contents").html(html);
-		
-		for(var p of list) {
+		if(list.length == 0 && $("#page").val() == 1) {
 			
-			if(p.POST_FILE != null && p.POST_FILE != "") {
-				$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
-			} else {
-				$('#draw' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
-			}
-		}
-	}
-	
-	function videoSearch(list) {
-		var html = "";
-
-		for(var p of list) {
-			                                                                    
-		html +=" <div class=\"gallary_div\">";
-		html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"video" + p.POST_NO + "\">";
-		html +=" 		<div class=\"box_img_txt\">";
-		html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
-		html +=" 			<div class=\"box_img_txt_writer_div\">";
-		html +=" 				<span class=\"writer_flag\">by </span>";
-		html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
-		html +=" 			</div>";
-		html +=" 	</div>";
-		html +=" </div>";
-	
-		}
-		
-		$(".writer_contents").hide();
-		$(".gallary_contents").html(html);
-		
-		for(var p of list) {
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
 			
-			if(p.POST_FILE != null && p.POST_FILE != "") {
-				$('#video' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
-			} else {
-				$('#video' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
+			html +="<div class=\"search_result\">";
+			html +="	<div class=\"search_nothing\">";
+			html +="		<b>검색어</b>에 대한 검색결과가 없습니다.<br/>";
+			html +="		다시 검색해 보세요.";
+			html +="	</div>";
+			html +="</div>";
+			
+			$(".video_contents").html(html);
+			
+		}  else {
+			
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
+			
+			for(var p of list) {
+				                                                                    
+			html +=" <div class=\"gallary_div\">";
+			html += "	<div pno = \"" + p.POST_NO + "\"class = \"box_img\" id=\"video" + p.POST_NO + "\"></div>";
+			html +=" 		<div class=\"box_img_txt\">";
+			html +=" 			<div class=\"box_img_txt_title\">" + p.TITLE + "</div>";
+			html +=" 			<div class=\"box_img_txt_writer_div\">";
+			html +=" 				<span class=\"writer_flag\">by </span>";
+			html +=" 				<span class=\"box_img_txt_writer\"> " + p.USER_NICKNAME + "</span>";
+			html +=" 			</div>";
+			html +=" 	</div>";
+			html +=" </div>";
+		
 			}
+			
+			$(".video_contents").html(html);
+			
+			for(var p of list) {
+				
+				if(p.POST_FILE != null && p.POST_FILE != "") {
+					$('#video' + p.POST_NO).css('background-image', 'url(\'resources/upload/' + p.POST_FILE + '\')');
+				} else {
+					$('#video' + p.POST_NO).css('background-image', 'url(\'resources/images/JY/짱구1.jpg\')');
+				}
+			}
+
 		}
+
 	}
 
 
-	function writerSearch(list) {
+	function writerSearch(list, cnt) {
 		var html = "";
-
-		for(var p of list) {
-			                                                                    
-		html +=" <div class=\"writer_div\">";
-		html += "	<div name = \"" + p.USER_NO + "\"class = \"writer_img\" id=\"writer" + p.USER_NO + "\"></div>";
-		html +=" 	<div class=\"writer_box_txt\">";
-		html +=" 		<div class=\"writer_name\"><h5>" + p.USER_NICKNAME + "</h5></div>";
-		html +=" 		<div class=\"writer_introduce\">";
-		html +=" 			<span> " + p.INTRODUCE + "</span>";
-		html +=" 		</div>";
-		html +=" 	</div>";
-		html +=" </div>";
-	
-		}
+		var cntObj = "";
 		
-		$(".gallary_contents").hide();
-		$(".writer_contents").html(html);
-		
-		for(var p of list) {
+		if(list.length == 0 && $("#page").val() == 1) {
 			
-			if(p.PROFILE_IMG_PATH != null && p.PROFILE_IMG_PATH != "") {
-				$('#writer' + p.USER_NO).css('background-image', 'url(\'resources/upload/' + p.PROFILE_IMG_PATH + '\')');
-			} else {
-				$('#writer' + p.USER_NO).css('background-image', 'url(\'resources/images/JY/who.png\')');
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
+			
+			html +="<div class=\"search_result\">";
+			html +="	<div class=\"search_nothing\">";
+			html +="		<b>검색어</b>에 대한 검색결과가 없습니다.<br/>";
+			html +="		다시 검색해 보세요.";
+			html +="	</div>";
+			html +="</div>";
+			
+			$(".writer_contents").html(html);
+			
+		}  else {
+			
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
+		
+			for(var p of list) {
+				                                                                    
+			html +=" <div class=\"writer_div\">";
+			html += "	<div name = \"" + p.USER_NO + "\"class = \"writer_img\" id=\"writer" + p.USER_NO + "\"></div>";
+			html +=" 	<div class=\"writer_box_txt\">";
+			html +=" 		<div class=\"writer_name\"><h5>" + p.USER_NICKNAME + "</h5></div>";
+			html +=" 		<div class=\"writer_introduce\">";
+			html +=" 			<span> " + p.INTRODUCE + "</span>";
+			html +=" 		</div>";
+			html +=" 	</div>";
+			html +=" </div>";
+		
+			}
+			
+			
+			$(".writer_contents").html(html);
+			
+			for(var p of list) {
+				
+				if(p.PROFILE_IMG_PATH != null && p.PROFILE_IMG_PATH != "") {
+					$('#writer' + p.USER_NO).css('background-image', 'url(\'resources/upload/' + p.PROFILE_IMG_PATH + '\')');
+				} else {
+					$('#writer' + p.USER_NO).css('background-image', 'url(\'resources/images/JY/who.png\')');
+				}
 			}
 		}
+
 	}
 	
 	
@@ -316,33 +395,20 @@ $(document).ready(function() {
 	<c:import url="../JY/header.jsp"></c:import>
 	<div class="input_txt_wrap">
 		<div id="srhTxt">
-		<form action="#" id="actionForm" method="post">
+<form action="#" id="actionForm" method="post">
 			<input type="hidden" id="visibility" name="visibility" value="0"/>
 			<input type="text" id="searchTxt" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt}"/>
 			<input type="hidden" id="searchOldTxt" value="${param.searchTxt}"/>
-			<input type="hidden" id="tabFlag" name="tabFlag" value="0">
 			<input type="hidden" id="orderFlag" name="orderFlag" value="0">
 			<input type="hidden" id="pNo" name="pNo" />
 			<input type="hidden" id="page" name="page" value="${page}" />
-		</form>
-		</div>		
-	</div>
-	<div class="search_tab_wrap">
-		<div class="tabs">
-			<input id="tabP" type="radio" value="0" name="tab" checked="checked" />
-			<input id="tabD" type="radio" value="1" name="tab" />
-			<input id="tabV" type="radio" value="2" name="tab" />
-			<input id="tabW" type="radio" value="3" name="tab" />		
-			<label for="tabP">사진</label>
-			<label for="tabD">그림</label>
-			<label for="tabV">영상</label>
-			<label for="tabW">작가</label>
+			<input type="hidden" id="tabFlag" name="tabFlag"/>
+			<input type="hidden" id="tabOldFlag" name="tabOldFlag" value="${param.tabFlag}"/>
+</form>
 		</div>
-	</div>
-	<div class="main">
-		<div class="ctts">
-			<div class="srh_cnt_box">
-				<span class="srh_cnt">작품 검색 결과 ${cnt.cnt}건</span>
+		<div class="srh_cnt_div">
+			<div class="srh_cnt_box">	
+			<span class="srh_cnt">작품 검색 결과 <span class="spanCnt"></span>건</span>";				
 				<div class="srh_flag_div">
 					<ul class="srh_flag">
 						<li class="accuracy">정확도</li>
@@ -351,11 +417,29 @@ $(document).ready(function() {
 					</ul>
 				</div>
 			</div>
-			<div class="gallary_contents"></div>
-			<!-------------------------------------------------------------작가검색시  -->
-			<div class="writer_contents"></div>
-			<!------------------------------------------------------------------------ 페이징 -->
-			<div class="paging_area"></div>
+		</div>	
+	</div>
+	<div class="main">
+		<div class="ctts">
+			<div class="search_tab_wrap">
+				<div class="tabs">
+					<input id="tabP" type="radio" value="0" name="tab" checked="checked" />
+					<input id="tabD" type="radio" value="1" name="tab" />
+					<input id="tabV" type="radio" value="2" name="tab" />
+					<input id="tabW" type="radio" value="3" name="tab" />		
+					<label for="tabP">사진</label>
+					<label for="tabD">그림</label>
+					<label for="tabV">영상</label>
+					<label for="tabW">작가</label>
+					<div class="pic_contents"></div>
+					<div class="draw_contents"></div>
+					<div class="video_contents"></div>
+					<!-------------------------------------------------------------작가검색시  -->
+					<div class="writer_contents"></div>
+					<!------------------------------------------------------------------------ 페이징 -->
+					<div class="paging_area"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<c:import url="../JY/footer.jsp"></c:import>

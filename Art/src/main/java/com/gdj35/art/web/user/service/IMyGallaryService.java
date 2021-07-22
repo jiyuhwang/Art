@@ -91,6 +91,14 @@ public interface IMyGallaryService {
 
 	public List<HashMap<String, Object>> chart(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> followerList(HashMap<String, String> params) throws Throwable;
+
+	public List<HashMap<String, String>> followingList(HashMap<String, String> params) throws Throwable;
+
+	public int followerCnt(HashMap<String, String> params) throws Throwable;
+
+	public int followingCnt(HashMap<String, String> params) throws Throwable;
+
 
 
 

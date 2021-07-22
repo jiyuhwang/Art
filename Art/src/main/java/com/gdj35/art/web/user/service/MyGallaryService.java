@@ -232,5 +232,25 @@ public class MyGallaryService implements IMyGallaryService{
 		return iMyGallaryDao.chart(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> followerList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.followerList(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> followingList(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.followingList(params);
+	}
+
+	@Override
+	public int followerCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.followerCnt(params);
+	}
+
+	@Override
+	public int followingCnt(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.followingCnt(params);
+	}
+
 
 }
