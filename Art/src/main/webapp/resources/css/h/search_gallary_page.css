@@ -176,6 +176,12 @@ a {
 	margin-left: -1em;
 }
 
+.pic_contents, .draw_contents, .video_contents, .writer_contents {
+	width: 1300px;
+	margin: 0 auto;
+	min-height: 730px;
+	top: 100px;
+}
 /* ----------------------------------------------------------------tab1결과 박스 */
 
 .gallary_div {
@@ -269,13 +275,13 @@ a {
 }
 
 /*------------------------------------------------------검색없을 때 */
+
 .search_result {
 	width: 1300px;
 	margin: 0 auto;
 	min-height: 1000px;
 	top: 100px;
 }
-
 
 
 .search_nothing {
