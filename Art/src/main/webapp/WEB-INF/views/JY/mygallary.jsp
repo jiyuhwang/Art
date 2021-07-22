@@ -10,7 +10,6 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-		
 	
 	if("${param.selectGbn}" != "") {
 		$(".select").val("${param.selectGbn}");
@@ -80,6 +79,7 @@ $(document).ready(function() {
 		reloadList();
 	});
 	
+	
 	$(".gallary_wrap").on("click", '.contents_heart', function() {
 		if($('#userNo').val() != "") {
 		if ($(this).attr("src") == "resources/images/JY/heart3.png") {
@@ -144,7 +144,6 @@ $(document).ready(function() {
 	});
 	
 	
-
 	
 });
 
@@ -312,6 +311,7 @@ function drawPaging(pb) {
 </script>
 </head>
 <body>
+	<c:import url="followPopup.jsp"></c:import>
 	<c:choose>
 		<c:when test="${empty sUserNo}">
 			<c:import url="header2.jsp"></c:import>
@@ -350,7 +350,7 @@ function drawPaging(pb) {
 			</c:choose>
 			
 			<div class="profile_name2">${sUserNickname}</div>
-			<div class="profile_like">좋아요수
+			<div class="profile_like">팔로워수
 				<span class="profile_like_cnt">${data.LIKECNT}</span>
 			</div>
 			<div class="profile_introduce">

@@ -961,34 +961,9 @@ public class MyGallaryController {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
-		//int size = Integer.parseInt(request.getParameter("size"));
-		
-		//int series = Integer.parseInt(request.getParameter("series"));
-		
-		//ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+	
 		
 		List<HashMap<String, Object>> list = iMyGallaryService.chart(params);
-		
-		
-		//for(int s = 0 ; s < series ; s++) {
-			//HashMap<String, Object> data = new HashMap<String, Object>();
-			
-			//data.put("name", "S" + s);
-			//data.put("pointInterval", 1);
-			//data.put("pointStart", 1999);
-			
-			//ArrayList<Integer> y = new ArrayList<Integer>();
-			
-			//for(int i = 0 ; i < size ; i++) {
-			//	y.add((int) (Math.random() * 100)); 
-			//}
-			
-		//	data.put("data", y);
-			
-			//list.add(data);
-		//}
-		
 		
 		System.out.println(">>>>>>>>" + params);
 		System.out.println(">>>>>>>>>>>>>>>>" + list);
@@ -996,6 +971,70 @@ public class MyGallaryController {
 		modelMap.put("list", list);
 		
         return mapper.writeValueAsString(modelMap);
+	}
+	
+	// 팔로우, 팔로워 팝업
+	@RequestMapping(value = "/followPopup")
+	public ModelAndView followPopup(ModelAndView mav) {
+		mav.setViewName("JY/followPopup");
+
+		return mav;
+	}
+	
+	// 팔로워 Ajax
+	@RequestMapping(value = "/followerList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String followerList(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("followpage"));
+		
+		int cnt = iMyGallaryService.followerCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 10, 1);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.followerList(params);
+		
+		modelMap.put("list", list);		
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	// 팔로잉 Ajax
+	@RequestMapping(value = "/followingList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String followingList(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("followpage"));
+		
+		int cnt = iMyGallaryService.followingCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 10, 1);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.followingList(params);
+		
+		modelMap.put("list", list);		
+		
+		return mapper.writeValueAsString(modelMap);
 	}
 	
 }

@@ -321,5 +321,25 @@ public class MyGallaryDao implements IMyGallaryDao{
 		return sqlSession.selectList("Post.chart", params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> followerList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.followerList", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> followingList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.followingList", params);
+	}
+
+	@Override
+	public int followerCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.followerCnt", params);
+	}
+
+	@Override
+	public int followingCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Post.followingCnt", params);
+	}
+
 
 }

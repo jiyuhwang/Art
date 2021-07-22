@@ -204,18 +204,18 @@ th {
     cursor:pointer;
 }
 
-.tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), .tabs > label[for=gallaryMenu1]:hover {
+.tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), .tabs > label[for=reportMenu1]:hover {
     background-color: #ffad33;
     color:#fff;
 }
-.tabs input:nth-of-type(2):checked ~ label:nth-of-type(2), .tabs > label[for=gallaryMenu2]:hover {
+.tabs input:nth-of-type(2):checked ~ label:nth-of-type(2), .tabs > label[for=reportMenu2]:hover {
     background-color: #ffad33;
     color:#fff;
 }
-.tabs input:nth-of-type(3):checked ~ label:nth-of-type(3), .tabs > label[for=gallaryMenu3]:hover {
+/* .tabs input:nth-of-type(3):checked ~ label:nth-of-type(3), .tabs > label[for=gallaryMenu3]:hover {
     background-color: #ffad33;
     color:#fff;
-}
+} */
 .tabs .report_menu1_contents, .tabs .report_menu2_contents {
     padding: 2px;
     border: 1px solid #ddd;
