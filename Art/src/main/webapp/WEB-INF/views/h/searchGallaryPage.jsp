@@ -22,9 +22,8 @@ $(document).ready(function() {
 				$("#searchTxt").focus();
 			} else {
 				$("#page").val("1");
-/* 				$("#orderFlag").val("0");
-				$("#tabOldFlag").val($("#tabFlag").val());
-				$(".tabs [type='radio']:checked").val($("#tabOldFlag").val()); */
+ 				$("#orderFlag").val("0");
+ 				
 				reloadList();	
 			}
 		}
@@ -130,8 +129,12 @@ $(document).ready(function() {
 	
 	function picSearch(list, cnt) {
 		var html = "";
+		var cntObj = "";
 		
 		if(list.length == 0 && $("#page").val() == 1) {
+			
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
 			
 			html +="<div class=\"search_result\">";
 			html +="	<div class=\"search_nothing\">";
@@ -140,12 +143,10 @@ $(document).ready(function() {
 			html +="	</div>";
 			html +="</div>";
 			
+			$(".pic_contents").html(html);
+			
 		}  else {
-			
-			var cntObj = "";
-			cntObj += cnt;
-			$(".spanCnt").html(cntObj);
-			
+				
 			for(var p of list) {
 				                                                                    
 			html +=" <div class=\"gallary_div\">";
@@ -178,8 +179,12 @@ $(document).ready(function() {
 	
 	function drawSearch(list, cnt) {
 		var html = "";
+		var cntObj = "";
 		
 		if(list.length == 0 && $("#page").val() == 1) {
+			
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
 			
 			html +="<div class=\"search_result\">";
 			html +="	<div class=\"search_nothing\">";
@@ -188,9 +193,10 @@ $(document).ready(function() {
 			html +="	</div>";
 			html +="</div>";
 			
+			$(".draw_contents").html(html);
+			
 		}  else {
 			
-			var cntObj = "";
 			cntObj += cnt;
 			$(".spanCnt").html(cntObj);
 			
@@ -225,8 +231,12 @@ $(document).ready(function() {
 	
 	function videoSearch(list, cnt) {
 		var html = "";
+		var cntObj = "";
 		
 		if(list.length == 0 && $("#page").val() == 1) {
+			
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
 			
 			html +="<div class=\"search_result\">";
 			html +="	<div class=\"search_nothing\">";
@@ -235,9 +245,10 @@ $(document).ready(function() {
 			html +="	</div>";
 			html +="</div>";
 			
+			$(".video_contents").html(html);
+			
 		}  else {
-
-			var cntObj = "";
+			
 			cntObj += cnt;
 			$(".spanCnt").html(cntObj);
 			
@@ -274,8 +285,12 @@ $(document).ready(function() {
 
 	function writerSearch(list, cnt) {
 		var html = "";
+		var cntObj = "";
 		
 		if(list.length == 0 && $("#page").val() == 1) {
+			
+			cntObj += cnt;
+			$(".spanCnt").html(cntObj);
 			
 			html +="<div class=\"search_result\">";
 			html +="	<div class=\"search_nothing\">";
@@ -284,9 +299,10 @@ $(document).ready(function() {
 			html +="	</div>";
 			html +="</div>";
 			
+			$(".writer_contents").html(html);
+			
 		}  else {
 			
-			var cntObj = "";
 			cntObj += cnt;
 			$(".spanCnt").html(cntObj);
 		
@@ -379,17 +395,16 @@ $(document).ready(function() {
 	<c:import url="../JY/header.jsp"></c:import>
 	<div class="input_txt_wrap">
 		<div id="srhTxt">
-		<form action="#" id="actionForm" method="post">
+<form action="#" id="actionForm" method="post">
 			<input type="hidden" id="visibility" name="visibility" value="0"/>
 			<input type="text" id="searchTxt" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt}"/>
 			<input type="hidden" id="searchOldTxt" value="${param.searchTxt}"/>
-			<input type="hidden" id="tabFlag" name="tabFlag" value="0"/>
-			<input type="hidden" id="tabOldFlag" name="tabFOldlag" value="${param.tabFlag}"/>
 			<input type="hidden" id="orderFlag" name="orderFlag" value="0">
 			<input type="hidden" id="pNo" name="pNo" />
 			<input type="hidden" id="page" name="page" value="${page}" />
-
-		</form>
+			<input type="hidden" id="tabFlag" name="tabFlag"/>
+			<input type="hidden" id="tabOldFlag" name="tabOldFlag" value="${param.tabFlag}"/>
+</form>
 		</div>
 		<div class="srh_cnt_div">
 			<div class="srh_cnt_box">	
@@ -406,7 +421,6 @@ $(document).ready(function() {
 	</div>
 	<div class="main">
 		<div class="ctts">
-
 			<div class="search_tab_wrap">
 				<div class="tabs">
 					<input id="tabP" type="radio" value="0" name="tab" checked="checked" />

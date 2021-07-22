@@ -269,10 +269,18 @@ a {
 }
 
 /*------------------------------------------------------검색없을 때 */
+.search_result {
+	width: 1300px;
+	margin: 0 auto;
+	min-height: 1000px;
+	top: 100px;
+}
+
+
+
 .search_nothing {
 	display: inline-block;
 	width: 500px;
-	height: 500px;
 	font-size: 30px;
 	margin: auto;
 	position: relative;

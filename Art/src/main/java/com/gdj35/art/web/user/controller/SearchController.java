@@ -74,11 +74,13 @@ public class SearchController {
 			
 			PagingBean pb = iPagingService.getPagingBean(page, cnt, 12, 5);
 			
-			System.out.println("***********사진파람: " + params);
 			params.put("startCnt", Integer.toString(pb.getStartCount()));
 			params.put("endCnt", Integer.toString(pb.getEndCount()));
 					
 			List<HashMap<String, String>> list = iSearchService.getSearchList(params);
+			System.out.println("***********사진cnt: " + cnt);
+			System.out.println("***********사진list: " + list);
+			System.out.println("***********사진파람: " + params);
 			
 			modelMap.put("cnt", cnt);
 			modelMap.put("list", list);
