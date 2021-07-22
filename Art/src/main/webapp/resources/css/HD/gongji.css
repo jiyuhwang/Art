@@ -127,23 +127,24 @@ a {
 	background-color: #fbfbfb;
 	display: inline-block;
 	text-align: center;
+	overflow: scroll;
 }
 
 
 .ctts_wrap{
 	background-color:inherit;
 	width: 1330px;
-	height: 1000px;
+	/* height: 1000px; */
 	display: inline-block;
 	margin: 0 auto;
 	text-align: center;
 	font-size: 5pt;
-	overflow: scroll;
+	/* overflow: scroll; */
 }
 
-.ctts_wrap::-webkit-scrollbar{
+/* .main::-webkit-scrollbar{
 	display: none;
-}
+} */
 .main_ctt:nth-child(1){
 	background-color:inherit;
 	width: 940px;
@@ -194,7 +195,17 @@ strong{
 	display: inline-block;
 	width: 1em;
 	margin-left: -1em;
-	
+}
+
+.selected::before{
+	color: orange;
+	list-style-type: disc;
+	content: "\2022";
+	color:orange;
+	font-weight: bold;
+	display: inline-block;
+	width: 1em;
+	margin-left: -1em;
 }
 
 
@@ -215,6 +226,7 @@ strong{
 	margin: 16px auto;
 	font-size: 9pt;
 	padding-top: 2px;
+	cursor: pointer;
 }
 .main_ctt2_cover .first{
 	background-color:white;

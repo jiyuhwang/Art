@@ -196,6 +196,34 @@ $(document).ready( function () {
 		alert("준비중입니다.");
 	}); */
 	
+	$(document).on("click", ".Pmain #deleteBtnDM",function () {
+		$("#memoNo").val($(this).parent().parent().attr("name"));
+		$("#userNoMemo").val($("#userNo").val());
+		
+		var params = $("#memoForm").serialize();
+		
+		$.ajax({
+			url : "delReportMemo",
+			type : "post",
+			dataType : "json",
+			data : params,
+			success: function (res) {
+				if(res.msg == "success"){
+					alert("지워 졌음");
+					$(".Pmain table").empty();
+					$(".topOfBox .topBar").empty();
+					listDM(res.list);
+				} else if(res.msg == "failed"){
+					alert("작성에 실패하였습니다.")
+				} else{
+					alert("작성중 문제가 발생하였습니다.")
+				}
+			},
+			error : function (request, status, error) {
+				console.log(error);
+			}
+		});
+	});
 	
 	
 });
@@ -624,13 +652,13 @@ function drawOutList() {
  function listDM(listM) {
 	var html="";
 			html +=" <form id=\"memoForm\" method=\"post\" action=\"#\">";
-			html +="	<input type=\"hidden\" id=\"userNoMemo\" name=\"uNo\">";
+			html +="	<input type=\"hidden\" id=\"userNoMemo\" name=\"userNo\">";
 			html +="	<input type=\"hidden\" id=\"accurDateForm\" name=\"occur\">";
 			html +="	<input type=\"hidden\" id=\"accurTimeForm\" name=\"accurTime\">";
 			html +="	<input type=\"hidden\" id=\"memoWriterForm\" name=\"admin\">";
 			html +="	<input type=\"hidden\" id=\"contentsForm\" name=\"contents\">";
 			html +="	<input type=\"hidden\" id=\"importantForm\" name=\"marking\">";
-			html +="	<input type=\"hidden\" id=\"memoNo\" name=\"memoNo\">";
+			html +="	<input type=\"hidden\" id=\"memoNo\" name=\"mNo\">";
 			html +=" </form>";
 			html +=	"		  <div class =\"searchBox\">";
 			html +=	"			  <select id=\"PsearchGbnDP\">";
@@ -669,6 +697,7 @@ function drawOutList() {
 					html += "	<th> 수정/삭제</th>";
 					html += "	<th> 메모내용</th>";
 					html += "	</tr>";
+					
 					for( var d of listM){
 						html += "	<tr name=\""+ d.MEMO_NO +"\">";
 						/* html += "	<td>";
@@ -680,6 +709,7 @@ function drawOutList() {
 						}else{
 							html += "	<td></td>";
 						}
+						
 						html += "	<td>"+ d.ACCUR_DATE +"</td>";
 						html += "	<td>"+ d.REGI_DATE +"</td>";
 						html += "	<td>";
@@ -693,30 +723,7 @@ function drawOutList() {
 	$(".Pmain table").html(html);
 	
 	
-	$("#deleteBtnDM").on("click", function () {
-		$("#memoNo").val($(this).parent().parent().attr("name"));
-		
-		var params = $("#memoForm").serialize();
-		
-		$.ajax({
-			url : "deleteMemo",
-			type : "post",
-			dataType : "json",
-			data : params,
-			success: function (res) {
-				if(res.msg == "success"){
-					location.href = "user_board"						
-				} else if(res.msg == "failed"){
-					alert("작성에 실패하였습니다.")
-				} else{
-					alert("작성중 문제가 발생하였습니다.")
-				}
-			},
-			error : function (request, status, error) {
-				console.log(error);
-			}
-		});
-	});
+	
 	
 	
 	$("#addBtnDP").on("click", function () {
@@ -732,12 +739,48 @@ function drawOutList() {
 				list=d;
 			}
 		}
+		console.log(list);
 		MemoPop(list);
 		
 	});
 	
-	//------------------------------------------------------- 수정하기
-	
+	//------------------------------------------------------- 메모 수정하기(상세페이지 팝업 --> 메모 수정하기)
+	$(".Pmain table").on("click","#updateBtnDM", function () {
+		/* console.log("이거 누름");
+		
+		var list;
+		for(var d of listM){
+			if(d.MEMO_NO == $(this).parent().parent().attr("name")){
+				 list.push(d);//그냥 오브젝트 담아버리기 혁명  
+				list=d;
+			}
+		}
+		console.log("이거 리스트임"+list);
+		updateMemoPop(list);  */
+		$("#memoNo").val($(this).parent().parent().attr("name"));
+		 var params = $("#memoForm").serialize();
+		console.log()
+		$.ajax({
+			url : "reportMemo",
+			type : "post",
+			dataType : "json",
+			data : params,
+			success: function (res) {
+				if(res.msg == "success"){
+					updateMemoPop(res.memo);						
+				} else if(res.msg == "failed"){
+					alert("작성에 실패하였습니다.")
+				} else{
+					alert("작성중 문제가 발생하였습니다.")
+				}
+			},
+			error : function (request, status, error) {
+				console.log(error);
+			}
+		}); 
+		
+		
+	});
 	
 };
 
@@ -792,6 +835,94 @@ function MemoPop(list) {
 			
 			
 }
+//---------------------------------------------------------------------메모 수정 팝업 
+function updateMemoPop(list) {
+	console.log(list);
+	var html ="";
+	
+				html +="<div class =\"memoBackground\"></div>";
+				html +="			<div class=\"popMemo\">";
+				html +="			<div class=\"blank\"></div>";
+				html +="			<div class=\"title\">메모등록</div>";
+				html +="			<div class=\"blank\"></div>";
+				html +="			<div class=\"ctt_box\">";
+				html +="				<div class=\"what\">내용</div>";
+				html +="				<div class=\"ctt\">";
+				html +="					<textarea class=\"text\">" + list.CONTENTS + "</textarea>";
+				html +="				</div>";
+				html +="				<div class=\"blank\"></div>";
+				html +="				<div class=\"date_box\">";
+				html +="				<div class=\"what1\" >작성자</div>";
+				html +="				<input type=\"text\" id=\"memoWriter\" value=\""+ list.ADMIN_NAME  +"\" placeholder=\""+ list.ADMIN_NAME + "\">";
+				html +="				</div>";
+				html +="				<div class=\"date_box\">";
+				html +="					<div class=\"what1\">발생일</div>";
+				html +="					<input type=\"date\" class=\"date1\" value=\"" + list.ACCUR_DATE + "\">";
+				html +="				</div>";
+				html +="				<div class=\"date_box\">";
+				html +="					<div class=\"what1\">중요 </div>";
+				html +="					<input type=\"checkbox\" id=\"check_test_box\" />";
+				html +="					<label for=\"check_test_box\"> <span></span> 체크박스입니다</label>  ";
+				html +="				</div>";
+				html +="				<div class=\"last_box\">";
+				html +="					<div class=\"last_box_blank\"></div>";
+				html +="					<input type=\"button\" value=\"취소\" class=\"btn\" id=\"cancelBtn\">";
+				html +="					<input type=\"button\" value=\"등록\" class=\"btn\" id=\"addBtn\">";
+				html +="				</div>";
+				html +="			</div>";
+				html +="		</div>";
+
+			 $("#memoWrap").html(html);
+			 
+			 $(".date1").val(list.ACCUR_DATE);
+			
+			 
+			if(list.MARKING == "1"){
+				console.log("실행함");
+				$("#memoWrap input:checkbox[id='check_test_box']").prop("checked","true");
+			}
+			
+			$("#memoWrap .last_box .btn").on("click", function () {
+				console.log("취소버튼 실행 ");
+				$("#memoWrap").empty();
+			});
+			
+			$(".popMemo #addBtn").on("click", function () {
+				if($(".popMemo input[type=checkbox]").is(":checked") == true){
+					$("#importantForm").val("1");
+				}else{
+					$("#importantForm").val("0");
+				}
+				
+				$("#accurDateForm").val($(".date1").val());
+				$("#accurTimeForm").val($(".time").val());
+				$("#contentsForm").val($(".text").val());
+				
+				var params = $("#memoForm").serialize();
+				
+				$.ajax({
+					url : "saveReportMemo",
+					type : "post",
+					dataType : "json",
+					data : params,
+					success: function (res) {
+						if(res.msg == "success"){
+							$("#memoWrap").empty();						
+						} else if(res.msg == "failed"){
+							alert("작성에 실패하였습니다.")
+						} else{
+							alert("작성중 문제가 발생하였습니다.")
+						}
+					},
+					error : function (request, status, error) {
+						console.log(error);
+					}
+					});
+				});
+			
+}
+
+
 //---------------------------------------------------------------메모 작성 팝업 띄우기
 function addMemoPop() {
 	console.log("${sName}");
@@ -817,7 +948,6 @@ function addMemoPop() {
 			html +="				<div class=\"date_box\">";
 			html +="					<div class=\"what1\">발생일</div>";
 			html +="					<input type=\"date\" class=\"date1\">";
-			html +="					<input type=\"time\" class=\"time\">";
 			html +="				</div>";
 			html +="				<div class=\"date_box\">";
 			html +="					<div class=\"what1\">중요 </div>";
