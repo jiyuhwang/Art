@@ -102,5 +102,10 @@ public class MemberDao implements IMemberDao{
 		return sqlSession.selectOne("User.getMyReportCommentCnt", params);
 	}
 
+	@Override
+	public int addReport(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("User.addReport", params);
+	}
+
 
 }
