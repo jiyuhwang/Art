@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <body>
 <div class= "PbackgroundM"></div>
 <div class ="PmainM">
@@ -28,7 +27,7 @@
 			</div>
 			<div class = "contentBlank"></div>
 			<div class = "forTitle">
-				<span>첨부</span><input class = "downSide" type="text" placeholder="제목을 입력하세요.">
+				<span >첨부</span><input id="fileNameForMail" class="downSide" type="text" placeholder="파일을 올려주세요.">
 				<input type="button" value="불러오기" id="fileBtn">
 			</div>
 			<div class = "forText">
@@ -56,12 +55,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td> rowNtm</td>
-						<td> 홍길동</td>
-						<td> wkljdf@naver.com</td>
-						<td> 010-4395-7130</td>
-					</tr>
+					
 				</tbody>
 				</table>
 			</div>

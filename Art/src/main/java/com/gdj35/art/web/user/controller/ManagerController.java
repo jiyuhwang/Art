@@ -142,10 +142,18 @@ public class ManagerController {
 		
 		System.out.println("넘어 오는지 보자" + params);
 		
-		List<HashMap<String,String>> list = iManagerService.getMailUser(params);
+		if(params.get("userNo") == null || params.get("userNo") == "") {
+			System.out.println("아무것도 안찍혔다.");
+		}else {
+			List<HashMap<String,String>> list = iManagerService.getMailUser(params);
+			
+			System.out.println(list);
+			
+			modelMap.put("list", list);
+			
+		}
 		
-		System.out.println(list);
-		/* modelMap.put("list", list); */
+		
 		
 		
 		return mapper.writeValueAsString(modelMap);
