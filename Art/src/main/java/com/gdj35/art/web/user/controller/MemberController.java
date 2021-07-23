@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj35.art.common.bean.PagingBean;
 import com.gdj35.art.common.service.IPagingService;
+import com.gdj35.art.util.Utils;
 import com.gdj35.art.web.user.service.IMemberService;
 
 @Controller
@@ -157,6 +158,7 @@ public class MemberController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
+		params.put("userPw", Utils.encryptAES128(params.get("userPw")));
 		try {
 			int cnt = iMemberService.addUser(params);
 			if (cnt > 0) {
@@ -222,6 +224,33 @@ public class MemberController {
 
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	// 비밀번호 체크
+	@RequestMapping(value = "/pwCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String pwCheck(@RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		params.put("userPw2", Utils.encryptAES128(params.get("userPw2")));
+		
+		try {
+			int cnt = iMemberService.pwCheck(params);
+			if (cnt > 0) {
+				modelMap.put("msg", "exist");
+			} else {
+				modelMap.put("msg", "none");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
 
 	// 이용약관 동의
 	@RequestMapping(value = "/agree")
@@ -248,10 +277,8 @@ public class MemberController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		// mPw의 값을 암호화 후 mPw로 넣겠다.
-		// params.put("mPw", Utils.encryptAES128(params.get("mPw")));
+		params.put("userPw", Utils.encryptAES128(params.get("userPw")));
 
-		// System.out.println(Utils.decryptAES128(params.get("mPw")));
 
 		HashMap<String, String> data = iMemberService.getUser(params);
 		HashMap<String, String> data2 = iMemberService.getAdmin(params);
@@ -323,6 +350,7 @@ public class MemberController {
 
 		ObjectMapper mapper = new ObjectMapper();
 
+		
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
 		try {
@@ -431,6 +459,7 @@ public class MemberController {
 		session.setAttribute("sUserMail", params.get("userMail"));
 		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
 
+		
 		try {
 			int cnt = iMemberService.updateSet(params);
 
@@ -464,6 +493,8 @@ public class MemberController {
 		session.setAttribute("sUserMail", params.get("userMail"));
 		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
 
+		params.put("userPw", Utils.encryptAES128(params.get("userPw")));
+		
 		try {
 			int cnt = iMemberService.editPw(params);
 
@@ -557,6 +588,8 @@ public class MemberController {
 	@RequestMapping(value = "/findPw")
 	public ModelAndView findPw(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
+		params.put("pw", Utils.encryptAES128(params.get("pw")));
+		System.out.println("#####################" + params);
 		iMemberService.updatePw(params);
 
 		mav.setViewName("YM/findPw");

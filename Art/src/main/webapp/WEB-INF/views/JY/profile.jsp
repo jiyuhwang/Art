@@ -196,7 +196,7 @@ $(document).ready(function() {
 			</table>
 			<div class="save_cancel">
 				<input id="btnSave" type="button" value="저장하기">
-				<input id="btnCancel" type="button" value="취소하기">
+				<!-- <input id="btnCancel" type="button" value="취소하기"> -->
 			</div>
 		</div>
 	</div>

@@ -161,7 +161,7 @@
 		AND COMMENT_NO IS NOT NULL
 	</select>
 	
-		<!-- 회원 등록 -->
+	<!-- 회원 등록 -->
 	<insert id="addReport" parameterType="hashmap">
 		INSERT ALL
 		INTO REPORT VALUES(REPORT_SEQ.NEXTVAL, #{adminNo}, #{uNo}, NULL, 1, #{reportCtt}, 0, SYSDATE, 1)
@@ -174,6 +174,14 @@
         SELECT *
         FROM DUAL
 	</insert>
+	
+	<!-- 현재 비밀번호 체크 -->
+	<select id="pwCheck" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*)
+		FROM USERS
+		WHERE USER_NO = #{userNo}
+		AND PW = #{userPw2}
+	</select>
 	
 
 

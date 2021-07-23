@@ -119,7 +119,7 @@ $(document).ready(function() {
 	$("table tr:nth-child(3)").hide();
 
 	
-	$("#btnEditPw").on("click", function() {
+	/* $("#btnEditPw").on("click", function() {
 		if($('#nowPw').val() == "") {
 			alert("비밀번호를 입력해주세요.");
 		} else if($('#nowPw').val() != "${sUserPw}") {
@@ -133,6 +133,45 @@ $(document).ready(function() {
 				$("table tr:nth-child(3)").hide();
 			}
 		}
+	}); */
+	
+	$("#btnEditPw").on("click", function() {
+		if($('#nowPw').val() == "") {
+			alert("비밀번호를 입력해주세요.");
+			$("#nowPw").focus();
+			return false;
+		}
+		
+		$("#userPw2").val($("#nowPw").val());
+		var params = $("#pwForm").serialize();
+
+		
+		$.ajax({
+			url: "pwCheck",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res){
+				if(res.msg == "exist") {
+					if($("table tr:nth-child(2)").css("display") == "none") {
+						$("table tr:nth-child(2)").show();
+						$("table tr:nth-child(3)").show();
+					} else {
+						$("table tr:nth-child(2)").hide();
+						$("table tr:nth-child(3)").hide();
+					}
+				} else if(res.msg == "none") {
+					$("#nowPw").val("");
+					$("#nowPw").focus();
+					alert("비밀번호가 일치하지 않습니다.");
+				} else {
+					alert("문제가 발생하였습니다.")
+				}
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
 	});
 	
 	
@@ -263,6 +302,7 @@ $(document).ready(function() {
 <form action="#" id="pwForm" method="post">
 	<input type="hidden" id="sendPw" name="userPw" value="">
 	<input type="hidden" name="userNo" value="${sUserNo}">
+	<input type="hidden" id="userPw2" name="userPw2" value="">
 </form>
 <form action="#" id="setForm" method="post">
 	<input type="hidden" name="userNo" value="${sUserNo}">
@@ -393,7 +433,7 @@ $(document).ready(function() {
 			</table>
 			<div class="save_cancel">
 				<input id="btnSave" type="button" value="저장하기">
-				<input id="btnCancel" type="button" value="취소하기">
+				<!-- <input id="btnCancel" type="button" value="취소하기"> -->
 			</div>
 		</div>
 	</div>

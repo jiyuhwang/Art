@@ -107,5 +107,10 @@ public class MemberDao implements IMemberDao{
 		return sqlSession.insert("User.addReport", params);
 	}
 
+	@Override
+	public int pwCheck(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("User.pwCheck", params);
+	}
+
 
 }

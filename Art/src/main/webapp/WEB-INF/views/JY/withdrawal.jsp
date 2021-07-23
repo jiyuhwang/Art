@@ -55,35 +55,56 @@ $(document).ready(function() {
 		$('#pwCheck').val("");
 	});
 	
-	$('.a2').on("click", function() {
+	$(".a2").on("click", function() {
 		if($('#pwCheck').val() == "") {
 			alert("비밀번호를 입력해주세요.");
-		} else if($('#pwCheck').val() != "${sUserPw}") {
-			alert("비밀번호가 틀립니다.");
-		} else {
-			alert("탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
-			
-			var params= $("#outForm").serialize();
-			
-			$.ajax({
-				url: "withdrawals", // 접속 주소
-				type: "post", // 전송 방식: get, post
-				dataType: "json", // 받아올 데이터 형태
-				data: params, // 보낼 데이터(문자열 형태)
-				success: function(res) { // 성공 시 다음 함수 실행
-					if(res.msg == "success") {
-						location.href = "main";
-					} else if(res.msg == "failed") {
-						alert("탈퇴에 실패하였습니다.");
-					} else {
-						alert("탈퇴 중 문제가 발생하였습니다.")
-					}
-				},
-				error: function(request, status, error) { // 실패 시 다음 함수 실행
-					console.log(error);
-				}
-			});
+			return false;
 		}
+		
+		$("#userPw2").val($("#pwCheck").val());
+		var params = $("#pwForm").serialize();
+
+		
+		$.ajax({
+			url: "pwCheck",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res){
+				if(res.msg == "exist") {
+					alert("탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
+					
+					var params= $("#outForm").serialize();
+					
+					$.ajax({
+						url: "withdrawals", // 접속 주소
+						type: "post", // 전송 방식: get, post
+						dataType: "json", // 받아올 데이터 형태
+						data: params, // 보낼 데이터(문자열 형태)
+						success: function(res) { // 성공 시 다음 함수 실행
+							if(res.msg == "success") {
+								location.href = "main";
+							} else if(res.msg == "failed") {
+								alert("탈퇴에 실패하였습니다.");
+							} else {
+								alert("탈퇴 중 문제가 발생하였습니다.")
+							}
+						},
+						error: function(request, status, error) { // 실패 시 다음 함수 실행
+							console.log(error);
+						}
+					});
+				} else if(res.msg == "none") {
+					$("#pwCheck").val("");
+					alert("비밀번호가 일치하지 않습니다.");
+				} else {
+					alert("문제가 발생하였습니다.")
+				}
+				
+			}, error: function(request, status, error){
+				console.log(error);
+			}
+		});
 	});
 
 });
@@ -92,6 +113,11 @@ $(document).ready(function() {
 <body>
 <form action="#" id="outForm" method="post">
 	<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"> 
+</form>
+
+<form action="#" id="pwForm" method="post">
+	<input type="hidden" name="userNo" value="${sUserNo}">
+	<input type="hidden" id="userPw2" name="userPw2" value="">
 </form>
 	<c:choose>
 		<c:when test="${empty sUserNo}">

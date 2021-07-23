@@ -143,10 +143,10 @@ function drawReportPostList(list){
 			dataType: "json",
 			data: params,
 			success: function(res){
-				if(res.msg == "success") {
+				if(res.msg == "exist") {
 					alert("정상적으로 신고 접수가 취소되었습니다.");
 					reportList();
-				} else if(res.msg == "failed") {
+				} else if(res.msg == "none") {
 					alert("삭제 중 오류가 발생하였습니다.");
 				} else {
 					alert("삭제 중 문제가 발생하였습니다.")
