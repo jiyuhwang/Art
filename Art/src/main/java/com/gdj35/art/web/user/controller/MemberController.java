@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj35.art.common.bean.PagingBean;
 import com.gdj35.art.common.service.IPagingService;
+import com.gdj35.art.util.Utils;
 import com.gdj35.art.web.user.service.IMemberService;
 
 @Controller
@@ -60,7 +61,7 @@ public class MemberController {
 	// 회원가입 또는 개인정보 수정 시 이메일 인증번호 전송
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public String mailCheckGET(String email) throws Exception {
+	public String mailCheckGETAjax(String email) throws Exception {
 
 		/* 뷰(View)로부터 넘어온 데이터 확인 */
 		logger.info("이메일 데이터 전송 확인");
@@ -74,7 +75,7 @@ public class MemberController {
 		/* 이메일 보내기 */
 		String setFrom = "artproject21@naver.com";
 		String toMail = email;
-		String title = "Art 회원가입 인증 이메일 입니다.";
+		String title = "Art 인증 이메일 입니다.";
 		String content = "Art 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
 				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요." + "<br>" + "감사합니다:)";
 
@@ -101,7 +102,7 @@ public class MemberController {
 	// 임시 비밀번호 전송
 	@RequestMapping(value = "/exPwMail", method = RequestMethod.GET)
 	@ResponseBody
-	public String exPwMail(String email) throws Throwable {
+	public String exPwMailAjax(String email) throws Throwable {
 
 		/* 뷰(View)로부터 넘어온 데이터 확인 */
 		logger.info("이메일 데이터 전송 확인");
@@ -151,12 +152,13 @@ public class MemberController {
 	// 회원가입 Ajax
 	@RequestMapping(value = "/signUps", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String signUps(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String signUpAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
+		params.put("userPw", Utils.encryptAES128(params.get("userPw")));
 		try {
 			int cnt = iMemberService.addUser(params);
 			if (cnt > 0) {
@@ -176,7 +178,7 @@ public class MemberController {
 	// 아이디 중복 체크
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String idCheck(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String idCheckAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -201,7 +203,7 @@ public class MemberController {
 	// 닉네임 중복 체크
 	@RequestMapping(value = "/nicknameCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String nicknameCheck(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String nicknameCheckAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -209,6 +211,33 @@ public class MemberController {
 
 		try {
 			int cnt = iMemberService.nicknameCheck(params);
+			if (cnt > 0) {
+				modelMap.put("msg", "exist");
+			} else {
+				modelMap.put("msg", "none");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	// 비밀번호 체크
+	@RequestMapping(value = "/pwCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String pwCheckAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		params.put("userPw2", Utils.encryptAES128(params.get("userPw2")));
+		
+		try {
+			int cnt = iMemberService.pwCheck(params);
 			if (cnt > 0) {
 				modelMap.put("msg", "exist");
 			} else {
@@ -242,16 +271,14 @@ public class MemberController {
 	// 로그인 Ajax
 	@RequestMapping(value = "/Logins", method = RequestMethod.POST, produces = "text/json;charset=UTF-8") // 오타 절대 금지
 	@ResponseBody // Spring에 View임을 제시
-	public String Logins(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String LoginAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		// mPw의 값을 암호화 후 mPw로 넣겠다.
-		// params.put("mPw", Utils.encryptAES128(params.get("mPw")));
+		params.put("userPw", Utils.encryptAES128(params.get("userPw")));
 
-		// System.out.println(Utils.decryptAES128(params.get("mPw")));
 
 		HashMap<String, String> data = iMemberService.getUser(params);
 		HashMap<String, String> data2 = iMemberService.getAdmin(params);
@@ -289,7 +316,7 @@ public class MemberController {
 
 	// 로그아웃 Ajax
 	@RequestMapping(value = "/Logout")
-	public ModelAndView Logout(HttpSession session, ModelAndView mav) {
+	public ModelAndView LogoutAjax(HttpSession session, ModelAndView mav) {
 
 		session.invalidate();
 
@@ -302,27 +329,19 @@ public class MemberController {
 	@RequestMapping(value = "/withdrawal")
 	public ModelAndView withdrawal(HttpSession session, ModelAndView mav) throws Throwable {
 
-		if (session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/withdrawal");
-
-			session.getAttribute("sUserPw");
-
-		} else {
-
-			mav.setViewName("redirect:main");
-		}
-
+		mav.setViewName("JY/withdrawal");
+		
 		return mav;
 	}
 
 	// 탈퇴하기 Ajax
 	@RequestMapping(value = "/withdrawals", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String withdrawals(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String withdrawalAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
+		
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
 		try {
@@ -352,22 +371,15 @@ public class MemberController {
 
 		mav.addObject("data", data);
 
-		if (session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/profile");
-
-		} else {
-
-			mav.setViewName("redirect:main");
-		}
-
+		mav.setViewName("JY/profile");
+		
 		return mav;
 	}
 
 	// 프로필 수정 Ajax
 	@RequestMapping(value = "/profiles", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String profiles(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String profileAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -403,22 +415,16 @@ public class MemberController {
 		HashMap<String, String> data = iMemberService.getUser2(params);
 
 		mav.addObject("data", data);
-		if (session.getAttribute("sUserNo") != null) {
 
-			mav.setViewName("JY/set");
-
-		} else {
-
-			mav.setViewName("redirect:main");
-		}
-
+		mav.setViewName("JY/set");
+		
 		return mav;
 	}
 
 	// 개인정보 수정 Ajax
 	@RequestMapping(value = "/sets", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String sets(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String setAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -431,6 +437,7 @@ public class MemberController {
 		session.setAttribute("sUserMail", params.get("userMail"));
 		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
 
+		
 		try {
 			int cnt = iMemberService.updateSet(params);
 
@@ -451,7 +458,7 @@ public class MemberController {
 	// 비밀번호 수정 Ajax
 	@RequestMapping(value = "/pwsets", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String pwsets(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String pwsetAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -464,6 +471,8 @@ public class MemberController {
 		session.setAttribute("sUserMail", params.get("userMail"));
 		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
 
+		params.put("userPw", Utils.encryptAES128(params.get("userPw")));
+		
 		try {
 			int cnt = iMemberService.editPw(params);
 
@@ -492,7 +501,7 @@ public class MemberController {
 	// 아이디 찾기 Ajax
 	@RequestMapping(value = "/idfinds", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String idfinds(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String idfindAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -531,7 +540,7 @@ public class MemberController {
 	// 비밀번호 찾기 Ajax
 	@RequestMapping(value = "/passwordfinds", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String passwordfinds(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String passwordfindAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -557,6 +566,8 @@ public class MemberController {
 	@RequestMapping(value = "/findPw")
 	public ModelAndView findPw(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
+		params.put("pw", Utils.encryptAES128(params.get("pw")));
+		System.out.println("#####################" + params);
 		iMemberService.updatePw(params);
 
 		mav.setViewName("YM/findPw");
@@ -584,7 +595,7 @@ public class MemberController {
 	// 나의 작품 신고 내역 Ajax
 	@RequestMapping(value = "/myReportPostList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String myReportList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String myReportListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -608,7 +619,7 @@ public class MemberController {
 	// 나의 댓글 신고 내역 Ajax
 	@RequestMapping(value = "/myReportCommentList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String myReportCommentList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String myReportCommentListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -629,10 +640,10 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
-	// 나의 작품 신고 내역 삭제
+	// 나의 작품 신고 내역 삭제 Ajax
 	@RequestMapping(value = "/deleteMyReport", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteMyReport(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String deleteMyReportAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -654,43 +665,11 @@ public class MemberController {
 
 		return mapper.writeValueAsString(modelMap);
 	}
-
-	// 신고하기 팝업 1차
-	@RequestMapping(value = "/userReport")
-	public ModelAndView userReport(ModelAndView mav) {
-		mav.setViewName("h/userReportPopup");
-
-		return mav;
-	}
-
-	// 신고하기 전송
-	@RequestMapping(value="/userReports",
-			method=RequestMethod.POST,
-			produces="text/json;charset=UTF-8")
-	@ResponseBody
-	public String userReports(
-			@RequestParam HashMap<String, String> params) throws Throwable{
-		
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-
-		
-		try {
-			int cnt = iMemberService.addReport(params);
-			
-			if(cnt > 0) {
-				modelMap.put("msg", "success");
-		} else {
-			modelMap.put("msg", "failed");
-			}
-			
-		} catch (Throwable e) {
-			e.printStackTrace();
-			modelMap.put("msg", "error");
-		}	
-		
-		return mapper.writeValueAsString(modelMap);
 	
-	}
+	
+	
+	
+	
+
 
 }

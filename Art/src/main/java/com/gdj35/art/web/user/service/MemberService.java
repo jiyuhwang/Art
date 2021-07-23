@@ -105,8 +105,8 @@ public class MemberService implements IMemberService{
 	}
 
 	@Override
-	public int addReport(HashMap<String, String> params) throws Throwable {
-		return iMemberDao.addReport(params);
+	public int pwCheck(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.pwCheck(params);
 	}
 
 }

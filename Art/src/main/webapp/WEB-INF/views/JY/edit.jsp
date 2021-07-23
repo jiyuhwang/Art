@@ -80,6 +80,9 @@ $(document).ready(function() {
 		$(this).text(text.replace("\"", "&quot;"));
 	});
 	
+	$("#btnCancel").on("click", function () {
+		history.back();
+	});
 	
 	$("#btnSave").on("click", function(){
 		

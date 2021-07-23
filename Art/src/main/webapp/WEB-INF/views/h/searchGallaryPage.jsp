@@ -13,12 +13,10 @@
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	
 	/* 순서 지켜야 파람값 지정됨. */
 	if("${param.tabFlag}" != "") {
 		$("input[name=tabFlag]").prop("checked", false);
 		$("input[name=tabFlag][value='${param.tabFlag}']").prop("checked", true);
-		
 	}
 	
 	if($("#searchTxt").val() != "") {
@@ -52,6 +50,7 @@ $(document).ready(function() {
 		$("#pNo").val($(this).attr("pno"));
 		$("#postNo").val($(this).attr("pno"));
 		$("#searchTxt").val($("#searchOldTxt").val());
+		$("#actionForm").attr("target", "");
 		$("#actionForm").attr("action", "detail");
 		$("#actionForm").submit();
 	});
@@ -63,8 +62,10 @@ $(document).ready(function() {
 		$("#userNickname").val($(this).children().attr("nick"));
 		$("#userProfileImg").val($(this).children().attr("img"));
 		$("#userIntroduce").val($(this).children().attr("introduce"));		
-		$("#goForm").attr("action", "othergallary");
-		$("#goForm").submit();
+		$("#actionForm").attr("target", "_blank");
+		$("#actionForm").attr("action", "othergallary");
+		$("#actionForm").submit();
+
 	});
 
 	
@@ -89,6 +90,7 @@ $(document).ready(function() {
 		if($("#searchTxt").val() != "") {
 			reloadList();
 		}
+		
 	});
 
 	
@@ -106,14 +108,14 @@ $(document).ready(function() {
 		if($("#searchTxt").val() != "") {
 			reloadList();
 		}
-
+		
+		/* $("#tabFlag").val($(".tabs [type='radio']:checked").val()); */
 	});
 	
 	
 	
-	
-	
-	
+});	
+
 	
 	
 	
@@ -125,23 +127,20 @@ $(document).ready(function() {
 	function reloadList() {
 		var params= $("#actionForm").serialize();
 		var urlTxt = "";
+		
 		console.log("==>" + $(".tabs [type='radio']:checked").val());
 		switch($(".tabs [type='radio']:checked").val()) {
 		case "0" :
 			urlTxt = "picSearch";
-			$('input[name="tabFlag"]:checked').val("0");
 			break;
 		case "1" :
 			urlTxt = "drawSearch";
-			$('input[name="tabFlag"]:checked').val("1");
 			break;
 		case "2" :
 			urlTxt = "videoSearch";
-			$('input[name="tabFlag"]:checked').val("2");
 			break;
 		case "3" :
 			urlTxt = "writerSearch";
-			$('input[name="tabFlag"]:checked').val("3");
 			break;
 		}
 
@@ -155,19 +154,15 @@ $(document).ready(function() {
 					switch($(".tabs [type='radio']:checked").val()) {
 					case "0" :
 						picSearch(res.list, res.cnt);
-						$('input[name="tabFlag"]:checked').val("0");
 						break;
 					case "1" :
 						drawSearch(res.list, res.cnt);
-						$('input[name="tabFlag"]:checked').val("1");
 						break;
 					case "2" :
 						videoSearch(res.list, res.cnt);
-						$('input[name="tabFlag"]:checked').val("2");
 						break;
 					case "3" :
 						writerSearch(res.list, res.cnt);
-						$('input[name="tabFlag"]:checked').val("3");
 						break;
 					 }
 					drawPaging(res.pb);	
@@ -446,7 +441,7 @@ $(document).ready(function() {
 	
 	
 	
-});//document end
+
 
 </script>
 </head>
@@ -462,7 +457,7 @@ $(document).ready(function() {
 			</c:import>
 		</c:otherwise>
 	</c:choose>
-<form action="#" id="actionForm" method="post">
+<form action="#" id="actionForm" name="go" method="post" target="">
 	<div class="input_txt_wrap">
 		<div id="srhTxt">
 			<input type="hidden" id="visibility" name="visibility" value="0"/>
@@ -471,9 +466,15 @@ $(document).ready(function() {
 			<input type="hidden" id="orderFlag" name="orderFlag" value="0">
 			<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
 			<input type="hidden" id="pNo" name="pNo" />
+			<input type="hidden" id="authorNo" name="authorNo" value="">
+			<input type="hidden" id="userNo3" name="userNo" value="">
+			<input type="hidden" id="userNo2" name="userNo2" value="">
+			<input type="hidden" id="userNickname" name="userNickname" value="">"
+			<input type="hidden" id="userProfileImg" name="userProfileImg" value="">
+			<input type="hidden" id="userIntroduce" name="userIntroduce" value="">
 			<input type="hidden" id="postNo" name="postNo" />
 			<input type="hidden" id="page" name="page" value="${page}" />
-<%-- 			<input type="hidden" id="tabOldFlag" name="tabOldFlag" value="${param.tabFlag}"/>--%>			<input type="hidden" id="mainGallary" name="listPage" value="3"/>
+			<input type="hidden" id="mainGallary" name="listPage" value="3"/>
 		</div>
 		<div class="srh_cnt_div">
 			<div class="srh_cnt_box">	
@@ -512,16 +513,6 @@ $(document).ready(function() {
 		</div>
 	</div>
 </form>
-
-	<form id="goForm">
-		<input type="hidden" id="followpage" name="followpage" value="1">
-		<input type="hidden" id="authorNo" name="authorNo" value="">
-		<input type="hidden" id="userNo3" name="userNo" value="">
-		<input type="hidden" id="userNo2" name="userNo2" value="">
-		<input type="hidden" id="userNickname" name="userNickname" value="">"
-		<input type="hidden" id="userProfileImg" name="userProfileImg" value="">
-		<input type="hidden" id="userIntroduce" name="userIntroduce" value="">
-	</form>
 	<c:import url="../JY/footer.jsp"></c:import>
 </body>
 </html>
