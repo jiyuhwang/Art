@@ -795,20 +795,23 @@
 	</select>
 	
 		
-	<!--신고등록 -->
+	<!--신고등록할 NO 가져오기 -->
+	<select id="reportSeq" parameterType="hashmap" resultType="Integer">
+		SELECT REPORT_SEQ.NEXTVAL
+		FROM DUAL
+	</select>
+	
+		<!-- 신고글 추가 -->
 	<insert id="addReport" parameterType="hashmap">
-		INSERT ALL
-		INTO REPORT VALUES(REPORT_SEQ.NEXTVAL, #{adminNo}, #{uNo}, NULL, 1, #{reportCtt}, 0, SYSDATE, 1)
-		INTO REPORT_REPORT_TYPE
-		VALUES		
-		<foreach collection="checkList" item="r" separator="">
-			(REPORT_SEQ.NEXTVAL, #{r.checkR})
-		</foreach>
-        
-        SELECT *
-        FROM DUAL
+		INSERT INTO REPORT
+		VALUES(#{reportNo}, #{adminNo}, #{userNo}, NULL, #{pNo}, #{reportCtt}, 0, SYSDATE, 1)
 	</insert>
 	
+	<!-- 신고_신고분류 중계테이블 -->
+	<insert id="addMidReport" parameterType="hashmap">
+		INSERT INTO REPORT_REPORT_TYPE(REPORT_NO, TYPE_NO)
+		VALUES(#{reportNo}, #{typeNo})
+	</insert>
 	
 	
 	
