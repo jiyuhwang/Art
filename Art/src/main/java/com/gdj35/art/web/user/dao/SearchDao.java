@@ -9,15 +9,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SearchDao implements ISearchDao{
-	@Autowired
-	public ISearchDao iSearchDao;
-	
+
 	@Autowired
 	public SqlSession sqlSession;
 
 	@Override
 	public int getSCnt(HashMap<String, String> params) throws Throwable {
-
 		return sqlSession.selectOne("Srh.getSCnt",params);
 	}
 

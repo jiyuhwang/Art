@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	reloadLikeCnt();
-
+	console.log("==>" + $("#tabFlag").val());
 
 	if("${param.selectGbn}" != "") {
 		$(".select").val("${param.selectGbn}");
