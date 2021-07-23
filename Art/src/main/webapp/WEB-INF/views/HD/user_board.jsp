@@ -61,8 +61,24 @@ $(document).ready( function () {
 		
 		$("#userNo").val(list);
 		
-		loadEmailList()
+		loadEmailList();
+		$("input[type=checkbox]").prop("checked",false);
+		
+		//--------------------------------------------------------이메일 폼 누르기
+		
+		$(".PmainM #fileBtn").on("click", function () {
+			console.log("실행 여부");
+			$("#attMail").click();
+		});
+		
+		$(".PmainM #attMail").on("change", function () {
+			$("#fileNameForMail").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+			
+		});
+		
 	});//end email_btn
+	
+	
 	
 	//---------------------------------------------------검색 기능
 	
@@ -1137,13 +1153,7 @@ function loadEmailList() {
 		dataType : "json",
 		data : params,
 		success: function (res) {
-			if(res.msg == "success"){
-				drawEamilList(res.list)					
-			} else if(res.msg == "failed"){
-				alert("작성에 실패하였습니다.")
-			} else{
-				alert("작성중 문제가 발생하였습니다.")
-			}
+				drawEamilList(res.list)	;			
 		},
 		error : function (request, status, error) {
 			console.log(error);
@@ -1152,8 +1162,25 @@ function loadEmailList() {
 		
 }
 
-function drawEamilList() {
+function drawEamilList(list) {
 	var html="";
+	if(list == null){
+		html = "<tr>선택된 회원이 업습니다.</tr>";
+	}else{
+	console.log("이거 리스트 ");
+	console.log(list);
+	console.log("----");
+	for(var d of list){
+			html+="		<tr name=\"" + d.MAIL + "\">";
+			html+="			<td> " + d.USER_NO + "</td>";
+			html+="			<td> " + d.NAME + "</td>";
+			html+="			<td> " + d.MAIL + "</td>";
+			html+="			<td> " + d.PHONE_NO + "</td>";
+			html+="		</tr>";
+		}
+	}
+	
+	$(".PmainM tbody").html(html);
 }
 
 </script>

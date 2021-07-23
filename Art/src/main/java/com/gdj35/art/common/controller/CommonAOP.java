@@ -1,6 +1,7 @@
 package com.gdj35.art.common.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -23,8 +24,21 @@ public class CommonAOP {
 	 * .. -> 모든 경로
 	 * && -> 필터 추가
 	 */
-	@Pointcut("execution(* com.gdj35.art..CalendarController.*(..))")
-	public void testAOP() {}
+	@Pointcut("execution(* com.gdj35.art..*Controller.*(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*agree(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*signUp(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*idfind(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*findId(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*passwordfind(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*findPw(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*detail(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*searchGallaryPage(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*gallary(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*othergallary(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*main(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*login(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*Ajax(..))")
+	public void artAOP() {}
 	
 	//ProceedingJoinPoint -> 대상 적용 이벤트 필터
 	/*
@@ -34,8 +48,8 @@ public class CommonAOP {
 	 * @After-throwing -> 메소드 예외 발생 후
 	 * @Around -> 모든 동작시점
 	 */
-	@Around("testAOP()")
-	public ModelAndView testAOP(ProceedingJoinPoint joinPoint)
+	@Around("artAOP()")
+	public ModelAndView artAOP(ProceedingJoinPoint joinPoint)
 														throws Throwable {
 		ModelAndView mav = new ModelAndView();
 		
@@ -43,10 +57,17 @@ public class CommonAOP {
 		HttpServletRequest request
 		= ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		
-		mav = (ModelAndView) joinPoint.proceed(); //기존 이벤트 처리 행위를 이어서 진행
+		HttpSession session = request.getSession();
 		
-		System.out.println("------- testAOP 실행됨 ------");
+		if(session.getAttribute("sUserNo") != null || session.getAttribute("sAdminNo") != null) { // 로그인 상태
+			
+			mav = (ModelAndView) joinPoint.proceed(); // 기존 이벤트 처리 행위를 이어서 진행
+			
+		} else { // 비로그인 상태
+			mav.setViewName("redirect:login");
+		}
 		
+				
 		return mav;
 	}
 }

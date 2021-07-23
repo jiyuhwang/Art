@@ -294,11 +294,13 @@ public class ManagerDao implements IManagerDao {
 		List<HashMap<String, String>> finalList = new ArrayList<HashMap<String, String>>();
 		
 		for(int i = 0; i < arr.length; i++) {
-			finalList = sqlSession.selectList("Manager.getMailUser", arr[i]);
+			System.out.println("이거는 arr[i]야"+arr[i]);
+			finalList.add(sqlSession.selectOne("Manager.getMailUser", arr[i]));
 		}
 		
-		System.out.println(finalList);
+		System.out.println("이거는 finalList야"+finalList);
 		return finalList;
 	}
+
 	
 }

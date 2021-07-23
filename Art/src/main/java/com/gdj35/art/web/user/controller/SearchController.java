@@ -62,7 +62,7 @@ public class SearchController {
 				method = RequestMethod.POST,
 				produces = "text/json;charset=UTF-8")
 		@ResponseBody
-		public String picSearch(
+		public String picSearchAjax(
 				@RequestParam HashMap<String, String> params) throws Throwable {
 		
 			ObjectMapper mapper = new ObjectMapper();
@@ -95,7 +95,7 @@ public class SearchController {
 				method = RequestMethod.POST,
 				produces = "text/json;charset=UTF-8")
 		@ResponseBody
-		public String drawSearch(
+		public String drawSearchAjax(
 				@RequestParam HashMap<String, String> params) throws Throwable {
 		
 			ObjectMapper mapper = new ObjectMapper();
@@ -126,7 +126,7 @@ public class SearchController {
 				method = RequestMethod.POST,
 				produces = "text/json;charset=UTF-8")
 		@ResponseBody
-		public String videoSearch(
+		public String videoSearchAjax(
 				@RequestParam HashMap<String, String> params) throws Throwable {
 		
 			ObjectMapper mapper = new ObjectMapper();
@@ -157,7 +157,7 @@ public class SearchController {
 				method = RequestMethod.POST,
 				produces = "text/json;charset=UTF-8")
 		@ResponseBody
-		public String writerSearch(
+		public String writerSearchAjax(
 				@RequestParam HashMap<String, String> params) throws Throwable {
 		
 			ObjectMapper mapper = new ObjectMapper();

@@ -111,7 +111,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String mypicGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String mypicGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 		System.out.println("========================" + params);
@@ -141,7 +141,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String mydrawGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String mydrawGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -166,123 +166,123 @@ public class MyGallaryController {
 	}
 	
 	// 나의 영상갤러리 Ajax
-		@RequestMapping(value = "/myvideogallarys",
-				method = RequestMethod.POST,
-				produces = "text/json;charset=UTF-8")
-		@ResponseBody
-		public String myvideoGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
-		
-			ObjectMapper mapper = new ObjectMapper();
-			
-			Map<String, Object> modelMap = new HashMap<String, Object>();
-			
-			int page = Integer.parseInt(params.get("page"));
-			
-			int cnt = iMyGallaryService.getMyVideoCnt(params);
-			
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
-			
-		
-			params.put("startCnt", Integer.toString(pb.getStartCount()));
-			params.put("endCnt", Integer.toString(pb.getEndCount()));
-					
-			List<HashMap<String, String>> list = iMyGallaryService.myVideoList(params);
-			
-			modelMap.put("list", list);		
-			modelMap.put("pb", pb);
-			
-			return mapper.writeValueAsString(modelMap);
-		}
+	@RequestMapping(value = "/myvideogallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String myvideoGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
-	
-	
-		// 다른 사람 사진갤러리 Ajax
-		@RequestMapping(value = "/otherpicgallarys",
-				method = RequestMethod.POST,
-				produces = "text/json;charset=UTF-8")
-		@ResponseBody
-		public String otherpicGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
 		
-			ObjectMapper mapper = new ObjectMapper();
-			
-			Map<String, Object> modelMap = new HashMap<String, Object>();
-			
-			int page = Integer.parseInt(params.get("page"));
-			
-			int cnt = iMyGallaryService.getOtherPicCnt(params);
-			
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
-			
+		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-			params.put("startCnt", Integer.toString(pb.getStartCount()));
-			params.put("endCnt", Integer.toString(pb.getEndCount()));
-					
-			List<HashMap<String, String>> list = iMyGallaryService.otherPicList(params);
-			
-			modelMap.put("list", list);		
-			modelMap.put("pb", pb);
-			
-			return mapper.writeValueAsString(modelMap);
-		}
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMyGallaryService.getMyVideoCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.myVideoList(params);
+		
+		modelMap.put("list", list);		
+		modelMap.put("pb", pb);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
 
-		
-		// 다른 사람 그림갤러리 Ajax
-		@RequestMapping(value = "/otherdrawgallarys",
-				method = RequestMethod.POST,
-				produces = "text/json;charset=UTF-8")
-		@ResponseBody
-		public String otherdrawGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
-		
-			ObjectMapper mapper = new ObjectMapper();
-			
-			Map<String, Object> modelMap = new HashMap<String, Object>();
-			
-			int page = Integer.parseInt(params.get("page"));
-			
-			int cnt = iMyGallaryService.getOtherDrawCnt(params);
-			
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
-			
-		
-			params.put("startCnt", Integer.toString(pb.getStartCount()));
-			params.put("endCnt", Integer.toString(pb.getEndCount()));
-					
-			List<HashMap<String, String>> list = iMyGallaryService.otherDrawList(params);
-			
-			modelMap.put("list", list);		
-			modelMap.put("pb", pb);
-			
-			return mapper.writeValueAsString(modelMap);
-		}
+
+
+	// 다른 사람 사진갤러리 Ajax
+	@RequestMapping(value = "/otherpicgallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String otherpicGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
-		// 다른 사람 영상갤러리 Ajax
-		@RequestMapping(value = "/othervideogallarys",
-				method = RequestMethod.POST,
-				produces = "text/json;charset=UTF-8")
-		@ResponseBody
-		public String otherVideoGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
 		
-			ObjectMapper mapper = new ObjectMapper();
-			
-			Map<String, Object> modelMap = new HashMap<String, Object>();
-			
-			int page = Integer.parseInt(params.get("page"));
-			
-			int cnt = iMyGallaryService.getOtherVideoCnt(params);
-			
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
-			
+		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-			params.put("startCnt", Integer.toString(pb.getStartCount()));
-			params.put("endCnt", Integer.toString(pb.getEndCount()));
-					
-			List<HashMap<String, String>> list = iMyGallaryService.otherVideoList(params);
-			
-			modelMap.put("list", list);		
-			modelMap.put("pb", pb);
-			
-			return mapper.writeValueAsString(modelMap);
-		}
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMyGallaryService.getOtherPicCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.otherPicList(params);
+		
+		modelMap.put("list", list);		
+		modelMap.put("pb", pb);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	
+	// 다른 사람 그림갤러리 Ajax
+	@RequestMapping(value = "/otherdrawgallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String otherdrawGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMyGallaryService.getOtherDrawCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.otherDrawList(params);
+		
+		modelMap.put("list", list);		
+		modelMap.put("pb", pb);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	// 다른 사람 영상갤러리 Ajax
+	@RequestMapping(value = "/othervideogallarys",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String otherVideoGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		int page = Integer.parseInt(params.get("page"));
+		
+		int cnt = iMyGallaryService.getOtherVideoCnt(params);
+		
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
+		
+	
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+				
+		List<HashMap<String, String>> list = iMyGallaryService.otherVideoList(params);
+		
+		modelMap.put("list", list);		
+		modelMap.put("pb", pb);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
 	
 	
 	
@@ -308,7 +308,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String picGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String picGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -339,7 +339,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String drawGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String drawGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -368,7 +368,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String videoGallarys(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String videoGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 		
 			ObjectMapper mapper = new ObjectMapper();
 			
@@ -442,14 +442,6 @@ public class MyGallaryController {
 							@RequestParam HashMap<String, String> params,
 							ModelAndView mav) throws Throwable {
 		
-		if(session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/edit");
-			
-		} else {
-			
-			mav.setViewName("redirect:main");
-		}
 
 		HashMap<String, String> data = iMyGallaryService.getPost(params);
 		
@@ -468,6 +460,8 @@ public class MyGallaryController {
 		}
 		
 		mav.addObject("data", data);
+		
+		mav.setViewName("JY/edit");
 				
 		return mav;	
 	}
@@ -477,7 +471,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String edits(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String editAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 	
@@ -511,17 +505,8 @@ public class MyGallaryController {
 	@RequestMapping(value = "/write")
 	public ModelAndView write(HttpSession session, ModelAndView mav) throws Throwable {
 
+		mav.setViewName("JY/write");
 		
-		if(session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/write");
-			
-			
-		} else {
-			
-			mav.setViewName("redirect:main");
-		}
-
 		return mav;
 	}
 	
@@ -530,7 +515,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String writes(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String writeAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -566,7 +551,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String postDeletes(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String postDeleteAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 	
@@ -600,7 +585,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String postOnHeart(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String postOnHeartAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -631,7 +616,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String postOffHeart(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String postOffHeartAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -661,7 +646,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String postLikeCnt(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String postLikeCntAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -679,7 +664,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String postCommentCnt(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String postCommentCntAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 			ObjectMapper mapper = new ObjectMapper();
 			
@@ -700,7 +685,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String authorOnHeart(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String authorOnHeartAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -730,7 +715,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String authorOffHeart(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String authorOffHeartAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -760,7 +745,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String authorLikeCnt(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String authorLikeCntAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -780,7 +765,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String commentWrite(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String commentWriteAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -809,7 +794,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String commentList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String commentListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -838,7 +823,7 @@ public class MyGallaryController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String replyCommentWrite(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String replyCommentWriteAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -867,7 +852,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteComment(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String deleteCommentAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 	
@@ -894,7 +879,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteReplyComment(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String deleteReplyCommentAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 	
@@ -921,7 +906,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String mainList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String mainListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -954,7 +939,7 @@ public class MyGallaryController {
 	// 통계관리 Ajax
 	@RequestMapping(value = "/getChartData", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String getChartData(@RequestParam HashMap<String, String> params,
+	public String getChartDataAjax(@RequestParam HashMap<String, String> params,
 								ModelAndView modelAndView) throws Throwable {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -984,7 +969,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String followerList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String followerListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -1012,7 +997,7 @@ public class MyGallaryController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String followingList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String followingListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 	
 		ObjectMapper mapper = new ObjectMapper();
 		
