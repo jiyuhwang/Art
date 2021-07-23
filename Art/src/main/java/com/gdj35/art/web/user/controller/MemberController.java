@@ -61,7 +61,7 @@ public class MemberController {
 	// 회원가입 또는 개인정보 수정 시 이메일 인증번호 전송
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public String mailCheckGET(String email) throws Exception {
+	public String mailCheckGETAjax(String email) throws Exception {
 
 		/* 뷰(View)로부터 넘어온 데이터 확인 */
 		logger.info("이메일 데이터 전송 확인");
@@ -102,7 +102,7 @@ public class MemberController {
 	// 임시 비밀번호 전송
 	@RequestMapping(value = "/exPwMail", method = RequestMethod.GET)
 	@ResponseBody
-	public String exPwMail(String email) throws Throwable {
+	public String exPwMailAjax(String email) throws Throwable {
 
 		/* 뷰(View)로부터 넘어온 데이터 확인 */
 		logger.info("이메일 데이터 전송 확인");
@@ -152,7 +152,7 @@ public class MemberController {
 	// 회원가입 Ajax
 	@RequestMapping(value = "/signUps", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String signUps(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String signUpAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -178,7 +178,7 @@ public class MemberController {
 	// 아이디 중복 체크
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String idCheck(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String idCheckAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -203,7 +203,7 @@ public class MemberController {
 	// 닉네임 중복 체크
 	@RequestMapping(value = "/nicknameCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String nicknameCheck(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String nicknameCheckAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -228,7 +228,7 @@ public class MemberController {
 	// 비밀번호 체크
 	@RequestMapping(value = "/pwCheck", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String pwCheck(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String pwCheckAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -271,7 +271,7 @@ public class MemberController {
 	// 로그인 Ajax
 	@RequestMapping(value = "/Logins", method = RequestMethod.POST, produces = "text/json;charset=UTF-8") // 오타 절대 금지
 	@ResponseBody // Spring에 View임을 제시
-	public String Logins(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String LoginAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -316,7 +316,7 @@ public class MemberController {
 
 	// 로그아웃 Ajax
 	@RequestMapping(value = "/Logout")
-	public ModelAndView Logout(HttpSession session, ModelAndView mav) {
+	public ModelAndView LogoutAjax(HttpSession session, ModelAndView mav) {
 
 		session.invalidate();
 
@@ -329,24 +329,13 @@ public class MemberController {
 	@RequestMapping(value = "/withdrawal")
 	public ModelAndView withdrawal(HttpSession session, ModelAndView mav) throws Throwable {
 
-		if (session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/withdrawal");
-
-			session.getAttribute("sUserPw");
-
-		} else {
-
-			mav.setViewName("redirect:main");
-		}
-
 		return mav;
 	}
 
 	// 탈퇴하기 Ajax
 	@RequestMapping(value = "/withdrawals", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String withdrawals(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String withdrawalAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -380,22 +369,13 @@ public class MemberController {
 
 		mav.addObject("data", data);
 
-		if (session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/profile");
-
-		} else {
-
-			mav.setViewName("redirect:main");
-		}
-
 		return mav;
 	}
 
 	// 프로필 수정 Ajax
 	@RequestMapping(value = "/profiles", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String profiles(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String profileAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -431,14 +411,6 @@ public class MemberController {
 		HashMap<String, String> data = iMemberService.getUser2(params);
 
 		mav.addObject("data", data);
-		if (session.getAttribute("sUserNo") != null) {
-
-			mav.setViewName("JY/set");
-
-		} else {
-
-			mav.setViewName("redirect:main");
-		}
 
 		return mav;
 	}
@@ -446,7 +418,7 @@ public class MemberController {
 	// 개인정보 수정 Ajax
 	@RequestMapping(value = "/sets", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String sets(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String setAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -480,7 +452,7 @@ public class MemberController {
 	// 비밀번호 수정 Ajax
 	@RequestMapping(value = "/pwsets", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String pwsets(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String pwsetAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -523,7 +495,7 @@ public class MemberController {
 	// 아이디 찾기 Ajax
 	@RequestMapping(value = "/idfinds", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String idfinds(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String idfindAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -562,7 +534,7 @@ public class MemberController {
 	// 비밀번호 찾기 Ajax
 	@RequestMapping(value = "/passwordfinds", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String passwordfinds(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String passwordfindAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -617,7 +589,7 @@ public class MemberController {
 	// 나의 작품 신고 내역 Ajax
 	@RequestMapping(value = "/myReportPostList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String myReportList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String myReportListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -641,7 +613,7 @@ public class MemberController {
 	// 나의 댓글 신고 내역 Ajax
 	@RequestMapping(value = "/myReportCommentList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String myReportCommentList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String myReportCommentListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -662,10 +634,10 @@ public class MemberController {
 		return mapper.writeValueAsString(modelMap);
 	}
 
-	// 나의 작품 신고 내역 삭제
+	// 나의 작품 신고 내역 삭제 Ajax
 	@RequestMapping(value = "/deleteMyReport", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteMyReport(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String deleteMyReportAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
