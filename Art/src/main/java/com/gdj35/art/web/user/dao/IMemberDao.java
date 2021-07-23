@@ -41,8 +41,6 @@ public interface IMemberDao {
 
 	public int getMyReportCommentCnt(HashMap<String, String> params) throws Throwable;
 
-	public int addReport(HashMap<String, String> params) throws Throwable;
-
 	public int pwCheck(HashMap<String, String> params) throws Throwable;
 
 }

@@ -282,7 +282,7 @@ $(document).ready(function(){
 
 	
 
-	
+	//페이징 버튼 클릭시 새로 list 가져오기
 	$("#pagingWrap").on("click", "span", function(){
 		$("#page").val($(this).attr("name"));	
 		$("#searchTxt").val($("#searchOldTxt").val());

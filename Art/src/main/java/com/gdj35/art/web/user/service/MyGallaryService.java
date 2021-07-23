@@ -251,6 +251,11 @@ public class MyGallaryService implements IMyGallaryService{
 	public int followingCnt(HashMap<String, String> params) throws Throwable {
 		return iMyGallaryDao.followingCnt(params);
 	}
+	
+	@Override
+	public int addReport(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.addReport(params);
+	}
 
 
 }

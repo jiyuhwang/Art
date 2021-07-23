@@ -1,16 +1,8 @@
 @charset "UTF-8";
 
-body {
-	margin: 0;
-	padding: 0;
-	text-decoration: none;
+.font-red {
+	color: red;
 }
-
-a { text-decoration: none; color: inherit;}
-img { border: 0px; }
-ul { list-style: none;}
-.font-red { color: red;}
-/* ----------------------------------------------------초기화 */
 
 .background_r {
 	width: 100%;
@@ -35,6 +27,7 @@ ul { list-style: none;}
 	border-radius: 5px;
 	z-index: 400;
 	border-radius: 16px;
+	font-size: 16px;
 }
 
 .top_ctt>* {
@@ -141,11 +134,11 @@ ul { list-style: none;}
 	margin-left: 30px;
 }
 
-textarea {
+.report_content textarea {
 	border-style: none;
 }
 
-textarea:focus {
+.report_content textarea:focus {
 	outline: none;
 }
 
