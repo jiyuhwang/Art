@@ -979,7 +979,7 @@ public class MyGallaryController {
 		
 		int cnt = iMyGallaryService.followerCnt(params);
 		
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 10, 1);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
 		
 	
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
@@ -1007,7 +1007,7 @@ public class MyGallaryController {
 		
 		int cnt = iMyGallaryService.followingCnt(params);
 		
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 10, 1);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
 		
 	
 		params.put("startCnt", Integer.toString(pb.getStartCount()));

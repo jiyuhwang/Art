@@ -25,6 +25,7 @@ public class CommonAOP {
 	 * && -> 필터 추가
 	 */
 	@Pointcut("execution(* com.gdj35.art..*Controller.*(..))"
+			+ "&&!execution(* com.gdj35.art..*ManagerController.*(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*agree(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*signUp(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*idfind(..))"

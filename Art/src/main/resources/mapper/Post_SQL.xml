@@ -779,7 +779,7 @@
 	<!-- 나의 팔로워 수 -->
 	<select id="followerCnt" parameterType="hashmap" resultType="Integer">
      	SELECT COUNT(*) AS LIKECNT
-		FROM AUTHOR_LIKE AL INNER JOIN USERS U
+		FROM AUTHOR_LIKE AL LEFT OUTER JOIN USERS U
 		        ON AL.USER_NO = U.USER_NO
 		WHERE AL.AUTHOR_NO = #{followNo}
 		AND U.OUT_DATE IS NULL
@@ -788,9 +788,9 @@
 	<!-- 나의 팔로잉 수 -->
 	<select id="followingCnt" parameterType="hashmap" resultType="Integer">
      	SELECT COUNT(*) AS LIKECNT
-		FROM AUTHOR_LIKE AL INNER JOIN USERS U
+		FROM AUTHOR_LIKE AL LEFT OUTER JOIN USERS U
 		        ON AL.USER_NO = U.USER_NO
-		WHERE AUTHOR_NO = #{followNo}
+		WHERE AL.USER_NO = #{followNo}
 		AND U.OUT_DATE IS NULL
 	</select>
 	

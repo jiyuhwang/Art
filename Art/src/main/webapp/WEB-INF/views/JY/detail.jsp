@@ -37,6 +37,9 @@ $(document).ready(function() {
 		} else if($('#listPage').val() == "3") {
 			$("#goForm").attr("action", "searchGallaryPage");
 			$("#goForm").submit();
+		} else if($('#listPage').val() == "4") {
+			$("#goForm").attr("action", "main");
+			$("#goForm").submit();
 		}
 	})
 	
@@ -115,6 +118,10 @@ $(document).ready(function() {
 			$('.comment_wrap2').hide();
 		}
 	})
+	
+	$('#btnStart').click(function() {
+		location.href = "login";
+	});
 	
 
 	

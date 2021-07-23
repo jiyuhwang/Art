@@ -185,7 +185,7 @@ $(document).ready(function() {
 				<tr height="50px">
 					<th>닉네임</th>
 					<td>
-						<input id="nickname" name="userNickname" type="text" value="${data.USER_NICKNAME}" size="40" maxlength="50"/>
+						<input id="nickname" name="userNickname" type="text" value="${data.USER_NICKNAME}" size="40" maxlength="10"/>
 						<input id="btnNicknameCheck" type="button" value="중복확인">
 					</td>
 				</tr>

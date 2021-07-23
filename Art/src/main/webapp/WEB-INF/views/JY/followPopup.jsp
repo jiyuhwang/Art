@@ -26,7 +26,7 @@ body {
 
 .follow_wrap {
 	width: 290px;
-	height: 510px;
+	height: 560px;
 	display: inline-block;
 	vertical-align: top;
 	margin-top: 10px;
@@ -79,13 +79,29 @@ body {
     color:#fff;
 }
 
-.tabs2 .follower_wrap, .tabs2 .following_wrap {
+.follower_wrap, .following_wrap {
     padding: 2px;
     border: 1px solid #ddd;
     width: 278px;
-    height: 460px;
+    height: 510px;
     margin-left: 3px;
     overflow-y: scroll;
+}
+
+.follower_wrap::-webkit-scrollbar, .following_wrap::-webkit-scrollbar {
+    width: 20px; /*스크롤바의 너비*/
+}
+ 
+.follower_wrap::-webkit-scrollbar-thumb, .following_wrap::-webkit-scrollbar-thumb {
+    background-color: whitesmoke; /*스크롤바의 색상*/
+    background-clip: padding-box;
+    border: 4px solid transparent;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.follower_wrap::-webkit-scrollbar-track, .following_wrap::-webkit-scrollbar-track {
+    background-color: white; /*스크롤바 트랙 색상*/
 }
 
 .follower, .following {
@@ -113,7 +129,7 @@ body {
 .follower_profile_wrap, .following_profile_wrap {
 	display: inline-block;
 	text-align: center;
-	width: 200px;
+	width: 190px;
 	vertical-align: top;
     margin-top: 5px;
 }
@@ -192,10 +208,13 @@ function followPopup() {
 	});
 	
 	$(".follower_wrap").scroll(function(){
+		console.log($(this).scrollTop());
+		console.log($(this).innerHeight());
+		console.log($(this)[0].scrollHeight);
 		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
 			$("#followpage").val($("#followpage").val() * 1 + 1);
 			followList();
-		} 
+		}
 	});
 	
 	$(".following_wrap").scroll(function(){
