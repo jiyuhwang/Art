@@ -460,6 +460,8 @@ public class MyGallaryController {
 		}
 		
 		mav.addObject("data", data);
+		
+		mav.setViewName("JY/edit");
 				
 		return mav;	
 	}
@@ -503,7 +505,8 @@ public class MyGallaryController {
 	@RequestMapping(value = "/write")
 	public ModelAndView write(HttpSession session, ModelAndView mav) throws Throwable {
 
-
+		mav.setViewName("JY/write");
+		
 		return mav;
 	}
 	

@@ -62,7 +62,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
 	$(".footer5").on("click", function () {
-		location.href="user_board"
+		location.href="user_board";
 	});
 	
 });
@@ -82,7 +82,7 @@ $(document).ready(function () {
 			<c:when test="${empty sAdminNo}">
 			</c:when>
 			<c:otherwise>
-				<div class="footer5"><a href="#">관리자 페이지</a></div>
+				<div class="footer5"><a href="user_board">관리자 페이지</a></div>
 			</c:otherwise>
 		</c:choose>
 		

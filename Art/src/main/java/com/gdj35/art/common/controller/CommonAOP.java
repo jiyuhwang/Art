@@ -25,6 +25,17 @@ public class CommonAOP {
 	 * && -> 필터 추가
 	 */
 	@Pointcut("execution(* com.gdj35.art..*Controller.*(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*agree(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*signUp(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*idfind(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*findId(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*passwordfind(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*findPw(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*detail(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*searchGallaryPage(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*gallary(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*othergallary(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*main(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*login(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*Ajax(..))")
 	public void artAOP() {}
@@ -48,7 +59,7 @@ public class CommonAOP {
 		
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("sUserNo") != null) { // 로그인 상태
+		if(session.getAttribute("sUserNo") != null || session.getAttribute("sAdminNo") != null) { // 로그인 상태
 			
 			mav = (ModelAndView) joinPoint.proceed(); // 기존 이벤트 처리 행위를 이어서 진행
 			

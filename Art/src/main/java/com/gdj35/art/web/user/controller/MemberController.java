@@ -75,7 +75,7 @@ public class MemberController {
 		/* 이메일 보내기 */
 		String setFrom = "artproject21@naver.com";
 		String toMail = email;
-		String title = "Art 회원가입 인증 이메일 입니다.";
+		String title = "Art 인증 이메일 입니다.";
 		String content = "Art 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
 				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요." + "<br>" + "감사합니다:)";
 
@@ -329,6 +329,8 @@ public class MemberController {
 	@RequestMapping(value = "/withdrawal")
 	public ModelAndView withdrawal(HttpSession session, ModelAndView mav) throws Throwable {
 
+		mav.setViewName("JY/withdrawal");
+		
 		return mav;
 	}
 
@@ -369,6 +371,8 @@ public class MemberController {
 
 		mav.addObject("data", data);
 
+		mav.setViewName("JY/profile");
+		
 		return mav;
 	}
 
@@ -412,6 +416,8 @@ public class MemberController {
 
 		mav.addObject("data", data);
 
+		mav.setViewName("JY/set");
+		
 		return mav;
 	}
 
