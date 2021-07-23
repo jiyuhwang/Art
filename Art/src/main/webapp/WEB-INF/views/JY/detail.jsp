@@ -177,29 +177,15 @@ $(document).ready(function() {
 				dataType: "json",
 				data: params,
 				success: function(res) {
-					if(res.msg == "success") {
-						reportPopup(res.data);
-					} else if(res.msg == "failed") {
-						alert("신고에 실패하였습니다.")
-					} else {
-						alert("신고 중 문제가 발생하였습니다.")
-					}
+				
+					reportPopup(res.data, res.userNo);
 				},
 				error: function(request, status, error) {
 					console.log(error);
 				}
 			});
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			reportPopup();
-		});
+
+		});//신고버튼함수end
 	})
 	
 	$('#btnDot22').click(function() {
@@ -730,14 +716,18 @@ function CopyUrl2()
 
 
 
-	function reportPopup(){
+	function reportPopup(data, userNo){
 		var html = "";
 							                                                                                                                                   
 		html +="<div class=\"background_r\"></div>";
 		html +="	<div class=\"ctts_r\">";
 		html += "	<form id=\"reportForm\">";
-/* 		html += "		<input type=\"hidden\" name=\"\" value=\"" +  + "\" />";
-		html += "		<input type=\"hidden\" name=\"\" value=\"" +  + "\" />"; */
+ 		html += "		<input type=\"hidden\" name=\"pNo\" value=\"" + data.POST_NO + "\" />";
+ 		html +="<input type=\"hidden\" id=\"userNo\" name=\"userNo\" value=\""+ userNo +"\"/>";
+		 		
+ 		var ranAdmin = Math.floor(Math.random()*6 + 1);
+ 				
+ 		html += "		<input type=\"hidden\" name=\"adminNo\" value=\"" + ranAdmin + "\" />"; 
 		html += "		<input type=\"hidden\" name=\"checkArr\"  id=\"checkArr\"/>";
 		html +="		<div class=\"top_ctt\">";
 		html +="			<div class=\"top_ctt1\">";
@@ -753,39 +743,39 @@ function CopyUrl2()
 		html +="				<div class=\"top_ctt4-1\">신고사유</div>";
 		html +="				<div class=\"checkbox_div\">";
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c1\" value=\"1\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\"id=\"c1\" value=\"0\" class=\"check_one\"/>";
 		html +="						<label for=\"c1\">홍보,영리목적</label>";
 		html +="					</div>";
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c2\" value=\"2\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\"id=\"c2\" value=\"1\" class=\"check_one\"/>";
 		html +="						<label for=\"c2\">부적절한 홍보</label>";
 		html +="					</div>";	
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c3\" value=\"3\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\"id=\"c3\" value=\"2\" class=\"check_one\"/>";
 		html +="						<label for=\"c3\">불법정보</label>";
 		html +="					</div>";	
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c4\" value=\"4\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\"  id=\"c4\" value=\"3\" class=\"check_one\"/>";
 		html +="						<label for=\"c4\">음란 또는 청소년에게한 내용</label>";
 		html +="					</div>";	
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c5\" value=\"5\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\" id=\"c5\" value=\"4\" class=\"check_one\"/>";
 		html +="						<label for=\"c5\">욕설비방차별혐</label>";
 		html +="					</div>";	
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c6\" value=\"6\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\"id=\"c6\" value=\"5\" class=\"check_one\"/>";
 		html +="						<label for=\"c6\">도배 스팸</label>";
 		html +="					</div>";	
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c7\" value=\"7\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\"id=\"c7\" value=\"6\" class=\"check_one\"/>";
 		html +="						<label for=\"c7\">개인정보 노출거래</label>";
 		html +="					</div>";	
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c8\" value=\"8\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\"id=\"c8\" value=\"7\" class=\"check_one\"/>";
 		html +="						<label for=\"c8\">저작권 및 명예훼손</label>";
 		html +="					</div>";	
 		html +="					<div>";
-		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c9\" value=\"9\" class=\"check_one\"/>";
+		html +="						<input type=\"checkbox\" id=\"c9\" value=\"8\" class=\"check_one\"/>";
 		html +="						<label for=\"c9\">기타</label>";
 		html +="					</div>";	
 		html +="				</div>";
@@ -849,61 +839,53 @@ function CopyUrl2()
 					$("#cttCnt").html("(500 / 500)");
 				}				
 			});
-			
-			//체크박스 값 보내기			
-			$(".btn_rot").on("click", function(){
-				
-				$("#checkArr").val("");
-				$(".checkbox_div [type='checkbox']:checked").each(function(){					
-					$("#checkArr").val($("#checkArr").val() + $(this).val());
-				});
-
-				console.log("#checkArr값: " + $("#checkArr").val());
-				
-			});
-			
-			
-			
-			
-			
-
-			
+	
 						
 			//----------------------------------------------신고할 때
-				$("#btn_rot").off("click");
-				$("#btn_rot").on("click", function(){
+				$(".btn_rot").off("click");
+				$(".btn_rot").on("click", function(){
 					
-					//자기자신이 신고할 수 없도록 하는 코드
+					//자기자신이 신고할 수 없도록 하는 코드는 필요없.. 아이콘이 없
 					
+					//체크박스 값 보내기		
+					$("#checkArr").val("");
+					$(".checkbox_div [type='checkbox']:checked").each(function(){					
+						$("#checkArr").val($("#checkArr").val() + "," + $(this).val());
+					});
+		
+					$("#checkArr").val($("#checkArr").val().substring(1));//처음,안나오게하기위해서
 					
-					
-											
-					var params = $("#reportForm").serialize();
-					
-					$.ajax({
-						type : "post",
-						url : "userReports",
-						dataType : "json",
-						data : params,
-						success : function(result) {
-							
-							if(result.msg == "success"){
-								closePopup();
+					if($(".checkbox_div [type='checkbox']:checked").length == 0){
+						alert("선택된 신고사유가 없습니다. 신고사유를 선택하세요.");
+					} else {
+						var params = $("#reportForm").serialize();
+						
+						$.ajax({
+							type : "post",
+							url : "userReports",
+							dataType : "json",
+							data : params,
+							success : function(result) {
+								
+								if(result.msg == "success"){
+									closePopup();
+	
+								} else if(result.msg == "failed"){
+									alert("신고에 실패했습니다.");
+								} else {
+									console.log(result);
+									alert("신고 전송 중 문제가 발생했습니다.");
+								}						
+				
+							},
+							error: function(request, status, error){
+								console.log(error);
+								
+							}
+						
+						});//ajax
 
-							} else if(result.msg == "failed"){
-								alert("신고에 실패했습니다.");
-							} else {
-								console.log(result);
-								alert("신고 전송 중 문제가 발생했습니다.");
-							}						
-			
-						},
-						error: function(request, status, error){
-							console.log(error);
-							
-						}
-					
-					});//ajax
+					}//else						
 				});//신고하기버튼누르면	
 		
 

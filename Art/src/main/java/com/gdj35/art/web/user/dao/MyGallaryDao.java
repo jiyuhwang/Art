@@ -347,7 +347,36 @@ public class MyGallaryDao implements IMyGallaryDao{
 	
 	@Override
 	public int addReport(HashMap<String, String> params) throws Throwable {
-		return sqlSession.insert("Post.addReport", params);
+		
+		//신고등록할 NO 가져오기
+		int seq = sqlSession.selectOne("Post.reportSeq", params);
+		params.put("reportNo", String.valueOf(seq));
+		System.out.println(params);
+		sqlSession.insert("Post.addReport", params);
+		System.out.println("이것은 seq다: " + params);		
+		
+		
+		String check = params.get("checkArr");
+		String[] checkList = check.split(",");
+		for(int i=0; i<checkList.length; i++) {
+			
+			System.out.println("이게 왜 안나오냐고 오오오오" + checkList[i]);
+		}
+		
+		for(int i=0; i<checkList.length; i++) {
+			String typeNo = checkList[i];
+			params.put("typeNo", typeNo);
+			sqlSession.insert("Post.addMidReport", params);
+
+			System.out.println(checkList[i]);
+		}
+		
+		return 1;
+	}
+
+	@Override
+	public int reportSeq(HashMap<String, String> params) throws Throwable {
+		return  sqlSession.selectOne("Post.reportSeq", params);
 	}
 
 }

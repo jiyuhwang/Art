@@ -101,6 +101,8 @@ public interface IMyGallaryService {
 
 	public int addReport(HashMap<String, String> params) throws Throwable;
 
+	public int reportSeq(HashMap<String, String> params) throws Throwable;
+
 
 
 

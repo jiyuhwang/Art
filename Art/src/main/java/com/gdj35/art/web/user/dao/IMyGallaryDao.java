@@ -101,5 +101,7 @@ public interface IMyGallaryDao {
 
 	public int addReport(HashMap<String, String> params) throws Throwable;
 
+	public int reportSeq(HashMap<String, String> params) throws Throwable;
+
 
 }
