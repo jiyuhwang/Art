@@ -97,66 +97,54 @@ public class MemberController {
 		return num;
 
 	}
-	
-	// 임시 비밀번호 전송
-	@RequestMapping(value="/exPwMail", method=RequestMethod.GET)
-    @ResponseBody
-    public String exPwMail(String email) throws Throwable{
-        
-		
-		
-        /* 뷰(View)로부터 넘어온 데이터 확인 */
-        logger.info("이메일 데이터 전송 확인");
-        logger.info("이메일 : " + email);
-                
-        /* 인증번호(난수) 생성 */
-        Random random = new Random();
-		String password = getTempPassword(6) + random.nextInt(888888);
-		
-		
-		logger.info("임시 비밀번호 " + password);
-        
-        /* 이메일 보내기 */
-        String setFrom = "artproject21@naver.com";
-        String toMail = email;
-        String title = "Art 임시 비밀번호 이메일입니다.";
-        String content = 
-                "Art 홈페이지를 방문해주셔서 감사합니다." +
-                "<br><br>" + 
-                "임시 비밀번호는 " + password + "입니다." + 
-                "<br>" + 
-                "해당 비밀번호를 로그인 시 기입하여 주세요." +
-                "<br>" + 
-                "감사합니다:)";
-        
-        try {
-	        	MimeMessage message = mailSender.createMimeMessage();
-	        	MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-	        	helper.setFrom(setFrom);
-	        	helper.setTo(toMail);
-	        	helper.setSubject(title);
-	        	helper.setText(content,true);
-	        	mailSender.send(message);
 
-            
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
- 
-        
-        String pw = password;
-		
-        return pw;
-        
-    }
+	// 임시 비밀번호 전송
+	@RequestMapping(value = "/exPwMail", method = RequestMethod.GET)
+	@ResponseBody
+	public String exPwMail(String email) throws Throwable {
+
+		/* 뷰(View)로부터 넘어온 데이터 확인 */
+		logger.info("이메일 데이터 전송 확인");
+		logger.info("이메일 : " + email);
+
+		/* 인증번호(난수) 생성 */
+		Random random = new Random();
+		String password = getTempPassword(6) + random.nextInt(888888);
+
+		logger.info("임시 비밀번호 " + password);
+
+		/* 이메일 보내기 */
+		String setFrom = "artproject21@naver.com";
+		String toMail = email;
+		String title = "Art 임시 비밀번호 이메일입니다.";
+		String content = "Art 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "임시 비밀번호는 " + password + "입니다." + "<br>"
+				+ "해당 비밀번호를 로그인 시 기입하여 주세요." + "<br>" + "감사합니다:)";
+
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String pw = password;
+
+		return pw;
+
+	}
 
 	// 회원가입 페이지
 	@RequestMapping(value = "/signUp")
-	public ModelAndView signUp(@RequestParam HashMap<String, String> params,
-								ModelAndView mav) {
+	public ModelAndView signUp(@RequestParam HashMap<String, String> params, ModelAndView mav) {
 
-			mav.setViewName("JY/signUp");	
-		
+		mav.setViewName("JY/signUp");
+
 		return mav;
 	}
 
@@ -285,7 +273,7 @@ public class MemberController {
 		} else {
 			modelMap.put("resMsg", "failed");
 		}
-		
+
 		if (data2 != null) {
 			session.setAttribute("sAdminNo", data2.get("ADMIN_NO"));
 			session.setAttribute("sAdminId", data2.get("ADMIN_ID"));
@@ -376,7 +364,6 @@ public class MemberController {
 		return mav;
 	}
 
-
 	// 프로필 수정 Ajax
 	@RequestMapping(value = "/profiles", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -437,23 +424,21 @@ public class MemberController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		
 		session.setAttribute("sUserPw", params.get("userPw"));
 		session.setAttribute("sUserName", params.get("userName"));
 		session.setAttribute("sUserSex", params.get("gender"));
 		session.setAttribute("sUserPhone", params.get("userPhone"));
 		session.setAttribute("sUserMail", params.get("userMail"));
 		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
-		
+
 		try {
 			int cnt = iMemberService.updateSet(params);
-		
+
 			if (cnt > 0) {
 				modelMap.put("msg", "success");
 			} else {
 				modelMap.put("msg", "failed");
 			}
-			
 
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -472,17 +457,16 @@ public class MemberController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		
 		session.setAttribute("sUserPw", params.get("userPw"));
 		session.setAttribute("sUserName", params.get("userName"));
 		session.setAttribute("sUserSex", params.get("gender"));
 		session.setAttribute("sUserPhone", params.get("userPhone"));
 		session.setAttribute("sUserMail", params.get("userMail"));
 		session.setAttribute("sUserEventAgree", params.get("userEventAgree"));
-		
+
 		try {
 			int cnt = iMemberService.editPw(params);
-			
+
 			if (cnt > 0) {
 				modelMap.put("msg", "success");
 			} else {
@@ -536,10 +520,9 @@ public class MemberController {
 		return mav;
 	}
 
-	// 비밀번호 찾기 페이지 
+	// 비밀번호 찾기 페이지
 	@RequestMapping(value = "/passwordfind")
 	public ModelAndView passwordfind(ModelAndView mav) throws Throwable {
-
 
 		mav.setViewName("YM/passwordfind");
 		return mav;
@@ -575,24 +558,21 @@ public class MemberController {
 	public ModelAndView findPw(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
 		iMemberService.updatePw(params);
-		
-		
+
 		mav.setViewName("YM/findPw");
 
 		return mav;
 	}
-	
 
-	
-	//신고하기
+	// 신고하기
 	@RequestMapping(value = "/userReportPopup")
 	public ModelAndView userReportPopup(ModelAndView mav) {
 
 		mav.setViewName("h/userReportPopup");
-		
+
 		return mav;
 	}
-	
+
 	// 나의 신고 페이지
 	@RequestMapping(value = "/myreport")
 	public ModelAndView myreport(ModelAndView mav) {
@@ -600,91 +580,117 @@ public class MemberController {
 
 		return mav;
 	}
-	
+
 	// 나의 작품 신고 내역 Ajax
-	@RequestMapping(value = "/myReportPostList",
-			method = RequestMethod.POST,
-			produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/myReportPostList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String myReportList(@RequestParam HashMap<String, String> params) throws Throwable {
-	
+
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
+
 		int page = Integer.parseInt(params.get("page"));
-		
+
 		int cnt = iMemberService.getMyReportPostCnt(params);
-		
-				
+
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
-		
-	
+
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
-				
+
 		List<HashMap<String, String>> list = iMemberService.reportPost(params);
-		
-		modelMap.put("list", list);	
-		
+
+		modelMap.put("list", list);
+
 		return mapper.writeValueAsString(modelMap);
 	}
-	
-	// 나의 댓글 신고 내역 Ajax
-	@RequestMapping(value = "/myReportCommentList",
-			method = RequestMethod.POST,
-			produces = "text/json;charset=UTF-8")
-	@ResponseBody
-		public String myReportCommentList(@RequestParam HashMap<String, String> params) throws Throwable {
-		
-			ObjectMapper mapper = new ObjectMapper();
-			Map<String, Object> modelMap = new HashMap<String, Object>();
-			
-			int page = Integer.parseInt(params.get("page"));
-						
-			int cnt = iMemberService.getMyReportCommentCnt(params);
 
-					
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
-			
-		
-			params.put("startCnt", Integer.toString(pb.getStartCount()));
-			params.put("endCnt", Integer.toString(pb.getEndCount()));
-					
-			List<HashMap<String, String>> list2 = iMemberService.reportComment(params);
-			
-			modelMap.put("list2", list2);	
-			
-			return mapper.writeValueAsString(modelMap);
-		}
-	
+	// 나의 댓글 신고 내역 Ajax
+	@RequestMapping(value = "/myReportCommentList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String myReportCommentList(@RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		int page = Integer.parseInt(params.get("page"));
+
+		int cnt = iMemberService.getMyReportCommentCnt(params);
+
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
+
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+		List<HashMap<String, String>> list2 = iMemberService.reportComment(params);
+
+		modelMap.put("list2", list2);
+
+		return mapper.writeValueAsString(modelMap);
+	}
+
 	// 나의 작품 신고 내역 삭제
-	@RequestMapping(value = "/deleteMyReport",
-			method = RequestMethod.POST,
-			produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/deleteMyReport", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String deleteMyReport(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
-	
-	ObjectMapper mapper = new ObjectMapper();
-	
-	Map<String, Object> modelMap = new HashMap<String, Object>();
-	
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		try {
+			int cnt = iMemberService.deleteMyReport(params);
+
+			if (cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(modelMap);
+	}
+
+	// 신고하기 팝업 1차
+	@RequestMapping(value = "/userReport")
+	public ModelAndView userReport(ModelAndView mav) {
+		mav.setViewName("h/userReportPopup");
+
+		return mav;
+	}
+
+	// 신고하기 전송
+	@RequestMapping(value="/userReports",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String userReports(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		
+		try {
+			int cnt = iMemberService.addReport(params);
 			
-	try {
-		int cnt = iMemberService.deleteMyReport(params);
-				
-		if (cnt > 0) {
-			modelMap.put("msg", "success");
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
 		} else {
 			modelMap.put("msg", "failed");
-		}
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}	
 		
+		return mapper.writeValueAsString(modelMap);
 	
-	} catch (Throwable e) {
-		e.printStackTrace();
-		modelMap.put("msg", "error");
-	}
-	
-	return mapper.writeValueAsString(modelMap);
 	}
 
 }

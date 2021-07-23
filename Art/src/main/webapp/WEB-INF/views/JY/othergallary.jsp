@@ -391,6 +391,8 @@ function drawPaging(pb) {
 		<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
 		<input type="hidden" id="userNo2" name="userNo2" value="${param.authorNo}" />
 		<input type="hidden" id="page" name="page" value="${page}" />
+		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
+		<input type="hidden" id="tabFlag" name="tabFlag" value="${param.tabFlag}"/>
 		<input type="hidden" id="mainGallary" name="listPage" value="2"/>	
 	
 	<div class="main_title_wrap">
@@ -412,7 +414,7 @@ function drawPaging(pb) {
 	
 
 			<c:choose>
-				<c:when test="${empty param.userProfileImg}">
+				<c:when test="${empty param.userProfileImg || param.userProfileImg eq 'undefined'}">
 					<div class="profile2">
 						<img class="profile_img2" src="resources/images/JY/who.png" alt="프로필사진" width="200px" height="200px">
 				    </div>

@@ -33,6 +33,9 @@ $(document).ready(function() {
 		} else if($('#listPage').val() == "2") {
 			$("#goForm").attr("action", "othergallary");
 			$("#goForm").submit();
+		} else if($('#listPage').val() == "3") {
+			$("#goForm").attr("action", "searchGallaryPage");
+			$("#goForm").submit();
 		}
 	})
 	
@@ -61,17 +64,25 @@ $(document).ready(function() {
 	}
 	
 	
-	$('#btnMenu, #btnMenu2').click(function() {
-		if ($('.side_bar').css('display') == 'none') {
-			$('.side_bar').slideDown();
-		} else {
-			$('.side_bar').slideUp();
-		}
-	})
+		$('#btnMenu, #btnMenu2').click(function() {
+			if($("#userNo").val() != "") {
+				if ($('.side_bar').css('display') == 'none') {
+					$('.side_bar').slideDown();
+				} else {
+					$('.side_bar').slideUp();
+				}
+			} else {
+				if ($('.side_bar2').css('display') == 'none') {
+					$('.side_bar2').slideDown();
+				} else {
+					$('.side_bar2').slideUp();
+				}
+			}
+		})
 	
 	$(document).mouseup(function (e){
 
-		var container = $(".side_bar");
+		var container = $(".side_bar, .side_bar2");
 	
 		if( container.has(e.target).length === 0)
 	
@@ -736,8 +747,6 @@ function CopyUrl2()
 	
 	
 	
-	
-	
 	<div class="side_bar">
 		<c:choose>
 				<c:when test="${empty sUserProfileImg}">
@@ -765,6 +774,29 @@ function CopyUrl2()
 		</div>
 		<input type="button" id="btnLogout" value="로그아웃">
 	</div>
+	
+	
+	
+	
+	<div class="side_bar2">
+		<img id="sideBarLogo" src="resources/images/JY//art2.png" alt="로고" width="80px"
+			height="50px">
+		<div class="side_bar_phrase">You can be an art writer.</div>
+		<input type="button" id="btnStart" value="Art 시작하기">
+		<div class="side_bar_menux">
+			<div class="side_bar_menu1x">
+				<a href="main">Art 홈</a>
+			</div>
+			<br />
+			<div class="side_bar_menu2x">
+				<a href="gallary">작품 보러가기</a>
+			</div>
+		</div>
+		<div class="forget">
+			<a href="idfind">계정을 잊어버리셨나요?</a>
+		</div>
+	</div>
+	
 	<div class="wrap">
 	
 		<c:choose>		
@@ -812,6 +844,8 @@ function CopyUrl2()
 			<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}"/>
 			<input type="hidden" id="tab" name="tab" value="${param.tab}"/>
 			<input type="hidden" name="page" id="page" value="${param.page}" />
+			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
+			<input type="hidden" id="tabFlag" name="tabFlag" value="${param.tabFlag}"/>
 			<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
 			<input type="hidden" name="visibility" value="${param.visibility}" />
 			<input type="hidden" name="commentNo" id="commentNo" value="" />

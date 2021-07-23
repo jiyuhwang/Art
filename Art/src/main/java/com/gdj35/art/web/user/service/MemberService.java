@@ -104,4 +104,9 @@ public class MemberService implements IMemberService{
 		return iMemberDao.getMyReportCommentCnt(params);
 	}
 
+	@Override
+	public int addReport(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.addReport(params);
+	}
+
 }
