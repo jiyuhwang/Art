@@ -13,7 +13,6 @@ $(document).ready(function(){
 	
 	$("#btnDeclation2").on("click", function(){
 		reportPopup();
-		
 	});
 	
 	function reportPopup(){
@@ -23,8 +22,8 @@ $(document).ready(function(){
 		html +="	<div class=\"ctts_r\">";
 		html += "	<form id=\"reportForm\">";
 /* 		html += "		<input type=\"hidden\" name=\"\" value=\"" +  + "\" />";
-		html += "		<input type=\"hidden\" name=\"\" value=\"" +  + "\" />";
 		html += "		<input type=\"hidden\" name=\"\" value=\"" +  + "\" />"; */
+		html += "		<input type=\"hidden\" name=\"checkArr\"  id=\"checkArr\"/>";
 		html +="		<div class=\"top_ctt\">";
 		html +="			<div class=\"top_ctt1\">";
 		html +="			<div>신고하기</div>";
@@ -38,39 +37,48 @@ $(document).ready(function(){
 		html +="			<div class=\"top_ctt4\">";
 		html +="				<div class=\"top_ctt4-1\">신고사유</div>";
 		html +="				<div class=\"checkbox_div\">";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"홍보,영리목적\"/><label for=c1>홍보,영리목적</label>";
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c1\" value=\"1\" class=\"check_one\"/>";
+		html +="						<label for=\"c1\">홍보,영리목적</label>";
 		html +="					</div>";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"부적절한 홍보\"/><label for=c2>부적절한 홍보</label>";
-		html +="					</div>";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"불법정보\"/><label for=c3>불법정보</label>";
-		html +="					</div>";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"음란 또는 청소년에게 부적합한 내용\"/><label for=c4>음란 또는 청소년에게한 내용</label>";
-		html +="					</div>";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"욕설비방차별혐오\"/><label for=c5>욕설비방차별혐</label>";
-		html +="					</div>";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"도배 스팸\"/><label for=c6>도배 스팸</label>";
-		html +="					</div>";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"개인정보 노출거래\"/><label for=c7>개인정보 노출거래</label>";
-		html +="					</div>";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"저작권 및 명예훼손\"/><label for=c8>저작권 및 명예훼손</label>";
-		html +="					</div>";
-		html +="					<div class=\"check_one\">";
-		html +="						<input type=\"checkbox\" value=\"기타\"/><label for=c9>기타</label>";
-		html +="					</div>";
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c2\" value=\"2\" class=\"check_one\"/>";
+		html +="						<label for=\"c2\">부적절한 홍보</label>";
+		html +="					</div>";	
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c3\" value=\"3\" class=\"check_one\"/>";
+		html +="						<label for=\"c3\">불법정보</label>";
+		html +="					</div>";	
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c4\" value=\"4\" class=\"check_one\"/>";
+		html +="						<label for=\"c4\">음란 또는 청소년에게한 내용</label>";
+		html +="					</div>";	
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c5\" value=\"5\" class=\"check_one\"/>";
+		html +="						<label for=\"c5\">욕설비방차별혐</label>";
+		html +="					</div>";	
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c6\" value=\"6\" class=\"check_one\"/>";
+		html +="						<label for=\"c6\">도배 스팸</label>";
+		html +="					</div>";	
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c7\" value=\"7\" class=\"check_one\"/>";
+		html +="						<label for=\"c7\">개인정보 노출거래</label>";
+		html +="					</div>";	
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c8\" value=\"8\" class=\"check_one\"/>";
+		html +="						<label for=\"c8\">저작권 및 명예훼손</label>";
+		html +="					</div>";	
+		html +="					<div>";
+		html +="						<input type=\"checkbox\" name=\"checkR\" id=\"c9\" value=\"9\" class=\"check_one\"/>";
+		html +="						<label for=\"c9\">기타</label>";
+		html +="					</div>";	
 		html +="				</div>";
 		html +="			</div>";
 		html +="			<div class=\"r_content_div\">";
 		html +="				<div class=\"r_content-1\">내용<br/><span id=\"cttCnt\"></span></div>";
 		html +="				<div class=\"report_content\">";
-		html +="<textarea rows=\"16\" cols=\"78\" name=\"reportCtt\" id=\"reportCtt\"></textarea></div>";
+		html +="				<textarea rows=\"16\" cols=\"78\" name=\"reportCtt\" id=\"reportCtt\"></textarea></div>";
 		html +="			</div>";
 		html +="		</div><!-- --------------------------------------------top-ctt -->";
 		html +="		<div class=\"btm-ctt\">";
@@ -103,6 +111,17 @@ $(document).ready(function(){
 			$(".background_r").fadeIn();
 			$(".ctts_r").fadeIn();
 			
+			//닫기
+			$(".btn_cancel").off("click");
+			$(".btn_cancel").on("click", function(){
+				closePopup();
+			});
+			
+			$(".background_r").off("click");
+			$(".background_r").on("click", function(){
+				closePopup();
+			}); 
+			
 			
 			
 			//신고하기 textarea 글자수 제한
@@ -116,8 +135,24 @@ $(document).ready(function(){
 				}				
 			});
 			
-			//체크박스 값 보내기
-			$(".")
+			//체크박스 값 보내기			
+			$(".btn_rot").on("click", function(){
+				
+				$("#checkArr").val("");
+				$(".checkbox_div [type='checkbox']:checked").each(function(){					
+					$("#checkArr").val($("#checkArr").val() + $(this).val());
+				});
+
+				console.log("#checkArr값: " + $("#checkArr").val());
+				
+			});
+			
+			
+			
+			
+			
+
+			
 						
 			//----------------------------------------------신고할 때
 				$("#btn_rot").off("click");
@@ -156,16 +191,8 @@ $(document).ready(function(){
 					});//ajax
 				});//신고하기버튼누르면	
 		
-		//닫기
-		$(".btn_cancel").off("click");
-		$(".btn_cancel").on("click", function(){
-			closePopup();
-		});
-		
-			$(".background_r").off("click");
-		$(".background_r").on("click", function(){
-			closePopup();
-		}); 
+
+	
 	};//popup end
 
 		
@@ -176,11 +203,11 @@ $(document).ready(function(){
 	//신고하기 팝업 닫기
 	function closePopup() {
 		$(".background_r").fadeOut(function(){
-			$(".background_r").remove();
+		$(".background_r").remove();
 		});
 		
 		$(".ctts_r").fadeOut(function(){
-			$(".ctts_r").remove();
+		$(".ctts_r").remove();
 		});	
 	}
 	

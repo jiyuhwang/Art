@@ -99,7 +99,7 @@ public interface IMyGallaryService {
 
 	public int followingCnt(HashMap<String, String> params) throws Throwable;
 
-
+	public int addReport(HashMap<String, String> params) throws Throwable;
 
 
 

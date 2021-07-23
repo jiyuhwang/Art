@@ -1017,4 +1017,69 @@ public class MyGallaryController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	
+	
+	// 신고하기
+	@RequestMapping(value="/userReport",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String userReport(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		
+		try {
+			int cnt = iMyGallaryService.addReport(params);
+			
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
+		} else {
+			modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}	
+		
+		return mapper.writeValueAsString(modelMap);
+	
+	}
+
+	// 신고하기 전송
+	@RequestMapping(value="/userReports",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String userReports(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		
+		try {
+			int cnt = iMyGallaryService.addReport(params);
+			
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
+		} else {
+			modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}	
+		
+		return mapper.writeValueAsString(modelMap);
+	
+	}
+	
+	
+	
+	
 }

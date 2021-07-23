@@ -341,5 +341,13 @@ public class MyGallaryDao implements IMyGallaryDao{
 		return sqlSession.selectOne("Post.followingCnt", params);
 	}
 
+	
+	
+	
+	
+	@Override
+	public int addReport(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("Post.addReport", params);
+	}
 
 }

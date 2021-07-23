@@ -793,4 +793,24 @@
 		WHERE AUTHOR_NO = #{followNo}
 		AND U.OUT_DATE IS NULL
 	</select>
+	
+		
+	<!--신고등록 -->
+	<insert id="addReport" parameterType="hashmap">
+		INSERT ALL
+		INTO REPORT VALUES(REPORT_SEQ.NEXTVAL, #{adminNo}, #{uNo}, NULL, 1, #{reportCtt}, 0, SYSDATE, 1)
+		INTO REPORT_REPORT_TYPE
+		VALUES		
+		<foreach collection="checkList" item="r" separator="">
+			(REPORT_SEQ.NEXTVAL, #{r.checkR})
+		</foreach>
+        
+        SELECT *
+        FROM DUAL
+	</insert>
+	
+	
+	
+	
+	
 </mapper>
