@@ -403,13 +403,13 @@ $(document).ready(function(){
 					
 					html += "<div class=\"background8\"></div>";
 					html += "<div class=\"ctts8\">";
+					html += "		<form id=\"memoForm\">";
 					html += "	<div class=\"top_div\">";
 					html += "<img class=\"star_img\" id=\"starIconBlack\" alt=\"별\" src=\"resources/images/empty_star_icon.png\">";
 					html += "		<div class=\"memo_title\">메모</div>";			
 					html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
 					html += "	</div>";
 					html += "	<div class=\"memo_ctts_div\">";
-					html += "		<form id=\"memoForm\">";
 					html +="	<input type=\"hidden\" name=\"marking\" id=\"marking\" value=\"1\"/>";
 					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
 					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\"/>";
@@ -676,8 +676,8 @@ $(document).ready(function(){
 			html += "			<input type=\"button\" value=\"저장\" id=\"BtnSave\">";
 			html += "			<input type=\"button\" value=\"취소\" id=\"BtnCancel\">	";
 			html += "		</div>	";
-			html += "	</div>";
 			html += "	</form>";
+			html += "	</div>";
 			html += "</div>  ";
 			
 			$("body").prepend(html);

@@ -40,6 +40,8 @@ public interface IMemberService {
 	public int getMyReportPostCnt(HashMap<String, String> params) throws Throwable;
 
 	public int getMyReportCommentCnt(HashMap<String, String> params) throws Throwable;
+
+	public int addReport(HashMap<String, String> params) throws Throwable;
 	
 
 

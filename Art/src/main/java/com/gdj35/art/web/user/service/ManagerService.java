@@ -226,6 +226,12 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.updateGong(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getMailUser(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.getMailUser(params);
+	}
+
 
 
 }

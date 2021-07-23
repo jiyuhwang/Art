@@ -19,7 +19,7 @@ $(document).ready(function() {
 	
 //---------------------------------------------------------- 무한 스크롤 페이지	
 
-$(".main").scroll(function () {
+ /* $(".main").scroll(function () {
 	if(loadFlag) {
 		if($(".ctts_wrap").height() <= $(".main").scrollTop() + $(".main").height()){
 
@@ -37,7 +37,18 @@ $(".main").scroll(function () {
 		console.log("window 높이"+$(window).innerHeight());
 		
 		}
-	}
+	} 
+});
+ */
+	$(".main").scroll(function(){
+			console.log($(this).innerHeight());
+			console.log($(this)[0].scrollHeight);
+			console.log($(this).scrollTop());
+			console.log($(this).prop('scrollHeight'));
+		if($(this).scrollTop() + $(this).innerHeight() >= $(this).prop('scrollHeight')){
+			$("#page").val($("#page").val() * 1 + 1);
+			loadList();
+		} 
 	
 });
 
