@@ -1,5 +1,6 @@
 package com.gdj35.art.web.user.dao;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -284,7 +285,20 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.update("Manager.updateGong",params);
 	}
 
-
-
+	@Override
+	public List<HashMap<String, String>> getMailUser(HashMap<String, String> params) throws Throwable {
+		
+		String list = params.get("userNo");
+		String[] arr = list.split(",");
+		
+		List<HashMap<String, String>> finalList = new ArrayList<HashMap<String, String>>();
+		
+		for(int i = 0; i < arr.length; i++) {
+			finalList = sqlSession.selectList("Manager.getMailUser", arr[i]);
+		}
+		
+		System.out.println(finalList);
+		return finalList;
+	}
 	
 }

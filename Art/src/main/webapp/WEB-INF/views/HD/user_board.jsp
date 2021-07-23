@@ -48,9 +48,20 @@ $(document).ready( function () {
 	$("#emailBtn").on("click", function () {
 		$(".PmainM, .PbackgroundM").show();
 		
-		$("#cancel_btnM").on("click", function () {
+		$("#canel_btnM").on("click", function () {
 			$(".PmainM, .PbackgroundM").hide();
-		})
+			
+		});
+		
+		
+		var list = new Array();
+		$(".main3-table [name=userNo]:checked").each(function(index,item) {
+			list.push($(item).val());
+		});
+		
+		$("#userNo").val(list);
+		
+		loadEmailList()
 	});//end email_btn
 	
 	//---------------------------------------------------검색 기능
@@ -1116,6 +1127,34 @@ function addMemoPop() {
 		 $("#" + what).html(html);
 }
  
+//------------------------------------------------------------------------------------------이메일 리스트 로드하기
+function loadEmailList() {
+	var params = $("#detailForm").serialize();
+	
+	$.ajax({
+		url : "mailList",
+		type : "post",
+		dataType : "json",
+		data : params,
+		success: function (res) {
+			if(res.msg == "success"){
+				drawEamilList(res.list)					
+			} else if(res.msg == "failed"){
+				alert("작성에 실패하였습니다.")
+			} else{
+				alert("작성중 문제가 발생하였습니다.")
+			}
+		},
+		error : function (request, status, error) {
+			console.log(error);
+		}
+	});
+		
+}
+
+function drawEamilList() {
+	var html="";
+}
 
 </script>
 </head>
@@ -1278,7 +1317,7 @@ function addMemoPop() {
 </div>
 <div class="popupWrap">
 </div>
-<div>
+<div id="eamilWrapUserBoard">
 	<c:import url="email(send).jsp"></c:import>
 </div>
 <div id="memoWrap"></div>

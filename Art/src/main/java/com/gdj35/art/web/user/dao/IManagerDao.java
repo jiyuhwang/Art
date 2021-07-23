@@ -82,9 +82,7 @@ public interface IManagerDao {
 	public HashMap<String, String> getNotice(HashMap<String, String> params)throws Throwable;
 
 	public int updateGong(HashMap<String, String> params)throws Throwable;
-	
-	
-	
-	
 
+	public List<HashMap<String, String>> getMailUser(HashMap<String, String> params)throws Throwable;
+	
 }

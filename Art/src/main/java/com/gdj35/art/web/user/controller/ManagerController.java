@@ -130,6 +130,27 @@ public class ManagerController {
 			return mapper.writeValueAsString(modelMap);
 		
 	}
+	
+	@RequestMapping(value = "/mailList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String mailList(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println("넘어 오는지 보자" + params);
+		
+		List<HashMap<String,String>> list = iManagerService.getMailUser(params);
+		
+		System.out.println(list);
+		/* modelMap.put("list", list); */
+		
+		
+		return mapper.writeValueAsString(modelMap);
+		
+	}
 
 
 	@RequestMapping(value="/user_detail(memo)")
