@@ -1027,7 +1027,7 @@ public class MyGallaryController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String userReport(HttpSession session,
+	public String userReportAjax(HttpSession session,
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -1058,7 +1058,7 @@ public class MyGallaryController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String userReports(
+	public String userReportsAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();

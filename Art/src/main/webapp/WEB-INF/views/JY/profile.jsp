@@ -33,8 +33,9 @@ $(document).ready(function() {
 		$("#profileEditImg").attr("src", "resources/images/JY/who.png");
 	});
 	
-	$("#btnNicknameCheck").on("click", function(){
+	$('#nickname').on("propertychange change keyup paste input", function(){
 				
+		
 		var userNickname= $("#nickname").serialize();
 		
 		
@@ -44,12 +45,18 @@ $(document).ready(function() {
 			dataType : "json",
 			data : userNickname,
 			success: function(res) { // 성공 시 다음 함수 실행
-				if(res.msg == "exist") {
-					alert("닉네임이 존재합니다. 다른 닉네임을 입력해주세요.");
+				if($('#nickname').val() == "") {
+					$('.nickname_input_re_2').css("display","none");
+					$('.nickname_input_re_1').css("display", "none");
+				} else if(res.msg == "exist" && "${data.USER_NICKNAME}" != $("#nickname").val()) {
+					$('.nickname_input_re_2').css("display","inline-block");
+					$('.nickname_input_re_1').css("display", "none");
 				} else if(res.msg == "none") {
-					alert("사용가능한 닉네임입니다.");
+					$('.nickname_input_re_1').css("display","inline-block");
+					$('.nickname_input_re_2').css("display", "none");	
 				} else {
-					alert("수정 중 문제가 발생하였습니다.")
+					$('.nickname_input_re_1').css("display","inline-block");
+					$('.nickname_input_re_2').css("display", "none");
 				}
 			},
 			error: function(request, status, error) { // 실패 시 다음 함수 실행
@@ -103,6 +110,9 @@ $(document).ready(function() {
 			alert("닉네임을 입력해주세요.");
 			$("#nickname").focus();
 			return false; // ajaxForm 실행 불가
+		} else if($('.nickname_input_re_2').css("display") == "inline-block") {
+			$("#nickname").focus();
+			return false;
 		} else {
 			
 			var params= $("#profileForm").serialize();
@@ -120,7 +130,7 @@ $(document).ready(function() {
 					} else if(res.msg == "failed") {
 						alert("수정에 실패하였습니다.");
 					} else {
-						alert("닉네임이 존재합니다. 다른 닉네임을 입력해주세요.");
+						alert("수정 오류");
 					}
 				},
 				error: function(request, status, error) { // 실패 시 다음 함수 실행
@@ -185,8 +195,10 @@ $(document).ready(function() {
 				<tr height="50px">
 					<th>닉네임</th>
 					<td>
-						<input id="nickname" name="userNickname" type="text" value="${data.USER_NICKNAME}" size="40" maxlength="10"/>
-						<input id="btnNicknameCheck" type="button" value="중복확인">
+						<input id="nickname" name="userNickname" type="text" value="${data.USER_NICKNAME}" size="40" maxlength="10"/><br/>
+						<!-- <input id="btnNicknameCheck" type="button" value="중복확인"> -->
+						<span class="nickname_input_re_1">사용 가능한 닉네임입니다.</span>
+						<span class="nickname_input_re_2">닉네임이 이미 존재합니다.</span>
 					</td>
 				</tr>
 				<tr height="300px">

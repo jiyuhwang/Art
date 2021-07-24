@@ -462,9 +462,8 @@ function commentList(list) {
 			}
 		}
 	}
-	console.log(html);
+	
 		$("#commentFormWrap").html(html);
-		console.log($("#commentFormWrap").html());
 		
 		$(".replyBtnCommentUpload").on("click", function() {
 			if($('#userNo').val() != "") {
@@ -869,7 +868,7 @@ function CopyUrl2()
 								
 								if(result.msg == "success"){
 									closePopup();
-	
+									alert("정상적으로 신고 접수되었습니다.");
 								} else if(result.msg == "failed"){
 									alert("신고에 실패했습니다.");
 								} else {
@@ -1018,7 +1017,7 @@ function CopyUrl2()
 			<br />
 			<div class="side_bar_menu1"><a href="gallary">작품 보러가기</a></div>
 			<br />
-			<div class="side_bar_menu3"><a href="profile">개인정보 수정</a></div>
+			<div class="side_bar_menu3"><a href="profile">마이페이지</a></div>
 			<br />
 			<div class="side_bar_menu4"><a href="gongji">공지사항</a></div>
 		</div>

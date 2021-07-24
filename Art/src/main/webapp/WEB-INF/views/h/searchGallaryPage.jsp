@@ -62,9 +62,16 @@ $(document).ready(function() {
 		$("#userNickname").val($(this).children().attr("nick"));
 		$("#userProfileImg").val($(this).children().attr("img"));
 		$("#userIntroduce").val($(this).children().attr("introduce"));		
-		$("#actionForm").attr("target", "_blank");
-		$("#actionForm").attr("action", "othergallary");
-		$("#actionForm").submit();
+		if($(this).children().attr("name") != "${sUserNo}") {
+			$("#actionForm").attr("target", "_blank");
+			$("#actionForm").attr("action", "othergallary");
+			$("#actionForm").submit();
+		} else {
+			$("#actionForm").attr("target", "_blank");
+			$("#actionForm").attr("action", "mygallary");
+			$("#actionForm").submit();
+			/* location.href = "mygallary"; */
+		}
 
 	});
 

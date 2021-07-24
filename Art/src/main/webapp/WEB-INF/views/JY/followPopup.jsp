@@ -17,6 +17,7 @@ body {
 	background-color: #000000;
 	opacity:0.3;
 	z-index: 100;
+	top: 0;
 }
 
 .popup_btn {
@@ -35,7 +36,7 @@ body {
 	z-index: 1000;
 	background-color: white;
 	position: absolute;
-	top: 35%;
+	top: 25%;
 	left: 50%;
 	margin-left: -150px;
 }
@@ -59,7 +60,7 @@ body {
     border-radius:3px 3px 0 0;
     background: white;
     color: black;
-    border:1px solid #ccc;
+    border-bottom:1px solid #ffad33;
     border-width:1px 1px 0;
 }
 .tabs2 > label:hover {
@@ -69,14 +70,13 @@ body {
 .tabs2 input:nth-of-type(1):checked ~ label:nth-of-type(1), .tabs2 > label[for=follower]:hover {
     margin-left: 3px;
     margin-top: 3px;
-    background-color: #ffad33;
-    color:#fff;
+    border-bottom: 3px solid #ffad33;
 }
 .tabs2 input:nth-of-type(2):checked ~ label:nth-of-type(2), .tabs2 > label[for=following]:hover {
     margin-left: 3px;
     margin-top: 3px;
-    background-color: #ffad33;
-    color:#fff;
+    border-bottom: 3px solid #ffad33;
+
 }
 
 .follower_wrap, .following_wrap {
