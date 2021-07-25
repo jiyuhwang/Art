@@ -381,7 +381,7 @@ function check_pw(){
 			<div class="nickname_wrap">
 				<div class="nickname_name">닉네임</div>
 				<div class="nickname_input_box">
-					<input id="nicknameInput" name="userNickname" placeholder="닉네임 입력">
+					<input id="nicknameInput" name="userNickname" placeholder="닉네임 입력" maxlength="10">
 				</div>
 				<!-- <input type="button" id="btnNicknameCheck" value="중복확인"> -->
 				<span class="nickname_input_re_1">사용 가능한 닉네임입니다.</span>

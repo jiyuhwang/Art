@@ -979,7 +979,7 @@ public class MyGallaryController {
 		
 		int cnt = iMyGallaryService.followerCnt(params);
 		
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 10, 1);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
 		
 	
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
@@ -1007,7 +1007,7 @@ public class MyGallaryController {
 		
 		int cnt = iMyGallaryService.followingCnt(params);
 		
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 10, 1);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
 		
 	
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
@@ -1027,7 +1027,7 @@ public class MyGallaryController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String userReport(
+	public String userReportAjax(HttpSession session,
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -1035,13 +1035,14 @@ public class MyGallaryController {
 
 		
 		try {
-			int cnt = iMyGallaryService.addReport(params);
 			
-			if(cnt > 0) {
-				modelMap.put("msg", "success");
-		} else {
-			modelMap.put("msg", "failed");
-			}
+			HashMap<String, String> data = iMyGallaryService.getPost(params);	
+			
+			System.out.println("신고하기 params: " + params);
+			modelMap.put("data", data);
+			modelMap.put("userNo", String.valueOf(session.getAttribute("sUserNo")));
+			System.out.println("신고하기 data: " + data);
+			System.out.println("신고하기 userNo: " + String.valueOf(session.getAttribute("sUserNo")));
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -1057,15 +1058,18 @@ public class MyGallaryController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String userReports(
+	public String userReportsAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		
+		System.out.println("신고한다음 params: " + params);
+		System.out.println("신고한다음 cnt>0 확인한다음 params: " + params);
+
 		try {
 			int cnt = iMyGallaryService.addReport(params);
+			
 			
 			if(cnt > 0) {
 				modelMap.put("msg", "success");

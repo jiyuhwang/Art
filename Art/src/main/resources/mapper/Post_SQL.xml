@@ -43,13 +43,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -86,13 +86,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -130,13 +130,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, VIDEO_LINK
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, VIDEO_LINK, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -224,13 +224,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            <choose>
@@ -283,13 +283,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            <choose>
@@ -342,13 +342,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            <choose>
@@ -403,13 +403,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -448,13 +448,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -493,13 +493,13 @@
 		             ROW_NUMBER() OVER(ORDER BY 
 		             <choose>
 						<when test="selectGbn == 0">
-						 	P.POST_NO DESC
+						 	P.REGISTER_DATE DESC
 						</when>
 						<when test="selectGbn == 1">
-						 	NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC
+						 	NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC
 						</when>
 					 </choose>) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -651,8 +651,8 @@
 	<select id="mainPicList" parameterType="hashmap" resultType="hashmap">
 		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO, UP.REGISTER_DATE, UP.LIKECNT
 		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, PL.REGISTER_DATE, PL2.LIKECNT,
-		             ROW_NUMBER() OVER(ORDER BY NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		             ROW_NUMBER() OVER(ORDER BY NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC) AS RNUM
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -674,8 +674,8 @@
 	<select id="mainDrawList" parameterType="hashmap" resultType="hashmap">
 		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO, UP.REGISTER_DATE, UP.LIKECNT
 		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, PL.REGISTER_DATE, PL2.LIKECNT,
-		             ROW_NUMBER() OVER(ORDER BY NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		             ROW_NUMBER() OVER(ORDER BY NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC) AS RNUM
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -697,8 +697,8 @@
 	<select id="mainVideoList" parameterType="hashmap" resultType="hashmap">
 		SELECT UP.USER_NICKNAME, UP.USER_NO, UP.TITLE, UP.EXPLAIN, UP.POST_FILE, UP.POST_NO, UP.REGISTER_DATE, UP.LIKECNT
 		FROM (SELECT U.USER_NICKNAME, U.USER_NO, P.TITLE, P.EXPLAIN, P.POST_FILE, P.POST_NO, PL.REGISTER_DATE, PL2.LIKECNT,
-		             ROW_NUMBER() OVER(ORDER BY NVL(PL2.LIKECNT, 0) DESC, P.POST_NO DESC) AS RNUM
-		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY
+		             ROW_NUMBER() OVER(ORDER BY NVL(PL2.LIKECNT, 0) DESC, P.REGISTER_DATE DESC) AS RNUM
+		      FROM USERS U INNER JOIN (SELECT TITLE, EXPLAIN, POST_FILE, USER_NO, POST_NO, VISIBILITY, REGISTER_DATE
 		                            FROM POST
 		                            WHERE DEL = 1
 		                            AND VISIBILITY = 0
@@ -779,7 +779,7 @@
 	<!-- 나의 팔로워 수 -->
 	<select id="followerCnt" parameterType="hashmap" resultType="Integer">
      	SELECT COUNT(*) AS LIKECNT
-		FROM AUTHOR_LIKE AL INNER JOIN USERS U
+		FROM AUTHOR_LIKE AL LEFT OUTER JOIN USERS U
 		        ON AL.USER_NO = U.USER_NO
 		WHERE AL.AUTHOR_NO = #{followNo}
 		AND U.OUT_DATE IS NULL
@@ -788,27 +788,30 @@
 	<!-- 나의 팔로잉 수 -->
 	<select id="followingCnt" parameterType="hashmap" resultType="Integer">
      	SELECT COUNT(*) AS LIKECNT
-		FROM AUTHOR_LIKE AL INNER JOIN USERS U
+		FROM AUTHOR_LIKE AL LEFT OUTER JOIN USERS U
 		        ON AL.USER_NO = U.USER_NO
-		WHERE AUTHOR_NO = #{followNo}
+		WHERE AL.USER_NO = #{followNo}
 		AND U.OUT_DATE IS NULL
 	</select>
 	
 		
-	<!--신고등록 -->
+	<!--신고등록할 NO 가져오기 -->
+	<select id="reportSeq" parameterType="hashmap" resultType="Integer">
+		SELECT REPORT_SEQ.NEXTVAL
+		FROM DUAL
+	</select>
+	
+		<!-- 신고글 추가 -->
 	<insert id="addReport" parameterType="hashmap">
-		INSERT ALL
-		INTO REPORT VALUES(REPORT_SEQ.NEXTVAL, #{adminNo}, #{uNo}, NULL, 1, #{reportCtt}, 0, SYSDATE, 1)
-		INTO REPORT_REPORT_TYPE
-		VALUES		
-		<foreach collection="checkList" item="r" separator="">
-			(REPORT_SEQ.NEXTVAL, #{r.checkR})
-		</foreach>
-        
-        SELECT *
-        FROM DUAL
+		INSERT INTO REPORT
+		VALUES(#{reportNo}, #{adminNo}, #{userNo}, NULL, #{pNo}, #{reportCtt}, 0, SYSDATE, 1)
 	</insert>
 	
+	<!-- 신고_신고분류 중계테이블 -->
+	<insert id="addMidReport" parameterType="hashmap">
+		INSERT INTO REPORT_REPORT_TYPE(REPORT_NO, TYPE_NO)
+		VALUES(#{reportNo}, #{typeNo})
+	</insert>
 	
 	
 	

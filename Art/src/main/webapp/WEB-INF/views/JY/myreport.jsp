@@ -110,7 +110,11 @@ function drawReportPostList(list){
 		html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
 		html +="<td>" + d.TYPE_NAME + "</td>";
 		html +="<td>" + d.USER_NICKNAME + "</td>";
-		html +="<td>" + d.CONTENTS + "</td>";
+		if(d.CONTENTS != null) {
+			html += "<td>" + d.CONTENTS + "</td>";
+		} else {
+			html += "<td>내용없음</td>";
+		}
 		html +="<td>" + d.REGISTER_DATE + "</td>";
 		if(d.REPORT_STATUS == "0") {
 			html +="<td>대기중</td>";
@@ -132,6 +136,7 @@ function drawReportPostList(list){
 	
 	$(".cancel").on("click", function() {
 		$("#reportNo").val($(this).parent().parent().attr("name"));
+		console.log($("#reportNo").val());
 		var result = confirm('정말 취소하시겠습니까?');
 		
 		if(result) {
@@ -143,10 +148,11 @@ function drawReportPostList(list){
 			dataType: "json",
 			data: params,
 			success: function(res){
-				if(res.msg == "exist") {
+				if(res.msg == "success") {
 					alert("정상적으로 신고 접수가 취소되었습니다.");
-					reportList();
-				} else if(res.msg == "none") {
+					$("#goForm").attr("action", "myreport");
+					$("#goForm").submit();
+				} else if(res.msg == "failed") {
 					alert("삭제 중 오류가 발생하였습니다.");
 				} else {
 					alert("삭제 중 문제가 발생하였습니다.")
@@ -168,7 +174,11 @@ function drawReportCommentList(list2){
 		html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
 		html +="<td>" + d.TYPE_NAME + "</td>";
 		html +="<td>" + d.USER_NICKNAME + "</td>";
-		html +="<td>" + d.CONTENTS + "</td>";
+		if(d.CONTENTS != null) {
+			html += "<td>" + d.CONTENTS + "</td>";
+		} else {
+			html += "<td>내용없음</td>";
+		}
 		html +="<td>" + d.REGISTER_DATE + "</td>";
 		if(d.REPORT_STATUS == "0") {
 			html +="<td>대기중</td>";
@@ -204,7 +214,8 @@ function drawReportCommentList(list2){
 			success: function(res){
 				if(res.msg == "success") {
 					alert("정상적으로 신고 접수가 취소되었습니다.");
-					reportList();
+					$("#goForm").attr("action", "myreport");
+					$("#goForm").submit();
 				} else if(res.msg == "failed") {
 					alert("삭제 중 오류가 발생하였습니다.");
 				} else {

@@ -241,10 +241,10 @@ $(document).ready(function() {
 		} else if($("#email").val() == "") {
 			$("#email").focus();
 			return false;
-		} else if($("#email3").val() == "") {
+		}else if($("#email3").val() == "" && $("#email").val() != "${data.MAIL}") {
 			alert("이메일 인증번호를 입력해주세요.")
 			return false;
-		}  else if($("#email3").val() != code) {
+		} else if($("#email3").val() != code) {
 			alert("이메일 인증번호가 틀립니다.")
 			return false;
 		} else {
@@ -400,7 +400,7 @@ $(document).ready(function() {
 				<tr>
 					<th rowspan="2">이메일</th>
 					<td>
-					<input id="email" type="text" name="userMail"  size="40" maxlength="50" value="${data.MAIL}" />
+					<input id="email" type="text" name="userMail"  size="40" maxlength="50" value=${data.MAIL} />
 					<input id="emailSend" type="button" value="인증번호 받기">
 					</td>
 				</tr>

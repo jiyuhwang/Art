@@ -11,6 +11,36 @@ body {
 	font-family: '돋움';
 }
 
+input[type='radio'] {
+	cursor: pointer;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    outline: none;
+    border: 3px solid gray;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+input[type='radio']:before {
+    content: '';
+    display: block;
+    width: 73%;
+    height: 71%;
+    margin: 17% auto;
+    border-radius: 50%;
+}
+
+input[type="radio"]:checked:before {
+    background: #ffad33;
+       
+}
+   
+input[type="radio"]:checked {
+ 	border-color: #ffad33;
+}
+
 a {
 	color: inherit;
 	text-decoration: none;

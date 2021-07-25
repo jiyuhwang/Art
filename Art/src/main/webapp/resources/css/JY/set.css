@@ -180,12 +180,12 @@ td {
 }
 
 .save_cancel {
-	width: 200px;
+	width: 160px;
 	height: 50px;
 	margin: 0 auto;
 }
 
-#btnSave, #btnCancel {
+#btnSave {
 	padding: 15px;
 	border: 0px;
 	border-radius: 5px;
@@ -193,13 +193,8 @@ td {
 	margin-top: 50px;
 	font-size: 10pt;
 	display: inline-block;
-	background-color: #e6e6e6;
-	color: black;
-}
-
-#btnSave {
-	margin-right: 15px;
 	background-color: #ffad33;
 	color: white;
 }
+
 

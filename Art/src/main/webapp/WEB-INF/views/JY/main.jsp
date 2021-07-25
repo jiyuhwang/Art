@@ -325,6 +325,7 @@ function videoList(list3) {
 		<input type="hidden" id="postNo" name="postNo" />
 		<input type="hidden" id="tab" name="tab" />
 		<input type="hidden" id="page" name="page" value="1" />
+		<input type="hidden" id="mainGallary" name="listPage" value="4"/>
 	</form>
 	<div class="background_wrap">
 

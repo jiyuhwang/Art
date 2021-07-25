@@ -54,6 +54,12 @@ body {
 	overflow-x: hidden;
 }
 
+#gallary {
+	height: 60px;
+    width: 120px;
+    background-color: #0C4A60;
+    line-height: 60px;
+}
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -83,10 +89,13 @@ $(document).ready(function() {
 	$("#searchBtn").on("click", function(){
 		getData();
 	});
+	
+	
 })
 
 
 function getData() {
+	
 	var params =  $("#actionForm").serialize();
 	$.ajax({
 		type : "post",
