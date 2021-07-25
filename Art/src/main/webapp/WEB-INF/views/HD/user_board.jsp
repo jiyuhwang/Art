@@ -45,37 +45,76 @@ $(document).ready( function () {
 	
 	
 	//----------------------------------------------이메일 띄우기
-	$("#emailBtn").on("click", function () {
-		$(".PmainM, .PbackgroundM").show();
-		
-		$("#canel_btnM").on("click", function () {
-			$(".PmainM, .PbackgroundM").hide();
+		$("#emailBtn").on("click", function () {
+			var list = new Array();
+			$(".main3-table [name=userNo]:checked").each(function(index,item) {
+				list.push($(item).val());
+			});
 			
-		});
-		
-		
-		var list = new Array();
-		$(".main3-table [name=userNo]:checked").each(function(index,item) {
-			list.push($(item).val());
-		});
-		
-		$("#userNo").val(list);
-		
-		loadEmailList();
-		$("input[type=checkbox]").prop("checked",false);
-		
-		//--------------------------------------------------------이메일 폼 누르기
-		
-		$(".PmainM #fileBtn").on("click", function () {
-			console.log("실행 여부");
-			$("#attMail").click();
-		});
-		
-		$(".PmainM #attMail").on("change", function () {
-			$("#fileNameForMail").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+			$("#userNo").val(list);
 			
-		});
-		
+			
+			if($("#userNo").val() == null || $("#userNo").val() == "" ){
+				alert("메일 대상자를 선택해주세요");
+			}else{
+					$(".PmainM, .PbackgroundM").show();
+					loadEmailList();
+					$("input[type=checkbox]").prop("checked",false);
+					
+					$("#canel_btnM").on("click", function () {
+						$(".PmainM, .PbackgroundM").hide();
+						
+					});
+				
+				//--------------------------------------------------------이메일 폼 누르기
+				
+				$(".PmainM #fileBtn").on("click", function () {
+					console.log("실행 여부");
+					$("#attMail").click();
+				});
+				
+				$(".PmainM #attMail").on("change", function () {
+					$("#fileNameForMail").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+					
+				});
+				
+				$("#sendBtnM").on("click", function () {
+					
+					$("#titleForm").val($("#title").val());
+					$("#contentsForm").val($("#contents").val());
+					$("#fileFormM").val($("#fileNameForMail").val());
+					
+					var list = new Array();
+					$(".PmainM [class=mail]").each(function(index,item) {
+						list.push($(this).attr("name"));
+					});
+					
+					console.log(list);
+					
+					$("#emailForm").val(list);
+					
+					
+					var params = $("#mailForm").serialize();
+					
+					$.ajax({
+						url : "sendMail",
+						type : "post",
+						dataType : "json",
+						data : params,
+						success: function (res) {
+							$("#titleForm").val("");
+							$("#contentsForm").val("");
+							$("#fileFormM").val("");
+							$("#emailForm").val("");
+							$(".PmainM, .PbackgroundM").hide();
+						},
+						error : function (request, status, error) {
+							console.log(error);
+						}
+					});
+					
+				});
+			}
 	});//end email_btn
 	
 	
@@ -1164,14 +1203,15 @@ function loadEmailList() {
 
 function drawEamilList(list) {
 	var html="";
+	console.log(list);
 	if(list == null){
-		html = "<tr>선택된 회원이 업습니다.</tr>";
+		html = "<tr><td style=\"width: 200px;display: inline-block; border: none; margin-left: 120px;\">선택된 회원이 업습니다.</td></tr>";
 	}else{
 	console.log("이거 리스트 ");
 	console.log(list);
 	console.log("----");
 	for(var d of list){
-			html+="		<tr name=\"" + d.MAIL + "\">";
+			html+="		<tr class=\"mail\" name=\"" + d.MAIL + "\">";
 			html+="			<td> " + d.USER_NO + "</td>";
 			html+="			<td> " + d.NAME + "</td>";
 			html+="			<td> " + d.MAIL + "</td>";

@@ -14,7 +14,7 @@
 <form action="#" method="post" id="mailForm">
 	<input type="hidden" id="emailForm" name="emailAdd">
 	<input type="hidden" id="contentsForm" name="ctt">
-	<input type="hidden" >
+	<input type="hidden" id="titleForm" name="title">
 	<input type="hidden" id="fileFormM" name="file">
 </form>
 	<div class = "blank"></div>
@@ -23,7 +23,7 @@
 	<div class = "sideBlank"></div>
 	<div class = "contentBoard">
 			<div class = "forTitle">
-				<span>제목</span><input type="text" id="titleForm" name="title" placeholder="제목을 입력하세요.">
+				<span>제목</span><input type="text" id="title"  placeholder="제목을 입력하세요.">
 			</div>
 			<div class = "contentBlank"></div>
 			<div class = "forTitle">
@@ -32,7 +32,7 @@
 			</div>
 			<div class = "forText">
 				<span>내용</span><br>
-				<textarea placeholder="내용을 입력하세요." class="getContents"></textarea>
+				<textarea placeholder="내용을 입력하세요." id="contents" class="getContents"></textarea>
 			</div>
 	</div>
 	<div class = "contentBoard2">
