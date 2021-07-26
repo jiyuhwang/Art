@@ -901,7 +901,7 @@ function CopyUrl2()
 				$(".btn_rot").off("click");
 				$(".btn_rot").on("click", function(){
 					
-					if($('#userNo').val() != "" and $('#userNo').val() != null){
+					if($('#userNo').val() != ""){
 	
 						//체크박스 값 보내기		
 						$("#checkArr").val("");
@@ -1086,7 +1086,7 @@ function CopyUrl2()
 				$(".btn_rot").on("click", function(){
 					
 					
-					if($('#userNo').val() != "" and $('#userNo').val() != null){
+					if($('#userNo').val() != ""){
 					
 						//체크박스 값 보내기		
 						$("#checkArr").val("");
