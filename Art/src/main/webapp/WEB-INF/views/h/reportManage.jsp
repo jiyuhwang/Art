@@ -119,30 +119,6 @@ $(document).ready(function(){
 		}	
 	});//delete btn click
 	
-	//복원버튼 클릭시
-	$("#BtnReturn").on("click", function(){
-		var confirmFlag = confirm("복원 하시겠습니까?");
-					
-		if(confirmFlag){
-			var checkCnt = $("tbody [name=checkbox]:checked").length;
-			
-			if(checkCnt == 0){
-				alert("선택된 작품이 없습니다.");
-			} else {
-			
-				var checkArr = new Array();
-			
-				$("tbody [name=checkbox]:checked").each(function() {
-					checkArr.push($(this).val());//item이 this라서 this로 많이쓴다나~
-				});
-								
-				$("#checkedArr").val(checkArr);					
-				returnChecked();
-				
-			}//else
-		}	
-	});//return btn click
-	
 	
 	
 	//전체체크하면 전체적으로 체크되게 하기
@@ -218,7 +194,19 @@ $(document).ready(function(){
 				html +="<td>" + d.R_NAME + "</td>";
 				html +="<td>" + d.R_NICK +"(" + d.R_ID + ")</td>";
 				html +="<td>" + d.REGISTER_DATE + "</td>";
-				html +="<td>" + d.REPORT_STATUS + "</td>";
+				html +="<td>";
+				
+				if(d.REPORT_STATUS == 0){
+					html += "대기중";
+				} else if(d.REPORT_STATUS == 1){
+					html += "철회";
+				} else if(d.REPORT_STATUS == 2){
+					html += "접수완료";
+				}else {
+					html += "처리완료";
+				}
+				
+				html +="</td>";
 				html +="</tr>";
 			}
 			
@@ -975,7 +963,6 @@ $(document).ready(function(){
 			</div>
 		</div>
 		<div class="del_wrap">
-			<input type="button"  id="BtnReturn" value="복원"/>
 			<input type="button" id="BtnDelete" value="삭제"/>		
 		</div>
 		<div class="cnt_wrap"></div>	
