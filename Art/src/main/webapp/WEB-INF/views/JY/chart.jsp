@@ -166,12 +166,10 @@ function makeChart(list) {
 <div class="main">
 	<c:import url="../h/managerSidebar.jsp"></c:import>
 	<div class ="ctts">
-			<!------------------------------게시글 신고 관리  -->
 		<div class ="blank2"></div>
 		
 		<div class="menu_tab_wrap">
 			<div id="gallary" class="tab">작품 수 통계</div>
-			<!-- <div id="comment" class="tab">댓글목록</div> -->		
 		</div>
 		<div class="menu_txt_wrap">
 

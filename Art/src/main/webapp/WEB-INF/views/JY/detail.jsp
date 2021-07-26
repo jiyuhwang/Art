@@ -14,7 +14,7 @@ $(document).ready(function() {
 	reloadLikeCnt();
 	reloadList();
 	reloadCommentCnt();
-	
+	$("#page").val("1");
 	$("#goForm").on("keypress", "input", function(event) {
 		if(event.keyCode == 13) { // 엔터키를 눌렀을 때
 			return false; // 페이지가 안넘어간다.
@@ -901,7 +901,7 @@ function CopyUrl2()
 				$(".btn_rot").off("click");
 				$(".btn_rot").on("click", function(){
 					
-					if($('#userNo').val() != "" and $('#userNo').val() != null){
+					if($('#userNo').val() != ""){
 	
 						//체크박스 값 보내기		
 						$("#checkArr").val("");
@@ -1086,7 +1086,7 @@ function CopyUrl2()
 				$(".btn_rot").on("click", function(){
 					
 					
-					if($('#userNo').val() != "" and $('#userNo').val() != null){
+					if($('#userNo').val() != ""){
 					
 						//체크박스 값 보내기		
 						$("#checkArr").val("");
