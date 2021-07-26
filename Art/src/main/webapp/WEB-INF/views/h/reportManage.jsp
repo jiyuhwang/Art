@@ -43,10 +43,16 @@ $(document).ready(function(){
 	$(".menu_tab_wrap div:first-child").attr("class", "tab_selected");
 	
 	//menuTab 클릭했을 때
-	$(".menu_tap_wrap").on("click", "div", function(){
-		$(".menu_tap_wrap div").attr("class", "tab");
+	$(".menu_tab_wrap").on("click", "div", function(){
+		$(".menu_tab_wrap div").attr("class", "tab");
 		$(this).attr("class", "tab_selected");
 		
+ 		if($(this).attr("id") == "comment"){
+			$("#tabFlag").val(1);
+		}else {
+			$("#tabFlag").val(0);
+		} 
+			loadPostList();
 		
 	});
 
@@ -85,8 +91,11 @@ $(document).ready(function(){
 		loadPostList();
 	});
 	
+	//상세보기
 	$("tbody").on("dblclick", "tr", function(){
 		$("#rNo").val($(this).attr("name"));
+		console.log("이것이다: " + $(this).attr("name"));
+		console.log("이것이다22: " + $("#rNo").val());
 		drawPopup();
 	});
 	
@@ -170,6 +179,7 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
 
 	//-------------------------------------------------------목록그리기
 	function drawReportList(list){
@@ -187,12 +197,24 @@ $(document).ready(function(){
 				html +="<td><input type=\"checkbox\" name=\"checkbox\" value=\"" + d.REPORT_NO + "\"></td>";
 				html +="<td>" + no + "</td>";
 				html +="<td>" + d.REPORT_NO + "</td>";
-				html +="<td>" + d.TYPE_NAME + "</td>";
-				html +="<td>" + d.WRITER_NAME + "</td>";
-				html +="<td>" + d.WRITER_NICK +"(" + d.WRITER_ID + ")</td>";
-				html +="<td>" + d.CONTENTS + "</td>";				
-				html +="<td>" + d.R_NAME + "</td>";
-				html +="<td>" + d.R_NICK +"(" + d.R_ID + ")</td>";
+				html +="<td>" + d.FLAGS + "</td>";
+				
+				if(d.WRITER_NAME == '' || d.WRITER_NAME == null){
+					html +="<td> </td>";
+					html +="<td> </td>";
+				} else {
+					html +="<td>" + d.WRITER_NAME + "</td>";
+					html +="<td>" + d.WRITER_NICK +"(" + d.WRITER_ID + ")</td>";									
+				}
+				
+				if(d.CONTENTS == '' || d.CONTENTS == null){
+					html +="<td>내용없음</td>";
+				} else {
+					html +="<td>" + d.CONTENTS + "</td>";									
+				}
+				
+				html +="<td>" + d.NAME + "</td>";
+				html +="<td>" + d.USER_NICKNAME +"(" + d.USER_ID + ")</td>";
 				html +="<td>" + d.REGISTER_DATE + "</td>";
 				html +="<td>";
 				
@@ -308,15 +330,21 @@ $(document).ready(function(){
 			html +="				<div class=\"date2\"><div>"+ result.data.REGISTER_DATE +"</div></div>";
 			html +="				<div class=\"status1\"><div>처리상태</div></div>";
 			html +="				<div class=\"status2\"><div>";
+			html +="<select id=\"status\" name=\"statusFlag\">";
+			html += "<option value=\"0\">대기중</option>";
+			html += "<option value=\"1\">철회</option>";
+			html += "<option value=\"2\">접수완료</option>";
+			html += "<option value=\"3\">처리완료</option>";
+			html += "</select>";
 			
 				if(result.data.REPORT_STATUS == 0){
-					html += "대기중";
+					$("#status option:eq(0)").attr("selected", "selected")
 				} else if(result.data.REPORT_STATUS == 1){
-					html += "철회";
+					$("#status option:eq(1)").attr("selected", "selected")
 				} else if(result.data.REPORT_STATUS == 2){
-					html += "접수완료";
+					$("#status option:eq(2)").attr("selected", "selected")
 				}else {
-					html += "처리완료";
+					$("#status option:eq(3)").attr("selected", "selected")
 				}					
 			
 			html +="</div></div>";
@@ -347,7 +375,6 @@ $(document).ready(function(){
 			html +="이름(아이디): " + result.data.R_NAME + "(" + result.data.R_ID +")</div>";
 			html +="			</div>";
 			html +="			<div class=\"btm_memo\"><table class=\"memo_table\" name=\""+ result.data.REPORT_NO +"\"></table></div>";
-			html +="			<div class=\"btn_add\">메모추가</div>";
 			html +="			<div class=\"btn_close\">닫기</div>";
 			html +="		</div>";
 			html +="	</div>";
@@ -383,9 +410,10 @@ $(document).ready(function(){
 					}
 				});
 
-				//-----------------------------------------------------------추가버튼 클릭할 때
-				$(".btn_add").off("click");
-				$(".btn_add").on("click", function(){
+				//-----------------------------------------------------------셀렉트박스가 철회로 바뀔 때
+					if($("#status option:selected").val() == 1){
+						
+					
 
 					var html = "";
 					
@@ -438,40 +466,13 @@ $(document).ready(function(){
 							return false;
 						}
 					});
-					
-					
-					//-------------------------------------------------------------중요도 아이콘
-		 			$(".ctts8").on("click", ".star_img", function(){
-						if($(this).attr("src") == "resources/images/empty_star_icon.png"){
-							$(".star_img").attr("src", "resources/images/yellow_star_icon.png");
-							$("#marking").val(0);
-						} else {
-							$(".star_img").attr("src", "resources/images/empty_star_icon.png");
-							$("#marking").val(1);
-						}
 
-					}); 
-					
-					
-					
-					$(".background8").off("click");
-					$(".background8").on("click", function(){
-						closeMemoDetail();
-					});
-					
-					$("#closeMemo").off("click");
-					$("#closeMemo").on("click", function(){
-						closeMemoDetail();
-						fastClosePopup();
-						drawPopup();
-						//setTimeout(function(){drawPopup();}, 400);
-							
-					});
 
 					
 					//----------------------------------------------취소버튼 누를 때
 					$("#BtnCancel").off("click");
 					$("#BtnCancel").on("click", function(){
+						$("#satus").val(result.data.REPORT_STATUS);
 						closeMemoDetail();
 					});
 					
@@ -540,7 +541,7 @@ $(document).ready(function(){
 						}
 					});//저장버튼누르면
 
-				});//메모추가버튼누르묜
+				};//셀렉트 바꾸면
 				
 				
 				
@@ -558,14 +559,12 @@ $(document).ready(function(){
 			html += "	<colgroup>";
 			html += "		<col width=\"100px\"/>";
 			html += "		<col width=\"100px\"/>";
-			html += "		<col width=\"50px\"/>";
 			html += "		<col width=\"700px\"/>";
 			html += "	</colgroup>";
 			html +=	"	  <thead>";
 			html +=	"		  <tr>";
 			html +=	"			  <th>번호</th>";
 			html +=	"			  <th>날짜</th>";
-			html +=	"			  <th></th>";
 			html +=	"			  <th>메모내용</th>";
 			html +=	"		  </tr>";
 			html +=	"	  </thead>";
@@ -582,18 +581,11 @@ $(document).ready(function(){
 						html+= "	<tr name=\""+  d.MEMO_NO +"\">";
 						html+= "		<td> " + no +"</td>";
 						html+= "		<td>  "+ d.REGISTER_DATE +"</td>";
-						
-						if(d.MARKING == 0){
-							html += "	<td><img class=\"star_table_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\"></td>";	
-						} else {
-							html+= "		<td> </td>";
-						}
-
 						html+= "		<td>  "+ d.CONTENTS +"</td>";
 						html+= "	</tr>";
 					}
 			}		
-				html +=	"	</tbody>";
+				html +=	"</tbody>";
 	
 				$(".btm_memo table").html(html);
 		}
@@ -614,11 +606,6 @@ $(document).ready(function(){
 			html += "<div class=\"background8\"></div>";
 			html += "<div class=\"ctts8\">";
 			html += "	<div class=\"top_div\">";
-			if(result.memo.MARKING == 0){
-				html += "<img class=\"star_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\">";					
-			} else {
-				html += "<img class=\"star_img\" id=\"starIconBlack\" alt=\"별\" src=\"resources/images/empty_star_icon.png\">";
-			}
 			html += "		<div class=\"memo_title\">메모</div>";			
 			html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
 			html += "	</div>";
@@ -675,52 +662,7 @@ $(document).ready(function(){
 			$(".background8").fadeIn();
 			$(".ctts8").fadeIn();
 			
-			
-			//-------------------------------------------------------------중요도 아이콘
- 			$(".ctts8").on("click", ".star_img", function(){
-				if(($(this).attr("src") == "resources/images/empty_star_icon.png") &&
-						result.memo.MARKING == 1){
-							
-				var params= $("#memoForm").serialize();
-				
-				$.ajax({
-					url : "onStar",
-					type : "post",
-					dataType : "json",
-					data : params,
-					success: function(res) {
-						$(".star_img").attr("src", "resources/images/yellow_star_icon.png");
-					},
-					error: function(request, status, error) {
-						console.log(error);
-					}
-				});
-			
-				} else if(($(this).attr("src") == "resources/images/yellow_star_icon.png") &&
-						result.memo.MARKING == 0) {
-										
-					$.ajax({
-						url : "offStar",
-						type : "post",
-						dataType : "json",
-						data : params,
-						success: function(res) {
-							$(".star_img").attr("src", "resources/images/empty_star_icon.png");
-							console.log("검정별");
-							
-						},
-						error: function(request, status, error) {
-							console.log(error);
-						}
-					});
-				} else {
-					alert("중요도 변경시 오류가 발생했습니다.");
-				}
-
-			}); 
-			
-			
-			
+						
 			$(".background8").off("click");
 			$(".background8").on("click", function(){
 				closeMemoDetail();
@@ -932,6 +874,7 @@ $(document).ready(function(){
 			<input type="hidden" id="page" name="page" value="${page}"/>
 			<input type="hidden" id="checkedArr" name="checkedArr"/>
 			<input type="hidden" id="mNo" name="mNo"/>
+			<input type="hidden" id="tabFlag" name="tabFlag" value="0"/>
 		
 		<div class ="search_flag_div">
 			<div class="search_flag">

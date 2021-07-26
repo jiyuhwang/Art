@@ -561,29 +561,37 @@
 		FROM REPORT R INNER JOIN USERS U
                      ON R.USER_NO = U.USER_NO
 		WHERE 1 = 1
+		<choose>
+			<when test="tabFlag == 0">
+				AND R.POST_NO IS NOT NULL
+			</when>
+			<when test="tabFlag == 1">
+				AND R.COMMENT_NO IS NOT NULL
+			</when>
+		</choose>
 		<if test="srhYearFlag != null and srhYearFlag != ''">
 			<choose>
 					<when test="srhYearFlag == 0">
-						AND TO_CHAR(REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
+						AND TO_CHAR(R.REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '20'
+						AND TO_CHAR(R.REGISTER_DATE, 'YYYY') = '20'
 					</when>
 			</choose>
 		</if>
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchFlag == 2">
-					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+					AND R.CONTENTS LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 3">
 					AND NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 4">
-					AND REPORT_NO LIKE '%' || #{searchTxt} || '%'
+					AND R.REPORT_NO LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 5">
-					AND TO_CHAR(REGISTER_DATE, 'YYYY-MM-DD') LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(R.REGISTER_DATE, 'YYYY-MM-DD') LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 		</if>
@@ -592,25 +600,25 @@
 			<choose>
 				<when test="startFlag != null and startFlag != ''
 						and endFlag == null and endFlag == ''">
-				AND REGISTER_DATE &gt;= #{startFlag}
+				AND R.REGISTER_DATE &gt;= #{startFlag}
 				</when>
 				<when test="startFlag == null and startFlag == ''
 						and endFlag != null and endFlag != ''">
-					AND REGISTER_DATE &lt;=  #{endFlag}
+					AND R.REGISTER_DATE &lt;=  #{endFlag}
 				</when>
 					<when test="startFlag != null and startFlag != ''
 						and endFlag != null and endFlag != ''">
-					AND REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
+					AND R.REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
 				</when>
 			</choose>
 		</if>
 		<if test="delFlag != null and delFlag != ''">
 			<choose>
 				<when test="delFlag == 0">
-					AND DEL = 0
+					AND R.DEL = 0
 				</when>
 				<when test="delFlag == 1">
-					AND DEL = 1
+					AND R.DEL = 1
 				</when>
 			</choose>
 		</if>
@@ -618,30 +626,36 @@
 	
 	<select id="getReportList" parameterType="hashmap" resultType="hashmap">
 		SELECT *
-		FROM (SELECT A.REPORT_NO, A.ADMIN_NO, A.R_NO, A.COMMENT_NO,
+		FROM (SELECT A.REPORT_NO, A.ADMIN_NO, A.USER_NO, A.COMMENT_NO,
 					A.POST_NO, A.CONTENTS, A.REPORT_STATUS, A.DEL,
-					A.TYPE_NO, A.TYPE_NAME, TO_CHAR(A.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE,
-		        	A.R_NAME, A.R_ID, A.R_NICK,
+					A.FLAGS ,TO_CHAR(A.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE,
+		        	A.NAME, A.USER_ID, A.USER_NICKNAME,
                     B.WRITER_NO, B.WRITER_NAME, B.WRITER_ID,
 					B.WRITER_NICK, ROW_NUMBER() OVER(ORDER BY A.REGISTER_DATE DESC) AS RNUM
-				FROM (SELECT NR.REPORT_NO, NR.ADMIN_NO, NR.USER_NO AS R_NO, NR.COMMENT_NO,
-					NR.POST_NO, NR.CONTENTS, NR.REPORT_STATUS, NR.REGISTER_DATE, 
-					 NR.DEL, NR.TYPE_NO, NR.TYPE_NAME,
-		        	U.NAME AS R_NAME, U.USER_ID AS R_ID, U.USER_NICKNAME AS R_NICK
-				FROM (SELECT R.REPORT_NO, R.ADMIN_NO, R.USER_NO, R.COMMENT_NO, R.POST_NO,
-								R.CONTENTS, R.REPORT_STATUS, R.REGISTER_DATE, R.DEL,
-		       					 RT.TYPE_NO, RT.TYPE_NAME
-		     		  FROM (REPORT R INNER JOIN REPORT_REPORT_TYPE RRT
-		                         			  ON R.REPORT_NO = RRT.REPORT_NO) INNER JOIN REPORT_TYPE RT
-		                                                                 ON RRT.TYPE_NO = RT.TYPE_NO) NR
-		              INNER JOIN USERS U
-		              ON NR.USER_NO = U.USER_NO) A
-				INNER JOIN (SELECT P.POST_NO, U.USER_NO AS WRITER_NO, U.NAME AS WRITER_NAME, U.USER_ID AS WRITER_ID,
-						U.USER_NICKNAME AS WRITER_NICK
-		              FROM POST P INNER JOIN USERS U
-        				 ON P.USER_NO = U.USER_NO) B
-        		ON A.POST_NO = B.POST_NO
+					FROM (SELECT R1.*, U.USER_ID, U.USER_NICKNAME, U.NAME
+							FROM (SELECT R.*, RT.FLAGS
+					       			 FROM (REPORT R INNER JOIN (SELECT RRT.REPORT_NO, LISTAGG(RT.TYPE_NAME, ',') WITHIN GROUP(ORDER BY RT.TYPE_NO) AS FLAGS
+		                                    FROM REPORT_REPORT_TYPE RRT LEFT OUTER JOIN REPORT_TYPE RT
+		                                                ON RRT.TYPE_NO = RT.TYPE_NO
+		                                    GROUP BY RRT.REPORT_NO) RT
+                                            ON R.REPORT_NO = RT.REPORT_NO)) R1 INNER JOIN USERS U
+                                                                                    ON R1.USER_NO = U.USER_NO) A
+            LEFT OUTER JOIN (SELECT P.POST_NO, U.USER_NO AS WRITER_NO, U.NAME AS WRITER_NAME, U.USER_ID AS WRITER_ID,
+								U.USER_NICKNAME AS WRITER_NICK
+				              FROM POST P INNER JOIN USERS U
+		        				 ON P.USER_NO = U.USER_NO) B
+        	ON A.POST_NO = B.POST_NO
 		WHERE 1 = 1
+		<if test="tabFlag != null and tabFlag !=''">
+			<choose>
+				<when test="tabFlag == 0">
+					AND A.POST_NO IS NOT NULL
+				</when>
+				<when test="tabFlag == 1">
+					AND A.COMMENT_NO IS NOT NULL
+				</when>
+			</choose>
+		</if>
 		<if test="srhYearFlag != null and srhYearFlag != ''">
 			<choose>
 					<when test="srhYearFlag == 0">
@@ -655,13 +669,13 @@
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchFlag == 2">
-					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+					AND A.CONTENTS LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 3">
-					AND R_NAME LIKE '%' || #{searchTxt} || '%'
+					AND A.NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 4">
-					AND REPORT_NO LIKE '%' || #{searchTxt} || '%'
+					AND A.REPORT_NO LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 5">
 					AND TO_CHAR(REGISTER_DATE, 'YYYY-MM-DD') LIKE '%' || #{searchTxt} || '%'
@@ -688,10 +702,10 @@
 		<if test="delFlag != null and delFlag != ''">
 			<choose>
 				<when test="delFlag == 0">
-					AND DEL = 0
+					AND A.DEL = 0
 				</when>
 				<when test="delFlag == 1">
-					AND DEL = 1
+					AND A.DEL = 1
 				</when>
 			</choose>
 		</if>
@@ -710,30 +724,27 @@
 	
 	
 	<select id="getReportDetail" parameterType="hashmap" resultType="hashmap">
-		SELECT A.REPORT_NO, A.ADMIN_NO, A.R_NO, A.COMMENT_NO,
-		               A.POST_NO, A.CONTENTS, A.REPORT_STATUS, A.DEL,
-		               A.TYPE_NO, A.TYPE_NAME, TO_CHAR(REGISTER_DATE, 'YYYY-MM-DD HH24:MI:SS') AS REGISTER_DATE,
-		                 A.R_NAME, A.R_ID, A.R_NICK,
-		                    B.WRITER_NO, B.WRITER_NAME, B.WRITER_ID, B.TITLE,
-		               B.WRITER_NICK
-		            FROM (SELECT NR.REPORT_NO, NR.ADMIN_NO, NR.USER_NO AS R_NO, NR.COMMENT_NO,
-		                            NR.POST_NO, NR.CONTENTS, NR.REPORT_STATUS, NR.REGISTER_DATE, 
-		                             NR.DEL, NR.TYPE_NO, NR.TYPE_NAME,
-		                            U.NAME AS R_NAME, U.USER_ID AS R_ID, U.USER_NICKNAME AS R_NICK
-		                      FROM (SELECT R.REPORT_NO, R.ADMIN_NO, R.USER_NO, R.COMMENT_NO, R.POST_NO,
-		                        R.CONTENTS, R.REPORT_STATUS, R.REGISTER_DATE, R.DEL,
-		                             RT.TYPE_NO, RT.TYPE_NAME
-		                             FROM (REPORT R INNER JOIN REPORT_REPORT_TYPE RRT
-		                                          ON R.REPORT_NO = RRT.REPORT_NO) INNER JOIN REPORT_TYPE RT
-		                                                                       ON RRT.TYPE_NO = RT.TYPE_NO) NR
-		                    INNER JOIN USERS U
-		                    ON NR.USER_NO = U.USER_NO) A
-		            LEFT OUTER JOIN (SELECT P.POST_NO, P.TITLE, U.USER_NO AS WRITER_NO, U.NAME AS WRITER_NAME, U.USER_ID AS WRITER_ID,
-							                  U.USER_NICKNAME AS WRITER_NICK
-							         FROM POST P INNER JOIN USERS U
-							    						 ON P.USER_NO = U.USER_NO) B
-            			  ON A.POST_NO = B.POST_NO
-		WHERE A.REPORT_NO = #{rNo}
+		SELECT A.REPORT_NO, A.ADMIN_NO, A.USER_NO, A.COMMENT_NO,
+					A.POST_NO, A.CONTENTS, A.REPORT_STATUS, A.DEL,
+					A.FLAGS ,TO_CHAR(A.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE,
+		        	A.NAME, A.USER_ID, A.USER_NICKNAME,
+                    B.WRITER_NO, B.WRITER_NAME, B.WRITER_ID,
+					B.WRITER_NICK, ROW_NUMBER() OVER(ORDER BY A.REGISTER_DATE DESC) AS RNUM
+FROM (SELECT R1.*, U.USER_ID, U.USER_NICKNAME, U.NAME
+FROM (SELECT R.*, RT.FLAGS
+        FROM (REPORT R INNER JOIN (SELECT RRT.REPORT_NO, LISTAGG(RT.TYPE_NAME, ',') WITHIN GROUP(ORDER BY RT.TYPE_NO) AS FLAGS
+		                                    FROM REPORT_REPORT_TYPE RRT LEFT OUTER JOIN REPORT_TYPE RT
+		                                                ON RRT.TYPE_NO = RT.TYPE_NO
+		                                    GROUP BY RRT.REPORT_NO) RT
+                                            ON R.REPORT_NO = RT.REPORT_NO)) R1 INNER JOIN USERS U
+                                                                                    ON R1.USER_NO = U.USER_NO
+                                                                                    AND R1.REPORT_NO = #{rNo}) A
+            LEFT OUTER JOIN (SELECT P.POST_NO, U.USER_NO AS WRITER_NO, U.NAME AS WRITER_NAME, U.USER_ID AS WRITER_ID,
+						U.USER_NICKNAME AS WRITER_NICK
+		              FROM POST P INNER JOIN USERS U
+        				 ON P.USER_NO = U.USER_NO) B
+        		ON A.POST_NO = B.POST_NO
+		
 	</select>
 	
 	<select id="getReportMemo" parameterType="hashmap" resultType="hashmap">
@@ -768,23 +779,12 @@
 		WHERE MEMO_NO = #{mNo}
 	</update>
 	
-	<update id="onStar" parameterType="hashmap">
-		UPDATE MEMO
-		SET MARKING = 0
-		WHERE MEMO_NO = #{mNo}
-	</update>
-	
-	<update id="offStar" parameterType="hashmap">
-		UPDATE MEMO
-		SET MARKING = 1
-		WHERE MEMO_NO = #{mNo}
-	</update>
-	
 	<insert id="addMemo" parameterType="hashmap">
 		INSERT INTO MEMO(MEMO_NO, USER_NO ,ADMIN_NO, ACCUR_DATE, MARKING, CONTENTS)
 		VALUES (MEMO_SEQ.NEXTVAL, #{userNo}, #{admin}, #{occur}, #{marking}, #{contents})
 	</insert>
 	
+
 	
 	
 </mapper>

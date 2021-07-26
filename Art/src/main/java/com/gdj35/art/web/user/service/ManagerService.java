@@ -194,16 +194,6 @@ public class ManagerService implements IManagerService {
 	}
 
 	@Override
-	public int onStar(HashMap<String, String> params) throws Throwable {
-		return iManagerDao.onStar(params);
-	}
-
-	@Override
-	public int offStar(HashMap<String, String> params) throws Throwable {
-		return iManagerDao.offStar(params);
-	}
-
-	@Override
 	public int addGong(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
 		return iManagerDao.addGong(params);
@@ -231,6 +221,7 @@ public class ManagerService implements IManagerService {
 		// TODO Auto-generated method stub
 		return iManagerDao.getMailUser(params);
 	}
+
 
 
 
