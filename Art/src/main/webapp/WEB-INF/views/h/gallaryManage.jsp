@@ -434,8 +434,8 @@ $(document).ready(function(){
 					html += result.data.VIDEO_LINK;
 				} else {
 					if(result.data.POST_FILE != null && result.data.POST_FILE != "") {
-						html +=" <img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
-									+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\">";
+						html +=" <a><img class=\"contents_img\" src=\"resources/upload/"+ result.data.POST_FILE
+									+"\" alt=\"작품이미지\" download=\""+ result.data.POST_UFILE +"\"></a>";
 					} else {
 						html +=" <img class=\"contents_img\" src=\"resources/images/JY/짱구1.jpg\" alt=\"사랑스런짱구\">";
 					}
@@ -475,8 +475,8 @@ $(document).ready(function(){
 				html +="	<div class=\"mini_profile\">";
 				
 				if(result.data.PROFILE_IMG_PATH != null && result.data.PROFILE_IMG_PATH != "") {
-					html +=" <img class=\"profile_img2\" src=\"resources/upload/"+ result.data.PROFILE_IMG_PATH
-								+"\" alt=\"프로필이미지\" download=\""+ result.data.PROFILE_IMG_UPATH+"\">";
+					html +=" <a><img class=\"profile_img2\" src=\"resources/upload/"+ result.data.PROFILE_IMG_PATH
+								+"\" alt=\"프로필이미지\" download=\""+ result.data.PROFILE_IMG_UPATH+"\"></a>";
 				} else {
 					html +=" <img class=\"profile_img2\" src=\"resources/images/JY/who.png\" alt=\"기본프로필\">";
 				}

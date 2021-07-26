@@ -801,7 +801,7 @@
 		FROM DUAL
 	</select>
 	
-		<!-- 신고글 추가 -->
+	<!-- 신고글 추가 -->
 	<insert id="addReport" parameterType="hashmap">
 		INSERT INTO REPORT
 		VALUES(#{reportNo}, #{adminNo}, #{userNo}, NULL, #{pNo}, #{reportCtt}, 0, SYSDATE, 1)
@@ -812,6 +812,21 @@
 		INSERT INTO REPORT_REPORT_TYPE(REPORT_NO, TYPE_NO)
 		VALUES(#{reportNo}, #{typeNo})
 	</insert>
+	
+	<!-- 신고할 댓글 data 가져오기 -->
+	<select id="getComment" parameterType="hashmap" resultType="hashmap">
+		SELECT COMMENTS.*
+		FROM COMMENTS
+		WHERE COMMENT_NO = #{commentNo}
+	</select>
+	
+	<!-- 댓글신고글 추가 -->
+	<insert id="addCReport" parameterType="hashmap">
+		INSERT INTO REPORT
+		VALUES(#{reportNo}, #{adminNo}, #{userNo}, #{cNo}, NULL, #{reportCtt}, 0, SYSDATE, 1)
+	</insert>
+	
+
 	
 	
 	

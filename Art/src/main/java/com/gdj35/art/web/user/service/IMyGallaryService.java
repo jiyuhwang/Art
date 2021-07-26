@@ -103,6 +103,10 @@ public interface IMyGallaryService {
 
 	public int reportSeq(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> getComment(HashMap<String, String> params) throws Throwable;
+
+	public int addCReport(HashMap<String, String> params) throws Throwable;
+
 
 
 
