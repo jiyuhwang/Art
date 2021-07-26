@@ -1041,14 +1041,10 @@ public class MyGallaryController {
 
 		
 		try {
-			
 			HashMap<String, String> data = iMyGallaryService.getPost(params);	
 			
-			System.out.println("신고하기 params: " + params);
 			modelMap.put("data", data);
 			modelMap.put("userNo", String.valueOf(session.getAttribute("sUserNo")));
-			System.out.println("신고하기 data: " + data);
-			System.out.println("신고하기 userNo: " + String.valueOf(session.getAttribute("sUserNo")));
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -1070,17 +1066,71 @@ public class MyGallaryController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		System.out.println("신고한다음 params: " + params);
-		System.out.println("신고한다음 cnt>0 확인한다음 params: " + params);
-
 		try {
 			int cnt = iMyGallaryService.addReport(params);
 			
 			
 			if(cnt > 0) {
 				modelMap.put("msg", "success");
-		} else {
-			modelMap.put("msg", "failed");
+			} else {
+				modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}	
+		
+		return mapper.writeValueAsString(modelMap);
+	
+	}
+	
+	// 댓글 신고하기
+	@RequestMapping(value="/commentReport",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String commentReportAjax(HttpSession session,
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		
+		try {
+			HashMap<String, String> data = iMyGallaryService.getComment(params);	
+			
+			modelMap.put("data", data);
+			modelMap.put("userNo", String.valueOf(session.getAttribute("sUserNo")));
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}	
+		
+		return mapper.writeValueAsString(modelMap);
+	
+	}
+	
+	// 댓글 신고하기 전송
+	@RequestMapping(value="/userCommentReports",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String userCommentReportsAjax(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+
+		try {
+			int cnt = iMyGallaryService.addCReport(params);
+			
+			
+			if(cnt > 0) {
+				modelMap.put("msg", "success");
+			} else {
+				modelMap.put("msg", "failed");
 			}
 			
 		} catch (Throwable e) {

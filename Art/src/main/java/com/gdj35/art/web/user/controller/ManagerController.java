@@ -1,13 +1,18 @@
 package com.gdj35.art.web.user.controller;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,10 +30,67 @@ import com.gdj35.art.web.user.service.IManagerService;
 public class ManagerController {
 	
 	@Autowired
+	private JavaMailSender mailSender;
+	
+	@Autowired
 	public IPagingService iPagingService;
 	
 	@Autowired
 	public IManagerService iManagerService;
+	
+	@RequestMapping(value = "/sendMail",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String sendMail(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println("넘어 오는지 보자" + params);
+		
+		 	String subject = params.get("title"); //보낼 제목을 넣을 수 있습니다.
+	        String content = params.get("ctt"); // 내용 입력이 가능합니다.
+	        
+	        
+	        String from = "artproject21@naver.com"; // 보낼 메일을 작성할 수 있습니다.
+	     
+	        
+	        
+	        String mailList	= params.get("emailAdd");
+	        String[] to	= mailList.split(",");
+	        // 받는 사람의 메일을 to라는 부분에 저장할 수 있는데 여러 명에게 보내려면
+	        // 배열에 각 메일을 담아서 아래 setTo에 입력해주면 됩니다.
+		
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8"); // true는 멀티파트 메세지를 사용하겠다는 의미입니다.
+			
+			mailHelper.setFrom(from);
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content, true);
+			
+			// 파일을 첨부하는 것
+			FileSystemResource file = new FileSystemResource(new File("C:\\메일테스트.txt"));
+			mailHelper.addAttachment("메일테스트.txt", file);
+			
+			mailSender.send(mail);
+			
+			modelMap.put("msg", "success");
+			
+			return mapper.writeValueAsString(modelMap);
+		}catch(Throwable e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	
 	@RequestMapping(value="/writingManager")
 	public ModelAndView writinerManager(ModelAndView mav) {
@@ -92,7 +154,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String gongji_page(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String gongji_pageAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -135,7 +197,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String mailList(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String mailListAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -227,7 +289,7 @@ public class ManagerController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String user_datailP(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable{
+	public String user_datailPAjax(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -266,7 +328,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String delOneRow(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String delOneRowAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -294,7 +356,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String out_user_list(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String out_user_listAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -330,7 +392,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String user_update(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String user_updateAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -360,7 +422,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String add_memo(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String add_memoAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -416,7 +478,7 @@ public class ManagerController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String gong_board(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String gong_boardAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -461,7 +523,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String rowsDel(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String rowsDelAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -482,7 +544,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String addGong(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable{
+	public String addGongAjax(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		// httpSession 값 받아오기 그래야 관리자 번호 지정가능
 		// 로그인 구현하기
@@ -513,7 +575,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String editManagerUpdate(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable{
+	public String editManagerUpdateAjax(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		// httpSession 값 받아오기 그래야 관리자 번호 지정가능
 		// 로그인 구현하기
@@ -631,7 +693,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-		public String entireList(
+		public String entireListAjax(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
@@ -678,7 +740,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String drawUserPopup(
+	public String drawUserPopupAjax(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		
@@ -717,7 +779,7 @@ public class ManagerController {
 			produces = "text/json;charset=UTF-8")
 
 	@ResponseBody
-	public String drawEdits(
+	public String drawEditsAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -744,7 +806,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteGallary(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String deleteGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -781,7 +843,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String returnDel(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String returnDelAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -830,7 +892,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-		public String reportList(
+		public String reportListAjax(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
@@ -883,7 +945,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteReport(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String deleteReportAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -920,7 +982,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String returnDelr(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String returnDelrAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -958,7 +1020,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String drawReportPopup(
+	public String drawReportPopupAjax(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		
@@ -1000,7 +1062,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String reportMemo(
+	public String reportMemoAjax(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		
@@ -1029,7 +1091,7 @@ public class ManagerController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String onStar(
+	public String onStarAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();		
@@ -1058,7 +1120,7 @@ public class ManagerController {
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String offStar(
+	public String offStarAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();		
@@ -1088,7 +1150,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String saveReportMemo(
+	public String saveReportMemoAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -1122,7 +1184,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String delReportMemo(
+	public String delReportMemoAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -1157,7 +1219,7 @@ public class ManagerController {
 				produces = "text/json;charset=UTF-8")
 	
 	@ResponseBody
-	public String addMemo(
+	public String addMemoAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();

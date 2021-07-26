@@ -262,5 +262,15 @@ public class MyGallaryService implements IMyGallaryService{
 		return iMyGallaryDao.reportSeq(params);
 	}
 
+	@Override
+	public HashMap<String, String> getComment(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.getComment(params);
+	}
+
+	@Override
+	public int addCReport(HashMap<String, String> params) throws Throwable {
+		return iMyGallaryDao.addCReport(params);
+	}
+
 
 }
