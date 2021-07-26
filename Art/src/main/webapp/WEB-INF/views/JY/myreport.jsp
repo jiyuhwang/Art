@@ -53,7 +53,7 @@ $(document).ready(function() {
 	});
 	
 	$(".report_menu2_contents").scroll(function(){
-		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+		if(Math.ceil($(this).scrollTop()) + $(this).innerHeight() >= $(this)[0].scrollHeight){
 			$("#page").val($("#page").val() * 1 + 1);
 			reportCommentList();
 		} 
@@ -262,6 +262,7 @@ function drawReportCommentList(list2){
 		</div>
 		<div class="contents">
 			<div class="title">신고목록</div>
+			<div class="report_type">A : 홍보·영리목적, B : 부적절한 홍보, C : 불법 정보, D : 음란 또는 청소년에게 부적합한내용, E : 욕설·비방·차별 혐오<br/>F : 도배·스팸, G : 개인정보 노출 거래, H : 저작권 및 명예훼손, I : 기타</div>
 			<div class="report_wrap">
 			<div class="report_wrap2">
 				<div class="tabs">

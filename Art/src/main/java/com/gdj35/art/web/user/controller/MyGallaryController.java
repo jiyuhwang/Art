@@ -69,11 +69,14 @@ public class MyGallaryController {
 		}
 		
 		params.put("userNo", String.valueOf(session.getAttribute("sUserNo")));
+		params.put("followNo", String.valueOf(session.getAttribute("sUserNo")));
 		
 		HashMap<String, String> data = iMyGallaryService.authorLikeCnt2(params);
+		int cnt = iMyGallaryService.followingCnt(params);
 		
 		mav.addObject("page", page);
 		mav.addObject("data", data);
+		mav.addObject("cnt", cnt);
 		
 		mav.setViewName("JY/mygallary");
 
@@ -988,6 +991,7 @@ public class MyGallaryController {
 		List<HashMap<String, String>> list = iMyGallaryService.followerList(params);
 		
 		modelMap.put("list", list);		
+		modelMap.put("cnt", cnt);		
 		
 		return mapper.writeValueAsString(modelMap);
 	}
@@ -1006,6 +1010,7 @@ public class MyGallaryController {
 		int page = Integer.parseInt(params.get("followpage"));
 		
 		int cnt = iMyGallaryService.followingCnt(params);
+		System.out.println("++++++++++++++++++++++" + cnt);
 		
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 11, 1);
 		
@@ -1015,7 +1020,8 @@ public class MyGallaryController {
 				
 		List<HashMap<String, String>> list = iMyGallaryService.followingList(params);
 		
-		modelMap.put("list", list);		
+		modelMap.put("list", list);
+		modelMap.put("cnt", cnt);
 		
 		return mapper.writeValueAsString(modelMap);
 	}

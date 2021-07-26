@@ -90,6 +90,7 @@ body {
 	font-size: 11pt;
 	cursor: pointer;
 }
+
 .profile_like:hover {
 	font-weight: bold;
 	color: #ffad33;

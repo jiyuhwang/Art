@@ -113,6 +113,12 @@ tr {
 	color: black;
 }
 
+.report_type {
+	font-size: 10pt;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
 .table {
 	color: black;
 	font-size: 10pt;

@@ -99,14 +99,15 @@
 	</update>
 	
 	<!-- 나의 작품 신고내역 -->
-	<select id="reportPost" parameterType="hashmap" resultType="hashmap">
+	<select id="reportPost" parameterType="hashmap" resultType="hashmap">		        
 		SELECT R.REPORT_NO, R.TYPE_NAME, R.POST_NO, R.USER_NICKNAME, R.USER_NO, R.CONTENTS, R.REPORT_STATUS, R.REGISTER_DATE, R.DEL
-		FROM (SELECT R1.REPORT_NO, R3.TYPE_NAME, R1.POST_NO, U.USER_NICKNAME, R1.USER_NO, R1.CONTENTS, R1.REPORT_STATUS, TO_CHAR(R1.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE, P.DEL,
+		FROM (SELECT R1.REPORT_NO, R1.POST_NO, R2.TYPE_NAME, U.USER_NICKNAME, R1.USER_NO, R1.CONTENTS, R1.REPORT_STATUS, TO_CHAR(R1.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE, P.DEL,
 		                ROW_NUMBER() OVER(ORDER BY R1.REGISTER_DATE DESC) AS RNUM
-		        FROM REPORT R1 INNER JOIN REPORT_REPORT_TYPE R2
+		        FROM REPORT R1 INNER JOIN (SELECT R1.REPORT_NO, LISTAGG(R2.TYPE_NAME2, ',') WITHIN GROUP(ORDER BY R2.TYPE_NO) AS TYPE_NAME
+		                                    FROM REPORT_REPORT_TYPE R1 LEFT OUTER JOIN REPORT_TYPE R2
+		                                                ON R1.TYPE_NO = R2.TYPE_NO
+		                                    GROUP BY R1.REPORT_NO) R2
 		                    ON R1.REPORT_NO = R2.REPORT_NO
-		                        INNER JOIN REPORT_TYPE R3
-		                    ON R2.TYPE_NO = R3.TYPE_NO                      
 		                        INNER JOIN POST P
 		                    ON R1.POST_NO = P.POST_NO
 		                        INNER JOIN USERS U
@@ -121,19 +122,20 @@
 	<!-- 나의 댓글 신고내역 -->
 	<select id="reportComment" parameterType="hashmap" resultType="hashmap">
 		SELECT R.REPORT_NO, R.TYPE_NAME, R.POST_NO, R.USER_NICKNAME, R.USER_NO, R.COMMENT_NO, R.CONTENTS, R.REPORT_STATUS, R.REGISTER_DATE, R.DEL
-		FROM (SELECT R1.REPORT_NO, C.POST_NO, R3.TYPE_NAME, U.USER_NICKNAME, R1.COMMENT_NO, R1.USER_NO, R1.CONTENTS, R1.REPORT_STATUS, TO_CHAR(R1.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE, P.DEL,
+		FROM (SELECT R1.REPORT_NO, R1.POST_NO, R2.TYPE_NAME, U.USER_NICKNAME, R1.COMMENT_NO, R1.USER_NO, R1.CONTENTS, R1.REPORT_STATUS, TO_CHAR(R1.REGISTER_DATE, 'YYYY-MM-DD') AS REGISTER_DATE, P.DEL,
 		                ROW_NUMBER() OVER(ORDER BY R1.REGISTER_DATE DESC) AS RNUM
-		        FROM REPORT R1 INNER JOIN REPORT_REPORT_TYPE R2
+		        FROM REPORT R1 INNER JOIN (SELECT R1.REPORT_NO, LISTAGG(R2.TYPE_NAME2, ',') WITHIN GROUP(ORDER BY R2.TYPE_NO) AS TYPE_NAME
+		                                    FROM REPORT_REPORT_TYPE R1 LEFT OUTER JOIN REPORT_TYPE R2
+		                                                ON R1.TYPE_NO = R2.TYPE_NO
+		                                    GROUP BY R1.REPORT_NO) R2
 		                    ON R1.REPORT_NO = R2.REPORT_NO
-		                        INNER JOIN REPORT_TYPE R3
-		                    ON R2.TYPE_NO = R3.TYPE_NO 
 		                        INNER JOIN COMMENTS C
 		                    ON R1.COMMENT_NO = C.COMMENT_NO
 		                        INNER JOIN POST P
 		                    ON C.POST_NO = P.POST_NO
 		                        INNER JOIN USERS U
 		                    ON P.USER_NO = U.USER_NO
-		        WHERE R1.USER_NO = #{userNo}
+		        WHERE R1.USER_NO = 12
 		        AND R1.COMMENT_NO IS NOT NULL
 		        AND R1.DEL = 1) R
 		WHERE R.RNUM BETWEEN #{startCnt} AND #{endCnt}

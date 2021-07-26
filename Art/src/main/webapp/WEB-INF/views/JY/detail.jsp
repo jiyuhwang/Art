@@ -14,7 +14,7 @@ $(document).ready(function() {
 	reloadLikeCnt();
 	reloadList();
 	reloadCommentCnt();
-	
+	$("#page").val("1");
 	$("#goForm").on("keypress", "input", function(event) {
 		if(event.keyCode == 13) { // 엔터키를 눌렀을 때
 			return false; // 페이지가 안넘어간다.
