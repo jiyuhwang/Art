@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>작품 상세보기</title>
 <link rel="stylesheet" href="resources/css/JY/detail.css">
-<link rel="stylesheet" type="text/css" href="resources/css/h/user_report_popup.css"/>
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="resources/css/h/user_report_popup.css" />
+<script type="text/javascript"
+	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	reloadLikeCnt();
@@ -40,6 +42,9 @@ $(document).ready(function() {
 		} else if($('#listPage').val() == "4") {
 			$("#goForm").attr("action", "main");
 			$("#goForm").submit();
+		} else if($('#listPage').val() == "5") {
+			$("#goForm").attr("action", "myreport");
+			$("#goForm").submit();
 		}
 	})
 	
@@ -68,21 +73,45 @@ $(document).ready(function() {
 	}
 	
 	
-		$('#btnMenu, #btnMenu2').click(function() {
-			if($("#userNo").val() != "") {
-				if ($('.side_bar').css('display') == 'none') {
-					$('.side_bar').slideDown();
-				} else {
-					$('.side_bar').slideUp();
-				}
+	$(".select_flag").on("click", "li", function(){
+		
+		if($(this).attr("class") == "recent_order"){
+			$("#commentGbn").val("0");
+			$(this).attr("id", "active");
+			$(".past_order").attr("id", "");
+			$(".comment_cnt_order").attr("id", "");
+		} else if($(this).attr("class") == "past_order"){
+			$("#commentGbn").val("1");
+			$(this).attr("id", "active");
+			$(".recent_order").attr("id", "");
+			$(".comment_cnt_order").attr("id", "");
+		} else {
+			$("#commentGbn").val("2");
+			$(this).attr("id", "active");
+			$(".recent_order").attr("id", "");
+			$(".past_order").attr("id", "");
+		}
+		$("#page").val("1");
+		reloadList();
+		reloadCommentCnt();
+	});
+	
+	
+	$('#btnMenu, #btnMenu2').click(function() {
+		if($("#userNo").val() != "") {
+			if ($('.side_bar').css('display') == 'none') {
+				$('.side_bar').slideDown();
 			} else {
-				if ($('.side_bar2').css('display') == 'none') {
-					$('.side_bar2').slideDown();
-				} else {
-					$('.side_bar2').slideUp();
-				}
+				$('.side_bar').slideUp();
 			}
-		})
+		} else {
+			if ($('.side_bar2').css('display') == 'none') {
+				$('.side_bar2').slideDown();
+			} else {
+				$('.side_bar2').slideUp();
+			}
+		}
+	})
 	
 	$(document).mouseup(function (e){
 
@@ -329,8 +358,12 @@ $('body').on("click", '.heart', function() {
 	
 	
 	$("#btnCommentUpload").on("click", function() {
-		
-		if($('#userNo').val() != "") {
+		 if($('#userNo').val() != "") {
+			 
+		 	if($("#commentWrite").val() == "") {
+				alert("댓글을 작성해주세요.")
+				return false;
+			}
 			var params= $("#goForm").serialize();
 			
 			$.ajax({
@@ -359,6 +392,75 @@ $('body').on("click", '.heart', function() {
 		}
 	});
 	
+	
+	$("#commentFormWrap").on("click", ".replyBtnCommentUpload", function() {
+		var cNo = $(this).parent().parent().attr("cmt");
+		console.log(cNo);
+		if($('#userNo').val() != "") {
+			if($("#replyCommentWrite" + cNo).val() == "") {
+				alert("답글을 작성해주세요.");
+				return false;
+			}
+			var params= $(this).parent().parent().serialize();
+	
+			$.ajax({
+				url: "replyCommentWrite", // 접속 주소
+				type: "post", // 전송 방식: get, post
+				dataType: "json", // 받아올 데이터 형태
+				data: params, // 보낼 데이터(문자열 형태)
+				success: function(res) { // 성공 시 다음 함수 실행
+					if(res.msg == "success") {
+						reloadList();
+						reloadCommentCnt();
+					} else if(res.msg == "failed") {
+						alert("답글 작성에 실패하였습니다.")
+					} else {
+						alert("답글 작성 중 문제가 발생하였습니다.")
+					}
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			});
+		} else {
+			alert("로그인 후 이용해주세요.");
+			location.href = "login";
+		}
+			
+	});
+	
+	
+	$("#commentFormWrap").on("click", ".replyBtnCommentDelete", function() {
+		
+		if(confirm("삭제하시겠습니까?")) {
+		var cNo2 = $(this).parent().attr("cNo2");
+
+		$("#ReplyCommentNo").val(cNo2);
+		console.log($("#ReplyCommentNo").val());
+		var params= $("#goForm").serialize();
+
+		
+		$.ajax({
+			url: "deleteReplyComment", // 접속 주소
+			type: "post", // 전송 방식: get, post
+			dataType: "json", // 받아올 데이터 형태
+			data: params, // 보낼 데이터(문자열 형태)
+			success: function(res) { // 성공 시 다음 함수 실행
+				if(res.msg == "success") {
+					reloadList();
+					reloadCommentCnt();
+				} else if(res.msg == "failed") {
+					alert("댓글 삭제에 실패하였습니다.")
+				} else {
+					alert("댓글 삭제 중 문제가 발생하였습니다.")
+				}
+			},
+			error: function(request, status, error) { // 실패 시 다음 함수 실행
+				console.log(error);
+			}
+		})
+		}
+	})
 });
 
 function reloadList() {
@@ -385,15 +487,15 @@ function commentList(list) {
 
 	
 	var html = "";
-	var html2 = "";
 	if(list.length == 0) {
 		html += "<div class=\"comment_form1\">";
 		html += "등록된 댓글이 없습니다.";
 		html += "</div>"
 	} else {
 		for(var p of list) {
-		if(p.TOP_COMMENT_NO == null) {
-				if(p.DEL == 1) {
+
+			
+			if(p.DEL == 1) {
 					html += "<div class=\"comment_form1\">";
 					html += "<div class=\"profile3\">";
 					if(p.PROFILE_IMG_PATH != null) {
@@ -410,107 +512,77 @@ function commentList(list) {
 						html += "<a class=\"comment_declation\" commentNo=\""+ p.COMMENT_NO +"\" href=\"#\">신고하기</a>";		
 					}		
 					html += "</div>";		
-					html += "<div class=\"btn_reply_upload_comment_delete_w\" cNo=\"" + p.COMMENT_NO +"\" >";
+					html += "<div class=\"btn_reply_upload_comment_delete_w\" cNo=\"" + p.COMMENT_NO + "\" >";
 					html += "<input type=\"hidden\" class=\"commentUserNo\" value=\"" + p.USER_NO + "\">";
-					html += "<input type=\"button\" class=\"btnReplyUpload\" id=\"btnReplyUpload\" value=\"답글\">";
+					if(p.CNT > 0) {
+						html += "<input type=\"button\" class=\"btnReplyUpload\" id=\"btnReplyUpload\"" + p.COMMENT_NO + "\" value=\"답글 " + p.CNT + "\">";
+					} else {
+						html += "<input type=\"button\" class=\"btnReplyUpload\" id=\"btnReplyUpload\"" + p.COMMENT_NO +"\" value=\"답글쓰기\">";
+					}
 					if("${sUserNo}" == p.USER_NO) {
 						html += "<input type=\"button\" class=\"btnCommentDelete\" id=\"btnCommentDelete\" value=\"삭제\">";
 					}
 					html += "</div>";
-					html += "</div>";
-					html += "<div class=\"reply_comment_form1_w1\">";
-					html += "<form action=\"#\" class=\"commentform\" id=\"go" + p.COMMENT_NO + "\" method=\"post\">";
+					
+					
+					html += "<div class=\"reply_comment_form1_w1\" id=\"reply_comment_form1_w1" + p.COMMENT_NO + "\">";
+					html += "<form action=\"#\" class=\"commentform\" id=\"go" + p.COMMENT_NO + "\" method=\"post\" cmt=\"" + p.COMMENT_NO + "\">";
 					html += "<input type=\"hidden\" name=\"topCommentNo\" value=\"" + p.COMMENT_NO + "\">";
 					html += "<input type=\"hidden\" class=\"userNo\" name=\"userNo\" value=\"${sUserNo}\">";
 					html += "<input type=\"hidden\" name=\"postNo\" value=\"" + p.POST_NO + "\">";
+
 					html += "<span class=\"reply\"></span>";
-					html += "<div class=\"reply_comment_write_w\"><input id=\"replyCommentWrite\" name=\"replyCommentWrite\"type=\"text\" placeholder=\"답글을 남겨보세요.\"></div>";
+					html += "<div class=\"reply_comment_write_w\"><input id=\"replyCommentWrite" + p.COMMENT_NO + "\" class=\"replyCommentWrite\" name=\"replyCommentWrite\"type=\"text\" placeholder=\"답글을 남겨보세요.\"></div>";
 					html += "<div class=\"reply_btn_comment_upload_w\"><input type=\"button\" class=\"replyBtnCommentUpload\" id=\"replyBtnCommentUpload\" value=\"답글 작성\"></div>";
 					html += "</form>";
 					html += "</div>";
+					
+					
+					html += "<div id=\"comment" + p.COMMENT_NO + "\" class=\"commentClass\">"
+					html += "</div>";
+					html += "</div>";
+					
+
 				} else {
 					html += "<div class=\"comment_form1\">삭제된 댓글입니다</div>";
 				}
 				
-		} else {
-				if(p.DEL == 1) {
-					html += "<div class=\"reply_comment_form1_w2\">";
-					html += "<span class=\"reply\"></span>";
-					html += "<div class=\"reply_comment_form1\">";
-					html += "<div class=\"reply_profile3\">";
-					if(p.PROFILE_IMG_PATH != null) {
-						html += "<img class=\"reply_profile_img3\" src=\"resources/upload/" + p.PROFILE_IMG_PATH + "\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
-					} else {
-						html += "<img class=\"reply_profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
-					}
-					html += "</div>";
-					html += "<div class=\"reply_comment_name1\">" + p.USER_NICKNAME + "</div>";
-					html += "<div class=\"reply_comment1\">" + p.CONTENT + "</div>";
-					html += "<input type=\"hidden\" class=\"commentUserNo2\" value=\"" + p.USER_NO + "\">";
-					html += "<div class=\"reply_comment1_date\">" + p.REGISTER_DATE;
-					if("${sUserNo}" != p.USER_NO) {
-					html += "<a class=\"reply_comment_declation\" replayCommentNo=\""+ p.COMMENT_NO +"\" href=\"#\">신고하기</a>";
-					}
-					html += "</div>";
-					html += "<div class=\"reply_btn_reply_upload_comment_delete_w\" cNo2 = \"" +  p.COMMENT_NO + "\">";
-					if("${sUserNo}" == p.USER_NO) {
-						html += "<input type=\"button\" class=\"replyBtnCommentDelete\" id=\"replyBtnCommentDelete\" value=\"삭제\">";
-					}
-					html += "</div>";
-					html += "</div>";
-					html += "</div>";
-				} else {
-					html += "<div class=\"reply_comment_form1_w2\">";
-					html += "<span class=\"reply\"></span>";
-					html += "<div class=\"reply_comment_form1\">";
-					html += "삭제된 답글입니다.";
-					html += "</div>";
-					html += "</div>";
-					html += "</div>";
-				}
-			}
+
 		}
 	}
 	
 		$("#commentFormWrap").html(html);
 		
-		$(".replyBtnCommentUpload").on("click", function() {
-			if($('#userNo').val() != "") {
-				//var cNo = $(this).parent().parent().attr("cNo");
-				var params= $(this).parent().parent().serialize();
-
-				$.ajax({
-					url: "replyCommentWrite", // 접속 주소
-					type: "post", // 전송 방식: get, post
-					dataType: "json", // 받아올 데이터 형태
-					data: params, // 보낼 데이터(문자열 형태)
-					success: function(res) { // 성공 시 다음 함수 실행
-						if(res.msg == "success") {
-							reloadList();
-							reloadCommentCnt();
-						} else if(res.msg == "failed") {
-							alert("답글 작성에 실패하였습니다.")
-						} else {
-							alert("답글 작성 중 문제가 발생하였습니다.")
-						}
-					},
-					error: function(request, status, error) { // 실패 시 다음 함수 실행
-						console.log(error);
-					}
-				})
+		$(".btnReplyUpload").click(function() {
+			var cNo = $(this).parent().attr("cNo");
+			if($('#reply_comment_form1_w1' + cNo).css('display') == 'none') {
+				$("#go" + cNo).parent().show();
+				$("#comment" + cNo).show();
 			} else {
-				alert("로그인 후 이용해주세요.");
-				location.href = "login";
+				$("#go" + cNo).parent().hide();
+				$("#comment" + cNo).hide();
 			}
 		});
 		
+		
 		$(".btnReplyUpload").click(function() {
 			var cNo = $(this).parent().attr("cNo");
-			if($('.reply_comment_form1_w1').css('display') == 'none') {
-				$("#go" + cNo).parent().show();
-			} else {
-				$("#go" + cNo).parent().hide();
-			}
+			
+			var params = "cNo=" + $(this).parent().attr("cNo");
+			
+			$.ajax({
+				url: "replyCommentList", // 접속 주소
+				type: "post", // 전송 방식: get, post
+				dataType: "json", // 받아올 데이터 형태
+				data: params, // 보낼 데이터(문자열 형태)
+				success: function(res) { // 성공 시 다음 함수 실행
+					
+					replyCommentList(res.list, cNo);
+				},
+				error: function(request, status, error) { // 실패 시 다음 함수 실행
+					console.log(error);
+				}
+			})
 			
 		})
 		
@@ -546,36 +618,6 @@ function commentList(list) {
 			}
 		})
 		
-		$(".replyBtnCommentDelete").click(function() {
-			if(confirm("삭제하시겠습니까?")) {
-			var cNo2 = $(this).parent().attr("cNo2");
-
-			$("#ReplyCommentNo").val(cNo2);
-			console.log($("#ReplyCommentNo").val());
-			var params= $("#goForm").serialize();
-
-			
-			$.ajax({
-				url: "deleteReplyComment", // 접속 주소
-				type: "post", // 전송 방식: get, post
-				dataType: "json", // 받아올 데이터 형태
-				data: params, // 보낼 데이터(문자열 형태)
-				success: function(res) { // 성공 시 다음 함수 실행
-					if(res.msg == "success") {
-						reloadList();
-						reloadCommentCnt();
-					} else if(res.msg == "failed") {
-						alert("댓글 삭제에 실패하였습니다.")
-					} else {
-						alert("댓글 삭제 중 문제가 발생하였습니다.")
-					}
-				},
-				error: function(request, status, error) { // 실패 시 다음 함수 실행
-					console.log(error);
-				}
-			})
-			}
-		})
 	
 		
 		
@@ -591,6 +633,8 @@ function commentList(list) {
 		
 		//---------------------------------------댓글 신고하기기능
 		$(".comment_declation").on("click", function(){
+			if($('#userNo').val() != ""){
+
 			$("#commentNo").val($(this).attr("commentNo"));
 			
 			var params= $("#goForm").serialize();
@@ -609,34 +653,87 @@ function commentList(list) {
 				}
 			});
 			
-			
+			} else {
+				alert("로그인 후 이용해주세요.")
+			}
 		});
 		
-		//답글 신고하기 기능
-		$(".reply_comment_declation").on("click", function(){
-			$("#commentNo").val($(this).attr("replayCommentNo"));
-			
-			var params= $("#goForm").serialize();
-			
-			$.ajax({
-				url: "commentReport",
-				type: "post",
-				dataType: "json",
-				data: params,
-				success: function(res) {
-				
-					reportCommentPopup(res.data, res.userNo);
-				},
-				error: function(request, status, error) {
-					console.log(error);
-				}
-			});
-			
-			
-		});
+
 		
 		
 }
+
+function replyCommentList(list, cNo) {
+	var html = ""
+	for(var p of list) {
+		if(p.DEL == 1) {
+			html += "<div class=\"reply_comment_form1_w2\">";
+			html += "<span class=\"reply\"></span>";
+			html += "<div class=\"reply_comment_form1\">";
+			html += "<div class=\"reply_profile3\">";
+			if(p.PROFILE_IMG_PATH != null) {
+				html += "<img class=\"reply_profile_img3\" src=\"resources/upload/" + p.PROFILE_IMG_PATH + "\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+			} else {
+				html += "<img class=\"reply_profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
+			}
+			html += "</div>";
+			html += "<div class=\"reply_comment_name1\">" + p.USER_NICKNAME + "</div>";
+			html += "<div class=\"reply_comment1\">" + p.CONTENT + "</div>";
+			html += "<input type=\"hidden\" class=\"commentUserNo2\" value=\"" + p.USER_NO + "\">";
+			html += "<div class=\"reply_comment1_date\">" + p.REGISTER_DATE;
+			if("${sUserNo}" != p.USER_NO) {
+			html += "<a class=\"reply_comment_declation\" replayCommentNo=\""+ p.COMMENT_NO +"\" href=\"#\">신고하기</a>";
+			}
+			html += "</div>";
+			html += "<div class=\"reply_btn_reply_upload_comment_delete_w\" cNo2 = \"" +  p.COMMENT_NO + "\">";
+			if("${sUserNo}" == p.USER_NO) {
+				html += "<input type=\"button\" class=\"replyBtnCommentDelete\" id=\"replyBtnCommentDelete\" value=\"삭제\">";
+			}
+			html += "</div>";
+			html += "</div>";
+			html += "</div>";
+			html += "<div class=\"commentWriteForm\"></div>";
+		} else {
+			html += "<div class=\"reply_comment_form1_w2\">";
+			html += "<span class=\"reply\"></span>";
+			html += "<div class=\"reply_comment_form1\">";
+			html += "삭제된 답글입니다.";
+			html += "</div>";
+			html += "</div>";
+			html += "</div>";
+		}
+	}
+
+	
+	$("#comment" + cNo).html(html);
+
+	
+	//답글 신고하기 기능
+	$(".reply_comment_declation").on("click", function(){
+		if($('#userNo').val() != ""){
+		$("#commentNo").val($(this).attr("replayCommentNo"));
+		
+		var params= $("#goForm").serialize();
+		
+		$.ajax({
+			url: "commentReport",
+			type: "post",
+			dataType: "json",
+			data: params,
+			success: function(res) {
+			
+				reportCommentPopup(res.data, res.userNo);
+			},
+			error: function(request, status, error) {
+				console.log(error);
+			}
+		});
+		} else {
+			alert("로그인 후 이용해주세요.")
+		}
+		
+	});
+} 
 
 function drawPaging(pb) {
 	var html ="";
@@ -737,6 +834,8 @@ function CommentCnt(data) {
 
 	$(".comment_cnt_wrap").html(html);
 	$(".comment_cnt2").html(html2);
+	
+
 
 }
 
@@ -901,7 +1000,6 @@ function CopyUrl2()
 				$(".btn_rot").off("click");
 				$(".btn_rot").on("click", function(){
 					
-					if($('#userNo').val() != ""){
 	
 						//체크박스 값 보내기		
 						$("#checkArr").val("");
@@ -916,7 +1014,6 @@ function CopyUrl2()
 		
 						} else {
 							var params = $("#reportForm").serialize();
-							
 							$.ajax({
 								type : "post",
 								url : "userReports",
@@ -945,11 +1042,7 @@ function CopyUrl2()
 						}//else		
 
 					//로그인 안했을 시
-					} else {
-						alert("로그인 후 이용바랍니다.");
-						closePopup();
-						
-					}
+
 				});//신고하기버튼누르면	
 	};//popup end
 
@@ -1086,7 +1179,6 @@ function CopyUrl2()
 				$(".btn_rot").on("click", function(){
 					
 					
-					if($('#userNo').val() != ""){
 					
 						//체크박스 값 보내기		
 						$("#checkArr").val("");
@@ -1101,7 +1193,8 @@ function CopyUrl2()
 							
 						} else {
 								var params = $("#reportForm").serialize();
-								
+								console.log(params);
+
 								$.ajax({
 									type : "post",
 									url : "userCommentReports",
@@ -1128,11 +1221,7 @@ function CopyUrl2()
 								});//ajax
 						}//else						
 					//로그인 안했을 시
-					} else {
-						alert("로그인 후 이용바랍니다.");
-						closePopup();
-						
-					}
+
 					
 					
 					
@@ -1158,108 +1247,54 @@ function CopyUrl2()
 
 
 
-
-
-
-
-
-	if($('#userNo').val() != "") {
-		if ($(this).attr("src") == "resources/images/JY/heart.png") {
-			$(this).attr("src", "resources/images/JY/heart2.png");
-			
-			var params= $("#goForm").serialize();
-			
-			$.ajax({
-				url : "postOnHeart",
-				type : "post",
-				dataType : "json",
-				data : params,
-				success: function(res) { // 성공 시 다음 함수 실행
-					reloadLikeCnt();
-				},
-				error: function(request, status, error) { // 실패 시 다음 함수 실행
-					console.log(error);
-				}
-			});
-			
-
-
-		} else {
-			
-			$(this).attr("src", "resources/images/JY/heart.png");
-			
-			var params= $("#goForm").serialize();
-			
-			$.ajax({
-				url : "postOffHeart",
-				type : "post",
-				dataType : "json",
-				data : params,
-				success: function(res) { // 성공 시 다음 함수 실행
-
-					reloadLikeCnt();
-				},
-				error: function(request, status, error) { // 실패 시 다음 함수 실행
-					console.log(error);
-				}
-			});
-			
-		}
-		
-		} else {
-			alert("로그인 후 이용해주세요.")
-		}
-
-
-
-
-
-
-
-
-
-
-
 </script>
 </head>
 <body>
-	
-	
-	
-	<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="50px" height="50px">
-	
-	<!-- 글 작가와 본인이 동일할 때 -->	
+
+	<img src="resources/images/JY/left_arrow2.png" id="leftArrow"
+		alt="왼쪽 화살표" width="50px" height="50px">
+
+	<!-- 글 작가와 본인이 동일할 때 -->
 	<div class="header">
-		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
+		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴"
+			width="35px" height="40px"> <a href="main"><img
+			src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px"
+			height="40px"></a>
 		<c:choose>
 			<c:when test="${empty data.RD}">
-				<img src="resources/images/JY/heart.png" id="btnLike" class="heart" alt="투명하트" width="25px" height="25px">
-			</c:when>	
+				<img src="resources/images/JY/heart.png" id="btnLike" class="heart"
+					alt="투명하트" width="25px" height="25px">
+			</c:when>
 			<c:otherwise>
-				<img src="resources/images/JY/heart2.png" id="btnLike" class="heart" alt="빨간하트" width="25px" height="25px">
+				<img src="resources/images/JY/heart2.png" id="btnLike" class="heart"
+					alt="빨간하트" width="25px" height="25px">
 			</c:otherwise>
 		</c:choose>
 
 		<div class="like_cnt_wrap">
 			<%-- <div id="likeCnt" class="like_cnt">${data.LIKECNT}</div> --%>
 		</div>
-		<img src="resources/images/JY/comment2.png" id="btnComment" alt="댓글" width="20px" height="20px">
+		<img src="resources/images/JY/comment2.png" id="btnComment" alt="댓글"
+			width="20px" height="20px">
 		<div class="comment_cnt_wrap"></div>
-		<img src="resources/images/JY/share.png" id="btnShare" alt="공유" width="20px" height="20px">
-		<img src="resources/images/JY/dot1.png" id="btnDot1" alt="메뉴" width="25px" height="25px">
-		<img src="resources/images/JY/dot2.png" id="btnDot2" alt="메뉴" width="25px" height="25px">
-		<img src="resources/images/JY/edit.png" id="btnEdit" alt="수정" width="20px" height="20px">
-		<img src="resources/images/JY/delete.png" id="btnDelete" alt="삭제" width="25px" height="25px">
+		<img src="resources/images/JY/share.png" id="btnShare" alt="공유"
+			width="20px" height="20px"> <img
+			src="resources/images/JY/dot1.png" id="btnDot1" alt="메뉴" width="25px"
+			height="25px"> <img src="resources/images/JY/dot2.png"
+			id="btnDot2" alt="메뉴" width="25px" height="25px"> <img
+			src="resources/images/JY/edit.png" id="btnEdit" alt="수정" width="20px"
+			height="20px"> <img src="resources/images/JY/delete.png"
+			id="btnDelete" alt="삭제" width="25px" height="25px">
 	</div>
 	<div class="share_wrap">
 		<div class="share">아트 글을 공유해보세요.</div>
-		<input type="text" id="shareAddress" value="http://localhost:8090/art/detail"/>
-		<input type="button" id="btnShareAddress" value="Copy" onclick="javascript:CopyUrl()" />
+		<input type="text" id="shareAddress"
+			value="http://localhost:8090/art/detail" /> <input type="button"
+			id="btnShareAddress" value="Copy" onclick="javascript:CopyUrl()" />
 	</div>
-	
-	
-	<!-- 글 작가와 본인이 동일하지않을 때 -->	
+
+
+	<!-- 글 작가와 본인이 동일하지않을 때 -->
 	<div class="header2">
 		<img src="resources/images/JY/menu.png" id="btnMenu2" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo3" alt="로고" width="70px" height="40px"></a>
@@ -1268,7 +1303,7 @@ function CopyUrl2()
 		<c:choose>
 			<c:when test="${empty data.RD}">
 				<img src="resources/images/JY/heart.png" id="btnLike2" class="heart" alt="투명하트" width="25px" height="25px">
-			</c:when>	
+			</c:when>
 			<c:otherwise>
 				<img src="resources/images/JY/heart2.png" id="btnLike2" class="heart" alt="빨간하트" width="25px" height="25px">
 			</c:otherwise>
@@ -1283,46 +1318,53 @@ function CopyUrl2()
 	</div>
 	<div class="share_wrap2">
 		<div class="share2">아트 글을 공유해보세요.</div>
-		<input type="text" id="shareAddress2" value="http://localhost:8090/art/detail"/>
+		<input type="text" id="shareAddress2" value="http://localhost:8090/art/detail" />
 		<input type="button" id="btnShareAddress2" value="Copy" onclick="javascript:CopyUrl2()" />
 	</div>
-	
-	
-	
+
+
+
 	<div class="side_bar">
 		<c:choose>
-				<c:when test="${empty sUserProfileImg}">
-					<div class="profile">
-						<img class="profile_img" src="resources/images/JY/who.png" alt="프로필사진" width="300px" height="300px">
-				    </div>
-				</c:when>
-				<c:otherwise>
-					<div class="profile">
-						<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="프로필사진" width="300px" height="300px">
-				    </div>
-				</c:otherwise>
+			<c:when test="${empty sUserProfileImg}">
+				<div class="profile">
+					<img class="profile_img" src="resources/images/JY/who.png" alt="프로필사진" width="300px" height="300px">
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="profile">
+					<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="프로필사진" width="300px" height="300px">
+				</div>
+			</c:otherwise>
 		</c:choose>
 		<div class="profile_name">${sUserNickname}</div>
 		<a href="write"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
 			<span>--------------</span>
-			<div class="side_bar_menu1"><a href="mygallary">나의 작업실</a></div>
+			<div class="side_bar_menu1">
+				<a href="mygallary">나의 작업실</a>
+			</div>
 			<br />
-			<div class="side_bar_menu1"><a href="gallary">작품 보러가기</a></div>
+			<div class="side_bar_menu1">
+				<a href="gallary">작품 보러가기</a>
+			</div>
 			<br />
-			<div class="side_bar_menu3"><a href="profile">마이페이지</a></div>
+			<div class="side_bar_menu3">
+				<a href="profile">마이페이지</a>
+			</div>
 			<br />
-			<div class="side_bar_menu4"><a href="gongji">공지사항</a></div>
+			<div class="side_bar_menu4">
+				<a href="gongji">공지사항</a>
+			</div>
 		</div>
 		<input type="button" id="btnLogout" value="로그아웃">
 	</div>
-	
-	
-	
-	
+
+
+
+
 	<div class="side_bar2">
-		<img id="sideBarLogo" src="resources/images/JY//art2.png" alt="로고" width="80px"
-			height="50px">
+		<img id="sideBarLogo" src="resources/images/JY//art2.png" alt="로고" width="80px" height="50px">
 		<div class="side_bar_phrase">You can be an art writer.</div>
 		<input type="button" id="btnStart" value="Art 시작하기">
 		<div class="side_bar_menux">
@@ -1338,80 +1380,97 @@ function CopyUrl2()
 			<a href="idfind">계정을 잊어버리셨나요?</a>
 		</div>
 	</div>
-	
+
 	<div class="wrap">
-	
-		<c:choose>		
+
+		<c:choose>
 			<c:when test="${data.CATEGORY_NO eq '3'}">
-				<div class="contents_wrap">
-					${data.VIDEO_LINK}
-				</div>
+				<div class="contents_wrap">${data.VIDEO_LINK}</div>
 			</c:when>
 
 			<c:otherwise>
 				<div class="contents_wrap">
 					<img class="contents_img" src="resources/upload/${data.POST_FILE}">
 				</div>
-			</c:otherwise>	
+			</c:otherwise>
 		</c:choose>
 
 		<div class="category">${data.CATEGORY_NAME}</div>
 		<div class="title">${data.TITLE}</div>
 		<div class="contents_date">${data.REGISTER_DATE}</div>
-		<div class="views"> 조회수 ${data.VIEWS}</div>
-		<br />
-		<br />
+		<div class="views">조회수 ${data.VIEWS}</div>
+		<br /> <br />
 		<div class="contents">${data.EXPLAIN}</div>
 		<c:if test="${!empty array}">
-		<c:forEach var="i" items="${array}">
-			<i class="tag"># ${i}</i>
-		</c:forEach>
+			<c:forEach var="i" items="${array}">
+				<i class="tag"># ${i}</i>
+			</c:forEach>
 		</c:if>
 
-			<div class="comment_wrap1">
-				<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
-				<div class="comment">댓글</div>
-			</div>
+		<div class="comment_wrap1">
+			<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
+			<div class="comment">댓글</div>
+		</div>
 		<br />
-		
+
 		<div class="comment_wrap2">
-		<form action="#" id="goForm" method="post">
-			<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
-			<input type="hidden" id="postNo" name="postNo" value="${data.POST_NO}" />
-			<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"/>
-			<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>
-			<input type="hidden" id="userNo2" name="userNo2" value="${data.USER_NO}"/>
-			<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>
-			<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}"/>
-			<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}"/>
-			<input type="hidden" id="tab" name="tab" value="${param.tab}"/>
-			<input type="hidden" name="page" id="page" value="${param.page}" />
-			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
-			<input type="hidden" id="tabFlag" name="tabFlag" value="${param.tabFlag}"/>
-			<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
-			<input type="hidden" name="visibility" value="${param.visibility}" />
-			<input type="hidden" name="commentNo" id="commentNo" value="" />
-			<input type="hidden" name="ReplyCommentNo" id="ReplyCommentNo" value="" />
-			<input type="hidden" id="listPage" name="listPage" value="${param.listPage}" />
-			<div class="comment_title">댓글 <span class="comment_cnt2"></span></div>
-			<div class="comment_write_w"><input id="commentWrite" name="commentWrite" type="text" placeholder="댓글을 남겨보세요."></div>
-			<div class="btn_comment_upload_w"><input type="button" id="btnCommentUpload" value="댓글 작성"></div>
-		</form>
+			<form action="#" id="goForm" method="post">
+				<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
+				<input type="hidden" id="postNo" name="postNo" value="${data.POST_NO}" />
+				<input type="hidden" id="userNo" name="userNo" value="${sUserNo}" />
+				<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}" />
+				<input type="hidden" id="userNo2" name="userNo2" value="${data.USER_NO}" />
+				<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}" />
+				<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}" />
+				<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}" />
+				<input type="hidden" id="tab" name="tab" value="${param.tab}" />
+				<input type="hidden" name="page" id="page" value="${param.page}" />
+				<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+				<input type="hidden" id="tabFlag" name="tabFlag" value="${param.tabFlag}" /> 
+				<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
+				<input type="hidden" name="visibility" value="${param.visibility}" />
+				<input type="hidden" name="commentNo" id="commentNo" value="" />
+				<input type="hidden" name="ReplyCommentNo" id="ReplyCommentNo" value="" />
+				<input type="hidden" id="listPage" name="listPage" value="${param.listPage}" />
+				<input type="hidden" id="commentGbn" name="commentGbn" value="0" />
+				<div class="comment_title">
+					댓글 <span class="comment_cnt2"></span>
+				</div>
+				<div class="comment_write_w">
+					<input id="commentWrite" name="commentWrite" type="text" placeholder="댓글을 남겨보세요.">
+				</div>
+				<div class="btn_comment_upload_w">
+					<input type="button" id="btnCommentUpload" value="댓글 작성">
+				</div>
+				<div class="select_cnt_div">
+					<div class="select_cnt_box">	
+						<div class="select_flag_div">
+							<ul class="select_flag">
+								<li class="recent_order" id="active">최신순</li>
+								<li class="past_order">과거순</li>
+								<li class="comment_cnt_order">답글순</li>
+							</ul>
+						</div>
+					</div>
+				</div>	
+	
+	
+			</form>
 			<hr>
 			<div id="commentFormWrap"></div>
-	 		
-				
-			
+
+
+
 
 			<div class="pagination"></div>
 		</div>
 		<div class="profile2_wrap">
-		
+
 			<c:choose>
 				<c:when test="${empty data.PROFILE_IMG_PATH}">
 					<div class="profile2">
 						<img class="profile_img2" src="resources/images/JY/who.png" alt="프로필사진" width="40px" height="40px">
-				    </div>
+					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="profile2">
@@ -1419,14 +1478,14 @@ function CopyUrl2()
 					</div>
 				</c:otherwise>
 			</c:choose>
-			
-			
+
+
 			<div class="profile_name2">${data.USER_NICKNAME}</div>
 			<div class="profile_introduce">${data.INTRODUCE}</div>
 		</div>
 	</div>
 
 	<c:import url="footer.jsp"></c:import>
-	
+
 </body>
 </html>
