@@ -81,5 +81,7 @@ public interface IManagerDao {
 
 	public List<HashMap<String, String>> getMailUser(HashMap<String, String> params)throws Throwable;
 
+	public int updateReport(HashMap<String, String> params)throws Throwable;
+
 	
 }

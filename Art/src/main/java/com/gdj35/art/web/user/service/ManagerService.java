@@ -222,6 +222,14 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.getMailUser(params);
 	}
 
+	@Override
+	public int updateReport(HashMap<String, String> params) throws Throwable {
+		return iManagerDao.updateReport(params);
+	}
+
+
+	
+
 
 
 

@@ -1184,6 +1184,40 @@ public class ManagerController {
 
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	//셀렉트 수정하고 나서
+	@RequestMapping(value="/changeSelect",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String changeSelectAjax(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		
+		System.out.println("이거받아야함"+ params);
+		
+		try {
+			int cnt = iManagerService.updateReport(params);
+			HashMap<String, String> data = iManagerService.getReportDetail(params);
+			if(cnt > 0) {
+				
+				modelMap.put("data", data);
+				modelMap.put("msg", "success");
+		} else {
+			modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}	
+		
+		return mapper.writeValueAsString(modelMap);
+	
+	}
 
 	
 	

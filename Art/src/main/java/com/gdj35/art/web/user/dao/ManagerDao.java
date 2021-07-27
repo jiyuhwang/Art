@@ -292,6 +292,11 @@ public class ManagerDao implements IManagerDao {
 		return finalList;
 	}
 
+	@Override
+	public int updateReport(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.updateReport",params);
+	}
+
 
 	
 }

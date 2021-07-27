@@ -315,6 +315,7 @@ $(document).ready(function(){
 			html +="	<form id=\"detailForm\">";
 			html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
 			html +="	<input type=\"hidden\" id=\"oldStatus\" name=\"oldStatus\" value=\""+ result.data.REPORT_STATUS +"\"/>";
+			html +="	<input type=\"hidden\" id=\"newStatus\" name=\"newStatus\"/>";
 			html +="	</form>";
 			html +="		<div class=\"top_info\">";
 			html +="			<div class=\"info1\">";
@@ -440,9 +441,15 @@ $(document).ready(function(){
 
 				//-----------------------------------------------------------셀렉트박스가 철회로 바뀔 때
 				$("#status").on("change", function(){
-
+					console.log("올드 셀렉트 값: " + $("#oldStatus").val());
+					console.log("뉴 셀렉트 값: " + $("#newStatus").val());
+					$("#newStatus").val($("#status option:selected").val());
+					
+					
+					console.log("바뀐 뉴 셀렉트 값: " + $("#newStatus").val());
 					//철회로 바꾸면
 					if($("#status option:selected").val() == 1){
+						
 						
 					var html = "";
 					
@@ -509,10 +516,7 @@ $(document).ready(function(){
 					$("#BtnSave").on("click", function(){
 						
 						
-						if($.trim($("#admin").val()) == ""){
-							alert("관리자를 입력해주세요");
-							$("#admin").focus();
-						} else if($("#occur").val() == ""){
+						if($("#occur").val() == ""){
 							alert("발생일을 입력하세요");
 							$("#occur").focus();
 						} else if($.trim($("#contents").val()) == ""){

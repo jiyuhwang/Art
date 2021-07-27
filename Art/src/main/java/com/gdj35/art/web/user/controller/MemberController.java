@@ -584,14 +584,6 @@ public class MemberController {
 		return mav;
 	}
 
-	// 나의 신고 페이지
-	@RequestMapping(value = "/myreport")
-	public ModelAndView myreport(ModelAndView mav) {
-		mav.setViewName("JY/myreport");
-
-		return mav;
-	}
-
 	// 나의 작품 신고 내역 Ajax
 	@RequestMapping(value = "/myReportPostList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
