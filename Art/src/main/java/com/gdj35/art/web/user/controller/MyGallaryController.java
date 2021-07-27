@@ -821,6 +821,37 @@ public class MyGallaryController {
 	
 	}
 	
+	// 답글리스트 Ajax
+	@RequestMapping(value = "/replyCommentList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String replyCommentListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		/* int page = Integer.parseInt(params.get("page")); */
+		
+		/*
+		 * int cnt = iMyGallaryService.getCommentCnt(params);
+		 * 
+		 * PagingBean pb = iPagingService.getPagingBean(page, cnt, 10, 5);
+		 * 
+		 * params.put("startCnt", Integer.toString(pb.getStartCount()));
+		 * params.put("endCnt", Integer.toString(pb.getEndCount()));
+		 */
+				
+		List<HashMap<String, String>> list = iMyGallaryService.replyCommentList(params);
+		
+		modelMap.put("list", list);		
+		/* modelMap.put("pb", pb); */
+		
+		return mapper.writeValueAsString(modelMap);
+	
+	}
+	
 	// 답글 쓰기 Ajax
 	@RequestMapping(value = "/replyCommentWrite",
 					method = RequestMethod.POST,

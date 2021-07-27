@@ -107,6 +107,8 @@ public interface IMyGallaryService {
 
 	public int addCReport(HashMap<String, String> params) throws Throwable;
 
+	public List<HashMap<String, String>> replyCommentList(HashMap<String, String> params) throws Throwable;
+
 
 
 

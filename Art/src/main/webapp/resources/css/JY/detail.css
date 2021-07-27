@@ -458,9 +458,8 @@ body {
 	display: inline-block;
 	position: absolute;
 	cursor: pointer;
-	right: 30px;
+	right: 5px;
 	float: right;
-	/* margin-bottom: 50px; */
 }
 
 .comment {
@@ -638,6 +637,7 @@ body {
 	position: relative;
 	margin-top: 20px;
 	font-size: 12pt;
+/* 	display: none; */
 }
 
 .reply_comment_write_w{
@@ -650,7 +650,7 @@ body {
 	display: none;
 }
 
-#commentWrite, #replyCommentWrite {
+#commentWrite, .replyCommentWrite {
 	width: 100%;
 	height: 100%;
 }
@@ -675,8 +675,12 @@ body {
     padding: 5px;
 	margin-top: 10px;
 	position: absolute;
-	right: 0;
+	right: 0px;
 	margin-bottom: 30px;
+}
+
+#replyBtnCommentUpload {
+	right: 10px;
 }
 
 .profile3, .reply_profile3 {
@@ -737,6 +741,8 @@ body {
 	height: 15px;
 	font-size: 8pt;
 	margin-left: 20px;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .btn_reply_upload_btn_comment_delete_w, .reply_btn_reply_upload_comment_delete_w {
@@ -744,7 +750,7 @@ body {
 	height: 30px;
 }
 
-#btnReplyUpload, #replyBtnReplyUpload {
+.btnReplyUpload, #replyBtnReplyUpload {
 	font-size: 10pt;
 	color: white;
 	background-color: #ffad33;
@@ -791,4 +797,61 @@ body {
 .pagination a:hover:not(.on) {
 	background-color: #ddd;
 	border-radius: 5px;
+}
+
+.select_cnt_div {
+	text-align: center;
+}
+
+.select_flag_div * {
+	text-align: center;
+}
+
+
+.select_cnt_box {
+	height: 60px;
+	width: 1330px;
+    margin: 0 auto;
+}
+
+.select_cnt {
+	font-size: 17px;
+	color: #909090;
+	float: left;
+	margin-top: 26px;
+	margin-left: 14px;
+}
+
+.select_flag_div {
+	height: 20px;
+	float: left;
+	display: inline-block;
+	margin-top: 26px;
+}
+
+.select_flag_div ul {
+	padding: 0;
+}
+
+.select_flag_div ul li {
+	float: left;
+	list-style-type: none;
+	transition: 0.5s;
+    font-size: 17px;
+    color: #909090;
+    cursor: pointer;
+    height: 20px;
+    margin-left: 20px;
+}
+
+#active:hover::before, #active:active::before, #active::before {
+	float: left;
+	color: #EF6C33;
+	list-style-type: disc;
+	content:"\2022";
+	font-weight: bold;
+	font-size: 17px;
+	height: 20px;
+	width: 1em;
+	margin-left: -1em;
 }

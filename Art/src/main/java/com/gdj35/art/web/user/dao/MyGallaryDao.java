@@ -413,4 +413,9 @@ public class MyGallaryDao implements IMyGallaryDao{
 		return 1;
 	}
 
+	@Override
+	public List<HashMap<String, String>> replyCommentList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Post.replyCommentList", params);
+	}
+
 }
