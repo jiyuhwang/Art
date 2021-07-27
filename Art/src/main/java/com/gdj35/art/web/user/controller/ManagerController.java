@@ -1043,6 +1043,8 @@ public class ManagerController {
 			
 			//메모 목록 취득
 			List<HashMap<String, String>> list = iManagerService.getReportMemo(params);
+			System.out.println("---------------이거받아야함신고내용보기"+ params);
+			
 			
 			modelMap.put("list", list);
 			modelMap.put("data", data);
@@ -1069,7 +1071,7 @@ public class ManagerController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		System.out.println(params);
+		System.out.println("이건 신고ㅁ메모....!!" +params);
 		try {
 			//데이터취득
 			HashMap<String, String> memo = iManagerService.getMemoDetail(params);
@@ -1106,6 +1108,8 @@ public class ManagerController {
 		try {
 			int cnt = iManagerService.updateReportMemo(params);
 			List<HashMap<String, String>> list = iManagerService.getReportMemo(params);
+			System.out.println("---------------이거받아야함수정하고나서"+ params);
+			
 			if(cnt > 0) {
 				
 				modelMap.put("list", list);
@@ -1168,8 +1172,13 @@ public class ManagerController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
+		System.out.println("이거받아야함 아예 add메모로 안온다????????????"+ params);
+		
 		try {
 			int cnt = iManagerService.addMemo(params);
+			
+			System.out.println("이거받아야함2"+ cnt);
+			System.out.println("이거받아야함3"+ params);
 			
 			if(cnt > 0) {
 				modelMap.put("msg", "success");
@@ -1196,12 +1205,10 @@ public class ManagerController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		
-		System.out.println("이거받아야함"+ params);
-		
 		try {
 			int cnt = iManagerService.updateReport(params);
 			HashMap<String, String> data = iManagerService.getReportDetail(params);
+			
 			if(cnt > 0) {
 				
 				modelMap.put("data", data);
