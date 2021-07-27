@@ -132,7 +132,7 @@ ul { list-style: none;}
 .top_flag{
 	display: block;
 	position: absolute;
-	height: 50px;
+	height: 88px;
 	width: 800px;
 	text-align: left;
 	top: 296px;
@@ -216,10 +216,10 @@ ul { list-style: none;}
 .top_content {
 	display: block;
 	position: absolute;
-	height: 140px;
+	height: 100px;
 	width: 800px;
 	text-align: left;
-	top: 349px;
+	top: 388px;
 }
 
 .content1 {
@@ -231,7 +231,7 @@ ul { list-style: none;}
 	height: 100%;
 	background-color: white;
 	margin-left: 3px;
-	line-height: 138px;
+	line-height: 94px;
 }
 
 .content2 {

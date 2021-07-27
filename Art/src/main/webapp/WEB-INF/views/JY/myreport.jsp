@@ -253,7 +253,7 @@ function drawReportPostList(list){
 	
 	
 	for(var d of list){
-		html +="<tr name=\"" + d.REPORT_NO + "\" pno=\""  + d.POST_NO + "\" del=\"" + d.DEL + "\">";
+		html +="<tr name=\"" + d.REPORT_NO + "\" pno=\"" + d.POST_NO + "\" del=\"" + d.DEL + "\">";
 		html +="<td>" + d.TYPE_NAME + "</td>";
 		html +="<td>" + d.USER_NICKNAME + "</td>";
 		if(d.CONTENTS != null) {

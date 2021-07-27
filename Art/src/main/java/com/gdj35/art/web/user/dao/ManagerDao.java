@@ -253,16 +253,6 @@ public class ManagerDao implements IManagerDao {
 	}
 
 	@Override
-	public int onStar(HashMap<String, String> params) throws Throwable {
-		return sqlSession.update("Manager.onStar",params);
-	}
-
-	@Override
-	public int offStar(HashMap<String, String> params) throws Throwable {
-		return sqlSession.update("Manager.offStar",params);
-	}
-
-	@Override
 	public int addGong(HashMap<String, String> params) throws Throwable {
 		System.out.println("이거 다오에 파람즈"+params);
 		return sqlSession.insert("Manager.addGong",params);
@@ -301,6 +291,12 @@ public class ManagerDao implements IManagerDao {
 		System.out.println("이거는 finalList야"+finalList);
 		return finalList;
 	}
+
+	@Override
+	public int updateReport(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Manager.updateReport",params);
+	}
+
 
 	
 }

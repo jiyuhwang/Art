@@ -41,6 +41,10 @@ table th {
 
 table td{
 	padding : 5px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 100px;
+	overflow: hidden;
 }
 
 .ctts{
