@@ -314,6 +314,7 @@ $(document).ready(function(){
 			html +="	<span class=\"report_no\">신고번호 "+ result.data.REPORT_NO +"</span>";
 			html +="	<form id=\"detailForm\">";
 			html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
+			html +="	<input type=\"hidden\" id=\"oldStatus\" name=\"oldStatus\" value=\""+ result.data.REPORT_STATUS +"\"/>";
 			html +="	</form>";
 			html +="		<div class=\"top_info\">";
 			html +="			<div class=\"info1\">";
@@ -349,30 +350,57 @@ $(document).ready(function(){
 			
 			html +="</div></div>";
 			html +="			</div>";
-			html +="			<div class=\"top_writer\">";
-			html +="				<div class=\"writer1\">작가 닉네임</div>";
-			html +="				<div class=\"writer2\">"+ result.data.WRITER_NICK +"</div>";
-			html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
-			html +="				<div class=\"writer4\">"+ result.data.WRITER_NAME + "(" + result.data.WRITER_ID +")</div>";
-			html +="			</div>";
-			html +="			<div class=\"top_post\">";
-			html +="				<div class=\"post1\">신고된 작품 제목</div>";
-			html +="				<div class=\"post2\">"+ result.data.TITLE +"</div>";
-			html +="			</div>";
-			html +="			<div class=\"top_flag\">";
-			html +="				<div class=\"flag1\">신고사유</div>";
-			html +="				<div class=\"flag2\">"+ result.data.TYPE_NAME +"</div>";
-			html +="			</div>";
+
+			if(result.data.WRITER_NAME == '' || result.data.WRITER_NAME == null){				
+				html +="			<div class=\"top_writer\">";
+				html +="				<div class=\"writer1\">작가 닉네임</div>";
+				html +="				<div class=\"writer2\"> </div>";
+				html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
+				html +="				<div class=\"writer4\"> ( )</div>";
+				html +="			</div>";
+				html +="			<div class=\"top_post\">";
+				html +="				<div class=\"post1\">신고된 댓글 내용</div>";
+				html +="				<div class=\"post2\">"+ result.data.C_CONTENT +"</div>";
+				html +="			</div>";
+				html +="			<div class=\"top_flag\">";
+				html +="				<div class=\"flag1\">신고사유</div>";
+				html +="				<div class=\"flag2\">"+ result.data.FLAGS +"</div>";
+				html +="			</div>";
+								
+			} else {
+				html +="			<div class=\"top_writer\">";
+				html +="				<div class=\"writer1\">작가 닉네임</div>";
+				html +="				<div class=\"writer2\">"+ result.data.WRITER_NICK +"</div>";
+				html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
+				html +="				<div class=\"writer4\">"+ result.data.WRITER_NAME + "(" + result.data.WRITER_ID +")</div>";
+				html +="			</div>";
+				html +="			<div class=\"top_post\">";
+				html +="				<div class=\"post1\">신고된 작품 제목</div>";
+				html +="				<div class=\"post2\">"+ result.data.TITLE +"</div>";
+				html +="			</div>";
+				html +="			<div class=\"top_flag\">";
+				html +="				<div class=\"flag1\">신고사유</div>";
+				html +="				<div class=\"flag2\">"+ result.data.FLAGS +"</div>";
+				html +="			</div>";
+			}
+
+			
 			html +="			<div class=\"top_content\">";
 			html +="				<div class=\"content1\">내용</div>";
-			html +="				<div class=\"content2\">"+ result.data.CONTENTS +"</div>";
+			
+			if(result.data.CONTENTS == '' || result.data.CONTENTS == null){
+				html +="<div class=\"content2\">내용없음</div>";
+			} else {
+				html +="<div class=\"content2\">" + result.data.CONTENTS + "</div>";									
+			}
+			
 			html +="			</div>";
 			html +="		</div>";
 			html +="		<div class=\"btm_ctts\">";
 			html +="			<div class=\"btm_reporter\">";
 			html +="				<div class=\"reporter1\">신고자</div>";
-			html +="				<div class=\"reporter2\">닉네임: "+ result.data.R_NICK +"&nbsp;&nbsp;";	
-			html +="이름(아이디): " + result.data.R_NAME + "(" + result.data.R_ID +")</div>";
+			html +="				<div class=\"reporter2\">닉네임: "+ result.data.USER_NICKNAME +"&nbsp;&nbsp;";	
+			html +="이름(아이디): " + result.data.NAME + "(" + result.data.USER_ID +")</div>";
 			html +="			</div>";
 			html +="			<div class=\"btm_memo\"><table class=\"memo_table\" name=\""+ result.data.REPORT_NO +"\"></table></div>";
 			html +="			<div class=\"btn_close\">닫기</div>";
@@ -411,29 +439,29 @@ $(document).ready(function(){
 				});
 
 				//-----------------------------------------------------------셀렉트박스가 철회로 바뀔 때
+				$("#status").on("change", function(){
+
+					//철회로 바꾸면
 					if($("#status option:selected").val() == 1){
 						
-					
-
 					var html = "";
 					
 					html += "<div class=\"background8\"></div>";
 					html += "<div class=\"ctts8\">";
 					html += "		<form id=\"memoForm\">";
 					html += "	<div class=\"top_div\">";
-					html += "<img class=\"star_img\" id=\"starIconBlack\" alt=\"별\" src=\"resources/images/empty_star_icon.png\">";
 					html += "		<div class=\"memo_title\">메모</div>";			
 					html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
 					html += "	</div>";
 					html += "	<div class=\"memo_ctts_div\">";
 					html +="	<input type=\"hidden\" name=\"marking\" id=\"marking\" value=\"1\"/>";
 					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
-					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\"/>";
-					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + result.data.R_NO + "\" />";
+					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\" value=\""+ result.data.REPORT_NO +"\"/>";
+					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + result.data.USER_NO + "\" />";
 					html += "			<table>";
 					html += "				<tr>";
 					html += "					<td>작성자</td>";
-					html += "					<td><input type=\"text\" size=\"38\"id=\"a\" /></td>  ";
+					html += "					<td>"+ result.data.ADMIN_NAME +"</td>  ";
 					html += "				</tr>";		
 					html += "				<tr>";
 					html += "					<td>발생일</td>";
@@ -480,24 +508,6 @@ $(document).ready(function(){
 					$("#BtnSave").off("click");
 					$("#BtnSave").on("click", function(){
 						
-						var txt = $("#a").val();
-						var text = $.trim(txt);
-						
-						if($("#a").val() == "황지유"){
-							$("#admin").val(5);
-						} else if(txt == "정희두"){
-							$("#a").val(2);
-						} else if(txt == "홍길동"){
-							$("#admin").val(1);
-						} else if(txt == "이영민"){
-							$("#admin").val(4);
-						} else if(txt == "김현"){
-							$("#admin").val(3);
-						} else {
-							alert("존재하지 않는 관리자 입니다.")
-							$("#a").focus();
-						}
-						
 						
 						if($.trim($("#admin").val()) == ""){
 							alert("관리자를 입력해주세요");
@@ -541,8 +551,32 @@ $(document).ready(function(){
 						}
 					});//저장버튼누르면
 
-				};//셀렉트 바꾸면
+				} else {//셀렉트 바꾸면
+					
+					var params = $("#detailForm").serialize();
+					
+					$.ajax({
+						type : "post",
+						url : "changeSelect",
+						dataType : "json",
+						data : params,
+						success : function(result) {
+							
+							if(result.msg == "success"){
+								fastClosePopup();
+								drawPopup();
+							} else if(result.msg == "failed"){
+								alert("저장에 실패했습니다.");
+							} else {
+								console.log(result);
+								alert("저장 중 문제가 발생했습니다.");
+							}		
+					
+				}
+					});//ajax end
+				}//셀렉트 바꾸면 else 
 				
+				});// 셀렉트 change 함수 end
 				
 				
 			}, error: function(request, status, error){

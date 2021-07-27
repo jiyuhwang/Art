@@ -114,7 +114,7 @@ $(document).ready(function(){
 	
 	//사이드바, 탭 고정시키기
 	$(".gallary").attr("id", "active");
-	//$(".menu_tab_wrap div:first-child").attr("class", "tab_selected");
+	$(".menu_tab_wrap div:first-child").attr("class", "tab_selected");
 	
 	//menuTab클릭했을 때 
 	$(".menu_tab_wrap").on("click", "div", function(){
