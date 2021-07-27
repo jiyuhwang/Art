@@ -51,6 +51,7 @@ public class ManagerController {
 		
 		 	String subject = params.get("title"); //보낼 제목을 넣을 수 있습니다.
 	        String content = params.get("ctt"); // 내용 입력이 가능합니다.
+	        String fileName = params.get("file");
 	        
 	        
 	        String from = "artproject21@naver.com"; // 보낼 메일을 작성할 수 있습니다.
@@ -72,8 +73,8 @@ public class ManagerController {
 			mailHelper.setText(content, true);
 			
 			// 파일을 첨부하는 것
-			FileSystemResource file = new FileSystemResource(new File("C:\\메일테스트.txt"));
-			mailHelper.addAttachment("메일테스트.txt", file);
+			FileSystemResource file = new FileSystemResource(new File("C:\\MyWork\\workSpace_JHD\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Art\\resources\\upload\\" + params.get("file")));
+			mailHelper.addAttachment("\"" + params.get("file") + "\"" , file);
 			
 			mailSender.send(mail);
 			
@@ -159,6 +160,13 @@ public class ManagerController {
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
 		
+		
+		
+		if(params.get("sortO") != null &&  params.get("sortO") != "") {
+			
+		}else {
+			params.put("sortO","1");
+		}
 		System.out.println("넘어 오는지 보자" + params);
 		
 		try {
@@ -462,6 +470,9 @@ public class ManagerController {
 	@RequestMapping(value="/gong_detail")
 	public ModelAndView gong_detail(ModelAndView mav,
 			@RequestParam HashMap<String,String> params) throws Throwable {
+		
+		
+		
 		System.out.println("공지사항 페이지"+params);
 		
 		

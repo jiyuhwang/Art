@@ -75,6 +75,10 @@ $(document).ready( function () {
 				
 				$(".PmainM #attMail").on("change", function () {
 					$("#fileNameForMail").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+					$("#fileFormM").val($("#fileNameForMail").val());
+					var d = $("#fileNameForMail").val()
+					$("#fileNameForMail").val(d.substr(20))
+					
 					
 				});
 				
@@ -82,7 +86,6 @@ $(document).ready( function () {
 					
 					$("#titleForm").val($("#title").val());
 					$("#contentsForm").val($("#contents").val());
-					$("#fileFormM").val($("#fileNameForMail").val());
 					
 					var list = new Array();
 					$(".PmainM [class=mail]").each(function(index,item) {
@@ -1329,7 +1332,15 @@ function drawEamilList(list) {
 					<td>${data.NAME}</td>
 					<td>${data.USER_ID}</td>
 					<td>${data.USER_NICKNAME}</td>
-					<td>${data.SEX}</td>
+					<c:choose>
+						<c:when test="${data.SEX eq 0}">
+						<td>남</td>
+						</c:when>
+						<c:when test="${data.SEX eq 1}">
+						<td>여</td>
+						</c:when>
+					</c:choose>
+
 					<td>${data.BIRTHDAY}(만${data.OLD}세)</td>
 					<td>${data.PHONE_NO}</td>
 					<td>${data.MAIL}</td>

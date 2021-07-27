@@ -15,6 +15,32 @@ var loadFlag = true;
 $(document).ready(function() {
 	$("#recentPost").attr("class","selected");
 	
+	//------------------------------------------- 사이드바 
+		$('#btnMenu, #btnMenu2').click(function() {
+			if($("#userNo").val() != "") {
+				if ($('.side_bar').css('display') == 'none') {
+					$('.side_bar').slideDown();
+				} else {
+					$('.side_bar').slideUp();
+				}
+			} else {
+				if ($('.side_bar2').css('display') == 'none') {
+					$('.side_bar2').slideDown();
+				} else {
+					$('.side_bar2').slideUp();
+				}
+			}
+		})
+	
+	$(document).mouseup(function (e){
+
+		var container = $(".side_bar, .side_bar2");
+	
+		if( container.has(e.target).length === 0)
+	
+		container.slideUp();
+
+	});
 	
 	
 //---------------------------------------------------------- 무한 스크롤 페이지	
@@ -71,36 +97,37 @@ $(document).ready(function() {
 	});
 	
 	$('#btnLook').click(function() {
-		if ($('#srhW').css('display') == 'none') {
-			$('#srhW').show();
-		} else {
-			$('#srhW').hide();
-		}
+		location.href="searchGallaryPage";
 	});
 	//--------------------------------------- 오래된 클릭
 	$("#oldPost").on("click", function () {
 		$("#oldPost").attr("class","selected");
 		$("#recentPost").attr("class","recentPost");
-		$("#sortO").val(0);
-		$("#page").val(1);
+		$("#sortO").val("0");
+		$("#page").val("1");
 		$("div .main_ctt2").remove();
 		loadList();
 	});
+	
 	
 	//---------------------------------------- 최신 클릭
 	$("#recentPost").on("click", function () {
 		$("#recentPost").attr("class","selected");
 		$("#oldPost").attr("class","recentPost");
-		$("#sortO").val(1);
-		$("#page").val(1);
+		$("#sortO").val("1");
+		$("#page").val("1");
 		$("div .main_ctt2").remove();
 		loadList();
 	});
 	
+	
 	//---------------------------------------- 더블 클릭시 해당 상세페이지로 이동 시키기
 	
-	$(".main .main_ctt2_cover").on("dblclick", function () {
+	$("body").on("dblclick",".main_ctt2_cover", function () {
 		$("#noticeNo").val($(this).attr("name"));
+		$("#actionFrom").attr("action","gong_detail");
+		$("#actionFrom").submit();
+		console.log("실행 여부 확인");
 	});
 	
 });
@@ -153,7 +180,8 @@ $(document).ready(function() {
 				html+= "				<img src=\"resources/images/JY/art2.png\" alt=\"content\">";
 			}else{
 				console.log("여기 실행은 되니? 엘스 창이야");
-				html+= "				<img src=\"resources/upload/" + d.FILE_PATH + "\" alt=\"content\">";
+				html+= "				<img src=\"resources/images/JY/art2.png\" alt=\"content\">";
+				/* html+= "				<img src=\"resources/upload/" + d.FILE_PATH + "\" alt=\"content\">"; */
 			}
 			
 			html+= "			</div>";
@@ -192,27 +220,53 @@ $(document).ready(function() {
 		<img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px">
 	</div>
 	<div class="side_bar">
-		<div class="pfe">
-			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
-				height="300px">
-		</div>
-		<div id="pfeName">짱구</div>
-		<a href="writing.html"><input type="button" id="btnUod"
-			value="작품등록"></a>
+		<c:choose>
+				<c:when test="${empty sUserProfileImg}">
+					<div class="profile">
+						<img class="profile_img" src="resources/images/JY/who.png" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:when>
+				<c:otherwise>
+					<div class="profile">
+						<img class="profile_img" src="resources/upload/${sUserProfileImg}" alt="프로필사진" width="300px" height="300px">
+				    </div>
+				</c:otherwise>
+		</c:choose>
+		<div class="profile_name">${sUserNickname}</div>
+		<a href="write"><input type="button" id="btnUpload" value="작품등록"></a>
 		<div class="side_bar_menu">
-			<div id="sideBarMenu1">
-				<a href="mygallary.html">나의 작업실</a>
+			<span>--------------</span>
+			<div class="side_bar_menu1"><a href="mygallary">나의 작업실</a></div>
+			<br />
+			<div class="side_bar_menu1"><a href="gallary">작품 보러가기</a></div>
+			<br />
+			<div class="side_bar_menu3"><a href="profile">마이페이지</a></div>
+			<br />
+			<div class="side_bar_menu4"><a href="gongji">공지사항</a></div>
+		</div>
+		<input type="button" id="btnLogout" value="로그아웃">
+	</div>
+	
+	
+	
+	
+	<div class="side_bar2">
+		<img id="sideBarLogo" src="resources/images/JY//art2.png" alt="로고" width="80px"
+			height="50px">
+		<div class="side_bar_phrase">You can be an art writer.</div>
+		<input type="button" id="btnStart" value="Art 시작하기">
+		<div class="side_bar_menux">
+			<div class="side_bar_menu1x">
+				<a href="main">Art 홈</a>
 			</div>
 			<br />
-			<div id="sideBarMenu2">
-				<a href="gallary.html">작품 보러가기</a>
-			</div>
-			<br />
-			<div id="sideBarMenu3">
-				<a href="#">개인정보 수정</a>
+			<div class="side_bar_menu2x">
+				<a href="gallary">작품 보러가기</a>
 			</div>
 		</div>
-		<input type="button" id="btnLot" value="로그아웃">
+		<div class="forget">
+			<a href="idfind">계정을 잊어버리셨나요?</a>
+		</div>
 	</div>
 	<!-----------------------------------------------------------------header 검색하는 부분  -->
 	<div class="ctts">
