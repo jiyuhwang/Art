@@ -704,7 +704,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-		public String entireList(
+		public String entireListAjax(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
@@ -751,7 +751,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String drawUserPopup(
+	public String drawUserPopupAjax(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		
@@ -790,7 +790,7 @@ public class ManagerController {
 			produces = "text/json;charset=UTF-8")
 
 	@ResponseBody
-	public String drawEdits(
+	public String drawEditsAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -817,7 +817,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteGallary(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String deleteGallaryAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -854,7 +854,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String returnDel(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String returnDelAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -903,7 +903,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-		public String reportList(
+		public String reportListAjax(
 		@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
@@ -956,7 +956,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteReport(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String deleteReportAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -993,7 +993,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String returnDelr(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String returnDelrAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -1031,7 +1031,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String drawReportPopup(
+	public String drawReportPopupAjax(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		
@@ -1054,6 +1054,8 @@ public class ManagerController {
 			
 			//메모 목록 취득
 			List<HashMap<String, String>> list = iManagerService.getReportMemo(params);
+			System.out.println("---------------이거받아야함신고내용보기"+ params);
+			
 			
 			modelMap.put("list", list);
 			modelMap.put("data", data);
@@ -1073,14 +1075,14 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String reportMemo(
+	public String reportMemoAjax(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
-		System.out.println(params);
+		System.out.println("이건 신고ㅁ메모....!!" +params);
 		try {
 			//데이터취득
 			HashMap<String, String> memo = iManagerService.getMemoDetail(params);
@@ -1097,63 +1099,7 @@ public class ManagerController {
 	
 	}
 	
-	//메모 중요체크
-	@RequestMapping(value = "/onStar",
-					method = RequestMethod.POST,
-					produces = "text/json;charset=UTF-8")
-	@ResponseBody
-	public String onStar(
-			@RequestParam HashMap<String, String> params) throws Throwable {
 
-		ObjectMapper mapper = new ObjectMapper();		
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
-				
-		try {
-			int cnt = iManagerService.onStar(params);
-			
-			if (cnt > 0) {
-				modelMap.put("msg", "success");
-			} else {
-				modelMap.put("msg", "failed");
-			}
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-			modelMap.put("msg", "error");
-		}
-
-		return mapper.writeValueAsString(modelMap);
-	}
-	
-	//메모 중요체크
-	@RequestMapping(value = "/offStar",
-					method = RequestMethod.POST,
-					produces = "text/json;charset=UTF-8")
-	@ResponseBody
-	public String offStar(
-			@RequestParam HashMap<String, String> params) throws Throwable {
-
-		ObjectMapper mapper = new ObjectMapper();		
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-		
-				
-		try {
-			int cnt = iManagerService.offStar(params);
-			
-			if (cnt > 0) {
-				modelMap.put("msg", "success");
-			} else {
-				modelMap.put("msg", "failed");
-			}
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-			modelMap.put("msg", "error");
-		}
-
-		return mapper.writeValueAsString(modelMap);
-	}
 	
 	
 	//메모 수정하고 나서~
@@ -1161,7 +1107,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String saveReportMemo(
+	public String saveReportMemoAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -1173,6 +1119,8 @@ public class ManagerController {
 		try {
 			int cnt = iManagerService.updateReportMemo(params);
 			List<HashMap<String, String>> list = iManagerService.getReportMemo(params);
+			System.out.println("---------------이거받아야함수정하고나서"+ params);
+			
 			if(cnt > 0) {
 				
 				modelMap.put("list", list);
@@ -1195,7 +1143,7 @@ public class ManagerController {
 			method=RequestMethod.POST,
 			produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public String delReportMemo(
+	public String delReportMemoAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -1230,13 +1178,18 @@ public class ManagerController {
 				produces = "text/json;charset=UTF-8")
 	
 	@ResponseBody
-	public String addMemo(
+	public String addMemoAjax(
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
+		System.out.println("이거받아야함 아예 add메모로 안온다????????????"+ params);
+		
 		try {
 			int cnt = iManagerService.addMemo(params);
+			
+			System.out.println("이거받아야함2"+ cnt);
+			System.out.println("이거받아야함3"+ params);
 			
 			if(cnt > 0) {
 				modelMap.put("msg", "success");
@@ -1252,6 +1205,38 @@ public class ManagerController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	//셀렉트 수정하고 나서
+	@RequestMapping(value="/changeSelect",
+			method=RequestMethod.POST,
+			produces="text/json;charset=UTF-8")
+	@ResponseBody
+	public String changeSelectAjax(
+			@RequestParam HashMap<String, String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		try {
+			int cnt = iManagerService.updateReport(params);
+			HashMap<String, String> data = iManagerService.getReportDetail(params);
+			
+			if(cnt > 0) {
+				
+				modelMap.put("data", data);
+				modelMap.put("msg", "success");
+		} else {
+			modelMap.put("msg", "failed");
+			}
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+			modelMap.put("msg", "error");
+		}	
+		
+		return mapper.writeValueAsString(modelMap);
+	
+	}
+
 	
 	
 }

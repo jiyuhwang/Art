@@ -165,7 +165,7 @@ $(document).ready(function() {
 
 	<div class="wrap">
 		<div class="btn_menu">
-			<div class="set">설정</div>
+			<div class="set">마이페이지</div>
 			<div class="report">나의 신고목록</div>
 			<div class="profile_manage">프로필관리</div>
 			<div class="privacy">개인정보관리</div>

@@ -350,9 +350,12 @@ function drawPaging(pb) {
 			</c:choose>
 			
 			<div class="profile_name2">${sUserNickname}</div>
-			<div class="profile_like">팔로워수
-				<span class="profile_like_cnt">${data.LIKECNT}</span>
+			<div class="profile_like">
+				<span class="profile_like_cnt">팔로워수 ${data.LIKECNT} | 팔로우수 ${cnt}</span>
 			</div>
+			<%-- <div class="profile_like2">팔로우수
+				<span class="profile_like_cnt2">${cnt}</span>
+			</div> --%>
 			<div class="profile_introduce">
 				<div class="profile_introduce_in">${sUserIntroduce}</div>
 			</div>

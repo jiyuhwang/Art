@@ -23,7 +23,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /*----------------------------------------------------------테이블 */
 
-.cancel, .cancel2 {
+.cancel, .cancel2, .delete, .delete2 {
 	width: 80px;
 	height: 30px;
 	border-radius: 10px;
@@ -111,6 +111,12 @@ tr {
 	margin-bottom: 30px;
 	border-bottom: 1px solid #d9d9d9;
 	color: black;
+}
+
+.report_type {
+	font-size: 10pt;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
 .table {

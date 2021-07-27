@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +10,14 @@
 tbody tr:hover {
 	background-color: #f2f2f2;
 }
-
 </style>
-<link rel="stylesheet" href="resources/css/h/report_manage.css"/>
-<link rel="stylesheet" href="resources/css/h/report_detail_popup.css"/>
-<link rel="stylesheet" href="resources/css/h/memo_detail.css"/>
+<link rel="stylesheet" href="resources/css/h/report_manage.css" />
+<link rel="stylesheet" href="resources/css/h/report_detail_popup.css" />
+<link rel="stylesheet" href="resources/css/h/memo_detail.css" />
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
+<script type="text/javascript"
+	src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -43,10 +43,16 @@ $(document).ready(function(){
 	$(".menu_tab_wrap div:first-child").attr("class", "tab_selected");
 	
 	//menuTab 클릭했을 때
-	$(".menu_tap_wrap").on("click", "div", function(){
-		$(".menu_tap_wrap div").attr("class", "tab");
+	$(".menu_tab_wrap").on("click", "div", function(){
+		$(".menu_tab_wrap div").attr("class", "tab");
 		$(this).attr("class", "tab_selected");
 		
+ 		if($(this).attr("id") == "comment"){
+			$("#tabFlag").val(1);
+		}else {
+			$("#tabFlag").val(0);
+		} 
+			loadPostList();
 		
 	});
 
@@ -85,8 +91,11 @@ $(document).ready(function(){
 		loadPostList();
 	});
 	
+	//상세보기
 	$("tbody").on("dblclick", "tr", function(){
 		$("#rNo").val($(this).attr("name"));
+		console.log("이것이다: " + $(this).attr("name"));
+		console.log("이것이다22: " + $("#rNo").val());
 		drawPopup();
 	});
 	
@@ -118,30 +127,6 @@ $(document).ready(function(){
 			}//else
 		}	
 	});//delete btn click
-	
-	//복원버튼 클릭시
-	$("#BtnReturn").on("click", function(){
-		var confirmFlag = confirm("복원 하시겠습니까?");
-					
-		if(confirmFlag){
-			var checkCnt = $("tbody [name=checkbox]:checked").length;
-			
-			if(checkCnt == 0){
-				alert("선택된 작품이 없습니다.");
-			} else {
-			
-				var checkArr = new Array();
-			
-				$("tbody [name=checkbox]:checked").each(function() {
-					checkArr.push($(this).val());//item이 this라서 this로 많이쓴다나~
-				});
-								
-				$("#checkedArr").val(checkArr);					
-				returnChecked();
-				
-			}//else
-		}	
-	});//return btn click
 	
 	
 	
@@ -194,6 +179,7 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
 
 	//-------------------------------------------------------목록그리기
 	function drawReportList(list){
@@ -211,14 +197,38 @@ $(document).ready(function(){
 				html +="<td><input type=\"checkbox\" name=\"checkbox\" value=\"" + d.REPORT_NO + "\"></td>";
 				html +="<td>" + no + "</td>";
 				html +="<td>" + d.REPORT_NO + "</td>";
-				html +="<td>" + d.TYPE_NAME + "</td>";
-				html +="<td>" + d.WRITER_NAME + "</td>";
-				html +="<td>" + d.WRITER_NICK +"(" + d.WRITER_ID + ")</td>";
-				html +="<td>" + d.CONTENTS + "</td>";				
-				html +="<td>" + d.R_NAME + "</td>";
-				html +="<td>" + d.R_NICK +"(" + d.R_ID + ")</td>";
+				html +="<td>" + d.FLAGS + "</td>";
+				
+				if(d.WRITER_NAME == '' || d.WRITER_NAME == null){
+					html +="<td> </td>";
+					html +="<td> </td>";
+				} else {
+					html +="<td>" + d.WRITER_NAME + "</td>";
+					html +="<td>" + d.WRITER_NICK +"(" + d.WRITER_ID + ")</td>";									
+				}
+				
+				if(d.CONTENTS == '' || d.CONTENTS == null){
+					html +="<td>내용없음</td>";
+				} else {
+					html +="<td>" + d.CONTENTS + "</td>";									
+				}
+				
+				html +="<td>" + d.NAME + "</td>";
+				html +="<td>" + d.USER_NICKNAME +"(" + d.USER_ID + ")</td>";
 				html +="<td>" + d.REGISTER_DATE + "</td>";
-				html +="<td>" + d.REPORT_STATUS + "</td>";
+				html +="<td>";
+				
+				if(d.REPORT_STATUS == 0){
+					html += "대기중";
+				} else if(d.REPORT_STATUS == 1){
+					html += "철회";
+				} else if(d.REPORT_STATUS == 2){
+					html += "접수완료";
+				}else {
+					html += "처리완료";
+				}
+				
+				html +="</td>";
 				html +="</tr>";
 			}
 			
@@ -304,6 +314,8 @@ $(document).ready(function(){
 			html +="	<span class=\"report_no\">신고번호 "+ result.data.REPORT_NO +"</span>";
 			html +="	<form id=\"detailForm\">";
 			html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
+			html +="	<input type=\"hidden\" id=\"oldStatus\" name=\"oldStatus\" value=\""+ result.data.REPORT_STATUS +"\"/>";
+			html +="	<input type=\"hidden\" id=\"newStatus\" name=\"newStatus\"/>";
 			html +="	</form>";
 			html +="		<div class=\"top_info\">";
 			html +="			<div class=\"info1\">";
@@ -320,46 +332,88 @@ $(document).ready(function(){
 			html +="				<div class=\"date2\"><div>"+ result.data.REGISTER_DATE +"</div></div>";
 			html +="				<div class=\"status1\"><div>처리상태</div></div>";
 			html +="				<div class=\"status2\"><div>";
+			html +="<select id=\"status\" name=\"statusFlag\">";
+			
+			console.log("셀렉트 뭐받아오는지 확인: "+result.data.REPORT_STATUS);
 			
 				if(result.data.REPORT_STATUS == 0){
-					html += "대기중";
+					html += "<option value=\"0\" selected=\"selected\">대기중</option>";
+					html += "<option value=\"1\">철회</option>";
+					html += "<option value=\"2\">접수완료</option>";
+					html += "<option value=\"3\">처리완료</option>";
 				} else if(result.data.REPORT_STATUS == 1){
-					html += "철회";
+					html += "<option value=\"0\">대기중</option>";
+					html += "<option value=\"1\" selected=\"selected\">철회</option>";
+					html += "<option value=\"2\">접수완료</option>";
+					html += "<option value=\"3\">처리완료</option>";
 				} else if(result.data.REPORT_STATUS == 2){
-					html += "접수완료";
+					html += "<option value=\"0\">대기중</option>";
+					html += "<option value=\"1\">철회</option>";
+					html += "<option value=\"2\" selected=\"selected\">접수완료</option>";
+					html += "<option value=\"3\">처리완료</option>";
 				}else {
-					html += "처리완료";
+					html += "<option value=\"0\">대기중</option>";
+					html += "<option value=\"1\">철회</option>";
+					html += "<option value=\"2\">접수완료</option>";
+					html += "<option value=\"3\" selected=\"selected\">처리완료</option>";
 				}					
 			
+			html += "</select>";
 			html +="</div></div>";
 			html +="			</div>";
-			html +="			<div class=\"top_writer\">";
-			html +="				<div class=\"writer1\">작가 닉네임</div>";
-			html +="				<div class=\"writer2\">"+ result.data.WRITER_NICK +"</div>";
-			html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
-			html +="				<div class=\"writer4\">"+ result.data.WRITER_NAME + "(" + result.data.WRITER_ID +")</div>";
-			html +="			</div>";
-			html +="			<div class=\"top_post\">";
-			html +="				<div class=\"post1\">신고된 작품 제목</div>";
-			html +="				<div class=\"post2\">"+ result.data.TITLE +"</div>";
-			html +="			</div>";
-			html +="			<div class=\"top_flag\">";
-			html +="				<div class=\"flag1\">신고사유</div>";
-			html +="				<div class=\"flag2\">"+ result.data.TYPE_NAME +"</div>";
-			html +="			</div>";
+
+			if(result.data.WRITER_NAME == '' || result.data.WRITER_NAME == null){				
+/* 				html +="			<div class=\"top_writer\">";
+				html +="				<div class=\"writer1\">작가 닉네임</div>";
+				html +="				<div class=\"writer2\"> </div>";
+				html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
+				html +="				<div class=\"writer4\"> ( )</div>";
+				html +="			</div>"; */
+				html +="			<div class=\"top_post\">";
+				html +="				<div class=\"post1\">신고된 댓글 내용</div>";
+				html +="				<div class=\"post2\">"+ result.data.C_CONTENT +"</div>";
+				html +="			</div>";
+				html +="			<div class=\"top_flag\">";
+				html +="				<div class=\"flag1\">신고사유</div>";
+				html +="				<div class=\"flag2\">"+ result.data.FLAGS +"</div>";
+				html +="			</div>";
+								
+			} else {
+				html +="			<div class=\"top_writer\">";
+				html +="				<div class=\"writer1\">작가 닉네임</div>";
+				html +="				<div class=\"writer2\">"+ result.data.WRITER_NICK +"</div>";
+				html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
+				html +="				<div class=\"writer4\">"+ result.data.WRITER_NAME + "(" + result.data.WRITER_ID +")</div>";
+				html +="			</div>";
+				html +="			<div class=\"top_post\">";
+				html +="				<div class=\"post1\">신고된 작품 제목</div>";
+				html +="				<div class=\"post2\">"+ result.data.TITLE +"</div>";
+				html +="			</div>";
+				html +="			<div class=\"top_flag\">";
+				html +="				<div class=\"flag1\">신고사유</div>";
+				html +="				<div class=\"flag2\">"+ result.data.FLAGS +"</div>";
+				html +="			</div>";
+			}
+
+			
 			html +="			<div class=\"top_content\">";
 			html +="				<div class=\"content1\">내용</div>";
-			html +="				<div class=\"content2\">"+ result.data.CONTENTS +"</div>";
+			
+			if(result.data.CONTENTS == '' || result.data.CONTENTS == null){
+				html +="<div class=\"content2\">내용없음</div>";
+			} else {
+				html +="<div class=\"content2\">" + result.data.CONTENTS + "</div>";									
+			}
+			
 			html +="			</div>";
 			html +="		</div>";
 			html +="		<div class=\"btm_ctts\">";
 			html +="			<div class=\"btm_reporter\">";
 			html +="				<div class=\"reporter1\">신고자</div>";
-			html +="				<div class=\"reporter2\">닉네임: "+ result.data.R_NICK +"&nbsp;&nbsp;";	
-			html +="이름(아이디): " + result.data.R_NAME + "(" + result.data.R_ID +")</div>";
+			html +="				<div class=\"reporter2\">닉네임: "+ result.data.USER_NICKNAME +"&nbsp;&nbsp;";	
+			html +="이름(아이디): " + result.data.NAME + "(" + result.data.USER_ID +")</div>";
 			html +="			</div>";
 			html +="			<div class=\"btm_memo\"><table class=\"memo_table\" name=\""+ result.data.REPORT_NO +"\"></table></div>";
-			html +="			<div class=\"btn_add\">메모추가</div>";
 			html +="			<div class=\"btn_close\">닫기</div>";
 			html +="		</div>";
 			html +="	</div>";
@@ -395,29 +449,33 @@ $(document).ready(function(){
 					}
 				});
 
-				//-----------------------------------------------------------추가버튼 클릭할 때
-				$(".btn_add").off("click");
-				$(".btn_add").on("click", function(){
-
+				//-----------------------------------------------------------셀렉트박스가 철회로 바뀔 때
+				$("#status").on("change", function(){
+					console.log("올드 셀렉트 값: " + $("#oldStatus").val());
+					console.log("뉴 셀렉트 값: " + $("#newStatus").val());
+					console.log("셀렉트1번값: " + $("#status option:selected").val());
+					//철회로 바꾸면
+					if($("#status option:selected").val() == 1){
+						$("#newStatus").val(1);
+					console.log("바뀐 뉴 셀렉트 값: " + $("#newStatus").val());
+						
 					var html = "";
 					
 					html += "<div class=\"background8\"></div>";
 					html += "<div class=\"ctts8\">";
-					html += "		<form id=\"memoForm\">";
+					html += "		<form id=\"memoNewForm\">";
 					html += "	<div class=\"top_div\">";
-					html += "<img class=\"star_img\" id=\"starIconBlack\" alt=\"별\" src=\"resources/images/empty_star_icon.png\">";
 					html += "		<div class=\"memo_title\">메모</div>";			
-					html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
+					html += "		<img class=\"close_img\" id=\"closeNewMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
 					html += "	</div>";
 					html += "	<div class=\"memo_ctts_div\">";
-					html +="	<input type=\"hidden\" name=\"marking\" id=\"marking\" value=\"1\"/>";
 					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
-					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\"/>";
-					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + result.data.R_NO + "\" />";
+					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\" value=\""+ result.data.ADMIN_NO +"\"/>";
+					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + result.data.USER_NO + "\" />";
 					html += "			<table>";
 					html += "				<tr>";
 					html += "					<td>작성자</td>";
-					html += "					<td><input type=\"text\" size=\"38\"id=\"a\" /></td>  ";
+					html += "					<td>"+ result.data.ADMIN_NAME +"</td>  ";
 					html += "				</tr>";		
 					html += "				<tr>";
 					html += "					<td>발생일</td>";
@@ -431,8 +489,8 @@ $(document).ready(function(){
 					html += "				</tr> ";
 					html += "			</table>";
 					html += "		<div class=\"save_btn_div\" id=\"save_btn_div\">	";
-					html += "			<input type=\"button\" value=\"저장\" id=\"BtnSave\">";
-					html += "			<input type=\"button\" value=\"취소\" id=\"BtnCancel\">	";
+					html += "			<input type=\"button\" value=\"저장\" id=\"BtnNewSave\">";
+					html += "			<input type=\"button\" value=\"취소\" id=\"BtnNewCancel\">	";
 					html += "		</div>	";
 					html += "	</div>";
 					html += "	</form>";
@@ -442,86 +500,28 @@ $(document).ready(function(){
 					
 					$(".background8").hide();
 					$(".ctts8").hide();
-					$(".background8").fadeIn();
+				    $(".background8").fadeIn();
 					$(".ctts8").fadeIn();
 					
-					$("#memoForm").on("keypress", "input", function(event){
+					$("#memoNewForm").on("keypress", "input", function(event){
 						if(event.keyCode == 13){
 							return false;
 						}
 					});
-					
-					
-					//-------------------------------------------------------------중요도 아이콘
-		 			$(".ctts8").on("click", ".star_img", function(){
-						if($(this).attr("src") == "resources/images/empty_star_icon.png"){
-							$(".star_img").attr("src", "resources/images/yellow_star_icon.png");
-							$("#marking").val(0);
-						} else {
-							$(".star_img").attr("src", "resources/images/empty_star_icon.png");
-							$("#marking").val(1);
-						}
 
-					}); 
-					
-					
-					
-					$(".background8").off("click");
-					$(".background8").on("click", function(){
-						closeMemoDetail();
-					});
-					
-					$("#closeMemo").off("click");
-					$("#closeMemo").on("click", function(){
-						closeMemoDetail();
-						fastClosePopup();
-						drawPopup();
-						//setTimeout(function(){drawPopup();}, 400);
-							
-					});
-
-					
-					//----------------------------------------------취소버튼 누를 때
-					$("#BtnCancel").off("click");
-					$("#BtnCancel").on("click", function(){
-						closeMemoDetail();
-					});
-					
 					//----------------------------------------------저장할 때
-					$("#BtnSave").off("click");
-					$("#BtnSave").on("click", function(){
+					$("#BtnNewSave").off("click");
+					$("#BtnNewSave").on("click", function(){						
 						
-						var txt = $("#a").val();
-						var text = $.trim(txt);
-						
-						if($("#a").val() == "황지유"){
-							$("#admin").val(5);
-						} else if(txt == "정희두"){
-							$("#a").val(2);
-						} else if(txt == "홍길동"){
-							$("#admin").val(1);
-						} else if(txt == "이영민"){
-							$("#admin").val(4);
-						} else if(txt == "김현"){
-							$("#admin").val(3);
-						} else {
-							alert("존재하지 않는 관리자 입니다.")
-							$("#a").focus();
-						}
-						
-						
-						if($.trim($("#admin").val()) == ""){
-							alert("관리자를 입력해주세요");
-							$("#admin").focus();
-						} else if($("#occur").val() == ""){
+						if($("#occur").val() == ""){
 							alert("발생일을 입력하세요");
 							$("#occur").focus();
 						} else if($.trim($("#contents").val()) == ""){
 							alert("메모를 입력하세요");
 							$("#contents").focus();
-						}else {
-							
-							var params = $("#memoForm").serialize();
+						} else {
+							console.log("메모저장 아작스 실행 전!");
+							var params = $("#memoNewForm").serialize();
 							
 							$.ajax({
 								type : "post",
@@ -531,6 +531,7 @@ $(document).ready(function(){
 								success : function(result) {
 									
 									if(result.msg == "success"){
+										console.log("메모저장!");
 										closeMemoDetail();
 										fastClosePopup();
 										drawPopup();
@@ -552,8 +553,49 @@ $(document).ready(function(){
 						}
 					});//저장버튼누르면
 
-				});//메모추가버튼누르묜
+					
+					//----------------------------------------------취소버튼 누를 때
+					$("#BtnNewCancel").off("click");
+					$("#BtnNewCancel").on("click", function(){
+						$("#satus").val(result.data.REPORT_STATUS);
+						closeMemoDetail();
+					});
+					
+					$("#closeNewMemo").off("click");
+					$("#closeNewMemo").on("click", function(){
+						$("#satus").val(result.data.REPORT_STATUS);
+						closeMemoDetail();
+					});
+					
+
+				} else {//셀렉트 바꾸면
+					
+					console.log("아작스 실행되는거 맞냐?");
+					$("#newStatus").val($("#status option:selected").val());
+					var params = $("#detailForm").serialize();
+					
+					$.ajax({
+						type : "post",
+						url : "changeSelect",
+						dataType : "json",
+						data : params,
+						success : function(result) {
+							
+							if(result.msg == "success"){
+								fastClosePopup();
+								drawPopup();
+							} else if(result.msg == "failed"){
+								alert("저장에 실패했습니다.");
+							} else {
+								console.log(result);
+								alert("저장 중 문제가 발생했습니다.");
+							}		
+					
+					}
+					});//ajax end
+				}//셀렉트 바꾸면 else 
 				
+				});// 셀렉트 change 함수 end
 				
 				
 			}, error: function(request, status, error){
@@ -570,14 +612,12 @@ $(document).ready(function(){
 			html += "	<colgroup>";
 			html += "		<col width=\"100px\"/>";
 			html += "		<col width=\"100px\"/>";
-			html += "		<col width=\"50px\"/>";
 			html += "		<col width=\"700px\"/>";
 			html += "	</colgroup>";
 			html +=	"	  <thead>";
 			html +=	"		  <tr>";
 			html +=	"			  <th>번호</th>";
 			html +=	"			  <th>날짜</th>";
-			html +=	"			  <th></th>";
 			html +=	"			  <th>메모내용</th>";
 			html +=	"		  </tr>";
 			html +=	"	  </thead>";
@@ -594,18 +634,11 @@ $(document).ready(function(){
 						html+= "	<tr name=\""+  d.MEMO_NO +"\">";
 						html+= "		<td> " + no +"</td>";
 						html+= "		<td>  "+ d.REGISTER_DATE +"</td>";
-						
-						if(d.MARKING == 0){
-							html += "	<td><img class=\"star_table_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\"></td>";	
-						} else {
-							html+= "		<td> </td>";
-						}
-
 						html+= "		<td>  "+ d.CONTENTS +"</td>";
 						html+= "	</tr>";
 					}
 			}		
-				html +=	"	</tbody>";
+				html +=	"</tbody>";
 	
 				$(".btm_memo table").html(html);
 		}
@@ -626,11 +659,6 @@ $(document).ready(function(){
 			html += "<div class=\"background8\"></div>";
 			html += "<div class=\"ctts8\">";
 			html += "	<div class=\"top_div\">";
-			if(result.memo.MARKING == 0){
-				html += "<img class=\"star_img\" id=\"starIconYellow\" alt=\"중요별\" src=\"resources/images/yellow_star_icon.png\">";					
-			} else {
-				html += "<img class=\"star_img\" id=\"starIconBlack\" alt=\"별\" src=\"resources/images/empty_star_icon.png\">";
-			}
 			html += "		<div class=\"memo_title\">메모</div>";			
 			html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
 			html += "	</div>";
@@ -687,52 +715,7 @@ $(document).ready(function(){
 			$(".background8").fadeIn();
 			$(".ctts8").fadeIn();
 			
-			
-			//-------------------------------------------------------------중요도 아이콘
- 			$(".ctts8").on("click", ".star_img", function(){
-				if(($(this).attr("src") == "resources/images/empty_star_icon.png") &&
-						result.memo.MARKING == 1){
-							
-				var params= $("#memoForm").serialize();
-				
-				$.ajax({
-					url : "onStar",
-					type : "post",
-					dataType : "json",
-					data : params,
-					success: function(res) {
-						$(".star_img").attr("src", "resources/images/yellow_star_icon.png");
-					},
-					error: function(request, status, error) {
-						console.log(error);
-					}
-				});
-			
-				} else if(($(this).attr("src") == "resources/images/yellow_star_icon.png") &&
-						result.memo.MARKING == 0) {
-										
-					$.ajax({
-						url : "offStar",
-						type : "post",
-						dataType : "json",
-						data : params,
-						success: function(res) {
-							$(".star_img").attr("src", "resources/images/empty_star_icon.png");
-							console.log("검정별");
-							
-						},
-						error: function(request, status, error) {
-							console.log(error);
-						}
-					});
-				} else {
-					alert("중요도 변경시 오류가 발생했습니다.");
-				}
-
-			}); 
-			
-			
-			
+						
 			$(".background8").off("click");
 			$(".background8").on("click", function(){
 				closeMemoDetail();
@@ -920,105 +903,101 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div class="main">
-	<c:import url="managerSidebar.jsp"></c:import>
-	<div class ="ctts">
+	<div class="main">
+		<c:import url="managerSidebar.jsp"></c:import>
+		<div class="ctts">
 			<!------------------------------게시글 신고 관리  -->
-		<div class ="blank2"></div>
-		
-		<div class="menu_tab_wrap">
-			<div id="gallary" class="tab">게시글목록</div>
-			<div id="comment" class="tab">댓글목록</div>		
-		</div>
-		<div class="menu_txt_wrap">
-			<div class="menu_txt">
-				<span><span class="font-red">검색어를 입력</span>하여 검색할 수 있습니다.</span><br/>
-				<span><span class="font-red">신고내용</span>을 연속으로 두 번 클릭하시면 상세페이지로 이동합니다.</span><br/>
-				<span><span class="font-red">데이터가 많은 경우</span> 느려질 수 있습니다.</span>
+			<div class="blank2"></div>
+
+			<div class="menu_tab_wrap">
+				<div id="gallary" class="tab">게시글목록</div>
+				<div id="comment" class="tab">댓글목록</div>
 			</div>
-		</div>
-		
-		<form action="#" id="actionForm" method="post" >
-			<input type="hidden" id="rNo" name="rNo"/>
-			<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
-			<input type="hidden" id="page" name="page" value="${page}"/>
-			<input type="hidden" id="checkedArr" name="checkedArr"/>
-			<input type="hidden" id="mNo" name="mNo"/>
-		
-		<div class ="search_flag_div">
-			<div class="search_flag">
-				<label>신고분류</label>
-				<select name="srhYearFlag" id="srhYearFlag">
-					<option value="0"> 올해신고</option>
-					<option value="1"> 작년신고</option>
-					<option value="" selected="selected"> 전체신고</option>
-				</select>
-				<label>검색분류</label>
-				<select name="searchFlag" id="searchFlag">
-					<option value="2" selected="selected">내용</option>
-					<option value="3">작성자</option>
-					<option value="4">신고번호</option>
-					<option value="5">작성일</option>
-				</select>
-			     <input type="hidden" id="searchOldTxt" value="${param.searchTxt}"/>
-				<input type="text" name="searchTxt" id="searchTxt" value="${param.searchTxt}" placeholder="검색어를 입력해주세요."/>
-				<div class="date_srh">
-					<label>날짜분류</label>
-						<input type="date" id="startFlag" name="startFlag">
-						<span> ~ </span>
-						<input type="date" id="endFlag" name="endFlag" min="2021-01-01">
-						<input type="button" value="검색" id="searchBtn"/>
-						<input type="button" value="삭제된" id="BtnWithDel"/>
-						<input type="button" value="삭제안된" id="BtnWithoutDel"/>
-						<input type="button" value="삭제포함" id="BtnWith"/>
+			<div class="menu_txt_wrap">
+				<div class="menu_txt">
+					<span><span class="font-red">검색어를 입력</span>하여 검색할 수 있습니다.</span><br />
+					<span><span class="font-red">신고내용</span>을 연속으로 두 번 클릭하시면
+						상세페이지로 이동합니다.</span><br /> <span><span class="font-red">데이터가
+							많은 경우</span> 느려질 수 있습니다.</span>
 				</div>
 			</div>
+
+			<form action="#" id="actionForm" method="post">
+				<input type="hidden" id="rNo" name="rNo" /> <input type="hidden"
+					id="delFlag" name="delFlag" value="-1" /> <input type="hidden"
+					id="page" name="page" value="${page}" /> <input type="hidden"
+					id="checkedArr" name="checkedArr" /> <input type="hidden" id="mNo"
+					name="mNo" /> <input type="hidden" id="tabFlag" name="tabFlag"
+					value="0" />
+
+				<div class="search_flag_div">
+					<div class="search_flag">
+						<label>신고분류</label> <select name="srhYearFlag" id="srhYearFlag">
+							<option value="0">올해신고</option>
+							<option value="1">작년신고</option>
+							<option value="" selected="selected">전체신고</option>
+						</select> <label>검색분류</label> <select name="searchFlag" id="searchFlag">
+							<option value="2" selected="selected">내용</option>
+							<option value="3">작성자</option>
+							<option value="4">신고번호</option>
+							<option value="5">작성일</option>
+						</select> <input type="hidden" id="searchOldTxt" value="${param.searchTxt}" />
+						<input type="text" name="searchTxt" id="searchTxt"
+							value="${param.searchTxt}" placeholder="검색어를 입력해주세요." />
+						<div class="date_srh">
+							<label>날짜분류</label> <input type="date" id="startFlag"
+								name="startFlag"> <span> ~ </span> <input type="date"
+								id="endFlag" name="endFlag" min="2021-01-01"> <input
+								type="button" value="검색" id="searchBtn" /> <input type="button"
+								value="삭제된" id="BtnWithDel" /> <input type="button" value="삭제안된"
+								id="BtnWithoutDel" /> <input type="button" value="삭제포함"
+								id="BtnWith" />
+						</div>
+					</div>
+				</div>
+				<div class="del_wrap">
+					<input type="button" id="BtnDelete" value="삭제" />
+				</div>
+				<div class="cnt_wrap"></div>
+			</form>
+
+			<!-----------------------------------------------------------테이블 -->
+			<div class="result_table" id="tabResult1">
+				<table>
+					<colgroup>
+						<col width="50px" />
+						<col width="70px" />
+						<col width="100px" />
+						<col width="100px" />
+						<col width="70px" />
+						<col width="300px" />
+						<col width="700px" />
+						<col width="70px" />
+						<col width="300px" />
+						<col width="100px" />
+						<col width="100px" />
+					</colgroup>
+					<thead>
+						<tr id="tableTh">
+							<th><input type="checkbox" id="checkAll"></th>
+							<th>번호</th>
+							<th>신고번호</th>
+							<th>신고타입</th>
+							<th>작성자</th>
+							<th>닉네임(아이디)</th>
+							<th>신고내용</th>
+							<th>신고자</th>
+							<th>닉네임(아이디)</th>
+							<!--신고자 닉네임(아이디)  -->
+							<th>작성일</th>
+							<th>처리상태</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<div id="pagingWrap"></div>
 		</div>
-		<div class="del_wrap">
-			<input type="button"  id="BtnReturn" value="복원"/>
-			<input type="button" id="BtnDelete" value="삭제"/>		
-		</div>
-		<div class="cnt_wrap"></div>	
-	</form>
-	
-	<!-----------------------------------------------------------테이블 -->
-		<div class="result_table" id="tabResult1">
-		<table>
-			<colgroup>
-				<col width="50px"/>
-				<col width="70px"/>
-				<col width="100px"/>
-				<col width="100px"/>
-				<col width="70px"/>
-				<col width="300px"/>
-				<col width="700px"/>
-				<col width="70px"/>
-				<col width="300px"/>
-				<col width="100px"/>
-				<col width="100px"/>
-				</colgroup>
-				<thead>	
-				<tr id="tableTh">
-					<th>
-					<input type="checkbox" id="checkAll"> 
-					</th>
-					<th>번호</th>
-					<th>신고번호</th>
-					<th>신고타입</th>
-					<th>작성자</th>
-					<th>닉네임(아이디)</th>
-					<th>신고내용</th>
-					<th>신고자</th>
-					<th>닉네임(아이디)</th><!--신고자 닉네임(아이디)  -->
-					<th>작성일</th>
-					<th>처리상태</th>
-				</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-		</div>
-		<div id="pagingWrap"></div>
 	</div>
-</div>
 </body>
 </html>

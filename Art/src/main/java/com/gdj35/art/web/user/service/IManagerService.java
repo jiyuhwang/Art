@@ -71,10 +71,6 @@ public interface IManagerService {
 
 	public int deleteReportMemo(HashMap<String, String> params) throws Throwable;
 
-	public int onStar(HashMap<String, String> params) throws Throwable;
-
-	public int offStar(HashMap<String, String> params) throws Throwable;
-
 	public int addGong(HashMap<String, String> params) throws Throwable;
 
 	public int addMemo(HashMap<String, String> params) throws Throwable;
@@ -84,6 +80,9 @@ public interface IManagerService {
 	public int updateGong(HashMap<String, String> params)throws Throwable;
 
 	public List<HashMap<String, String>> getMailUser(HashMap<String, String> params)throws Throwable;
+
+	public int updateReport(HashMap<String, String> params)throws Throwable;
+
 	
 	
 	

@@ -176,8 +176,8 @@ function followPopup() {
 	html += "<div class=\"tabs2\">";
 	html += "<input id=\"follower\" type=\"radio\" value=\"0\" name=\"tab2\" checked=\"checked\" />";
 	html += "<input id=\"following\" type=\"radio\" value=\"1\" name=\"tab2\" />";
-	html += "<label for=\"follower\">팔로워</label>";
-	html += "<label for=\"following\">팔로잉</label>";
+	html += "<label for=\"follower\">팔로워 ${data.LIKECNT}</label>";
+	html += "<label for=\"following\">팔로잉 ${cnt}</label>";
 		
 	html += "<div class=\"follower_wrap\">";
 	html += "</div>";
@@ -211,14 +211,14 @@ function followPopup() {
 		console.log($(this).scrollTop());
 		console.log($(this).innerHeight());
 		console.log($(this)[0].scrollHeight);
-		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+		if(Math.ceil($(this).scrollTop()) + $(this).innerHeight() >= $(this)[0].scrollHeight){
 			$("#followpage").val($("#followpage").val() * 1 + 1);
 			followList();
 		}
 	});
 	
 	$(".following_wrap").scroll(function(){
-		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+		if(Math.ceil($(this).scrollTop()) + $(this).innerHeight() >= $(this)[0].scrollHeight){
 			$("#followpage").val($("#followpage").val() * 1 + 1);
 			followList();
 		} 

@@ -612,14 +612,51 @@
 	
 	<!-- 댓글 목록 -->
 	<select id="commentList" parameterType="hashmap" resultType="hashmap">
-		SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, C.RNUM,
+		<!-- SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, C.RNUM,
                 C.CONTENT, C.REGISTER_DATE, C.USER_NICKNAME, C.PROFILE_IMG_PATH, C.DEL
 		FROM(SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY NVL(C.TOP_COMMENT_NO, C.COMMENT_NO) ASC, C.COMMENT_NO ASC) AS RNUM,
 		                    C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH, C.DEL
 		    FROM COMMENTS C INNER JOIN USERS U
 		                        ON C.USER_NO = U.USER_NO
-		    WHERE C.POST_NO = #{postNo}) C
+		    WHERE C.POST_NO = #{postNo}) C -->
+		   
+		SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, C.RNUM,
+		        C.CONTENT, C.REGISTER_DATE, C.USER_NICKNAME, C.PROFILE_IMG_PATH, C.DEL, NVL(C.CNT, 0) AS CNT
+		FROM(SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY		
+				    <choose>
+						<when test="commentGbn == 0">
+						 	C.COMMENT_NO DESC
+						</when>
+						<when test="commentGbn == 1">
+						 	C.COMMENT_NO ASC
+						</when>
+						<when test="commentGbn == 2">
+						 	NVL(C2.CNT, 0) DESC, C.COMMENT_NO DESC
+						</when>
+					 </choose>) AS RNUM,
+		                    C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH, C.DEL, C2.CNT
+		    FROM COMMENTS C INNER JOIN USERS U
+		                        ON C.USER_NO = U.USER_NO
+		                    LEFT OUTER JOIN (SELECT TOP_COMMENT_NO, COUNT(*) AS CNT
+		                                    FROM COMMENTS
+		                                    WHERE DEL = 1
+		                                    AND TOP_COMMENT_NO IS NOT NULL
+		                                    GROUP BY TOP_COMMENT_NO) C2
+		                        ON C.COMMENT_NO = C2.TOP_COMMENT_NO
+		    WHERE C.POST_NO = #{postNo}
+		    AND C.TOP_COMMENT_NO IS NULL) C
 		WHERE C.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<!-- 답글 목록 -->
+	<select id="replyCommentList" parameterType="hashmap" resultType="hashmap">
+		SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, C.RNUM,
+		        C.CONTENT, C.REGISTER_DATE, C.USER_NICKNAME, C.PROFILE_IMG_PATH, C.DEL
+		FROM(SELECT C.COMMENT_NO, C.USER_NO, C.POST_NO, C.TOP_COMMENT_NO, ROW_NUMBER() OVER(ORDER BY C.COMMENT_NO ASC) AS RNUM,
+		                    C.CONTENT, TO_CHAR(C.REGISTER_DATE,'YYYY-MM-DD HH:MI') AS REGISTER_DATE, U.USER_NICKNAME, U.PROFILE_IMG_PATH, C.DEL
+		    FROM COMMENTS C INNER JOIN USERS U
+		                        ON C.USER_NO = U.USER_NO
+		    WHERE C.TOP_COMMENT_NO = #{cNo}) C
 	</select>
 	
 	<!-- 답글 쓰기 -->
@@ -633,6 +670,8 @@
 		SELECT COUNT(*) AS COMMENTCNT
 		FROM COMMENTS
 		WHERE POST_NO = #{postNo}
+		AND TOP_COMMENT_NO IS NULL
+		AND DEL = 1
 	</select>
 	
 	<!-- 댓글 삭제 -->
@@ -801,7 +840,7 @@
 		FROM DUAL
 	</select>
 	
-		<!-- 신고글 추가 -->
+	<!-- 신고글 추가 -->
 	<insert id="addReport" parameterType="hashmap">
 		INSERT INTO REPORT
 		VALUES(#{reportNo}, #{adminNo}, #{userNo}, NULL, #{pNo}, #{reportCtt}, 0, SYSDATE, 1)
@@ -812,6 +851,21 @@
 		INSERT INTO REPORT_REPORT_TYPE(REPORT_NO, TYPE_NO)
 		VALUES(#{reportNo}, #{typeNo})
 	</insert>
+	
+	<!-- 신고할 댓글 data 가져오기 -->
+	<select id="getComment" parameterType="hashmap" resultType="hashmap">
+		SELECT COMMENTS.*
+		FROM COMMENTS
+		WHERE COMMENT_NO = #{commentNo}
+	</select>
+	
+	<!-- 댓글신고글 추가 -->
+	<insert id="addCReport" parameterType="hashmap">
+		INSERT INTO REPORT
+		VALUES(#{reportNo}, #{adminNo}, #{userNo}, #{cNo}, NULL, #{reportCtt}, 0, SYSDATE, 1)
+	</insert>
+	
+
 	
 	
 	

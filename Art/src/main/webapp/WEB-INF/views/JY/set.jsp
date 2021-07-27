@@ -118,22 +118,7 @@ $(document).ready(function() {
 	$("table tr:nth-child(2)").hide();
 	$("table tr:nth-child(3)").hide();
 
-	
-	/* $("#btnEditPw").on("click", function() {
-		if($('#nowPw').val() == "") {
-			alert("비밀번호를 입력해주세요.");
-		} else if($('#nowPw').val() != "${sUserPw}") {
-			alert("비밀번호가 틀립니다.");
-		} else {
-			if($("table tr:nth-child(2)").css("display") == "none") {
-				$("table tr:nth-child(2)").show();
-				$("table tr:nth-child(3)").show();
-			} else {
-				$("table tr:nth-child(2)").hide();
-				$("table tr:nth-child(3)").hide();
-			}
-		}
-	}); */
+
 	
 	$("#btnEditPw").on("click", function() {
 		if($('#nowPw').val() == "") {
@@ -183,6 +168,7 @@ $(document).ready(function() {
 			return false;
 		} else if($("#pwCheck").val() == "") {
 			$("#pwCheck").focus();
+			return false;
 		} else if($("#pw").val() == $('#nowPw').val()) {
 			alert("기존 비밀번호와 다르게 설정해주세요.");
 			$("#pw").val("");
@@ -227,8 +213,8 @@ $(document).ready(function() {
 			$("#name").focus();
 			return false;
 		} else if($("#phone").val() == "") {
-			return false;
 			$("#phone").focus();
+			return false;
 		} else if($("#year").val() == "") {
 			$("#year").focus();
 			return false;
@@ -241,11 +227,13 @@ $(document).ready(function() {
 		} else if($("#email").val() == "") {
 			$("#email").focus();
 			return false;
-		}else if($("#email3").val() == "" && $("#email").val() != "${data.MAIL}") {
+		} else if(&& $("#email").val() != "${data.MAIL}") {
 			alert("이메일 인증번호를 입력해주세요.")
-			return false;
-		} else if($("#email3").val() != code) {
-			alert("이메일 인증번호가 틀립니다.")
+			if($("#email3").val() == "") {
+				$("#email3").focus();
+			} else if($("#email3").val() != code) {
+				alert("이메일 인증번호가 틀립니다.")
+			} 
 			return false;
 		} else {
 			
@@ -296,6 +284,18 @@ $(document).ready(function() {
         	document.getElementById('check2').innerHTML='';
         }
 	}
+	
+	function handleOnInput(el, maxlength) {
+	  if(el.value.length > maxlength)  {
+		  el.value = el.value.substr(0, maxlength);
+	  }
+	}
+	
+	function handleOnInput2(el, maxlength) {
+	  if(el.value.length > maxlength)  {
+		  el.value = el.value.substr(0, maxlength);
+	  }
+	}
 </script>
 </head>
 <body>
@@ -320,7 +320,7 @@ $(document).ready(function() {
 	
 	<div class="wrap">
 		<div class="btn_menu">
-			<div class="set">설정</div>
+			<div class="set">마이페이지</div>
 			<div class="report">나의 신고목록</div>
 			<div class="profile_manage">프로필관리</div>
 			<div class="privacy">개인정보관리</div>
@@ -332,17 +332,17 @@ $(document).ready(function() {
 				<tr>
 					<th>현재 비밀번호</th>
 					<td>
-						<input id="nowPw" type="password" size="10" maxlength="200"/>
+						<input id="nowPw" type="password" size="10" maxlength="200" placeholder="현재 비밀번호를 입력해주세요."/>
 						<input id="btnEditPw" type="button" value="수정"/>
 					</td>
 				</tr>
 				<tr>
 					<th>새 비밀번호</th>
-					<td><input id="pw" type="password" onchange="check_pw()" size="10" maxlength="200"/></td>
+					<td><input id="pw" type="password" onchange="check_pw()" size="10" maxlength="200" placeholder="새 비밀번호를 입력해주세요."/></td>
 				</tr>
 				<tr>
 					<th>새비밀번호 확인</th>
-					<td><input id="pwCheck" type="password" onchange="check_pw()" size="10" maxlength="200"/>
+					<td><input id="pwCheck" type="password" onchange="check_pw()" size="10" maxlength="200" placeholder="새 비밀번호를 확인해주세요."/>
 						<input id="pwSend" type="button" value="수정하기">
 						<br/>
 						<span id="check2"></span>
@@ -356,7 +356,7 @@ $(document).ready(function() {
 					<th>생년월일</th>
 					<td>
 						<c:set var="Birth" value="${data.BIRTHDAY}" />
-						<input type="number" id="year" name="birthYear" value="${fn:substring(Birth,0,4)}" size="10" maxlength="4" placeholder="년(4자)"/>
+						<input type="number" id="year" name="birthYear" value="${fn:substring(Birth,0,4)}" size="10" maxlength="4" placeholder="년(4자)" oninput='handleOnInput(this, 4)'/>
 						<select name="birthMonth" class="month">
 								<option>월</option>
 								<option value="01" <c:if test="${fn:substring(Birth,5,7) eq '01'}">selected</c:if>>01</option>
@@ -372,7 +372,7 @@ $(document).ready(function() {
 								<option value="11" <c:if test="${fn:substring(Birth,5,7) eq '11'}">selected</c:if>>11</option>
 								<option value="12" <c:if test="${fn:substring(Birth,5,7) eq '12'}">selected</c:if>>12</option>
 						</select>
-						<input type="number" id="day" name="birthDay" value="${fn:substring(Birth,8,10)}" size="10" maxlength="2" placeholder="일"/></td>
+						<input type="number" id="day" name="birthDay" value="${fn:substring(Birth,8,10)}" size="10" maxlength="2" placeholder="일" oninput='handleOnInput2(this, 2)'/></td>
 				</tr>
 				<tr>
 					<th>성별</th>
@@ -406,8 +406,8 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td>
-						<input id="email3" type="text" name="userMailCheck" disabled="disabled" placeholder="인증번호 입력하세요" size="40" maxlength="50"/>
-						<input id="emailCheck" type="button" value="확인">
+						<input id="email3" type="text" name="userMailCheck" disabled="disabled" placeholder="인증번호를 입력해주세요." size="40" maxlength="50"/>
+						<!-- <input id="emailCheck" type="button" value="확인"> -->
 					</td>
 				</tr>
 				<tr>
