@@ -506,17 +506,19 @@ public class MemberController {
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-
-		HashMap<String, String> data = iMemberService.idFind(params);
-
-		modelMap.put("data", data);
-
-		if (data != null) { // 사용자 정보가 있음
-
-			modelMap.put("resMsg", "success");
-		} else { // 사용자 정보가 없음
-			modelMap.put("resMsg", "failed");
-		}
+		
+		List<HashMap<String, String>> list = iMemberService.idFind(params);
+		modelMap.put("list", list);
+		/*
+		 * HashMap<String, String> data = iMemberService.idFind(params);
+		 * 
+		 * modelMap.put("data", data);
+		 * 
+		 * if (data != null) { // 사용자 정보가 있음
+		 * 
+		 * modelMap.put("resMsg", "success"); } else { // 사용자 정보가 없음
+		 * modelMap.put("resMsg", "failed"); }
+		 */
 
 		return mapper.writeValueAsString(modelMap);
 	}
@@ -525,6 +527,10 @@ public class MemberController {
 	@RequestMapping(value = "/findId")
 	public ModelAndView findId(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
+		List<HashMap<String, String>> list = iMemberService.idFind(params);
+		
+		mav.addObject("list", list);
+		
 		mav.setViewName("YM/findId");
 		return mav;
 	}

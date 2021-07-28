@@ -54,7 +54,7 @@ public class MemberService implements IMemberService{
 	}
 
 	@Override
-	public HashMap<String, String> idFind(HashMap<String, String> params) throws Throwable {
+	public List<HashMap<String, String>> idFind(HashMap<String, String> params) throws Throwable {
 		return iMemberDao.idFind(params);
 	}
 

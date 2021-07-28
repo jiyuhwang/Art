@@ -53,8 +53,8 @@ public class MemberDao implements IMemberDao{
 	}
 
 	@Override
-	public HashMap<String, String> idFind(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectOne("User.idFind", params);
+	public List<HashMap<String, String>> idFind(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("User.idFind", params);
 	}
 
 	@Override

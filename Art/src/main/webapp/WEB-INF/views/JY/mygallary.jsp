@@ -194,7 +194,7 @@ function picList(list) {
 		var html = "";
 		if(list.length == 0) {
 			html += "<div class=\"noPost\">";
-			html += "등록된 작품이 없습니다.";
+			html += "작품이 없습니다.";
 			html += "</div>"
 		} else {
 			for(var p of list) {
@@ -223,7 +223,7 @@ function drawList(list) {
 	var html = "";
 	if(list.length == 0) {
 		html += "<div class=\"noPost\">";
-		html += "등록된 작품이 없습니다.";
+		html += "작품이 없습니다.";
 		html += "</div>"
 	} else {
 		for(var p of list) {
@@ -252,7 +252,7 @@ function videoList(list) {
 	var html = "";
 	if(list.length == 0) {
 		html += "<div class=\"noPost\">";
-		html += "등록된 작품이 없습니다.";
+		html += "작품이 없습니다.";
 		html += "</div>"
 	} else {
 		for(var p of list) {
@@ -351,7 +351,7 @@ function drawPaging(pb) {
 			
 			<div class="profile_name2">${sUserNickname}</div>
 			<div class="profile_like">
-				<span class="profile_like_cnt">팔로워수 ${data.LIKECNT} | 팔로우수 ${cnt}</span>
+				<span class="profile_like_cnt">구독자 ${data.LIKECNT} | 관심작가 ${cnt}</span>
 			</div>
 			<%-- <div class="profile_like2">팔로우수
 				<span class="profile_like_cnt2">${cnt}</span>

@@ -195,7 +195,7 @@ function reloadLikeCnt() {
 		dataType : "json",
 		data : params,
 		success: function(res) { // 성공 시 다음 함수 실행
-			likeCnt(res.data)
+			likeCnt(res.data);
 		},
 		error: function(request, status, error) { // 실패 시 다음 함수 실행
 			console.log(error);
@@ -205,11 +205,13 @@ function reloadLikeCnt() {
 
 function likeCnt(data) {
 	var html = "";
+	var html2 = "";
 	
-	html += data.LIKECNT;
+	html += "구독자 " + data.LIKECNT;
 	
 	$(".profile_like_cnt").html(html);
 
+	$("#labelCnt").val(data.LIKECNT);
 }
 
 
@@ -385,6 +387,7 @@ function drawPaging(pb) {
 			<c:import url="header.jsp"></c:import>
 		</c:otherwise>
 	</c:choose>
+	<c:import url="followPopup2.jsp"></c:import>
 <form action="#" id="actionForm" method="post">
 		<input type="hidden" id="pNo" name="pNo" />
 		<input type="hidden" id="postNo" name="postNo" />
@@ -394,6 +397,7 @@ function drawPaging(pb) {
 		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
 		<input type="hidden" id="tabFlag" name="tabFlag" value="${param.tabFlag}"/>
 		<input type="hidden" id="mainGallary" name="listPage" value="2"/>	
+		<input type="hidden" id="labelCnt" value=""/>	
 	
 	<div class="main_title_wrap">
 		<span id="mainTitle"><b>${param.userNickname}</b>님의 작업실</span>
@@ -427,8 +431,9 @@ function drawPaging(pb) {
 			</c:choose>
 			
 			<div class="profile_name2">${param.userNickname}</div>
-			<div class="profile_like">팔로워수
+			<div class="profile_like">
 				<span class="profile_like_cnt"></span>
+				<span class="profile_like_cnt2"> | 팔로우수 ${cnt}</span>
 			</div>
 			
 			

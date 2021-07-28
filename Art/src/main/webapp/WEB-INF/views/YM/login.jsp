@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>Art 로그인</title>
 <style type="text/css">
+
+body {
+	background-image: url(resources/images/JY/배경1.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
 a {
 	color: inherit;
 	text-decoration: none;
@@ -16,7 +22,7 @@ a {
     width: 800px;
     padding: 70px;
     border: 1px solid #ccc;
-    margin: 150px auto;
+    margin: 10% auto;
     overflow: hidden;
 }
 
@@ -143,7 +149,7 @@ a {
                 <ul>
                     <li>
                         <label for="userId">아이디</label>
-                        <input type="text" id="userId" name="userId" placeholder="ID" value="${param.id}">
+                        <input type="text" id="userId" name="userId" placeholder="ID" value="${param.selectId}">
                     </li>
                     <li>
                         <label for="userPw">비밀번호</label>

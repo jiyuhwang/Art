@@ -206,9 +206,11 @@ $(document).ready(function() {
 	
 	$("#emailCheck").on("click", function(){
 	    
-	    var inputCode = $("#checkMail").val();        // 입력코드      
-	    
-	    if(inputCode == code){                            // 일치할 경우
+	    var inputCode = $("#checkMail").val();        
+	    // 입력코드   
+	    if(inputCode == "") {
+	    	alert("이메일을 인증해주세요.");
+	    } else if(inputCode == code && inputCode != ""){                            // 일치할 경우
 	        alert("인증번호가 일치합니다.");        
 	    } else {                                            // 일치하지 않을 경우
 	        alert("인증번호를 다시 확인해주세요.");
