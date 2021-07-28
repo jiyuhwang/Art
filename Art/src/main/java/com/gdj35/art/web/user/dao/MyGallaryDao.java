@@ -399,7 +399,6 @@ public class MyGallaryDao implements IMyGallaryDao{
 		String[] checkList = check.split(",");
 		for(int i=0; i<checkList.length; i++) {
 			
-			System.out.println("이게 왜 안나오냐고 오오오오" + checkList[i]);
 		}
 		
 		for(int i=0; i<checkList.length; i++) {
