@@ -433,7 +433,7 @@ function drawPaging(pb) {
 			<div class="profile_name2">${param.userNickname}</div>
 			<div class="profile_like">
 				<span class="profile_like_cnt"></span>
-				<span class="profile_like_cnt2"> | 팔로우수 ${cnt}</span>
+				<span class="profile_like_cnt2"> | 관심작가 ${cnt}</span>
 			</div>
 			
 			

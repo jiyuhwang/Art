@@ -56,7 +56,7 @@ $(document).ready(function() {
 	$("#leftArrow").on("click", function() {
 		$(".pic_main_wrap").animate({
 			'margin-left': "+=25%",
-		}, 300);
+		});
 		a--;
 		if(a == 0) {
 			$("#leftArrow").hide();

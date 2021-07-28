@@ -21,9 +21,20 @@ a {
 #loginForm2 {
     width: 800px;
     padding: 70px;
-    border: 1px solid #ccc;
+    border: 1px solid white;
     margin: 10% auto;
     overflow: hidden;
+    animation: rotate 1s ease;
+}
+
+@keyframes rotate{
+    from{
+		opacity: 0;
+    }
+    
+    to{
+   		opacity: 1;
+    }
 }
 
 .logo3 {
@@ -38,13 +49,13 @@ a {
 #loginForm2 form {
     height: 200px;
     padding-left: 50px;
-    border-left: 2px dashed #ccc;
+    border-left: 2px dashed white;
     float: left;
 }
 
 #loginForm2 form fieldset {
     width: 466px;
-    border: 1px solid #ccc;
+    border: 1px solid white;
     margin-bottom: 15px;
     position: relative;
 }
@@ -97,6 +108,10 @@ a {
 <script type="text/javascript">
 
 	$(document).ready(function() {
+		
+		/* $("#loginForm2").animate({
+			'margin-top': "+=20%",
+		}, 500); */
 		
 		$('#loginForm').keypress(function(event){
 		     if (event.which == 13 ) {
