@@ -911,7 +911,7 @@ function CopyUrl2()
 		html +="					</div>";	
 		html +="					<div>";
 		html +="						<input type=\"checkbox\"  id=\"c4\" value=\"3\" class=\"check_one\"/>";
-		html +="						<label for=\"c4\">음란 또는 청소년에게한 내용</label>";
+		html +="						<label for=\"c4\">음란 또는 청소년에게 부적합한 내용</label>";
 		html +="					</div>";	
 		html +="					<div>";
 		html +="						<input type=\"checkbox\" id=\"c5\" value=\"4\" class=\"check_one\"/>";
