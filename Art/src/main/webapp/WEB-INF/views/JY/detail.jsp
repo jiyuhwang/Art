@@ -25,7 +25,6 @@ $(document).ready(function() {
 	
 	
 	
-	console.log($('#listPage').val());
 	$('#leftArrow').click(function() {
 		if($('#listPage').val() == "0") {
 			$("#goForm").attr("action", "gallary");
@@ -229,14 +228,15 @@ $(document).ready(function() {
 	})
 	
 	$('#btnComment, .comment_cnt_wrap').click(function(){
-			$(".comment_wrap1").show();
+			$('.comment_wrap2').show();
+
 			var offset = $('.comment_wrap1').offset();
 
 	        $('html').animate({scrollTop : offset.top}, 400);
 	})
 	
 	$('#btnComment2, .comment_cnt_wrap').click(function(){
-			$(".comment_wrap1").show();
+			$('.comment_wrap2').show();
 			var offset = $('.comment_wrap1').offset();
 
 	        $('html').animate({scrollTop : offset.top}, 400);
@@ -287,7 +287,7 @@ $(document).ready(function() {
 				data: params, // 보낼 데이터(문자열 형태)
 				success: function(res) { // 성공 시 다음 함수 실행
 					if(res.msg == "success") {
-						location.href = "gallary";
+						history.back(-1);
 					} else if(res.msg == "failed") {
 						alert("삭제에 실패하였습니다.")
 					} else {

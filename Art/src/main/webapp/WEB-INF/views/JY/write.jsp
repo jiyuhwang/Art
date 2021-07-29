@@ -64,7 +64,11 @@ $(document).ready(function() {
 	});
 	
 	$("#btnCancel").on("click", function () {
-		history.back();
+		if(confirm("이 페이지를 벗어나면 작성 내용이 저장되지 않습니다.")) {
+			history.back();
+		} else {
+			
+		}
 	});
 	
 	$('#video').hide();
@@ -101,7 +105,7 @@ $(document).ready(function() {
 			$("#upload").focus();
 			return false;// ajaxForm 실행 불가
 		} else if($('#video').val() == "" && $("select[name=category]").val() == '3') {
-			alert("영상 링크를 선택해주세요.");
+			alert("영상 링크를 입력해주세요.");
 			$("#video").focus();
 			return false;
 		} else if($("#titleInput").val() == "") {
@@ -206,7 +210,7 @@ $(document).ready(function() {
 			<!-- <div class="upload_txt">작품을 올려주세요.</div> -->
 			<input type="hidden" name="postFile2" id="postFile2" value=""/>  
 		</div>
-		<input type="text" id="video" name="postFile3" placeholder="유투브 링크를 입력해주세요." />
+		<input type="text" id="video" name="postFile3" placeholder="유튜브 링크를 입력해주세요." />
 		<div class="title_input_w"><input name="title" id="titleInput" type="text" value="" placeholder="제목을 입력해주세요."></div>
 		<div class="contents_in_w"><textarea id="contentsIn" name="explain" cols="80" rows="10" placeholder="작품을 뽐내주세요."></textarea></div>
 
