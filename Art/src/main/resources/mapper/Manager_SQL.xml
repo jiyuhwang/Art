@@ -797,6 +797,16 @@ ON E.ADMIN_NO = F.ADMIN_NO) A
 		WHERE REPORT_NO = #{rNo}
 	</update>
 	
+	<update id="deletePost" parameterType="hashmap">
+		UPDATE POST SET DEL = 0
+		WHERE POST_NO = #{postNo}
+	</update>
+	
+	<update id="deleteComment" parameterType="hashmap">
+		UPDATE COMMENTS SET DEL = 0
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
+	
 
 	
 	

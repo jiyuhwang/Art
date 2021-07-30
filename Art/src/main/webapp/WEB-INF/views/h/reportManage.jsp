@@ -316,6 +316,8 @@ $(document).ready(function(){
 			html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
 			html +="	<input type=\"hidden\" id=\"oldStatus\" name=\"oldStatus\" value=\""+ result.data.REPORT_STATUS +"\"/>";
 			html +="	<input type=\"hidden\" id=\"newStatus\" name=\"newStatus\"/>";
+			html +="	<input type=\"hidden\" id=\"postNo\" name=\"postNo\" value=\""+ result.data.POST_NO +"\"/>";
+			html +="	<input type=\"hidden\" id=\"commentNo\" name=\"commentNo\" value=\""+ result.data.COMMENT_NO +"\"/>";
 			html +="	</form>";
 			html +="		<div class=\"top_info\">";
 			html +="			<div class=\"info1\">";
@@ -356,6 +358,7 @@ $(document).ready(function(){
 					html += "<option value=\"1\">철회</option>";
 					html += "<option value=\"2\">접수완료</option>";
 					html += "<option value=\"3\" selected=\"selected\">처리완료</option>";
+					
 				}					
 			
 			html += "</select>";
@@ -418,8 +421,10 @@ $(document).ready(function(){
 			html +="		</div>";
 			html +="	</div>";
 				
-				
 				$("body").prepend(html);
+				if(result.data.REPORT_STATUS == "3" || result.data.REPORT_STATUS == "1") {
+					$("#status").prop("disabled", true);
+				}
 				
 				$(".background9").hide();
 				$(".ctts9").hide();				
@@ -430,11 +435,13 @@ $(document).ready(function(){
 				
 				$(".btn_close").off("click");
 				$(".btn_close").on("click", function(){
+					loadPostList();
 					closePopup();
 				});
 				
 				$(".background9").off("click");
 				$(".background9").on("click", function(){
+					loadPostList();
 					closePopup();
 				});
 				
@@ -448,6 +455,118 @@ $(document).ready(function(){
 						alert("등록된 사유가 없습니다.");
 					}
 				});
+				
+				function newMemoAdd(data){
+					//철회로 바꾸면
+						
+					var html = "";
+					
+					html += "<div class=\"background8\"></div>";
+					html += "<div class=\"ctts8\">";
+					html += "		<form id=\"memoNewForm\">";
+					html += "	<div class=\"top_div\">";
+					html += "		<div class=\"memo_title\">신고철회사유</div>";			
+					html += "		<img class=\"close_img\" id=\"closeNewMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
+					html += "	</div>";
+					html += "	<div class=\"memo_ctts_div\">";
+					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ data.REPORT_NO +"\"/>";
+					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\" value=\""+ data.ADMIN_NO +"\"/>";
+					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + data.USER_NO + "\" />";
+					html += "			<table>";
+					html += "				<tr>";
+					html += "					<td>작성자</td>";
+					html += "					<td>"+ data.ADMIN_NAME +"</td>  ";
+					html += "				</tr>";		
+					html += "				<tr>";
+					html += "					<td>발생일</td>";
+					html += "					<td colspan=\"3\">";				
+					html += "<input type=\"date\" name=\"occur\" id=\"occur\" min=\"2021-01-01\"/>";
+					html += "				</td></tr>";
+					html += "				<tr>";
+					html += "					<td colspan=\"4\"> ";
+					html += "<textarea rows=\"16\" name=\"contents\" id=\"contents\"></textarea>";
+					html += "					</td> ";
+					html += "				</tr> ";
+					html += "			</table>";
+					html += "		<div class=\"save_btn_div\" id=\"save_btn_div\">	";
+					html += "			<input type=\"button\" value=\"저장\" id=\"BtnNewSave\">";
+					html += "			<input type=\"button\" value=\"취소\" id=\"BtnNewCancel\">	";
+					html += "		</div>	";
+					html += "	</div>";
+					html += "	</form>";
+					html += "</div>  ";
+					
+					$("body").prepend(html);
+					
+					$(".background8").hide();
+					$(".ctts8").hide();
+				    $(".background8").fadeIn();
+					$(".ctts8").fadeIn();
+					
+					$("#memoNewForm").on("keypress", "input", function(event){
+						if(event.keyCode == 13){
+							return false;
+						}
+					});
+
+					//----------------------------------------------저장할 때
+					$("#BtnNewSave").off("click");
+					$("#BtnNewSave").on("click", function(){						
+						
+						if($("#occur").val() == ""){
+							alert("발생일을 입력하세요");
+							$("#occur").focus();
+						} else if($.trim($("#contents").val()) == ""){
+							alert("내용을 입력하세요");
+							$("#contents").focus();
+						} else {
+							var params = $("#memoNewForm").serialize();
+							
+							$.ajax({
+								type : "post",
+								url : "addMemo",
+								dataType : "json",
+								data : params,
+								success : function(result) {
+									
+									if(result.msg == "success"){
+										console.log("메모저장!");
+										closeMemoDetail();
+										fastClosePopup();
+										drawPopup();
+										/* loadPostList(); */
+									} else if(result.msg == "failed"){
+										alert("저장에 실패했습니다.");
+									} else {
+										console.log(result);
+										alert("저장 중 문제가 발생했습니다.");
+									}						
+					
+								},
+								error: function(request, status, error){
+									console.log(error);
+									
+								}
+							});//addMemo ajax end
+						}//addmemo보내는 else
+					});//저장버튼누르면
+
+					
+					//----------------------------------------------취소버튼 누를 때
+					$("#BtnNewCancel").off("click");
+					$("#BtnNewCancel").on("click", function(){
+						$("#status").val($("#status option:selected").val());
+						closeMemoDetail();
+					});
+					
+					$("#closeNewMemo").off("click");
+					$("#closeNewMemo").on("click", function(){
+						$("#status").val($("#status option:selected").val());
+						closeMemoDetail();
+					});
+				
+
+				}//메모새로추가함수 end
 
 				//-----------------------------------------------------------셀렉트박스가 철회로 바뀔 때
 				$("#status").on("change", function(){
@@ -457,8 +576,10 @@ $(document).ready(function(){
 										
 					$("#newStatus").val($("#status option:selected").val());
 					
-					var params = $("#detailForm").serialize();
+
 					
+					var params = $("#detailForm").serialize();
+					console.log(params);
 					$.ajax({
 						type : "post",
 						url : "changeSelect",
@@ -467,8 +588,9 @@ $(document).ready(function(){
 						success : function(result) {
 							
 							if(result.msg == "success"){
-								loadPostList();
-								
+								if($("#newStatus").val() == "1") {
+									newMemoAdd(result.data);
+								}
 							} else if(result.msg == "failed"){
 								alert("저장에 실패했습니다.");
 							} else {
@@ -479,120 +601,12 @@ $(document).ready(function(){
 						}
 					});//ajax end
 					
-					
-					function newMemoAdd(data){
-						//철회로 바꾸면
-							
-						var html = "";
-						
-						html += "<div class=\"background8\"></div>";
-						html += "<div class=\"ctts8\">";
-						html += "		<form id=\"memoNewForm\">";
-						html += "	<div class=\"top_div\">";
-						html += "		<div class=\"memo_title\">신고철회사유</div>";			
-						html += "		<img class=\"close_img\" id=\"closeNewMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
-						html += "	</div>";
-						html += "	<div class=\"memo_ctts_div\">";
-						html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ data.REPORT_NO +"\"/>";
-						html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\" value=\""+ data.ADMIN_NO +"\"/>";
-						html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + data.USER_NO + "\" />";
-						html += "			<table>";
-						html += "				<tr>";
-						html += "					<td>작성자</td>";
-						html += "					<td>"+ data.ADMIN_NAME +"</td>  ";
-						html += "				</tr>";		
-						html += "				<tr>";
-						html += "					<td>발생일</td>";
-						html += "					<td colspan=\"3\">";				
-						html += "<input type=\"date\" name=\"occur\" id=\"occur\" min=\"2021-01-01\"/>";
-						html += "				</td></tr>";
-						html += "				<tr>";
-						html += "					<td colspan=\"4\"> ";
-						html += "<textarea rows=\"16\" name=\"contents\" id=\"contents\"></textarea>";
-						html += "					</td> ";
-						html += "				</tr> ";
-						html += "			</table>";
-						html += "		<div class=\"save_btn_div\" id=\"save_btn_div\">	";
-						html += "			<input type=\"button\" value=\"저장\" id=\"BtnNewSave\">";
-						html += "			<input type=\"button\" value=\"취소\" id=\"BtnNewCancel\">	";
-						html += "		</div>	";
-						html += "	</div>";
-						html += "	</form>";
-						html += "</div>  ";
-						
-						$("body").prepend(html);
-						
-						$(".background8").hide();
-						$(".ctts8").hide();
-					    $(".background8").fadeIn();
-						$(".ctts8").fadeIn();
-						
-						$("#memoNewForm").on("keypress", "input", function(event){
-							if(event.keyCode == 13){
-								return false;
-							}
-						});
+				
 
-						//----------------------------------------------저장할 때
-						$("#BtnNewSave").off("click");
-						$("#BtnNewSave").on("click", function(){						
-							
-							if($("#occur").val() == ""){
-								alert("발생일을 입력하세요");
-								$("#occur").focus();
-							} else if($.trim($("#contents").val()) == ""){
-								alert("내용을 입력하세요");
-								$("#contents").focus();
-							} else {
-								var params = $("#memoNewForm").serialize();
-								
-								$.ajax({
-									type : "post",
-									url : "addMemo",
-									dataType : "json",
-									data : params,
-									success : function(result) {
-										
-										if(result.msg == "success"){
-											console.log("메모저장!");
-											closeMemoDetail();
-											fastClosePopup();
-											drawPopup();
-											loadPostList();
-										} else if(result.msg == "failed"){
-											alert("저장에 실패했습니다.");
-										} else {
-											console.log(result);
-											alert("저장 중 문제가 발생했습니다.");
-										}						
-						
-									},
-									error: function(request, status, error){
-										console.log(error);
-										
-									}
-								});//addMemo ajax end
-							}//addmemo보내는 else
-						});//저장버튼누르면
-
-						
-						//----------------------------------------------취소버튼 누를 때
-						$("#BtnNewCancel").off("click");
-						$("#BtnNewCancel").on("click", function(){
-							$("#satus").val(result.data.REPORT_STATUS);
-							closeMemoDetail();
-						});
-						
-						$("#closeNewMemo").off("click");
-						$("#closeNewMemo").on("click", function(){
-							$("#satus").val(result.data.REPORT_STATUS);
-							closeMemoDetail();
-						});
-					
-
-					}//메모새로추가함수 end
 					
 				});// 셀렉트 change 함수 end
+				
+
 				
 				
 			}, error: function(request, status, error){
@@ -600,6 +614,8 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
+
 	
 	//----------------------------------------------메모 테이블 불러오기
 		 function drawMeMoTable(list) {
