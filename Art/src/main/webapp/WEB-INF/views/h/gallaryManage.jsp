@@ -139,8 +139,6 @@ $(document).ready(function(){
 			$("#page").val(1);
 		}	 
 		loadPostList();
-		console.log("제목+ 내용 왜이래");
-		console.log("#menu 다다다다" + $("#menuTabFlag").val());
 		
 	});
 	
@@ -301,7 +299,6 @@ $(document).ready(function(){
 	//-------------------------------------------------------ajax실행
 	function loadPostList(){
 		var params = $("#actionForm").serialize();
-		console.log(params);
 		$.ajax({
 			url: "entireList",
 			type: "post",
