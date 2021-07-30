@@ -42,7 +42,7 @@ public class ManagerController {
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String sendMail(@RequestParam HashMap<String, String> params) throws Throwable{
+	public String sendMailAjax(@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> modelMap = new HashMap<String,Object>();
@@ -438,12 +438,16 @@ public class ManagerController {
 		System.out.println("메모 등록을 위한 폼 >>> "+params);
 		
 		try {
-			int cnt = iManagerService.addMemo(params); 
+			
+			int cnt = iManagerService.addMemoHD(params); 
+			List<HashMap<String,String>> list = iManagerService.getDMList(params);
+			
 			
 			System.out.println("고객을 업데이트했는지 안했는지 >> " + cnt); 
 			
 			if(cnt >0 ) { 
 				modelMap.put("msg","success"); 
+				modelMap.put("list",list); 
 			}	 
 		}catch(Throwable e){
 			e.printStackTrace();

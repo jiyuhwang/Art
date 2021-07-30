@@ -227,6 +227,12 @@ public class ManagerService implements IManagerService {
 		return iManagerDao.updateReport(params);
 	}
 
+	@Override
+	public int addMemoHD(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iManagerDao.addMemoHD(params);
+	}
+
 
 	
 

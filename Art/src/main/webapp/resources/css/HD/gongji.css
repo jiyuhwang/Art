@@ -205,9 +205,6 @@ a {
 	/* overflow: scroll; */
 }
 
-/* .main::-webkit-scrollbar{
-	display: none;
-} */
 .main_ctt:nth-child(1){
 	background-color:inherit;
 	width: 940px;
@@ -340,6 +337,7 @@ strong{
 	position: relative;
 	text-align: center;
 	color: black;
+	height: 110px;
 }
 
 .gong {
@@ -350,7 +348,7 @@ strong{
     height:30px;
     color: #333;
     left : 120px;
-    padding-top: 30px;
+    padding-top: 40px;
 }
 
 #searchTxt input:focus {
@@ -388,7 +386,6 @@ strong{
 	position: absolute;
 	margin: 365px 85px;
 	text-align: center;
-	border-top: 1px dashed black;
 	padding-top: 20px;
 	font-size: 15pt;
 }

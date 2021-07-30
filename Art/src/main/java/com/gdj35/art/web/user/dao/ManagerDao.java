@@ -297,6 +297,12 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.update("Manager.updateReport",params);
 	}
 
+	@Override
+	public int addMemoHD(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("Manager.addMemoHD",params);
+	}
+
 
 	
 }

@@ -83,6 +83,8 @@ public interface IManagerService {
 
 	public int updateReport(HashMap<String, String> params)throws Throwable;
 
+	public int addMemoHD(HashMap<String, String> params)throws Throwable;
+
 	
 	
 	

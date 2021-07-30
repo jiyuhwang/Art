@@ -199,6 +199,10 @@ table th:hover{
 	height: 550px;
 	overflow: auto;
 }
+
+.main3-table::-webkit-scrollbar{
+	display: none;
+}
 .status{
 	height : 20px;
 	background-color: #6C7A89;
