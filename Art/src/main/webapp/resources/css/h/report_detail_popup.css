@@ -138,16 +138,6 @@ ul { list-style: none;}
 	top: 296px;
 }
 
-.writer1 {
-	display: inline-block;
-	width: 190px;
-	text-align: center;
-	height: 100%;
-	background-color: white;
-	margin-left: 3px;
-	color: #0C4A60;
-}
-
 .flag1 {
 	display: inline-block;
 	width: 190px;
@@ -160,16 +150,27 @@ ul { list-style: none;}
 	position: absolute;
 }
 
-.writer2 {
+
+.writer1, .commenter1 {
+	display: inline-block;
+	width: 190px;
+	text-align: center;
+	height: 100%;
+	background-color: white;
+	margin-left: 3px;
+	color: #0C4A60;
+}
+.writer2, .commenter2 {
 	display: inline-block;
 	width: 190px;
 	text-align: center;
 	height: 50px;
 	background-color: white;
 	text-overflow: ellipsis;
+	cursor: pointer;
 }
 
-.writer3 {
+.writer3, .commenter3 {
 	display: inline-block;
 	width: 190px;
 	text-align: center;
@@ -178,14 +179,14 @@ ul { list-style: none;}
 	color: #0C4A60;
 }
 
-.writer4 {
+.writer4, .commenter4 {
 	display: inline-block;
 	width: 210px;
 	text-align: center;
 	height: 100%;
 	background-color: white;
 	text-overflow: ellipsis;
-	
+	cursor: pointer;
 }
 
 .flag2 {
@@ -218,12 +219,13 @@ ul { list-style: none;}
 	color: #0C4A60;
 }
 
-.post2 {
-		display: inline-block;
+.post2  {
+	display: inline-block;
 	width: 600px;
 	text-align: center;
 	height: 100%;
 	background-color: white;
+	cursor: pointer;
 }
 
 .top_content {
