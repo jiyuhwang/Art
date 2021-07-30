@@ -366,8 +366,8 @@
 					AND PCATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 7">
-					AND TITLE LIKE '%' || #{searchTxt} || '%'
-					OR EXPLAIN LIKE '%' || #{searchTxt} || '%'
+					AND (TITLE LIKE '%' || #{searchTxt} || '%'
+					OR EXPLAIN LIKE '%' || #{searchTxt} || '%')
 				</when>
 				<when test="searchFlag == 8">
 					AND TO_CHAR(REGISTER_DATE, 'YYYY') LIKE '%' || #{searchTxt} || '%'
@@ -463,8 +463,8 @@
 					AND PC.CATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 7">
-					AND P.TITLE LIKE '%' || #{searchTxt} || '%'
-					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%'
+					AND (P.TITLE LIKE '%' || #{searchTxt} || '%'
+					OR P.EXPLAIN LIKE '%' || #{searchTxt} || '%')
 				</when>
 				<when test="searchFlag == 8">
 					AND TO_CHAR(REGISTER_DATE, 'YYYY') LIKE '%' || #{searchTxt} || '%'

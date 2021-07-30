@@ -139,6 +139,8 @@ $(document).ready(function(){
 			$("#page").val(1);
 		}	 
 		loadPostList();
+		console.log("제목+ 내용 왜이래");
+		console.log("#menu 다다다다" + $("#menuTabFlag").val());
 		
 	});
 	

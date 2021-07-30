@@ -559,7 +559,7 @@ $(document).ready(function(){
 									success : function(result) {
 										
 										if(result.msg == "success"){
-											console.log("메모저장!");
+											console.log("철회사유저장!");
 											closeMemoDetail();
 											fastClosePopup();
 											drawPopup();
