@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>Art 로그인</title>
 <style type="text/css">
+
+body {
+	background-image: url(resources/images/JY/배경1.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
 a {
 	color: inherit;
 	text-decoration: none;
@@ -15,9 +21,20 @@ a {
 #loginForm2 {
     width: 800px;
     padding: 70px;
-    border: 1px solid #ccc;
-    margin: 150px auto;
+    border: 1px solid white;
+    margin: 10% auto;
     overflow: hidden;
+    animation: rotate 1s ease;
+}
+
+@keyframes rotate{
+    from{
+		opacity: 0;
+    }
+    
+    to{
+   		opacity: 1;
+    }
 }
 
 .logo3 {
@@ -32,13 +49,13 @@ a {
 #loginForm2 form {
     height: 200px;
     padding-left: 50px;
-    border-left: 2px dashed #ccc;
+    border-left: 2px dashed white;
     float: left;
 }
 
 #loginForm2 form fieldset {
     width: 466px;
-    border: 1px solid #ccc;
+    border: 1px solid white;
     margin-bottom: 15px;
     position: relative;
 }
@@ -92,6 +109,10 @@ a {
 
 	$(document).ready(function() {
 		
+		/* $("#loginForm2").animate({
+			'margin-top': "+=20%",
+		}, 500); */
+		
 		$('#loginForm').keypress(function(event){
 		     if (event.which == 13 ) {
 		         $('#btnLogin').click();
@@ -143,7 +164,7 @@ a {
                 <ul>
                     <li>
                         <label for="userId">아이디</label>
-                        <input type="text" id="userId" name="userId" placeholder="ID" value="${param.id}">
+                        <input type="text" id="userId" name="userId" placeholder="ID" value="${param.selectId}">
                     </li>
                     <li>
                         <label for="userPw">비밀번호</label>

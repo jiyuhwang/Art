@@ -59,8 +59,12 @@ $(document).ready(function() {
 	$("#emailSend").click(function(){
 	    
 		  var email = $("#email").val();            // 입력한 이메일
+		    
 		  
-		  if(!mailFormCheck(email)){
+		  if(email == "${data.MAIL}") {
+		    	alert("기존 이메일 주소와 같습니다.");
+		    	return false;
+		    } else if(!mailFormCheck(email)){
 		        alert("올바르지 못한 이메일 형식입니다.");
 		        return false;
 		    } else {
@@ -86,17 +90,16 @@ $(document).ready(function() {
 	});
 	
 	
-	$("#emailCheck").on("click", function(){
+	/* $("#emailCheck").on("click", function(){
 	    
 	    var inputCode = $("#email3").val();        // 입력코드      
-	    
-	    if(inputCode == code){                            // 일치할 경우
+		if(inputCode == code){                            // 일치할 경우
 	        alert("인증번호가 일치합니다.");        
 	    } else {                                            // 일치하지 않을 경우
 	        alert("인증번호를 다시 확인해주세요.");
 	    }    
 	    
-	});
+	}); */
 	
 	
 	$(".profile_manage").on("click", function() {
@@ -206,8 +209,8 @@ $(document).ready(function() {
 		}
 		
 	});
-	
 	$("#btnSave").on("click", function(){
+	console.log($("#email3").prop("disabled"));
 	    
 		if($("#name").val() == "") {
 			$("#name").focus();
@@ -227,13 +230,15 @@ $(document).ready(function() {
 		} else if($("#email").val() == "") {
 			$("#email").focus();
 			return false;
-		} else if(&& $("#email").val() != "${data.MAIL}") {
-			alert("이메일 인증번호를 입력해주세요.")
-			if($("#email3").val() == "") {
-				$("#email3").focus();
-			} else if($("#email3").val() != code) {
-				alert("이메일 인증번호가 틀립니다.")
-			} 
+		} else if($("#email3").val() == "" && $("#email3").prop("disabled") == false) {
+			$("#email3").focus();
+			alert("asdfa");
+			return false;
+		} else if($("#email").val() != "${data.MAIL}"&& $("#email3").val() == ""){
+			alert("이메일을 인증해주세요.");
+			return false;
+		} else if($("#email").val() != "${data.MAIL}" && $("#email3").val() != code) {
+			alert("이메일 인증번호를 다시 확인해주세요.");
 			return false;
 		} else {
 			

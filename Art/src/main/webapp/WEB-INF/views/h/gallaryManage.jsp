@@ -880,7 +880,7 @@ $(document).ready(function(){
 	
 		<div class ="search_flag_div">
 			<div class="search_flag">
-				<label>회원분류</label>
+				<label>작품분류</label>
 				<select name="srhYearFlag" id="srhYearFlag">
 					<option value="0"> 올해작품</option>
 					<option value="1"> 작년작품</option>
@@ -938,7 +938,7 @@ $(document).ready(function(){
 					</th>
 					<th>번호</th>
 					<th>글번호</th>
-					<th>게시판</th>
+					<th>카테고리</th>
 					<th>제목</th>
 					<th>작성자</th>
 					<th>닉네임(아이디)</th>

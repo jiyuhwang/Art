@@ -25,7 +25,6 @@ $(document).ready(function() {
 	
 	
 	
-	console.log($('#listPage').val());
 	$('#leftArrow').click(function() {
 		if($('#listPage').val() == "0") {
 			$("#goForm").attr("action", "gallary");
@@ -229,14 +228,15 @@ $(document).ready(function() {
 	})
 	
 	$('#btnComment, .comment_cnt_wrap').click(function(){
-			$(".comment_wrap1").show();
+			$('.comment_wrap2').show();
+
 			var offset = $('.comment_wrap1').offset();
 
 	        $('html').animate({scrollTop : offset.top}, 400);
 	})
 	
 	$('#btnComment2, .comment_cnt_wrap').click(function(){
-			$(".comment_wrap1").show();
+			$('.comment_wrap2').show();
 			var offset = $('.comment_wrap1').offset();
 
 	        $('html').animate({scrollTop : offset.top}, 400);
@@ -287,7 +287,7 @@ $(document).ready(function() {
 				data: params, // 보낼 데이터(문자열 형태)
 				success: function(res) { // 성공 시 다음 함수 실행
 					if(res.msg == "success") {
-						location.href = "gallary";
+						history.back(-1);
 					} else if(res.msg == "failed") {
 						alert("삭제에 실패하였습니다.")
 					} else {
@@ -544,7 +544,29 @@ function commentList(list) {
 					
 
 				} else {
-					html += "<div class=\"comment_form1\">삭제된 댓글입니다</div>";
+					if(p.CNT > 0) {
+						html += "<div class=\"comment_form1\">삭제된 댓글입니다";
+						html += "<div class=\"btn_reply_upload_comment_delete_w\" cNo=\"" + p.COMMENT_NO + "\" >";
+	
+						html += "<input type=\"button\" class=\"btnReplyUpload\" id=\"btnReplyUpload\"" + p.COMMENT_NO + "\" value=\"답글 " + p.CNT + "\">";
+	
+						
+						html += "<div class=\"reply_comment_form1_w1\" id=\"reply_comment_form1_w1" + p.COMMENT_NO + "\">";
+						html += "<form action=\"#\" class=\"commentform\" id=\"go" + p.COMMENT_NO + "\" method=\"post\" cmt=\"" + p.COMMENT_NO + "\">";
+						html += "<input type=\"hidden\" name=\"topCommentNo\" value=\"" + p.COMMENT_NO + "\">";
+						html += "<input type=\"hidden\" class=\"userNo\" name=\"userNo\" value=\"${sUserNo}\">";
+						html += "<input type=\"hidden\" name=\"postNo\" value=\"" + p.POST_NO + "\">";
+	
+						html += "</form>";
+						html += "</div>";
+						
+						
+						html += "<div id=\"comment" + p.COMMENT_NO + "\" class=\"commentClass\">"
+						html += "</div>";			
+						html += "</div>";
+						html += "</div>";
+					} else {
+					}
 				}
 				
 
@@ -694,13 +716,6 @@ function replyCommentList(list, cNo) {
 			html += "</div>";
 			html += "<div class=\"commentWriteForm\"></div>";
 		} else {
-			html += "<div class=\"reply_comment_form1_w2\">";
-			html += "<span class=\"reply\"></span>";
-			html += "<div class=\"reply_comment_form1\">";
-			html += "삭제된 답글입니다.";
-			html += "</div>";
-			html += "</div>";
-			html += "</div>";
 		}
 	}
 
@@ -911,7 +926,7 @@ function CopyUrl2()
 		html +="					</div>";	
 		html +="					<div>";
 		html +="						<input type=\"checkbox\"  id=\"c4\" value=\"3\" class=\"check_one\"/>";
-		html +="						<label for=\"c4\">음란 또는 청소년에게한 내용</label>";
+		html +="						<label for=\"c4\">음란 또는 청소년에게 부적합한 내용</label>";
 		html +="					</div>";	
 		html +="					<div>";
 		html +="						<input type=\"checkbox\" id=\"c5\" value=\"4\" class=\"check_one\"/>";

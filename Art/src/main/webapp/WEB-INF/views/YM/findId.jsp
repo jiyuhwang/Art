@@ -80,7 +80,8 @@ body {
 	width : 100%;
 	height: 200px;
  	text-align: center;
- 	line-height: 200px;
+ 	padding-top: 10%;
+ 	/* line-height: 200px; */
 }
 
 .check {
@@ -106,19 +107,23 @@ body {
 	margin-left: 30px;
 }
 
+.select_id {
+	margin-top: 30px;
+}
 
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".login").on("click", function(){
-	    
-		$("#login").submit();    
+		/* $(".select_id").val()  */
+		
+		$("#login").submit();   
 	});
 	
 	$(".passwordfind, .pwfind").on("click", function(){
 		    
-			location.href = "passwordfind";   
+		location.href = "passwordfind";   
 	});
 
 	
@@ -126,13 +131,15 @@ $(document).ready(function() {
 	    
 		location.href = "idfind";   
 	});
+	
+
 });
 </script>
 </head>
 <body>
 <form id="login" action="login" method="post">
-	<input type="hidden" name="id" value="${param.userId2}">
-</form>
+
+
 	<div class="wrap">
 			<div class="top2">
 				<input type="button" class="idfind" value="아이디 찾기">
@@ -143,14 +150,17 @@ $(document).ready(function() {
 			<br>	
 			<div class="text2">고객님의 정보와 일치하는 아이디 목록입니다.</div>
 			<div class="box">
-				<input type="radio">${param.userId2}
+			<c:forEach var="id" items="${list}">
+    			<input type="radio" class="select_id" name="selectId" value="${id.USER_ID}">${id.USER_ID}
+    			<br/>
+			</c:forEach>
 			</div>
-			<div class="check" >
+			<div class="check">
 				<input type="button" class="login" value="로그인하기">
 				<input type="button" class="passwordfind" value="비밀번호 찾기">
 			</div>
 		</div>
 	</div>
-
+</form>
 </body>
 </html>

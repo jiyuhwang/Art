@@ -93,9 +93,15 @@ public class MyGallaryController {
 		if(params.get("page") != null) {
 			page = Integer.parseInt(params.get("page"));
 		}
+		params.put("followNo", params.get("authorNo"));
+
 		
 		HashMap<String, String> data = iMyGallaryService.authorIsHeart(params);
 		
+		int cnt = iMyGallaryService.followingCnt(params);
+		  
+		mav.addObject("cnt", cnt);
+		 
 		mav.addObject("data", data);
 		
 		mav.addObject("page", page);

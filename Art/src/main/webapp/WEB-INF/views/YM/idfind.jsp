@@ -160,9 +160,11 @@ $(document).ready(function() {
 		if($.trim($("#userName").val()) == "") {
 			alert("이름을 입력해주세요.");
 			$("#userName").focus();
+			return false;
 		} else if($.trim($("#userMail").val()) == "") {
 			alert("이메일 주소를 정확하게 입력해주세요.");
 			$("#userMail").focus();
+			return false;
 		} else {
 			// form의 data를 문자열로 전환
 			var params = $("#idFindForm").serialize();
@@ -174,10 +176,11 @@ $(document).ready(function() {
 				dataType: "json", // 받아올 데이터 형태
 				data: params, // 보낼 데이터(문자열 형태)
 				success: function(res) { // 성공 시 다음 함수 실행
-					if(res.resMsg == "success") {
+					/* if(res.resMsg == "success") { */
 					  alert("이메일 인증번호가 전송되었습니다.")
 				      $("#checkMail").val(""); 
-					  $("#userId2").val(res.data.USER_ID);
+						console.log(res.list);
+					  /* $("#userId2").val(res.data.USER_ID); */
 					  var email = $("#userMail").val();            // 입력한 이메일
 					  var checkBox = $("#checkMail");        // 인증번호 입력란
 					  
@@ -194,11 +197,11 @@ $(document).ready(function() {
 					                
 					  });
 					  
-					} else if(res.resMsg == "failed") {
+					/* } else if(res.resMsg == "failed") {
 						alert("탈퇴한 회원이거나 일치하는 회원정보가 없습니다.");
 					} else {
 						alert("로딩 중 문제 발생");
-					}
+					} */
 				},
 				error: function(request, status, error) { // 실패 시 다음 함수 실행
 					console.log(error);
@@ -209,9 +212,11 @@ $(document).ready(function() {
 	
 	$("#emailCheck").on("click", function(){
 	    
-	    var inputCode = $("#checkMail").val();        // 입력코드      
-	    
-	    if(inputCode == code){                            // 일치할 경우
+	    var inputCode = $("#checkMail").val();    
+	    // 입력코드      
+	    if(inputCode == "") {
+	    	alert("이메일을 인증해주세요.");
+	    } else if(inputCode == code && inputCode != ""){                            // 일치할 경우
 	        alert("인증번호가 일치합니다.");        
 	    } else {                                            // 일치하지 않을 경우
 	        alert("인증번호를 다시 확인해주세요.");

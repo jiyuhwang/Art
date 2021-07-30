@@ -3,7 +3,7 @@
 
 
 body {
-	font-size: 0pt;
+	/* font-size: 0pt; */
 	margin: 0;
 	font-family: '돋움';
 }
@@ -307,9 +307,9 @@ input[type="checkbox"] {
 
 .contents_in {
 	top: 9vh;
-	font-size: 0.8vw;
+	font-size: inherit;
 	width: 80%;
-	height: auto;
+	height: 170px;
 	white-space: pre-wrap;
 	text-overflow: ellipsis;
 	display: -webkit-box;

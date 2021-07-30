@@ -164,7 +164,7 @@ function followPopup() {
 	var html = "";
 	html += "<div class=\"bg2\"></div>";
 	html += "<form id=\"followForm\" method=\"post\">";
-	html += "<input type=\"hidden\" id=\"followNo\" name=\"followNo\" value=\"${sUserNo}\">"
+	html += "<input type=\"hidden\" id=\"followNo\" name=\"followNo\" value=\"${param.authorNo}\">"
 	html += "<input type=\"hidden\" id=\"followpage\" name=\"followpage\" value=\"1\">"
 	html += "<input type=\"hidden\" id=\"authorNo\" name=\"authorNo\" value=\"\">"
 	html += "<input type=\"hidden\" id=\"userNo\" name=\"userNo\" value=\"\">"
@@ -177,7 +177,7 @@ function followPopup() {
 	html += "<div class=\"tabs2\">";
 	html += "<input id=\"follower\" type=\"radio\" value=\"0\" name=\"tab2\" checked=\"checked\" />";
 	html += "<input id=\"following\" type=\"radio\" value=\"1\" name=\"tab2\" />";
-	html += "<label for=\"follower\">구독자 ${data.LIKECNT}</label>";
+	html += "<label for=\"follower\">구독자 " + $("#labelCnt").val() + "</label>";
 	html += "<label for=\"following\">관심작가 ${cnt}</label>";
 		
 	html += "<div class=\"follower_wrap\">";

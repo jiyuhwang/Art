@@ -8,7 +8,7 @@
 <title>header</title>
 <style type="text/css">
 body {
-	font-size: 0pt;
+	/* font-size: 0pt; */
 	margin: 0;
 	font-family: '돋움';
 }

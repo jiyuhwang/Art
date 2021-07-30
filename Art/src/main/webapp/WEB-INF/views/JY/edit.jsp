@@ -81,7 +81,11 @@ $(document).ready(function() {
 	});
 	
 	$("#btnCancel").on("click", function () {
-		history.back();
+		if(confirm("이 페이지를 벗어나면 수정 내용이 저장되지 않습니다.")) {
+			history.back();
+		} else {
+			
+		}
 	});
 	
 	$("#btnSave").on("click", function(){
@@ -105,7 +109,7 @@ $(document).ready(function() {
 			alert("작품을 올려주세요.");
 			$("#upload").focus();
 			return false;// ajaxForm 실행 불가
-		} else if($('#video').val() == "" && $("select[name=category]").val() == '3') {
+		} else if($('#video').val() == "" && $("#categoryNo").val() == '3') {
 			alert("영상 링크를 첨부해주세요.");
 			$("#video").focus();
 			return false;
@@ -190,6 +194,7 @@ $(document).ready(function() {
 	<input type="hidden" id="tag2" name="tag" value="">
 	<input type="hidden" name="page" value="${param.page}" />
 	<input type="hidden" id="postNo" name="postNo" value="${param.pNo}" />
+	<input type="hidden" id="categoryNo" name="categoryNo" value="${data.CATEGORY_NO}" />
 	<c:choose>
 		<c:when test="${empty sUserNo}">
 			<c:import url="header2.jsp"></c:import>
@@ -209,7 +214,7 @@ $(document).ready(function() {
 						<input type="button" id="upload"/>
 						<input type="hidden" name="postFile2" id="postFile2" value=""/>  
 					</div>
-					<input type="text" id="video" name="postFile3" value='${data.VIDEO_LINK}' maxlength="150" placeholder="유투브 링크를 입력해주세요." />
+					<input type="text" id="video" name="postFile3" value='${data.VIDEO_LINK}' placeholder="유튜브 링크를 입력해주세요." />
 			</c:when>
 
 			<c:otherwise>

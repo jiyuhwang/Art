@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-	font-size: 0pt;
+	/* font-size: 0pt; */
 	margin: 0;
 	font-family: '돋움';
 }
@@ -90,9 +90,16 @@ b {
 	text-align: center;
 	top: 290px;
 	font-size: 11pt;
+	cursor: pointer;
 }
 
-.profile_like_cnt {
+.profile_like:hover {
+	font-weight: bold;
+	color: #ffad33;
+}
+
+
+.profile_like_cnt, .profile_like_cnt2 {
 	font-weight: bold;
 }
 
@@ -232,9 +239,9 @@ b {
 
 .contents_in {
 	top: 9vh;
-	font-size: 0.8vw;
+	font-size: inherit;
 	width: 80%;
-	height: auto;
+	height: 170px;
 	white-space: pre-wrap;
 	text-overflow: ellipsis;
 	display: -webkit-box;
