@@ -294,6 +294,17 @@ public class ManagerDao implements IManagerDao {
 
 	@Override
 	public int updateReport(HashMap<String, String> params) throws Throwable {
+		System.out.println("<<<<<<<<<<>>>>>>>>>>>>>>" + params);
+		
+	if(params.get("newStatus").equals("3")) {
+		  if(params.get("postNo").equals("undefined")) {
+			  sqlSession.update("Manager.deleteComment", params);
+		  } else {
+			  sqlSession.update("Manager.deletePost", params);
+		  }
+	}
+		 
+		
 		return sqlSession.update("Manager.updateReport",params);
 	}
 
