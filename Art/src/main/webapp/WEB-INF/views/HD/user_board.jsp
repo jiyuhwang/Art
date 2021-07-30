@@ -26,9 +26,12 @@ $(document).ready( function () {
 		$("#searchGbn").val("${param.searchGbn}");
 	}
 	 $("#allUserList").attr("class","bigClassActive");
+	 
 	 $("#allUserList").on("click", function () {
-	  	$("#allUserList").attr("class","bigClassActive");
-		$("#userForm").submit();
+		 if($("#allUserList").attr("class") != "bigClassActive" ){
+		  	$("#allUserList").attr("class","bigClassActive");
+			$("#userForm").submit();
+		 }
 	});
 		
 /* 	if("${param.searchGbn}" != ""){
@@ -75,6 +78,10 @@ $(document).ready( function () {
 				
 				$(".PmainM #attMail").on("change", function () {
 					$("#fileNameForMail").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+					$("#fileFormM").val($("#fileNameForMail").val());
+					var d = $("#fileNameForMail").val()
+					$("#fileNameForMail").val(d.substr(20))
+					
 					
 				});
 				
@@ -82,7 +89,6 @@ $(document).ready( function () {
 					
 					$("#titleForm").val($("#title").val());
 					$("#contentsForm").val($("#contents").val());
-					$("#fileFormM").val($("#fileNameForMail").val());
 					
 					var list = new Array();
 					$(".PmainM [class=mail]").each(function(index,item) {
@@ -275,10 +281,9 @@ $(document).ready( function () {
 			data : params,
 			success: function (res) {
 				if(res.msg == "success"){
-					alert("지워 졌음");
 					$(".Pmain table").empty();
 					$(".topOfBox .topBar").empty();
-					listDM(res.list);
+					listDM(res.list,1);
 				} else if(res.msg == "failed"){
 					alert("작성에 실패하였습니다.")
 				} else{
@@ -334,7 +339,7 @@ function drawPopup() {
 			 $("#insideMiddle2").on("click", function () {
 				if($("#insideMiddle2").attr("class") != 'insideMiddle1'){
 					$(".Pmain table").empty();
-					listDM(res.listM);
+					listDM(res.listM,0);
 					$(".topOfBox .topBar").empty();
 				}
 			}); 
@@ -367,10 +372,11 @@ function drawUpdatePopup() {
 					listDP(res.list)
 				}
 			});
+			
 			 $("#insideMiddle2").on("click", function () {
 				if($("#insideMiddle2").attr("class") != 'insideMiddle1'){
 					$(".Pmain table").empty();
-					listDM(res.listM);
+					listDM(res.listM,1);
 					
 				}
 			});
@@ -715,7 +721,7 @@ function drawOutList() {
   
  
 }  
- function listDM(listM) {
+ function listDM(listM,gbn) {
 	var html="";
 			html +=" <form id=\"memoForm\" method=\"post\" action=\"#\">";
 			html +="	<input type=\"hidden\" id=\"userNoMemo\" name=\"userNo\">";
@@ -740,7 +746,6 @@ function drawOutList() {
 	
 	$(".topOfBox .topBar").html(html);
 	
-	
 	var html="";
 					
 					html += "	<colgroup>";
@@ -749,7 +754,9 @@ function drawOutList() {
 					html += "		<col width=\"5%\"/>";
 					html += "		<col width=\"10%\"/>";
 					html += "		<col width=\"10%\"/>";
-					html += "		<col width=\"15%\"/>";
+					if(gbn ==1){
+							html += "		<col width=\"15%\"/>";
+					}
 					html += "		<col width=\"25%\"/>";
 					html += "	</colgroup>";
 					html += "	<tr>";
@@ -760,7 +767,9 @@ function drawOutList() {
 					html += "	<th> 중요도</th>";
 					html += "	<th> 등록일자</th>";
 					html += "	<th> 발생일자</th>";
-					html += "	<th> 수정/삭제</th>";
+					if(gbn == 1){
+						html += "	<th> 수정/삭제</th>";
+					}
 					html += "	<th> 메모내용</th>";
 					html += "	</tr>";
 					
@@ -778,10 +787,14 @@ function drawOutList() {
 						
 						html += "	<td>"+ d.ACCUR_DATE +"</td>";
 						html += "	<td>"+ d.REGI_DATE +"</td>";
-						html += "	<td>";
-						html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtnDM\">";
-						html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtnDM\">"; 
-						html += "	</td>"; 
+						if(gbn == 1){
+							html += "	<td>";
+								html +=	"			  <input type=\"button\" value=\"수정\" class=\"btnDP\" id=\"updateBtnDM\">";
+								html +=	"			  <input type=\"button\" value=\"삭제\" class=\"btnDP\" id=\"deleteBtnDM\">"; 
+							html += "	</td>"; 
+						}else{
+							
+						}
 						html += "	<td>"+ d.CONTENTS +"</td>";
 						html += "	</tr>";
 					}
@@ -833,7 +846,7 @@ function drawOutList() {
 			data : params,
 			success: function (res) {
 				if(res.msg == "success"){
-					updateMemoPop(res.memo);						
+					updateMemoPop(res.memo);
 				} else if(res.msg == "failed"){
 					alert("작성에 실패하였습니다.")
 				} else{
@@ -849,6 +862,7 @@ function drawOutList() {
 	});
 	
 };
+
 
 function MemoPop(list) {
 	console.log("실행된다.");
@@ -953,7 +967,7 @@ function updateMemoPop(list) {
 				$("#memoWrap").empty();
 			});
 			
-			$(".popMemo #addBtn").on("click", function () {
+			 $(".popMemo #addBtn").on("click", function () {
 				if($(".popMemo input[type=checkbox]").is(":checked") == true){
 					$("#importantForm").val("1");
 				}else{
@@ -974,6 +988,7 @@ function updateMemoPop(list) {
 					success: function (res) {
 						if(res.msg == "success"){
 							$("#memoWrap").empty();						
+							listDM(res.list,1);
 						} else if(res.msg == "failed"){
 							alert("작성에 실패하였습니다.")
 						} else{
@@ -984,7 +999,7 @@ function updateMemoPop(list) {
 						console.log(error);
 					}
 					});
-				});
+				}); 
 			
 }
 
@@ -1062,7 +1077,8 @@ function addMemoPop() {
 				data : params,
 				success: function (res) {
 					if(res.msg == "success"){
-						$("#memoWrap").empty();						
+						$("#memoWrap").empty();
+						listDM(res.list,1);
 					} else if(res.msg == "failed"){
 						alert("작성에 실패하였습니다.")
 					} else{
@@ -1329,7 +1345,15 @@ function drawEamilList(list) {
 					<td>${data.NAME}</td>
 					<td>${data.USER_ID}</td>
 					<td>${data.USER_NICKNAME}</td>
-					<td>${data.SEX}</td>
+					<c:choose>
+						<c:when test="${data.SEX eq 0}">
+						<td>남</td>
+						</c:when>
+						<c:when test="${data.SEX eq 1}">
+						<td>여</td>
+						</c:when>
+					</c:choose>
+
 					<td>${data.BIRTHDAY}(만${data.OLD}세)</td>
 					<td>${data.PHONE_NO}</td>
 					<td>${data.MAIL}</td>

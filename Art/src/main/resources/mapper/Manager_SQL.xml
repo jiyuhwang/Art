@@ -787,6 +787,11 @@ ON E.ADMIN_NO = F.ADMIN_NO) A
 		VALUES (MEMO_SEQ.NEXTVAL, #{rNo}, #{uNo}, #{admin}, #{occur}, #{contents})
 	</insert>
 	
+	<insert id="addMemoHD" parameterType="hashmap">
+		INSERT INTO MEMO(MEMO_NO, USER_NO ,ADMIN_NO, ACCUR_DATE, MARKING, CONTENTS)
+		VALUES (MEMO_SEQ.NEXTVAL, #{userNo}, #{admin}, #{occur}, #{marking}, #{contents})
+	</insert>
+	
 	<update id="updateReport" parameterType="hashmap">
 		UPDATE REPORT SET REPORT_STATUS = #{newStatus}
 		WHERE REPORT_NO = #{rNo}

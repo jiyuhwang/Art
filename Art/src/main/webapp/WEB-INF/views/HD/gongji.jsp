@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,7 @@ var loadFlag = true;
 $(document).ready(function() {
 	$("#recentPost").attr("class","selected");
 	
+	//------------------------------------------- 사이드바 
 	
 	
 //---------------------------------------------------------- 무한 스크롤 페이지	
@@ -62,45 +65,40 @@ $(document).ready(function() {
 
 //--------------------------------------------------------------
 	
-	$('#btnMenu').click(function() {
-		if ($('.side_bar').css('display') == 'none') {
-			$('.side_bar').slideDown();
-		} else {
-			$('.side_bar').slideUp();
-		}
-	});
+	
 	
 	$('#btnLook').click(function() {
-		if ($('#srhW').css('display') == 'none') {
-			$('#srhW').show();
-		} else {
-			$('#srhW').hide();
-		}
+		location.href="searchGallaryPage";
 	});
 	//--------------------------------------- 오래된 클릭
 	$("#oldPost").on("click", function () {
 		$("#oldPost").attr("class","selected");
 		$("#recentPost").attr("class","recentPost");
-		$("#sortO").val(0);
-		$("#page").val(1);
+		$("#sortO").val("0");
+		$("#page").val("1");
 		$("div .main_ctt2").remove();
 		loadList();
 	});
+	
 	
 	//---------------------------------------- 최신 클릭
 	$("#recentPost").on("click", function () {
 		$("#recentPost").attr("class","selected");
 		$("#oldPost").attr("class","recentPost");
-		$("#sortO").val(1);
-		$("#page").val(1);
+		$("#sortO").val("1");
+		$("#page").val("1");
 		$("div .main_ctt2").remove();
 		loadList();
 	});
 	
+	
 	//---------------------------------------- 더블 클릭시 해당 상세페이지로 이동 시키기
 	
-	$(".main .main_ctt2_cover").on("dblclick", function () {
+	$("body").on("dblclick",".main_ctt2_cover", function () {
 		$("#noticeNo").val($(this).attr("name"));
+		$("#actionFrom").attr("action","gong_detail");
+		$("#actionFrom").submit();
+		console.log("실행 여부 확인");
 	});
 	
 });
@@ -153,7 +151,8 @@ $(document).ready(function() {
 				html+= "				<img src=\"resources/images/JY/art2.png\" alt=\"content\">";
 			}else{
 				console.log("여기 실행은 되니? 엘스 창이야");
-				html+= "				<img src=\"resources/upload/" + d.FILE_PATH + "\" alt=\"content\">";
+				html+= "				<img src=\"resources/images/JY/art2.png\" alt=\"content\">";
+				/* html+= "				<img src=\"resources/upload/" + d.FILE_PATH + "\" alt=\"content\">"; */
 			}
 			
 			html+= "			</div>";
@@ -184,41 +183,18 @@ $(document).ready(function() {
 		<input type="hidden" id="sortO" name="sortO" >
 		<input type="hidden" id="page" name="page" value="1">
 	</form>
-	<div class="hdr">
-	<div class="inner_hdr">
-		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-		<a href="main.html"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-		<div id="srhW"><input type="text" id="btnSrh"></div>
-		<img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px">
-	</div>
-	<div class="side_bar">
-		<div class="pfe">
-			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
-				height="300px">
-		</div>
-		<div id="pfeName">짱구</div>
-		<a href="writing.html"><input type="button" id="btnUod"
-			value="작품등록"></a>
-		<div class="side_bar_menu">
-			<div id="sideBarMenu1">
-				<a href="mygallary.html">나의 작업실</a>
-			</div>
-			<br />
-			<div id="sideBarMenu2">
-				<a href="gallary.html">작품 보러가기</a>
-			</div>
-			<br />
-			<div id="sideBarMenu3">
-				<a href="#">개인정보 수정</a>
-			</div>
-		</div>
-		<input type="button" id="btnLot" value="로그아웃">
-	</div>
+	<c:choose>
+		<c:when test="${empty sUserNo}">
+			<c:import url="../JY/header2.jsp"></c:import>
+		</c:when>
+		<c:otherwise>
+			<c:import url="../JY/header.jsp"></c:import>
+		</c:otherwise>
+	</c:choose>
 	<!-----------------------------------------------------------------header 검색하는 부분  -->
 	<div class="ctts">
 		<span class="gong">공지사항</span>
 	</div>
-</div>
 			<!-------------------------------------------------만약 검색어가 없을 경우  -->
 <div class="main">	
 	<div class="ctts_wrap">

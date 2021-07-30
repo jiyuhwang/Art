@@ -673,25 +673,15 @@ function CopyUrl2()
 	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-		<c:choose>
-			<c:when test="${empty data.RD}">
-				<img src="resources/images/JY/heart.png" id="btnLike" class="heart" alt="투명하트" width="25px" height="25px">
-			</c:when>	
-			<c:otherwise>
-				<img src="resources/images/JY/heart2.png" id="btnLike" class="heart" alt="빨간하트" width="25px" height="25px">
-			</c:otherwise>
-		</c:choose>
+		
 
 		<div class="like_cnt_wrap">
 			<%-- <div id="likeCnt" class="like_cnt">${data.LIKECNT}</div> --%>
 		</div>
-		<img src="resources/images/JY/comment2.png" id="btnComment" alt="댓글" width="20px" height="20px">
 		<div class="comment_cnt_wrap"></div>
 		<img src="resources/images/JY/share.png" id="btnShare" alt="공유" width="20px" height="20px">
 		<img src="resources/images/JY/dot1.png" id="btnDot1" alt="메뉴" width="25px" height="25px">
 		<img src="resources/images/JY/dot2.png" id="btnDot2" alt="메뉴" width="25px" height="25px">
-		<img src="resources/images/JY/edit.png" id="btnEdit" alt="수정" width="20px" height="20px">
-		<img src="resources/images/JY/delete.png" id="btnDelete" alt="삭제" width="25px" height="25px">
 	</div>
 	<div class="share_wrap">
 		<div class="share">아트 글을 공유해보세요.</div>
@@ -720,7 +710,6 @@ function CopyUrl2()
 		<img src="resources/images/JY/share.png" id="btnShare2" alt="공유" width="20px" height="20px">
 		<img src="resources/images/JY/dot1.png" id="btnDot12" alt="메뉴" width="25px" height="25px">
 		<img src="resources/images/JY/dot2.png" id="btnDot22" alt="메뉴" width="25px" height="25px">
-		<img src="resources/images/JY/declation.png" id="btnDeclation2" alt="신고" width="20px" height="20px">
 	</div>
 	<div class="share_wrap2">
 		<div class="share2">아트 글을 공유해보세요.</div>
@@ -785,43 +774,15 @@ function CopyUrl2()
 		</div>
 		<br />
 		<br />
+		<!-- 첨부파일 있고 없음에 따라 조건 처리해주기  -->
+		<div class="uploadBox">
+			<input type="button" id="uploadFile" value="첨부파일 : "><!--옆에 아래화살표  -->
+			<a href="resources/upload/${data.FILE_PATH }" download="${data.FILE_PATH }"><span id="fileName" >${data.FILE_PATH }</span></a>
+		</div>
 		<div class="contents" style="font-size:30pt;">
 		${data.CONTENTS}
 		</div>
-			<div class="comment_wrap1">
-				<img class="comment_img" src="resources/images/JY/comment.png" width="30px" height="30px">
-				<div class="comment">댓글</div>
-			</div>
 		<br />
-		<div class="comment_wrap2">
-		<form action="#" id="goForm" method="post">
-			<input type="hidden" id="pNo" name="pNo" value="${data.POST_NO}" />
-			<input type="hidden" id="postNo" name="postNo" value="${data.POST_NO}" />
-			<input type="hidden" id="userNo" name="userNo" value="${sUserNo}"/>
-			<input type="hidden" id="authorNo" name="authorNo" value="${data.USER_NO}"/>
-			<input type="hidden" id="userNo2" name="userNo2" value="${data.USER_NO}"/>
-			<input type="hidden" id="userNickname" name="userNickname" value="${data.USER_NICKNAME}"/>
-			<input type="hidden" id="userIntroduce" name="userIntroduce" value="${data.INTRODUCE}"/>
-			<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}"/>
-			<input type="hidden" id="tab" name="tab" value="${param.tab}"/>
-			<input type="hidden" name="page" id="page" value="${param.page}" />
-			<input type="hidden" name="selectGbn" value="${param.selectGbn}" />
-			<input type="hidden" name="visibility" value="${param.visibility}" />
-			<input type="hidden" name="commentNo" id="commentNo" value="" />
-			<input type="hidden" name="ReplyCommentNo" id="ReplyCommentNo" value="" />
-			<input type="hidden" id="listPage" name="listPage" value="${param.listPage}" />
-			<div class="comment_title">댓글 <span class="comment_cnt2"></span></div>
-			<div class="comment_write_w"><input id="commentWrite" name="commentWrite" type="text" placeholder="댓글을 남겨보세요."></div>
-			<div class="btn_comment_upload_w"><input type="button" id="btnCommentUpload" value="댓글 작성"></div>
-		</form>
-			<hr>
-			<div id="commentFormWrap"></div>
-	 		
-				
-			
-
-			<div class="pagination"></div>
-		</div>
 		<div class="profile2_wrap">
 					<div class="profile2">
 						<img class="profile_img2" src="resources/images/JY/art2.png" alt="프로필사진" width="40px" height="40px">
