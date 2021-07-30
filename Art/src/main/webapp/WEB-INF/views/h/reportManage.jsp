@@ -49,8 +49,10 @@ $(document).ready(function(){
 		
  		if($(this).attr("id") == "comment"){
 			$("#tabFlag").val(1);
+			$("#page").val(1);
 		}else {
 			$("#tabFlag").val(0);
+			$("#page").val(1);
 		} 
 			loadPostList();
 		
@@ -94,10 +96,9 @@ $(document).ready(function(){
 	//상세보기
 	$("tbody").on("dblclick", "tr", function(){
 		$("#rNo").val($(this).attr("name"));
-		console.log("이것이다: " + $(this).attr("name"));
-		console.log("이것이다22: " + $("#rNo").val());
 		drawPopup();
 	});
+	
 	
 
 	
@@ -188,7 +189,7 @@ $(document).ready(function(){
 		
 		if(list.length == 0 && $("#page").val() == 1) {
 			html += "<tr>";
-			html += "<td colspan=\"5\">등록된 글이 없습니다.</td>";
+			html += "<td colspan=\"50\">등록된 글이 없습니다.</td>";
 			html += "</tr>";
 		} else {
 			for(var d of list){
@@ -200,8 +201,8 @@ $(document).ready(function(){
 				html +="<td>" + d.FLAGS + "</td>";
 				
 				if(d.WRITER_NAME == '' || d.WRITER_NAME == null){
-					html +="<td> </td>";
-					html +="<td> </td>";
+					html +="<td>"+ d.C_USERNAME +"</td>";
+					html +="<td>" + d.C_USERNICK +"(" + d.C_USERID + ")</td>";
 				} else {
 					html +="<td>" + d.WRITER_NAME + "</td>";
 					html +="<td>" + d.WRITER_NICK +"(" + d.WRITER_ID + ")</td>";									
@@ -366,12 +367,12 @@ $(document).ready(function(){
 			html +="			</div>";
 
 			if(result.data.WRITER_NAME == '' || result.data.WRITER_NAME == null){				
-/* 				html +="			<div class=\"top_writer\">";
-				html +="				<div class=\"writer1\">작가 닉네임</div>";
-				html +="				<div class=\"writer2\"> </div>";
-				html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
-				html +="				<div class=\"writer4\"> ( )</div>";
-				html +="			</div>"; */
+ 				html +="			<div class=\"top_writer\">";
+				html +="				<div class=\"commenter1\">댓글작성자 닉네임</div>";
+				html +="				<div class=\"commenter2\">"+ result.data.C_USERNICK +"</div>";
+				html +="				<div class=\"commenter3\">댓글 작성자 이름(아이디)</div>";
+				html +="				<div class=\"commenter4\">"+ result.data.C_USERNAME + "(" + result.data.C_USERID +")</div>";
+				html +="			</div>";
 				html +="			<div class=\"top_post\">";
 				html +="				<div class=\"post1\">신고된 댓글 내용</div>";
 				html +="				<div class=\"post2\">"+ result.data.C_CONTENT +"</div>";
@@ -672,7 +673,7 @@ $(document).ready(function(){
 			html += "<div class=\"background8\"></div>";
 			html += "<div class=\"ctts8\">";
 			html += "	<div class=\"top_div\">";
-			html += "		<div class=\"memo_title\">메모</div>";			
+			html += "		<div class=\"memo_title\">철회사유</div>";			
 			html += "		<img class=\"close_img\" id=\"closeMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
 			html += "	</div>";
 			html += "	<div class=\"memo_ctts_div\">";
@@ -737,8 +738,6 @@ $(document).ready(function(){
 			$("#closeMemo").off("click");
 			$("#closeMemo").on("click", function(){
 				closeMemoDetail();
-				fastClosePopup();
-				drawPopup();
 				//setTimeout(function(){drawPopup();}, 400);
 					
 			});

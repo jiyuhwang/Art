@@ -124,15 +124,19 @@ $(document).ready(function(){
 		
  		if($(this).attr("id") == "entire"){
  			$("#menuTabFlag").val(0);
+ 			$("#page").val(1);
 			
 		} else if($(this).attr("id") == "picture"){
 			$("#menuTabFlag").val(1);
+			$("#page").val(1);
 			
 		} else if($(this).attr("id") == "drawing"){
 			$("#menuTabFlag").val(2);
+			$("#page").val(1);
 			
 		} else{
 			$("#menuTabFlag").val(3);
+			$("#page").val(1);
 		}	 
 		loadPostList();
 		
@@ -321,7 +325,7 @@ $(document).ready(function(){
 		
 		if(list.length == 0 && $("#page").val() == 1) {
 			html += "<tr>";
-			html += "<td colspan=\"5\">등록된 글이 없습니다.</td>";
+			html += "<td colspan=\"50\">등록된 글이 없습니다.</td>";
 			html += "</tr>";
 		} else {
 			for(var d of list){
@@ -632,7 +636,13 @@ $(document).ready(function(){
 				}
 				html +="</div>"
 				html +="<div class=\"tag_wrap\">"
-				html +="<input id=\"tagId\" value =\"" + result.data.TAGS + "\" type=\"text\" placeholder=\"태그 입력 후 스페이스나 엔터를 눌러주세요.\"  onkeyup=\"if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}\"/>"
+				
+				if(result.data.TAGS == null || result.data.TAGS == ''){
+					html +="<input id=\"tagId\" type=\"text\" placeholder=\"태그 입력 후 스페이스나 엔터를 눌러주세요.\"  onkeyup=\"if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}\"/>"
+				} else {
+					html +="<input id=\"tagId\" value =\"" + result.data.TAGS + "\" type=\"text\" placeholder=\"태그 입력 후 스페이스나 엔터를 눌러주세요.\"  onkeyup=\"if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}\"/>"					
+				}
+				
 				html +="<div id=\"tag\" class=\"tagsinput\"></div>"
 				html +="</div>"
 				html +="	<div class=\"comment_wrap\">";
