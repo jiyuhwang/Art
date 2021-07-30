@@ -93,7 +93,7 @@ $(document).ready(function() {
 		var params = $("#goForm").serialize();
 
 		$.ajax({
-			url: "deleteMyReport",
+			url: "changeMyReport",
 			type: "post",
 			dataType: "json",
 			data: params,
@@ -155,7 +155,7 @@ $(document).ready(function() {
 		var params = $("#goForm").serialize();
 
 		$.ajax({
-			url: "deleteMyReport",
+			url: "changeMyReport",
 			type: "post",
 			dataType: "json",
 			data: params,
@@ -251,7 +251,7 @@ function reportCommentList(){
 function drawReportPostList(list){
 	var html = "";
 	
-	
+
 	for(var d of list){
 		html +="<tr name=\"" + d.REPORT_NO + "\" pno=\"" + d.POST_NO + "\" del=\"" + d.DEL + "\">";
 		html +="<td>" + d.TYPE_NAME + "</td>";
@@ -274,10 +274,12 @@ function drawReportPostList(list){
 		
 		if(d.REPORT_STATUS == "1") {
 			html += "<td><input type=\"button\" id=\"delete\" class=\"delete\" value=\"삭제하기\"></td>";
-		} else if(d.REPORT_STATUS != "3") {
+		} else if(d.REPORT_STATUS == "0") {
 			html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel\" value=\"취소하기\"></td>";
-		} else if(d.DEL == "0" || d.REPORT_STATUS == "3") {
+		} else if(d.REPORT_STATUS == "3") {
 			html += "<td><input type=\"button\" id=\"delete\" class=\"delete\" value=\"삭제하기\"></td>";
+		} else {
+			html += "<td></td>"
 		}
 		html +="</tr>";
 	}	
@@ -314,12 +316,12 @@ function drawReportCommentList(list2){
 
 		if(d.REPORT_STATUS == "1") {
 			html += "<td><input type=\"button\" id=\"delete\" class=\"delete\" value=\"삭제하기\"></td>";
-		} else if(d.REPORT_STATUS != "3") {
-			html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel\" value=\"취소하기\"></td>";
-		} else if(d.DEL2 == "0") {
+		} else if(d.REPORT_STATUS == "0") {
 			html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel\" value=\"취소하기\"></td>";
 		} else if(d.DEL == "0" || d.REPORT_STATUS == "3") {
 			html += "<td><input type=\"button\" id=\"delete\" class=\"delete\" value=\"삭제하기\"></td>";
+		} else {
+			html += "<td></td>"
 		}
 		html +="</tr>";
 	}	

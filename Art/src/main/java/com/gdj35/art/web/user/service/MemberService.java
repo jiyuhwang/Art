@@ -109,4 +109,9 @@ public class MemberService implements IMemberService{
 		return iMemberDao.pwCheck(params);
 	}
 
+	@Override
+	public int changeMyReport(HashMap<String, String> params) throws Throwable {
+		return iMemberDao.changeMyReport(params);
+	}
+
 }

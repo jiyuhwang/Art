@@ -156,7 +156,7 @@ $(document).ready(function() {
 
 	$("#emailSend").click(function(){
 		if($.trim($("#userId").val()) == "") {
-			alert("이름을 입력해주세요.");
+			alert("아이디를 입력해주세요.");
 			$("#userId").focus();
 		} else if($.trim($("#userMail").val()) == "") {
 			alert("이메일 주소를 정확하게 입력해주세요.");

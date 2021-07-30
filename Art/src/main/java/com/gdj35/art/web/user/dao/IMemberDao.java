@@ -43,4 +43,6 @@ public interface IMemberDao {
 
 	public int pwCheck(HashMap<String, String> params) throws Throwable;
 
+	public int changeMyReport(HashMap<String, String> params) throws Throwable;
+
 }

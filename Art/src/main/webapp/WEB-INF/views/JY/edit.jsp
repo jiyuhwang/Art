@@ -50,6 +50,25 @@ $(document).ready(function() {
 	console.log($('#uploadFile').attr("src"));
 	console.log($('#uploadFile').attr("src").substring(18)); 
 	
+	
+	var Tag = $("#tagId2").val().split(',');
+	console.log(Tag);
+	for(var i = 0; i < Tag.length; i++) {
+		var tagSpan = document.createElement('span');
+		var x = document.createElement('span');	
+		var xMark = 'x';
+		var result = document.getElementById('tag');
+		var input = document.getElementById('tagId');
+		tagSpan.className='badge';
+		x.className='xClass';
+
+		tagSpan.append(Tag[i]);  
+		x.append(xMark);
+		tagSpan.append(x);
+		result.append(tagSpan);  			
+	}
+	
+	
 /* 	$("#btnCancel").on("click", function () {
 		var Text = $( '.badge' ).text();
 		var Tag = Text.split('x');
@@ -195,6 +214,7 @@ $(document).ready(function() {
 	<input type="hidden" name="page" value="${param.page}" />
 	<input type="hidden" id="postNo" name="postNo" value="${param.pNo}" />
 	<input type="hidden" id="categoryNo" name="categoryNo" value="${data.CATEGORY_NO}" />
+	<input type="hidden" id="tagId2"  value="${data.TAG_NAME}" />
 	<c:choose>
 		<c:when test="${empty sUserNo}">
 			<c:import url="header2.jsp"></c:import>
@@ -228,18 +248,6 @@ $(document).ready(function() {
 			</c:otherwise>	
 		</c:choose>
 	
-	
-		
-		<%-- <div class="select_w">
-		<c:set var="Category" value="${data.CATEGORY_NO}" />
-			<select name="category" class="select">
-				<option value="0">카테고리</option>
-				<option value="1" <c:if test="${Category eq '1'}">selected</c:if>>사진작품관</option>
-				<option value="2" <c:if test="${Category eq '2'}">selected</c:if>>그림작품관</option>
-				<option value="3" <c:if test="${Category eq '3'}">selected</c:if>>영상작품관</option>
-			</select>
-
-		</div> --%>
 			
 		<div class="title_input_w"><input name="title" id="titleInput" type="text" value='${data.TITLE}' placeholder="제목을 입력해주세요."></div>
 		<div class="contents_in_w"><textarea id="contentsIn" name="explain" cols="80" rows="10" placeholder="작품을 뽐내주세요.">${data.EXPLAIN}</textarea></div>
@@ -248,7 +256,7 @@ $(document).ready(function() {
 			<%-- <c:forEach var="i" items="${array}">
 				<input id="tagId" value ="${i}" type="text" placeholder="태그 입력 후 스페이스나 엔터를 눌러주세요."  onkeyup="if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}"/>
 			</c:forEach> --%>
-			<input id="tagId" value ="${data.TAG_NAME}" type="text" placeholder="태그 입력 후 스페이스나 엔터를 눌러주세요."  onkeyup="if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}"/>
+			<input id="tagId" value ="" type="text" placeholder="태그 입력 후 스페이스나 엔터를 눌러주세요."  onkeyup="if(window.event.keyCode==13||window.event.keyCode==32||window.event.keyCode==188){(enterValue())}"/>
 			<div id="tag" class="tagsinput"></div>
 		</div>
 		<div class="secret">공개 설정</div>
