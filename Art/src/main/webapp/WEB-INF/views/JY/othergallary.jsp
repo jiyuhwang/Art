@@ -405,15 +405,18 @@ function drawPaging(pb) {
 	<div class="background_wrap">
 	<div class="wrap">
 		<div class="profile_wrap">
-		
-			<c:choose>
-				<c:when test="${empty data.AUTHOR_NO}">
-					<img src="resources/images/JY/heart.png" id="btnLike" class="heart" alt="투명하트" width="35px" height="35px">
-				</c:when>	
-				<c:otherwise>
-					<img src="resources/images/JY/heart2.png" id="btnLike" class="heart" alt="빨간하트" width="35px" height="35px">
-				</c:otherwise>
-			</c:choose>
+		<c:choose>
+			<c:when test="${!empty sUserNo}">
+				<c:choose>
+					<c:when test="${empty data.AUTHOR_NO}">
+						<img src="resources/images/JY/heart.png" id="btnLike" class="heart" alt="투명하트" width="35px" height="35px">
+					</c:when>	
+					<c:otherwise>
+						<img src="resources/images/JY/heart2.png" id="btnLike" class="heart" alt="빨간하트" width="35px" height="35px">
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+		</c:choose>
 		
 	
 

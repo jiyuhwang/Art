@@ -714,6 +714,11 @@ body {
 	display: inline-block;
 	vertical-align: middle;
 	margin-left: 10pt;
+	cursor: pointer;
+}
+
+.comment_name1:hover, .reply_comment_name1:hover {
+	color: #ffad33;
 }
 
 .comment_name1 a, .reply_comment_name1 a {
