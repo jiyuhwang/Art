@@ -306,8 +306,8 @@ $(document).ready(function(){
 			dataType: "json",
 			data: params,
 			success: function(result){
-				
-				var html = "";
+							
+			var html = "";
                 								
 			html +="	<div class=\"background9\"></div>";
 			html +="	<div class=\"ctts9\">";
@@ -445,7 +445,7 @@ $(document).ready(function(){
 						$("#mNo").val($(this).attr("name"));
 						showMeMo();
 					} else {
-						alert("메모가 없습니다.");
+						alert("등록된 사유가 없습니다.");
 					}
 				});
 
@@ -454,124 +454,9 @@ $(document).ready(function(){
 					console.log("올드 셀렉트 값: " + $("#oldStatus").val());
 					console.log("뉴 셀렉트 값: " + $("#newStatus").val());
 					console.log("셀렉트1번값: " + $("#status option:selected").val());
-					//철회로 바꾸면
-					if($("#status option:selected").val() == 1){
-						$("#newStatus").val(1);
-					console.log("바뀐 뉴 셀렉트 값: " + $("#newStatus").val());
-						
-					var html = "";
-					
-					html += "<div class=\"background8\"></div>";
-					html += "<div class=\"ctts8\">";
-					html += "		<form id=\"memoNewForm\">";
-					html += "	<div class=\"top_div\">";
-					html += "		<div class=\"memo_title\">메모</div>";			
-					html += "		<img class=\"close_img\" id=\"closeNewMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
-					html += "	</div>";
-					html += "	<div class=\"memo_ctts_div\">";
-					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
-					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\" value=\""+ result.data.ADMIN_NO +"\"/>";
-					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + result.data.USER_NO + "\" />";
-					html += "			<table>";
-					html += "				<tr>";
-					html += "					<td>작성자</td>";
-					html += "					<td>"+ result.data.ADMIN_NAME +"</td>  ";
-					html += "				</tr>";		
-					html += "				<tr>";
-					html += "					<td>발생일</td>";
-					html += "					<td colspan=\"3\">";				
-					html += "<input type=\"date\" name=\"occur\" id=\"occur\" min=\"2021-01-01\"/>";
-					html += "				</td></tr>";
-					html += "				<tr>";
-					html += "					<td colspan=\"4\"> ";
-					html += "<textarea rows=\"16\" name=\"contents\" id=\"contents\"></textarea>";
-					html += "					</td> ";
-					html += "				</tr> ";
-					html += "			</table>";
-					html += "		<div class=\"save_btn_div\" id=\"save_btn_div\">	";
-					html += "			<input type=\"button\" value=\"저장\" id=\"BtnNewSave\">";
-					html += "			<input type=\"button\" value=\"취소\" id=\"BtnNewCancel\">	";
-					html += "		</div>	";
-					html += "	</div>";
-					html += "	</form>";
-					html += "</div>  ";
-					
-					$("body").prepend(html);
-					
-					$(".background8").hide();
-					$(".ctts8").hide();
-				    $(".background8").fadeIn();
-					$(".ctts8").fadeIn();
-					
-					$("#memoNewForm").on("keypress", "input", function(event){
-						if(event.keyCode == 13){
-							return false;
-						}
-					});
-
-					//----------------------------------------------저장할 때
-					$("#BtnNewSave").off("click");
-					$("#BtnNewSave").on("click", function(){						
-						
-						if($("#occur").val() == ""){
-							alert("발생일을 입력하세요");
-							$("#occur").focus();
-						} else if($.trim($("#contents").val()) == ""){
-							alert("메모를 입력하세요");
-							$("#contents").focus();
-						} else {
-							console.log("메모저장 아작스 실행 전!");
-							var params = $("#memoNewForm").serialize();
-							
-							$.ajax({
-								type : "post",
-								url : "addMemo",
-								dataType : "json",
-								data : params,
-								success : function(result) {
-									
-									if(result.msg == "success"){
-										console.log("메모저장!");
-										closeMemoDetail();
-										fastClosePopup();
-										drawPopup();
-									} else if(result.msg == "failed"){
-										alert("저장에 실패했습니다.");
-									} else {
-										console.log(result);
-										alert("저장 중 문제가 발생했습니다.");
-									}						
-					
-								},
-								error: function(request, status, error){
-									console.log(error);
-									
-								}
-																	
-								
-							});//addMemo ajax end
-						}
-					});//저장버튼누르면
-
-					
-					//----------------------------------------------취소버튼 누를 때
-					$("#BtnNewCancel").off("click");
-					$("#BtnNewCancel").on("click", function(){
-						$("#satus").val(result.data.REPORT_STATUS);
-						closeMemoDetail();
-					});
-					
-					$("#closeNewMemo").off("click");
-					$("#closeNewMemo").on("click", function(){
-						$("#satus").val(result.data.REPORT_STATUS);
-						closeMemoDetail();
-					});
-					
-
-				} else {//셀렉트 바꾸면
-					
-					console.log("아작스 실행되는거 맞냐?");
+										
 					$("#newStatus").val($("#status option:selected").val());
+					
 					var params = $("#detailForm").serialize();
 					
 					$.ajax({
@@ -582,8 +467,8 @@ $(document).ready(function(){
 						success : function(result) {
 							
 							if(result.msg == "success"){
-								fastClosePopup();
-								drawPopup();
+								loadPostList();
+								
 							} else if(result.msg == "failed"){
 								alert("저장에 실패했습니다.");
 							} else {
@@ -591,10 +476,122 @@ $(document).ready(function(){
 								alert("저장 중 문제가 발생했습니다.");
 							}		
 					
-					}
+						}
 					});//ajax end
-				}//셀렉트 바꾸면 else 
-				
+					
+					
+					function newMemoAdd(data){
+						//철회로 바꾸면
+							
+						var html = "";
+						
+						html += "<div class=\"background8\"></div>";
+						html += "<div class=\"ctts8\">";
+						html += "		<form id=\"memoNewForm\">";
+						html += "	<div class=\"top_div\">";
+						html += "		<div class=\"memo_title\">신고철회사유</div>";			
+						html += "		<img class=\"close_img\" id=\"closeNewMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
+						html += "	</div>";
+						html += "	<div class=\"memo_ctts_div\">";
+						html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ data.REPORT_NO +"\"/>";
+						html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\" value=\""+ data.ADMIN_NO +"\"/>";
+						html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + data.USER_NO + "\" />";
+						html += "			<table>";
+						html += "				<tr>";
+						html += "					<td>작성자</td>";
+						html += "					<td>"+ data.ADMIN_NAME +"</td>  ";
+						html += "				</tr>";		
+						html += "				<tr>";
+						html += "					<td>발생일</td>";
+						html += "					<td colspan=\"3\">";				
+						html += "<input type=\"date\" name=\"occur\" id=\"occur\" min=\"2021-01-01\"/>";
+						html += "				</td></tr>";
+						html += "				<tr>";
+						html += "					<td colspan=\"4\"> ";
+						html += "<textarea rows=\"16\" name=\"contents\" id=\"contents\"></textarea>";
+						html += "					</td> ";
+						html += "				</tr> ";
+						html += "			</table>";
+						html += "		<div class=\"save_btn_div\" id=\"save_btn_div\">	";
+						html += "			<input type=\"button\" value=\"저장\" id=\"BtnNewSave\">";
+						html += "			<input type=\"button\" value=\"취소\" id=\"BtnNewCancel\">	";
+						html += "		</div>	";
+						html += "	</div>";
+						html += "	</form>";
+						html += "</div>  ";
+						
+						$("body").prepend(html);
+						
+						$(".background8").hide();
+						$(".ctts8").hide();
+					    $(".background8").fadeIn();
+						$(".ctts8").fadeIn();
+						
+						$("#memoNewForm").on("keypress", "input", function(event){
+							if(event.keyCode == 13){
+								return false;
+							}
+						});
+
+						//----------------------------------------------저장할 때
+						$("#BtnNewSave").off("click");
+						$("#BtnNewSave").on("click", function(){						
+							
+							if($("#occur").val() == ""){
+								alert("발생일을 입력하세요");
+								$("#occur").focus();
+							} else if($.trim($("#contents").val()) == ""){
+								alert("내용을 입력하세요");
+								$("#contents").focus();
+							} else {
+								var params = $("#memoNewForm").serialize();
+								
+								$.ajax({
+									type : "post",
+									url : "addMemo",
+									dataType : "json",
+									data : params,
+									success : function(result) {
+										
+										if(result.msg == "success"){
+											console.log("메모저장!");
+											closeMemoDetail();
+											fastClosePopup();
+											drawPopup();
+											loadPostList();
+										} else if(result.msg == "failed"){
+											alert("저장에 실패했습니다.");
+										} else {
+											console.log(result);
+											alert("저장 중 문제가 발생했습니다.");
+										}						
+						
+									},
+									error: function(request, status, error){
+										console.log(error);
+										
+									}
+								});//addMemo ajax end
+							}//addmemo보내는 else
+						});//저장버튼누르면
+
+						
+						//----------------------------------------------취소버튼 누를 때
+						$("#BtnNewCancel").off("click");
+						$("#BtnNewCancel").on("click", function(){
+							$("#satus").val(result.data.REPORT_STATUS);
+							closeMemoDetail();
+						});
+						
+						$("#closeNewMemo").off("click");
+						$("#closeNewMemo").on("click", function(){
+							$("#satus").val(result.data.REPORT_STATUS);
+							closeMemoDetail();
+						});
+					
+
+					}//메모새로추가함수 end
+					
 				});// 셀렉트 change 함수 end
 				
 				
@@ -618,7 +615,7 @@ $(document).ready(function(){
 			html +=	"		  <tr>";
 			html +=	"			  <th>번호</th>";
 			html +=	"			  <th>날짜</th>";
-			html +=	"			  <th>메모내용</th>";
+			html +=	"			  <th>철회사유</th>";
 			html +=	"		  </tr>";
 			html +=	"	  </thead>";
 			html +=	"	  <tbody>";

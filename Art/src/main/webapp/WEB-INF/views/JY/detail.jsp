@@ -197,21 +197,26 @@ $(document).ready(function() {
 		//신고버튼 클릭시 팝업창 띄우기
 		$("#btnDeclation2").on("click", function(){
 			
-			var params= $("#goForm").serialize();
+			if($('#userNo').val() != "") {
 			
-			$.ajax({
-				url: "userReport",
-				type: "post",
-				dataType: "json",
-				data: params,
-				success: function(res) {
+				var params= $("#goForm").serialize();
 				
-					reportPopup(res.data, res.userNo);
-				},
-				error: function(request, status, error) {
-					console.log(error);
-				}
-			});
+				$.ajax({
+					url: "userReport",
+					type: "post",
+					dataType: "json",
+					data: params,
+					success: function(res) {				
+						reportPopup(res.data, res.userNo);
+					},
+					error: function(request, status, error) {
+						console.log(error);
+					}
+				});
+			
+			} else {
+				alert("로그인 후 이용해주세요.");
+			}
 
 		});//신고버튼함수end
 	})
@@ -1066,8 +1071,8 @@ function CopyUrl2()
 	function reportCommentPopup(data, userNo){
 		var html = "";
 							                                                                                                                                   
-		html +="<div class=\"background_r\"></div>";
-		html +="	<div class=\"ctts_r\">";
+		html +="<div class=\"background_c\"></div>";
+		html +="	<div class=\"ctts_c\">";
 		html += "	<form id=\"reportForm\">";
 		html += "		<input type=\"hidden\" name=\"cNo\" value=\"" + data.COMMENT_NO + "\" />";
  		html += "		<input type=\"hidden\" name=\"pNo\" value=\"" + data.POST_NO + "\" />";
@@ -1159,20 +1164,20 @@ function CopyUrl2()
 			
 			$("body").prepend(html);
 			
-			$(".background_r").hide();
-			$(".ctts_r").hide();				
-			$(".background_r").fadeIn();
-			$(".ctts_r").fadeIn();
+			$(".background_c").hide();
+			$(".ctts_c").hide();				
+			$(".background_c").fadeIn();
+			$(".ctts_c").fadeIn();
 			
 			//닫기
 			$(".btn_cancel").off("click");
 			$(".btn_cancel").on("click", function(){
-				closePopup();
+				closePopupComment();
 			});
 			
-			$(".background_r").off("click");
-			$(".background_r").on("click", function(){
-				closePopup();
+			$(".background_c").off("click");
+			$(".background_c").on("click", function(){
+				closePopupComment();
 			}); 
 			
 			
@@ -1208,7 +1213,6 @@ function CopyUrl2()
 							
 						} else {
 								var params = $("#reportForm").serialize();
-								console.log(params);
 
 								$.ajax({
 									type : "post",
@@ -1218,7 +1222,7 @@ function CopyUrl2()
 									success : function(result) {
 										
 										if(result.msg == "success"){
-											closePopup();
+											closePopupComment();
 											alert("정상적으로 신고 접수되었습니다.");
 										} else if(result.msg == "failed"){
 											alert("신고에 실패했습니다.");
@@ -1237,11 +1241,6 @@ function CopyUrl2()
 						}//else						
 					//로그인 안했을 시
 
-					
-					
-					
-					
-					
 				});//신고하기버튼누르면	
 	};//댓글 신고popup end	
 
@@ -1256,6 +1255,17 @@ function CopyUrl2()
 		
 		$(".ctts_r").fadeOut(function(){
 		$(".ctts_r").remove();
+		});	
+	}
+	
+	//댓글 신고 팝업 닫기
+		function closePopupComment() {
+		$(".background_c").fadeOut(function(){
+		$(".background_c").remove();
+		});
+		
+		$(".ctts_c").fadeOut(function(){
+		$(".ctts_c").remove();
 		});	
 	}
 
