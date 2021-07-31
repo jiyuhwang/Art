@@ -49,8 +49,10 @@ $(document).ready(function(){
 		
  		if($(this).attr("id") == "comment"){
 			$("#tabFlag").val(1);
+			$("#page").val(1);
 		}else {
 			$("#tabFlag").val(0);
+			$("#page").val(1);
 		} 
 			loadPostList();
 		
@@ -73,7 +75,6 @@ $(document).ready(function(){
 	$("#BtnWith").on("click", function(){
 		$("#delFlag").val("");
 		$("#page").val(1);
-		console.log($("#delFlag").val());
 		loadPostList();
 	});
 
@@ -94,8 +95,6 @@ $(document).ready(function(){
 	//상세보기
 	$("tbody").on("dblclick", "tr", function(){
 		$("#rNo").val($(this).attr("name"));
-		console.log("이것이다: " + $(this).attr("name"));
-		console.log("이것이다22: " + $("#rNo").val());
 		drawPopup();
 	});
 	
@@ -112,7 +111,7 @@ $(document).ready(function(){
 			var checkCnt = $("tbody [name=checkbox]:checked").length;
 			
 			if(checkCnt == 0){
-				alert("선택된 작품이 없습니다.");
+				alert("선택된 신고글이 없습니다.");
 			} else {
 			
 				var checkArr = new Array();
@@ -200,8 +199,8 @@ $(document).ready(function(){
 				html +="<td>" + d.FLAGS + "</td>";
 				
 				if(d.WRITER_NAME == '' || d.WRITER_NAME == null){
-					html +="<td> </td>";
-					html +="<td> </td>";
+					html +="<td>"+ d.C_USERNAME +"</td>";
+					html +="<td>" + d.C_USERNICK +"(" + d.C_USERID + ")</td>";
 				} else {
 					html +="<td>" + d.WRITER_NAME + "</td>";
 					html +="<td>" + d.WRITER_NICK +"(" + d.WRITER_ID + ")</td>";									
@@ -336,8 +335,6 @@ $(document).ready(function(){
 			html +="				<div class=\"status2\"><div>";
 			html +="<select id=\"status\" name=\"statusFlag\">";
 			
-			console.log("셀렉트 뭐받아오는지 확인: "+result.data.REPORT_STATUS);
-			
 				if(result.data.REPORT_STATUS == 0){
 					html += "<option value=\"0\" selected=\"selected\">대기중</option>";
 					html += "<option value=\"1\">철회</option>";
@@ -366,12 +363,12 @@ $(document).ready(function(){
 			html +="			</div>";
 
 			if(result.data.WRITER_NAME == '' || result.data.WRITER_NAME == null){				
-/* 				html +="			<div class=\"top_writer\">";
-				html +="				<div class=\"writer1\">작가 닉네임</div>";
-				html +="				<div class=\"writer2\"> </div>";
-				html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
-				html +="				<div class=\"writer4\"> ( )</div>";
-				html +="			</div>"; */
+ 				html +="			<div class=\"top_writer\">";
+				html +="				<div class=\"commenter1\">댓글작성자 닉네임</div>";
+				html +="				<div class=\"commenter2\">"+ result.data.C_USERNICK +"</div>";
+				html +="				<div class=\"commenter3\">댓글 작성자 이름(아이디)</div>";
+				html +="				<div class=\"commenter4\">"+ result.data.C_USERNAME + "(" + result.data.C_USERID +")</div>";
+				html +="			</div>";
 				html +="			<div class=\"top_post\">";
 				html +="				<div class=\"post1\">신고된 댓글 내용</div>";
 				html +="				<div class=\"post2\">"+ result.data.C_CONTENT +"</div>";
@@ -530,7 +527,6 @@ $(document).ready(function(){
 								success : function(result) {
 									
 									if(result.msg == "success"){
-										console.log("메모저장!");
 										closeMemoDetail();
 										fastClosePopup();
 										drawPopup();
@@ -568,17 +564,10 @@ $(document).ready(function(){
 				}//메모새로추가함수 end
 
 				//-----------------------------------------------------------셀렉트박스가 철회로 바뀔 때
-				$("#status").on("change", function(){
-					console.log("올드 셀렉트 값: " + $("#oldStatus").val());
-					console.log("뉴 셀렉트 값: " + $("#newStatus").val());
-					console.log("셀렉트1번값: " + $("#status option:selected").val());
-										
+				$("#status").on("change", function(){										
 					$("#newStatus").val($("#status option:selected").val());
 					
-
-					
 					var params = $("#detailForm").serialize();
-					console.log(params);
 					$.ajax({
 						type : "post",
 						url : "changeSelect",
