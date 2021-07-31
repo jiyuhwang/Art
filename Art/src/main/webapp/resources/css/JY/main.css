@@ -89,6 +89,10 @@ body {
 	text-decoration: underline;
 }
 
+.more:hover {
+	color: #ffad33;
+}
+
 .pic, .draw, .video {
     position: relative;
     width: 6.25%;

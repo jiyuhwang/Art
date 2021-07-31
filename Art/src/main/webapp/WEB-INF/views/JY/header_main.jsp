@@ -25,6 +25,16 @@ a {
 	background-color: skyblue;
 }
 
+.banner_in {
+	color: white;
+	font-size: 40pt;
+	letter-spacing: 5pt;
+	font-family: 'Nanum Pen Script', cursive;
+	margin: 0 auto;
+	width: 350px;
+	padding-top: 5px;
+}
+
 .header {
 	margin-top: 20px;
 	position: relative;
@@ -179,7 +189,11 @@ a {
 </script>
 </head>
 <body>
-	<div class="banner"></div>
+	<div class="banner">
+		<div class="banner_in">
+			작가가 되어보세요.
+		</div>
+	</div>
 	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>

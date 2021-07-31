@@ -154,7 +154,7 @@ $(document).ready(function() {
 				    if(res.msg == "success") {
 				    	alert("정상적으로 작품 수정되었습니다.");
 				    	/* location.href="gallary"; */
-				    	history.go(-2);
+				    	history.back();
 				    	
 					} else if(res.msg == "failed") {
 						alert("작품 수정에 실패하였습니다.");

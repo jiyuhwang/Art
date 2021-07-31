@@ -16,13 +16,13 @@ $(document).ready(function() {
 	reloadLikeCnt();
 	reloadList();
 	reloadCommentCnt();
-	$("#page").val("1");
+	$("#page2").val("1");
 	$("#goForm").on("keypress", "input", function(event) {
 		if(event.keyCode == 13) { // 엔터키를 눌렀을 때
 			return false; // 페이지가 안넘어간다.
 		}
 	});
-	
+		
 	
 	
 	$('#leftArrow').click(function() {
@@ -48,7 +48,7 @@ $(document).ready(function() {
 	})
 	
 	$(".pagination").on("click", "a",  function() {
-		$("#page").val($(this).attr("page"));
+		$("#page2").val($(this).attr("page"));
 		reloadList();
 		var offset = $('.comment_wrap1').offset();
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
 			$(".recent_order").attr("id", "");
 			$(".past_order").attr("id", "");
 		}
-		$("#page").val("1");
+		$("#page2").val("1");
 		reloadList();
 		reloadCommentCnt();
 	});
@@ -838,14 +838,14 @@ function drawPaging(pb) {
 	var html ="";
 	
 	html += "<a page=\"1\"><<</a>";
-	if($("#page").val() == "1") {
+	if($("#page2").val() == "1") {
 		html += "<a page=\"1\"><</a>";		
 	} else {
-		html += "<a page=\"" + ($("#page").val() - 1) + "\"><</a>";
+		html += "<a page=\"" + ($("#page2").val() - 1) + "\"><</a>";
 	}
 	
 	for(var i = pb.startPcount ; i <= pb.endPcount; i++){
-		if($("#page").val() == i) {
+		if($("#page2").val() == i) {
 			html += "<a class=\"on\" page=\"" + i + "\">" + i + "</a>";			
 		} else {
 			html += "<a page=\"" + i + "\">" + i + "</a>";			
@@ -853,10 +853,10 @@ function drawPaging(pb) {
 		}
 	}
 	
-	if($("#page").val() == pb.maxPcount) {
+	if($("#page2").val() == pb.maxPcount) {
 		html += "<a page=\"" + pb.maxPcount + "\">></a>";
 	} else {
-		html += "<a page=\"" + ($("#page").val() * 1 + 1) + "\">></a>";
+		html += "<a page=\"" + ($("#page2").val() * 1 + 1) + "\">></a>";
 	}
 	
 	html += "<a page=\"" + pb.maxPcount + "\">>></a";
@@ -1533,6 +1533,7 @@ function CopyUrl2()
 				<input type="hidden" id="userProfileImg" name="userProfileImg" value="${data.PROFILE_IMG_PATH}" />
 				<input type="hidden" id="tab" name="tab" value="${param.tab}" />
 				<input type="hidden" name="page" id="page" value="${param.page}" />
+				<input type="hidden" name="page2" id="page2" value="${page}" />
 				<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 				<input type="hidden" id="tabFlag" name="tabFlag" value="${param.tabFlag}" /> 
 				<input type="hidden" name="selectGbn" value="${param.selectGbn}" />

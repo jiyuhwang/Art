@@ -71,6 +71,10 @@ $(document).ready(function() {
 
 	});
 	
+	$('#btnStart').click(function() {
+		location.href = "login";
+	});
+	
 	$('#btnShare').click(function() {
 		if ($('.share_wrap').css('display') == 'none') {
 			$('.share_wrap').show();

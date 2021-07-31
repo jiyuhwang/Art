@@ -315,14 +315,16 @@ function drawReportCommentList(list2){
 		}
 
 		if(d.REPORT_STATUS == "1") {
-			html += "<td><input type=\"button\" id=\"delete\" class=\"delete\" value=\"삭제하기\"></td>";
+			html += "<td><input type=\"button\" id=\"delete\" class=\"delete2\" value=\"삭제하기\"></td>";
 		} else if(d.REPORT_STATUS == "0") {
-			html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel\" value=\"취소하기\"></td>";
-		} else if(d.DEL == "0" || d.REPORT_STATUS == "3") {
-			html += "<td><input type=\"button\" id=\"delete\" class=\"delete\" value=\"삭제하기\"></td>";
+			html += "<td><input type=\"button\" id=\"cancel\" class=\"cancel2\" value=\"취소하기\"></td>";
+		} else if(d.REPORT_STATUS == "3") {
+			html += "<td><input type=\"button\" id=\"delete\" class=\"delete2\" value=\"삭제하기\"></td>";
 		} else {
 			html += "<td></td>"
 		}
+		
+		
 		html +="</tr>";
 	}	
 	

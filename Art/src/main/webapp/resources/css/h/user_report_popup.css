@@ -13,7 +13,7 @@
 	z-index: 300;
 }
 	
-.ctts_r {
+.ctts_r, .ctts_c {
 	display: inline-block;
 	width: 800px;
 	height: 714px;

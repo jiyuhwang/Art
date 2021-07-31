@@ -217,10 +217,11 @@ $(document).ready(function() {
 <div class="ftr">
 	<a href="main.html"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 	<div class="ftr_pae">You can be an art writer.</div>
-	<div id="ftr1"><a href="#">관리방침 안내</a></div>
+	<div class="footer1">Copyright © 2021 ART PROJECT All Rights Reserved.</div>
+	<!-- <div id="ftr1"><a href="#">관리방침 안내</a></div>
 	<div id="ftr2"><a href="#">도움말 안내</a></div>
 	<div id="ftr3"><a href="#">회원가입 및 글게시 안내</a></div>
-	<div id="ftr4"><a href="#">홈페이지 서비스 안내</a></div>
+	<div id="ftr4"><a href="#">홈페이지 서비스 안내</a></div> -->
 </div>
 
 </body>
