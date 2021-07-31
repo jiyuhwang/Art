@@ -23,7 +23,7 @@ $(document).ready(function() {
 	
 	
 	console.log($('#listPage').val());
-	$('#leftArrow').click(function() {
+/* 	$('#leftArrow').click(function() {
 		if($('#listPage').val() == "0") {
 			$("#goForm").attr("action", "gallary");
 			$("#goForm").submit();
@@ -34,7 +34,7 @@ $(document).ready(function() {
 			$("#goForm").attr("action", "othergallary");
 			$("#goForm").submit();
 		}
-	})
+	}) */
 	
 	$(".pagination").on("click", "a",  function() {
 		$("#page").val($(this).attr("page"));
@@ -198,14 +198,14 @@ $(document).ready(function() {
 	});
 	
 	
-	$(".profile_name2").on("click", function() {
+	/* $(".profile_name2").on("click", function() {
 		if($('#userNo').val() == $('#authorNo').val()) {
 			location.href = "mygallary";
 		} else {
 			$("#goForm").attr("action", "othergallary");
 			$("#goForm").submit();
 		}
-	});
+	}); */
 			
 	$("#btnDelete").on("click", function() {
 		if(confirm("삭제하시겠습니까?")) {

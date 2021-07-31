@@ -478,15 +478,19 @@ $('body').on("click", '.heart', function() {
 		$("#commentForm #userNickname").val($(this).attr("name"));
 		$("#commentForm #userProfileImg").val($(this).attr("img"));
 		$("#commentForm #userIntroduce").val($(this).attr("introduce"));
-		
-		if($(this).attr("no") != "${sUserNo}") {
-			$("#commentForm").attr("target", "_blank");
-			$("#commentForm").attr("action", "othergallary");
-			$("#commentForm").submit();
+
+		if($(this).attr("del2") == "undefined") {
+			if($(this).attr("no") != "${sUserNo}") {
+				$("#commentForm").attr("target", "_blank");
+				$("#commentForm").attr("action", "othergallary");
+				$("#commentForm").submit();
+			} else {
+				$("#commentForm").attr("target", "_blank");
+				$("#commentForm").attr("action", "mygallary");
+				$("#commentForm").submit();
+			}
 		} else {
-			$("#commentForm").attr("target", "_blank");
-			$("#commentForm").attr("action", "mygallary");
-			$("#commentForm").submit();
+			alert("탈퇴한 회원입니다.")
 		}
 		
 		console.log($("#authorNo").val());
@@ -553,7 +557,7 @@ function commentList(list) {
 				html += "<img class=\"profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
 				}
 				html += "</div>";
-				html += "<div no=\"" + p.USER_NO +"\" img=\"" + p.PROFILE_IMG_PATH +"\" introduce=\"" + p.INTRODUCE + "\" name=\"" + p.USER_NICKNAME + "\" class=\"comment_name1\">" + p.USER_NICKNAME + "</div>";
+				html += "<div del2=\"" + p.OUT_DATE +"\" no=\"" + p.USER_NO +"\" img=\"" + p.PROFILE_IMG_PATH +"\" introduce=\"" + p.INTRODUCE + "\" name=\"" + p.USER_NICKNAME + "\" class=\"comment_name1\">" + p.USER_NICKNAME + "</div>";
 				html += "<div class=\"comment1\">" + p.CONTENT + "</div>"; 
 				html += "<div class=\"comment1_date\">" + p.REGISTER_DATE;
 				
@@ -750,7 +754,7 @@ function replyCommentList(list, cNo) {
 				html += "<img class=\"reply_profile_img3\" src=\"resources/images/JY/who.png\" alt=\"프로필 이미지\" width=\"30px\" height=\"30px\">";
 			}
 			html += "</div>";
-			html += "<div no=\"" + p.USER_NO +"\" img=\"" + p.PROFILE_IMG_PATH +"\" introduce=\"" + p.INTRODUCE + "\" name=\"" + p.USER_NICKNAME + "\" class=\"reply_comment_name1\">" + p.USER_NICKNAME + "</div>";
+			html += "<div del2=\"" + p.OUT_DATE + "\" no=\"" + p.USER_NO +"\" img=\"" + p.PROFILE_IMG_PATH +"\" introduce=\"" + p.INTRODUCE + "\" name=\"" + p.USER_NICKNAME + "\" class=\"reply_comment_name1\">" + p.USER_NICKNAME + "</div>";
 			html += "<div class=\"reply_comment1\">" + p.CONTENT + "</div>";
 			html += "<input type=\"hidden\" class=\"commentUserNo2\" value=\"" + p.USER_NO + "\">";
 			html += "<div class=\"reply_comment1_date\">" + p.REGISTER_DATE;
@@ -780,14 +784,19 @@ function replyCommentList(list, cNo) {
 		$("#commentForm #userProfileImg").val($(this).attr("img"));
 		$("#commentForm #userIntroduce").val($(this).attr("introduce"));
 		
-		if($(this).attr("no") != "${sUserNo}") {
-			$("#commentForm").attr("target", "_blank");
-			$("#commentForm").attr("action", "othergallary");
-			$("#commentForm").submit();
+		if($(this).attr("del2") == "undefined") {
+		
+			if($(this).attr("no") != "${sUserNo}") {
+				$("#commentForm").attr("target", "_blank");
+				$("#commentForm").attr("action", "othergallary");
+				$("#commentForm").submit();
+			} else {
+				$("#commentForm").attr("target", "_blank");
+				$("#commentForm").attr("action", "mygallary");
+				$("#commentForm").submit();
+			}
 		} else {
-			$("#commentForm").attr("target", "_blank");
-			$("#commentForm").attr("action", "mygallary");
-			$("#commentForm").submit();
+			alert("탈퇴한 회원입니다.");
 		}
 		
 		console.log($("#authorNo").val());

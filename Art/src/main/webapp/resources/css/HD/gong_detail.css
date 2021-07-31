@@ -493,14 +493,14 @@ body {
 	position: absolute;
 	top: 30px;
 	left: 30px;
-	cursor: pointer;
+	/* cursor: pointer; */
 	border-bottom: 2px solid #333333;
 }
 
-.profile_name2:hover {
+/* .profile_name2:hover {
 	color: #ffad33;
 	font-weight: bold;
-}
+} */
 
 .profile_introduce {
 	font-size: 10pt;

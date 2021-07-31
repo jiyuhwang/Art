@@ -26,7 +26,7 @@ public class CommonProperties {
 	
 	//허용파일 확장자
 	public static final String FILE_EXT = "xls|ppt|doc|xlsx|pptx|docx|hwp|csv|jpg|jpeg|png|gif|bmp|tld|txt|pdf|zip|alz|7z|ico|mp4|avi";
-	public static final String IMG_EXT = "jpg|jpeg|png|gif|bmp";
+	public static final String IMG_EXT = "jpg|jpeg|png|gif|bmp|jfif";
 	
 	/**
 	 * 암호화키(AES기반 16글자)
