@@ -123,7 +123,7 @@ a {
 	font-size: 18pt;
 }
 
-.side_bar_menu1:hover, .side_bar_menu2:hover {
+.side_bar_menu1:hover, .side_bar_menu2:hover, .side_bar_menu3:hover {
 	color: #ffad33;
 	font-weight: bold;
 }
@@ -136,7 +136,7 @@ a {
 	font-size: 10pt;
 }
 
-.side_bar_menu1x, .side_bar_menu2x {
+.side_bar_menu1x, .side_bar_menu2x, .side_bar_menu3x {
 	color: #ffad33;
 	font-weight: bold;
 }
@@ -232,6 +232,21 @@ a {
 				<c:otherwise>
 					<div class="side_bar_menu2">
 						<a href="gallary">작품 보러가기</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
+			<br />
+			
+			<c:choose>
+				<c:when test="${param.url == 'gongji'}">
+					<div class="side_bar_menu3x">
+						<a href="gongji">공지사항</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="side_bar_menu3">
+						<a href="gongji">공지사항</a>
 					</div>
 				</c:otherwise>
 			</c:choose>

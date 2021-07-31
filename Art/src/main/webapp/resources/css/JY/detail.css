@@ -102,7 +102,7 @@ body {
 	font-size: 18pt;
 }
 
-.side_bar_menu1x:hover, .side_bar_menu2x:hover {
+.side_bar_menu1x:hover, .side_bar_menu2x:hover, .side_bar_menu3x:hover {
 	color: #ffad33;
 	font-weight: bold;
 }

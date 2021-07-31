@@ -245,9 +245,19 @@ $(document).ready(function() {
 			</c:choose>
 
 			<br />
-			<div class="side_bar_menu4">
-				<a href="gongji">공지사항</a>
-			</div>
+			
+			<c:choose>
+				<c:when test="${param.url == 'gongji'}">
+					<div class="side_bar_menu4x">
+						<a href="gongji">공지사항</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="side_bar_menu4">
+						<a href="gongji">공지사항</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<input type="button" id="btnLogout" value="로그아웃">
 	</div>

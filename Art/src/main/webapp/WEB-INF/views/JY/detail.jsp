@@ -1479,6 +1479,10 @@ function CopyUrl2()
 			<div class="side_bar_menu2x">
 				<a href="gallary">작품 보러가기</a>
 			</div>
+			<br/>
+			<div class="side_bar_menu3x">
+				<a href="gongji">공지사항</a>
+			</div>
 		</div>
 		<div class="forget">
 			<a href="idfind">계정을 잊어버리셨나요?</a>

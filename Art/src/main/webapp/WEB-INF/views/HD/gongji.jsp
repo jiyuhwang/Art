@@ -185,10 +185,14 @@ $(document).ready(function() {
 	</form>
 	<c:choose>
 		<c:when test="${empty sUserNo}">
-			<c:import url="../JY/header2.jsp"></c:import>
+			<c:import url="../JY/header2.jsp">
+				<c:param name="url" value="gongji"></c:param>
+			</c:import>
 		</c:when>
 		<c:otherwise>
-			<c:import url="../JY/header.jsp"></c:import>
+			<c:import url="../JY/header.jsp">
+				<c:param name="url" value="gongji"></c:param>
+			</c:import>
 		</c:otherwise>
 	</c:choose>
 	<!-----------------------------------------------------------------header 검색하는 부분  -->
