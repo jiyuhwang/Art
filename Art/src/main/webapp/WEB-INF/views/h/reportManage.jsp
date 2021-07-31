@@ -454,7 +454,6 @@ $(document).ready(function(){
 				});
 				
 				function newMemoAdd(data){
-					//철회로 바꾸면
 						
 					var html = "";
 					
@@ -514,7 +513,7 @@ $(document).ready(function(){
 							alert("발생일을 입력하세요");
 							$("#occur").focus();
 						} else if($.trim($("#contents").val()) == ""){
-							alert("내용을 입력하세요");
+							alert("철회사유를 입력하세요");
 							$("#contents").focus();
 						} else {
 							var params = $("#memoNewForm").serialize();
@@ -550,13 +549,13 @@ $(document).ready(function(){
 					//----------------------------------------------취소버튼 누를 때
 					$("#BtnNewCancel").off("click");
 					$("#BtnNewCancel").on("click", function(){
-						$("#status").val($("#status option:selected").val());
+						$("#status").val($("#oldStatus").val());
 						closeMemoDetail();
 					});
 					
 					$("#closeNewMemo").off("click");
 					$("#closeNewMemo").on("click", function(){
-						$("#status").val($("#status option:selected").val());
+						$("#status").val($("#oldStatus").val());
 						closeMemoDetail();
 					});
 				
