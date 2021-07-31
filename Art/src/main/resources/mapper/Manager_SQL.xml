@@ -325,53 +325,53 @@
 	<select id="getGallaryMCnt" resultType="Integer" parameterType="hashmap">
 		SELECT COUNT(*) AS CNT
 		FROM (SELECT *
-				FROM POST PP INNER JOIN USERS U
-				ON PP.USER_NO = U.USER_NO) P
+				FROM POST P INNER JOIN USERS U
+				ON P.USER_NO = U.USER_NO) A
 		WHERE 1 = 1
 		<choose>
 			<when test="menuTabFlag == 1">
-				AND P.CATEGORY_NO = 1
+				AND A.CATEGORY_NO = 1
 			</when>
 			<when test="menuTabFlag == 2">
-				AND P.CATEGORY_NO = 2
+				AND A.CATEGORY_NO = 2
 			</when>
 			<when test="menuTabFlag == 3">
-				AND P.CATEGORY_NO = 3
+				AND A.CATEGORY_NO = 3
 			</when>
 		</choose>
 		<if test="srhYearFlag == 0 or srhYearFlag == 1">
 			<choose>
 					<when test="srhYearFlag == 0">
-						AND TO_CHAR(REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
+						AND TO_CHAR(A.REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '20'
+						AND TO_CHAR(A.REGISTER_DATE, 'YYYY') = '20'
 					</when>
 			</choose>
 		</if>
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchFlag == 2">
-					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					AND A.TITLE LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 3">
-					AND EXPLAIN LIKE '%' || #{searchTxt} || '%'
+					AND A.EXPLAIN LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 4">
-					AND NAME LIKE '%' || #{searchTxt} || '%'
+					AND A.NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 5">
-					AND POST_NO LIKE '%' || #{searchTxt} || '%'
+					AND A.POST_NO LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 6">
-					AND PCATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
+					AND A.CATEGORY_NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchFlag == 7">
-					AND (TITLE LIKE '%' || #{searchTxt} || '%'
-					OR EXPLAIN LIKE '%' || #{searchTxt} || '%')
+					AND (A.TITLE LIKE '%' || #{searchTxt} || '%'
+					OR A.EXPLAIN LIKE '%' || #{searchTxt} || '%')
 				</when>
 				<when test="searchFlag == 8">
-					AND TO_CHAR(REGISTER_DATE, 'YYYY') LIKE '%' || #{searchTxt} || '%'
+					AND TO_CHAR(A.REGISTER_DATE, 'YYYY') LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 		</if>
@@ -380,25 +380,25 @@
 			<choose>
 				<when test="startFlag != null and startFlag != ''
 						and endFlag == null and endFlag == ''">
-				AND REGISTER_DATE &gt;= #{startFlag}
+				AND A.REGISTER_DATE &gt;= #{startFlag}
 				</when>
 				<when test="startFlag == null and startFlag == ''
 						and endFlag != null and endFlag != ''">
-					AND REGISTER_DATE &lt;=  #{endFlag}
+					AND A.REGISTER_DATE &lt;=  #{endFlag}
 				</when>
 					<when test="startFlag != null and startFlag != ''
 						and endFlag != null and endFlag != ''">
-					AND REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
+					AND A.REGISTER_DATE BETWEEN #{startFlag} AND #{endFlag}
 				</when>
 			</choose>
 		</if>
 		<if test="delFlag != null and delFlag != ''">
 			<choose>
 				<when test="delFlag == 0">
-					AND DEL = 0
+					AND A.DEL = 0
 				</when>
 				<when test="delFlag == 1">
-					AND DEL = 1
+					AND A.DEL = 1
 				</when>
 			</choose>
 		</if>
