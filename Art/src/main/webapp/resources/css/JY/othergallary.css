@@ -232,7 +232,8 @@ b {
 	top: 4vh;
 	width: 85%;
 	height: auto;
-	font-size: 15pt;
+	font-size: 17pt;
+	font-weight: bold;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
@@ -278,7 +279,7 @@ b {
 
 .select {    
     margin-top: 10px;
-	margin-left: 410px;
+	margin-left: 390px;
     width: 100px;
     padding: 5px;
     padding-left: 12px;

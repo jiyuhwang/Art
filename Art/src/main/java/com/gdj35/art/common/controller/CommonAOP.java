@@ -36,6 +36,7 @@ public class CommonAOP {
 			+ "&&!execution(* com.gdj35.art..*Controller.*gallary(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*othergallary(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*main(..))"
+			+ "&&!execution(* com.gdj35.art..*Controller.*gongji(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*login(..))"
 			+ "&&!execution(* com.gdj35.art..*Controller.*Ajax(..))")
 	public void artAOP() {}

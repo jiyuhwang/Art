@@ -102,7 +102,7 @@ body {
 	font-size: 18pt;
 }
 
-.side_bar_menu1x:hover, .side_bar_menu2x:hover {
+.side_bar_menu1x:hover, .side_bar_menu2x:hover, .side_bar_menu3x:hover {
 	color: #ffad33;
 	font-weight: bold;
 }
@@ -480,6 +480,7 @@ body {
 	margin-bottom: 120px;
 	background-color: #fbfbfb;
 	margin-top: 80px;
+    border-radius: 20pt;
 }
 
 .profile2 {
@@ -569,6 +570,7 @@ body {
 	display: block;
 	margin: 120px auto 0;
 	max-width: 1200px;
+	min-width: 800px;
   	height: auto;
 }
 
@@ -714,6 +716,11 @@ body {
 	display: inline-block;
 	vertical-align: middle;
 	margin-left: 10pt;
+	cursor: pointer;
+}
+
+.comment_name1:hover, .reply_comment_name1:hover {
+	color: #ffad33;
 }
 
 .comment_name1 a, .reply_comment_name1 a {

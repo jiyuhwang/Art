@@ -22,28 +22,52 @@ body {
 }
 
 
-.idfind, .pwfind {
-	font-size: 12pt;
-    padding:5px;
-    text-align:center;
-    width:200px;
-    margin-top:5px;
-    line-height:70px;
-    font-weight:700;
-    border-radius:3px 3px 0 0;
-    background: white;
-    color: black;
-    border-width:1px 1px 0;
+.tabs {
+	display: block;
+	width: 905px;
+	margin: 50px auto;
+	font-size: 16px;
+}
+
+.tabs input:nth-of-type(1), .tabs input:nth-of-type(1) ~ div:nth-of-type(1), .tabs input:nth-of-type(2), .tabs input:nth-of-type(2) ~ div:nth-of-type(2) {
+    display:none;
+    
+}
+.tabs input:nth-of-type(1):checked ~ div:nth-of-type(1), .tabs input:nth-of-type(2):checked ~ div:nth-of-type(2) {
+    display: inline-block;
+}
+.tabs > label:nth-of-type(1) {
+	/* float: left; */
+    width: 120px;
+    padding: 30px 0 6px 0;
+    margin-right: 6px;
+    font-size: 24px;
+    color: #666;
+    margin-top: 14px;
+}
+
+.tabs > label:nth-of-type(2) {
+	/* float: left; */
+    width: 150px;
+    padding: 30px 0 6px 0;
+    margin-right: 6px;
+    font-size: 24px;
+    color: #666;
+    margin-top: 14px;
+    margin-left: 10px;
+}
+
+.tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), .tabs > label[for=tab1]:hover {
+    color: #EF6C33;
+    font-weight: bold;
+    border-bottom: 2px solid #EF6C33;
     cursor: pointer;
-    border: none;
 }
-
-.idfind{
-	margin-left: calc(50% - 450px);
-}
-
-.idfind:hover, .pwfind:hover {
-	background-color: #ff9900;
+.tabs input:nth-of-type(2):checked ~ label:nth-of-type(2), .tabs > label[for=tab2]:hover {
+    color: #EF6C33;
+    font-weight: bold;
+    border-bottom: 2px solid #EF6C33;
+    cursor: pointer;
 }
 
 
@@ -116,26 +140,26 @@ $(document).ready(function() {
 		location.href = "login";  
 	});
 	
-	$(".pwfind").on("click", function(){
-		    
-		location.href = "passwordfind";   
-	});
-
-	
-	$(".idfind").on("click", function(){
+	$("#tab1").on("click", function(){
 	    
 		location.href = "idfind";   
+	});
+	
+	$("#tab2").on("click", function(){
+		    
+		location.href = "passwordfind";   
 	});
 });
 </script>
 </head>
 <body>
-
+<div class="tabs">
+	<input id="tab1" type="radio" value="0">
+	<input id="tab2" type="radio" value="1" checked="checked" //>
+	<label for="tab1">아이디찾기</label>
+	<label for="tab2">비밀번호찾기</label>
+</div>
 	<div class="wrap">
-			<div class="top2">
-				<input type="button" class="idfind" value="아이디 찾기">
-				<input type="button" class="pwfind" value="비밀번호 찾기">	
-			</div>
 			<div class="middle">
 			<div class="text"><h2>비밀번호찾기</h2></div>
 			<br>	

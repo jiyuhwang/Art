@@ -359,6 +359,18 @@ function check_pw(){
     	document.getElementById('check2').innerHTML='';
     }
 }
+
+function handleOnInput(el, maxlength) {
+	  if(el.value.length > maxlength)  {
+		  el.value = el.value.substr(0, maxlength);
+	  }
+	}
+	
+	function handleOnInput2(el, maxlength) {
+	  if(el.value.length > maxlength)  {
+		  el.value = el.value.substr(0, maxlength);
+	  }
+	}
 </script>
 </head>
 <body>
@@ -428,7 +440,7 @@ function check_pw(){
 			<div class="birth_wrap">
 				<div class="birth_name">생년월일</div>
 				<div class="birth_input_box">
-					<input type="number" id="birthYear" name="birthYear" placeholder="년(4자)" maxlength="4">
+					<input type="number" id="birthYear" name="birthYear" placeholder="년(4자)" maxlength="4" oninput='handleOnInput(this, 4)'>
 					<select name="birthMonth" class="birth_select">
 						<option>월</option>
 				      	<option value="1">1</option>
@@ -444,7 +456,7 @@ function check_pw(){
 				      	<option value="11">11</option>
 				      	<option value="12">12</option>
 		 			</select>
-		 			<input type="number" id="birthDay" name="birthDay" placeholder="일" maxlength="2">			
+		 			<input type="number" id="birthDay" name="birthDay" placeholder="일" maxlength="2" oninput='handleOnInput2(this, 2)'>			
 				</div>
 				<span class="birth_input_re_3">필수 정보입니다.</span>
 			</div>

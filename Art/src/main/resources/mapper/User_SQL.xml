@@ -147,6 +147,12 @@
 		WHERE REPORT_NO = #{reportNo}
 	</update>
 	
+	<!-- 나의 신고 내역 철회 -->
+	<update id="changeMyReport" parameterType="hashmap">
+		UPDATE REPORT SET REPORT_STATUS = 1
+		WHERE REPORT_NO = #{reportNo}
+	</update>
+	
 	<!-- 나의 작품 신고 내역 수 -->
 	<select id="getMyReportPostCnt" parameterType="hashmap" resultType="Integer">
      	SELECT COUNT(*)

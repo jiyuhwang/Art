@@ -31,15 +31,26 @@
 	left: 95px;
 }
 
-.footer1, .footer2, .footer3, .footer4, .footer5 {
+/* .footer1, .footer2, .footer3, .footer4, .footer5 {
 	font-size: 10pt;
 	color: white;
 	position: absolute;
 	top: 60px;
 	display: inline-block;
-}
+} */
 
 .footer1 {
+	font-size: 10pt;
+	color: white;
+	width: 310px;
+	/* position: absolute;
+	top: 60px; */
+	line-height: 150px;
+	display: block;
+	margin: 0 auto;
+}
+
+/* .footer1 {
 	left: 500px;
 }
 
@@ -53,10 +64,15 @@
 
 .footer4 {
 	left: 990px;
-}
+} */
 
 .footer5 {
-	left: 1180px;
+	font-size: 10pt;
+	color: white;
+	position: absolute;
+	top: 70px;
+	display: inline-block;
+	left: 65%;
 }
 </style>
 <script type="text/javascript">
@@ -72,10 +88,11 @@ $(document).ready(function () {
 	<div class="footer">
 		<a href="main"><img src="resources/images/JY/art2_w.png" id="btnLogo2" alt="로고" width="70px" height="50px"></a>
 		<div class="footer_phrase">You can be an art writer.</div>
-		<div class="footer1"><a href="#">관리방침 안내</a></div>
+		<div class="footer1">Copyright © 2021 ART PROJECT All Rights Reserved.</div>
+		<!-- <div class="footer1"><a href="#">관리방침 안내</a></div>
 		<div class="footer2"><a href="#">도움말 안내</a></div>
 		<div class="footer3"><a href="#">회원가입 및 글게시 안내</a></div>
-		<div class="footer4"><a href="#">홈페이지 서비스 안내</a></div>
+		<div class="footer4"><a href="#">홈페이지 서비스 안내</a></div> -->
 		
 		
 		<c:choose>

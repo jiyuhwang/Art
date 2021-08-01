@@ -23,6 +23,16 @@ a {
 	background-color: skyblue;
 }
 
+.banner_in {
+	color: white;
+	font-size: 40pt;
+	letter-spacing: 5pt;
+	font-family: 'Nanum Pen Script', cursive;
+	margin: 0 auto;
+	width: 350px;
+	padding-top: 5px;
+}
+
 .header {
 	margin-top: 20px;
 	position: relative;
@@ -123,7 +133,7 @@ a {
 	font-size: 18pt;
 }
 
-.side_bar_menu1:hover, .side_bar_menu2:hover {
+.side_bar_menu1:hover, .side_bar_menu2:hover, .side_bar_menu3:hover {
 	color: #ffad33;
 	font-weight: bold;
 }
@@ -136,7 +146,7 @@ a {
 	font-size: 10pt;
 }
 
-.side_bar_menu1x, .side_bar_menu2x {
+.side_bar_menu1x, .side_bar_menu2x, .side_bar_menu3x {
 	color: #ffad33;
 	font-weight: bold;
 }
@@ -183,7 +193,11 @@ a {
 </script>
 </head>
 <body>
-	<div class="banner"></div>
+	<div class="banner">
+		<div class="banner_in">
+			작가가 되어보세요.
+		</div>
+	</div>
 	<div class="header">
 		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
 		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
@@ -232,6 +246,21 @@ a {
 				<c:otherwise>
 					<div class="side_bar_menu2">
 						<a href="gallary">작품 보러가기</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
+			<br />
+			
+			<c:choose>
+				<c:when test="${param.url == 'gongji'}">
+					<div class="side_bar_menu3x">
+						<a href="gongji">공지사항</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="side_bar_menu3">
+						<a href="gongji">공지사항</a>
 					</div>
 				</c:otherwise>
 			</c:choose>

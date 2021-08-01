@@ -809,7 +809,7 @@ public class MyGallaryController {
 		
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		int page = Integer.parseInt(params.get("page"));
+		int page = Integer.parseInt(params.get("page2"));
 		
 		int cnt = iMyGallaryService.getCommentCnt(params);
 		

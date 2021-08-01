@@ -49,8 +49,10 @@ $(document).ready(function(){
 		
  		if($(this).attr("id") == "comment"){
 			$("#tabFlag").val(1);
+			$("#page").val(1);
 		}else {
 			$("#tabFlag").val(0);
+			$("#page").val(1);
 		} 
 			loadPostList();
 		
@@ -73,7 +75,6 @@ $(document).ready(function(){
 	$("#BtnWith").on("click", function(){
 		$("#delFlag").val("");
 		$("#page").val(1);
-		console.log($("#delFlag").val());
 		loadPostList();
 	});
 
@@ -94,8 +95,6 @@ $(document).ready(function(){
 	//상세보기
 	$("tbody").on("dblclick", "tr", function(){
 		$("#rNo").val($(this).attr("name"));
-		console.log("이것이다: " + $(this).attr("name"));
-		console.log("이것이다22: " + $("#rNo").val());
 		drawPopup();
 	});
 	
@@ -112,7 +111,7 @@ $(document).ready(function(){
 			var checkCnt = $("tbody [name=checkbox]:checked").length;
 			
 			if(checkCnt == 0){
-				alert("선택된 작품이 없습니다.");
+				alert("선택된 신고글이 없습니다.");
 			} else {
 			
 				var checkArr = new Array();
@@ -200,8 +199,8 @@ $(document).ready(function(){
 				html +="<td>" + d.FLAGS + "</td>";
 				
 				if(d.WRITER_NAME == '' || d.WRITER_NAME == null){
-					html +="<td> </td>";
-					html +="<td> </td>";
+					html +="<td>"+ d.C_USERNAME +"</td>";
+					html +="<td>" + d.C_USERNICK +"(" + d.C_USERID + ")</td>";
 				} else {
 					html +="<td>" + d.WRITER_NAME + "</td>";
 					html +="<td>" + d.WRITER_NICK +"(" + d.WRITER_ID + ")</td>";									
@@ -306,8 +305,8 @@ $(document).ready(function(){
 			dataType: "json",
 			data: params,
 			success: function(result){
-				
-				var html = "";
+							
+			var html = "";
                 								
 			html +="	<div class=\"background9\"></div>";
 			html +="	<div class=\"ctts9\">";
@@ -316,6 +315,8 @@ $(document).ready(function(){
 			html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
 			html +="	<input type=\"hidden\" id=\"oldStatus\" name=\"oldStatus\" value=\""+ result.data.REPORT_STATUS +"\"/>";
 			html +="	<input type=\"hidden\" id=\"newStatus\" name=\"newStatus\"/>";
+			html +="	<input type=\"hidden\" id=\"postNo\" name=\"postNo\" value=\""+ result.data.POST_NO +"\"/>";
+			html +="	<input type=\"hidden\" id=\"commentNo\" name=\"commentNo\" value=\""+ result.data.COMMENT_NO +"\"/>";
 			html +="	</form>";
 			html +="		<div class=\"top_info\">";
 			html +="			<div class=\"info1\">";
@@ -333,8 +334,6 @@ $(document).ready(function(){
 			html +="				<div class=\"status1\"><div>처리상태</div></div>";
 			html +="				<div class=\"status2\"><div>";
 			html +="<select id=\"status\" name=\"statusFlag\">";
-			
-			console.log("셀렉트 뭐받아오는지 확인: "+result.data.REPORT_STATUS);
 			
 				if(result.data.REPORT_STATUS == 0){
 					html += "<option value=\"0\" selected=\"selected\">대기중</option>";
@@ -356,6 +355,7 @@ $(document).ready(function(){
 					html += "<option value=\"1\">철회</option>";
 					html += "<option value=\"2\">접수완료</option>";
 					html += "<option value=\"3\" selected=\"selected\">처리완료</option>";
+					
 				}					
 			
 			html += "</select>";
@@ -363,12 +363,12 @@ $(document).ready(function(){
 			html +="			</div>";
 
 			if(result.data.WRITER_NAME == '' || result.data.WRITER_NAME == null){				
-/* 				html +="			<div class=\"top_writer\">";
-				html +="				<div class=\"writer1\">작가 닉네임</div>";
-				html +="				<div class=\"writer2\"> </div>";
-				html +="				<div class=\"writer3\">작가 이름(아이디)</div>";
-				html +="				<div class=\"writer4\"> ( )</div>";
-				html +="			</div>"; */
+ 				html +="			<div class=\"top_writer\">";
+				html +="				<div class=\"commenter1\">댓글작성자 닉네임</div>";
+				html +="				<div class=\"commenter2\">"+ result.data.C_USERNICK +"</div>";
+				html +="				<div class=\"commenter3\">댓글 작성자 이름(아이디)</div>";
+				html +="				<div class=\"commenter4\">"+ result.data.C_USERNAME + "(" + result.data.C_USERID +")</div>";
+				html +="			</div>";
 				html +="			<div class=\"top_post\">";
 				html +="				<div class=\"post1\">신고된 댓글 내용</div>";
 				html +="				<div class=\"post2\">"+ result.data.C_CONTENT +"</div>";
@@ -418,8 +418,10 @@ $(document).ready(function(){
 			html +="		</div>";
 			html +="	</div>";
 				
-				
 				$("body").prepend(html);
+				if(result.data.REPORT_STATUS == "3" || result.data.REPORT_STATUS == "1") {
+					$("#status").prop("disabled", true);
+				}
 				
 				$(".background9").hide();
 				$(".ctts9").hide();				
@@ -430,11 +432,13 @@ $(document).ready(function(){
 				
 				$(".btn_close").off("click");
 				$(".btn_close").on("click", function(){
+					loadPostList();
 					closePopup();
 				});
 				
 				$(".background9").off("click");
 				$(".background9").on("click", function(){
+					loadPostList();
 					closePopup();
 				});
 				
@@ -445,19 +449,11 @@ $(document).ready(function(){
 						$("#mNo").val($(this).attr("name"));
 						showMeMo();
 					} else {
-						alert("메모가 없습니다.");
+						alert("등록된 사유가 없습니다.");
 					}
 				});
-
-				//-----------------------------------------------------------셀렉트박스가 철회로 바뀔 때
-				$("#status").on("change", function(){
-					console.log("올드 셀렉트 값: " + $("#oldStatus").val());
-					console.log("뉴 셀렉트 값: " + $("#newStatus").val());
-					console.log("셀렉트1번값: " + $("#status option:selected").val());
-					//철회로 바꾸면
-					if($("#status option:selected").val() == 1){
-						$("#newStatus").val(1);
-					console.log("바뀐 뉴 셀렉트 값: " + $("#newStatus").val());
+				
+				function newMemoAdd(data){
 						
 					var html = "";
 					
@@ -465,17 +461,17 @@ $(document).ready(function(){
 					html += "<div class=\"ctts8\">";
 					html += "		<form id=\"memoNewForm\">";
 					html += "	<div class=\"top_div\">";
-					html += "		<div class=\"memo_title\">메모</div>";			
+					html += "		<div class=\"memo_title\">신고철회사유</div>";			
 					html += "		<img class=\"close_img\" id=\"closeNewMemo\" alt=\"닫기\" src=\"resources/images/cross.png\">";
 					html += "	</div>";
 					html += "	<div class=\"memo_ctts_div\">";
-					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ result.data.REPORT_NO +"\"/>";
-					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\" value=\""+ result.data.ADMIN_NO +"\"/>";
-					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + result.data.USER_NO + "\" />";
+					html +="	<input type=\"hidden\" name=\"rNo\" value=\""+ data.REPORT_NO +"\"/>";
+					html +="	<input type=\"hidden\" name=\"admin\" id=\"admin\" value=\""+ data.ADMIN_NO +"\"/>";
+					html += "			<input type=\"hidden\" name=\"uNo\" value=\"" + data.USER_NO + "\" />";
 					html += "			<table>";
 					html += "				<tr>";
 					html += "					<td>작성자</td>";
-					html += "					<td>"+ result.data.ADMIN_NAME +"</td>  ";
+					html += "					<td>"+ data.ADMIN_NAME +"</td>  ";
 					html += "				</tr>";		
 					html += "				<tr>";
 					html += "					<td>발생일</td>";
@@ -517,10 +513,9 @@ $(document).ready(function(){
 							alert("발생일을 입력하세요");
 							$("#occur").focus();
 						} else if($.trim($("#contents").val()) == ""){
-							alert("메모를 입력하세요");
+							alert("철회사유를 입력하세요");
 							$("#contents").focus();
 						} else {
-							console.log("메모저장 아작스 실행 전!");
 							var params = $("#memoNewForm").serialize();
 							
 							$.ajax({
@@ -531,7 +526,6 @@ $(document).ready(function(){
 								success : function(result) {
 									
 									if(result.msg == "success"){
-										console.log("메모저장!");
 										closeMemoDetail();
 										fastClosePopup();
 										drawPopup();
@@ -547,33 +541,32 @@ $(document).ready(function(){
 									console.log(error);
 									
 								}
-																	
-								
 							});//addMemo ajax end
-						}
+						}//addmemo보내는 else
 					});//저장버튼누르면
 
 					
 					//----------------------------------------------취소버튼 누를 때
 					$("#BtnNewCancel").off("click");
 					$("#BtnNewCancel").on("click", function(){
-						$("#satus").val(result.data.REPORT_STATUS);
+						$("#status").val($("#oldStatus").val());
 						closeMemoDetail();
 					});
 					
 					$("#closeNewMemo").off("click");
 					$("#closeNewMemo").on("click", function(){
-						$("#satus").val(result.data.REPORT_STATUS);
+						$("#status").val($("#oldStatus").val());
 						closeMemoDetail();
 					});
-					
+				
 
-				} else {//셀렉트 바꾸면
-					
-					console.log("아작스 실행되는거 맞냐?");
+				}//메모새로추가함수 end
+
+				//-----------------------------------------------------------셀렉트박스가 철회로 바뀔 때
+				$("#status").on("change", function(){										
 					$("#newStatus").val($("#status option:selected").val());
-					var params = $("#detailForm").serialize();
 					
+					var params = $("#detailForm").serialize();
 					$.ajax({
 						type : "post",
 						url : "changeSelect",
@@ -582,8 +575,9 @@ $(document).ready(function(){
 						success : function(result) {
 							
 							if(result.msg == "success"){
-								fastClosePopup();
-								drawPopup();
+								if($("#newStatus").val() == "1") {
+									newMemoAdd(result.data);
+								}
 							} else if(result.msg == "failed"){
 								alert("저장에 실패했습니다.");
 							} else {
@@ -591,11 +585,15 @@ $(document).ready(function(){
 								alert("저장 중 문제가 발생했습니다.");
 							}		
 					
-					}
+						}
 					});//ajax end
-				}//셀렉트 바꾸면 else 
+					
 				
+
+					
 				});// 셀렉트 change 함수 end
+				
+
 				
 				
 			}, error: function(request, status, error){
@@ -603,6 +601,8 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
+
 	
 	//----------------------------------------------메모 테이블 불러오기
 		 function drawMeMoTable(list) {
@@ -618,7 +618,7 @@ $(document).ready(function(){
 			html +=	"		  <tr>";
 			html +=	"			  <th>번호</th>";
 			html +=	"			  <th>날짜</th>";
-			html +=	"			  <th>메모내용</th>";
+			html +=	"			  <th>철회사유</th>";
 			html +=	"		  </tr>";
 			html +=	"	  </thead>";
 			html +=	"	  <tbody>";

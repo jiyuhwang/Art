@@ -151,9 +151,10 @@ body {
 
 .contents_title {
 	top: 4vh;
-	width: 80%;
+	width: 85%;
 	height: auto;
-	font-size: 15pt;
+	font-size: 17pt;
+	font-weight: bold;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
@@ -201,7 +202,7 @@ body {
 
 .select {
 	margin-top: 10px;
-	margin-left: 760px;
+	margin-left: 740px;
 	width: 100px;
     padding: 5px;
     padding-left: 12px;

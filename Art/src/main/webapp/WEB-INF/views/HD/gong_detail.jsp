@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>작품 상세보기</title>
+<title>공지사항</title>
 <link rel="stylesheet" href="resources/css/HD/gong_detail.css">
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
@@ -23,7 +23,7 @@ $(document).ready(function() {
 	
 	
 	console.log($('#listPage').val());
-	$('#leftArrow').click(function() {
+/* 	$('#leftArrow').click(function() {
 		if($('#listPage').val() == "0") {
 			$("#goForm").attr("action", "gallary");
 			$("#goForm").submit();
@@ -34,7 +34,7 @@ $(document).ready(function() {
 			$("#goForm").attr("action", "othergallary");
 			$("#goForm").submit();
 		}
-	})
+	}) */
 	
 	$(".pagination").on("click", "a",  function() {
 		$("#page").val($(this).attr("page"));
@@ -59,15 +59,7 @@ $(document).ready(function() {
 		$(".header2").hide();
 		$(".share_wrap2").hide();
 	}
-	
-	
-	$('#btnMenu, #btnMenu2').click(function() {
-		if ($('.side_bar').css('display') == 'none') {
-			$('.side_bar').slideDown();
-		} else {
-			$('.side_bar').slideUp();
-		}
-	})
+
 	
 	$(document).mouseup(function (e){
 
@@ -77,6 +69,10 @@ $(document).ready(function() {
 	
 		container.slideUp();
 
+	});
+	
+	$('#btnStart').click(function() {
+		location.href = "login";
 	});
 	
 	$('#btnShare').click(function() {
@@ -159,6 +155,30 @@ $(document).ready(function() {
 		$("#btnDeclation2").hide();
 	})
 	
+	$('#btnMenu, #btnMenu2').click(function() {
+		if($("#userNo").val() != "") {
+			if ($('.side_bar').css('display') == 'none') {
+				$('.side_bar').slideDown();
+			} else {
+				$('.side_bar').slideUp();
+			}
+		} else {
+			if ($('.side_bar2').css('display') == 'none') {
+				$('.side_bar2').slideDown();
+			} else {
+				$('.side_bar2').slideUp();
+			}
+		}
+	})
+	
+	if($("#userNo").val() != "") {
+		$('.side_bar_menu4').css('color', '#ffad33');
+		$('.side_bar_menu4').css('font-weight', 'bold');
+	} else {
+		$('.side_bar_menu3x').css('color', '#ffad33');
+		$('.side_bar_menu3x').css('font-weight', 'bold');
+	}
+	
 	$('#btnComment, .comment_cnt_wrap').click(function(){
 			$(".comment_wrap1").show();
 			var offset = $('.comment_wrap1').offset();
@@ -198,13 +218,14 @@ $(document).ready(function() {
 	});
 	
 	
-	$(".profile_name2").on("click", function() {
-		if($('#userNo').val() == $('#authorNo').val()) {
-			location.href = "mygallary";
-		} else {
-			$("#goForm").attr("action", "othergallary");
-			$("#goForm").submit();
-		}
+	$(document).mouseup(function (e){
+
+		var container = $(".side_bar, .side_bar2");
+	
+		if( container.has(e.target).length === 0)
+	
+		container.slideUp();
+
 	});
 			
 	$("#btnDelete").on("click", function() {
@@ -665,6 +686,7 @@ function CopyUrl2()
 </head>
 <body>
 	
+	<input type="hidden" id="userNo" name="userNo" value="${sUserNo}">
 	
 	
 	
@@ -747,6 +769,29 @@ function CopyUrl2()
 		</div>
 		<input type="button" id="btnLogout" value="로그아웃">
 	</div>
+	
+	<div class="side_bar2">
+		<img id="sideBarLogo" src="resources/images/JY//art2.png" alt="로고" width="80px" height="50px">
+		<div class="side_bar_phrase">You can be an art writer.</div>
+		<input type="button" id="btnStart" value="Art 시작하기">
+		<div class="side_bar_menux">
+			<div class="side_bar_menu1x">
+				<a href="main">Art 홈</a>
+			</div>
+			<br />
+			<div class="side_bar_menu2x">
+				<a href="gallary">작품 보러가기</a>
+			</div>
+			<br/>
+			<div class="side_bar_menu3x">
+				<a href="gongji">공지사항</a>
+			</div>
+		</div>
+		<div class="forget">
+			<a href="idfind">계정을 잊어버리셨나요?</a>
+		</div>
+	</div>
+	
 	<div class="wrap">
 	
 		<%-- <c:choose>		

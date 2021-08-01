@@ -31,6 +31,10 @@ table {
 	font-size: 10pt;
 }
 
+table tr {
+	cursor: pointer;
+}
+
 table th {
 	font-size: 10pt;
 	border-top: 0.5px solid black;

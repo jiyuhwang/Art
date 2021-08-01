@@ -89,6 +89,10 @@ body {
 	text-decoration: underline;
 }
 
+.more:hover {
+	color: #ffad33;
+}
+
 .pic, .draw, .video {
     position: relative;
     width: 6.25%;
@@ -132,6 +136,7 @@ body {
 	width: 85%;
 	height: auto;
 	font-size: 2vw;
+	font-weight: bold;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }

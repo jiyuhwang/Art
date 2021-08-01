@@ -14,6 +14,10 @@ body {
 	height: 100%;
 }
 
+a {
+	color: inherit;
+	text-decoration: none;
+}
 [type="button"] {
 	cursor: pointer;
 	font-family: '돋움';
@@ -261,6 +265,72 @@ body {
 	left: 95px;
 }
 
+.side_bar2 {
+	display: none;
+	border: 2px solid gray;
+	background-color: white;
+	width: 300px;
+	height: 630px;
+	position: absolute;
+	top: 65px;
+	left: 40px;
+	z-index: 900;
+	border-radius: 10px;
+}
+
+#sideBarLogo {
+	position: absolute;
+	top: 50px;
+	left: 105px;
+}
+
+.side_bar_phrase {
+	position: absolute;
+	top: 110px;
+	left: 40px;
+	font-size: 15pt;
+}
+
+#btnStart {
+	position: absolute;
+	top: 170px;
+	left: 70px;
+	padding: 10px;
+	border: 1px solid #ffad33;
+	color: #ffad33;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 18pt;
+	cursor: pointer;
+	border-radius: 20px;
+	background-color: white;
+}
+
+.side_bar_menux {
+	position: absolute;
+	top: 230px;
+	left: 70px;
+	text-align: center;
+	border-top: 1px dashed black;
+	margin-top: 20px;
+	padding-top: 30px;
+	font-size: 18pt;
+}
+
+.side_bar_menu1x:hover, .side_bar_menu2x:hover, .side_bar_menu3x:hover {
+	color: #ffad33;
+	font-weight: bold;
+}
+
+.forget {
+	position: absolute;
+	bottom:30px;
+	left: 75px;
+	text-decoration: underline;
+	font-size: 10pt;
+}
+
 /*----------------------------------------------------------  */
 .header2 {
 	margin-top: 20px;
@@ -493,14 +563,14 @@ body {
 	position: absolute;
 	top: 30px;
 	left: 30px;
-	cursor: pointer;
+	/* cursor: pointer; */
 	border-bottom: 2px solid #333333;
 }
 
-.profile_name2:hover {
+/* .profile_name2:hover {
 	color: #ffad33;
 	font-weight: bold;
-}
+} */
 
 .profile_introduce {
 	font-size: 10pt;

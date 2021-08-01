@@ -269,7 +269,7 @@ function picList(list) {
 				html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"pic" + p.POST_NO + "\">";					
 				html += "<div class=\"bg\">";
 				html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-				html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+				/* html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>"; */
 				if(p.REGISTER_DATE == null) {
 					html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
 				} else {
@@ -298,7 +298,7 @@ function drawList(list) {
 			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"draw" + p.POST_NO + "\">";					
 			html += "<div class=\"bg\">";
 			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			/* html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>"; */
 			if(p.REGISTER_DATE == null) {
 				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
 			} else {
@@ -327,7 +327,7 @@ function videoList(list) {
 			html += "<div pno = \"" + p.POST_NO + "\"class = \"pic\" id=\"video" + p.POST_NO + "\">";					
 			html += "<div class=\"bg\">";
 			html += "<div class=\"contents_title\">" + p.TITLE + "</div>";
-			html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>";
+			/* html += "<div class=\"contents_in\">" + p.EXPLAIN + "</div>"; */
 			if(p.REGISTER_DATE == null) {
 				html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
 			} else {
@@ -405,15 +405,18 @@ function drawPaging(pb) {
 	<div class="background_wrap">
 	<div class="wrap">
 		<div class="profile_wrap">
-		
-			<c:choose>
-				<c:when test="${empty data.AUTHOR_NO}">
-					<img src="resources/images/JY/heart.png" id="btnLike" class="heart" alt="투명하트" width="35px" height="35px">
-				</c:when>	
-				<c:otherwise>
-					<img src="resources/images/JY/heart2.png" id="btnLike" class="heart" alt="빨간하트" width="35px" height="35px">
-				</c:otherwise>
-			</c:choose>
+		<c:choose>
+			<c:when test="${!empty sUserNo}">
+				<c:choose>
+					<c:when test="${empty data.AUTHOR_NO}">
+						<img src="resources/images/JY/heart.png" id="btnLike" class="heart" alt="투명하트" width="35px" height="35px">
+					</c:when>	
+					<c:otherwise>
+						<img src="resources/images/JY/heart2.png" id="btnLike" class="heart" alt="빨간하트" width="35px" height="35px">
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+		</c:choose>
 		
 	
 

@@ -232,7 +232,7 @@ function picList(list1) {
 			html += "<div pno = \"" + p.POST_NO + "\"class=\"pic\" id=\"pic" + p.POST_NO + "\">";	
 			html += "<div class=\"bg\">"
 			html += "<div class=\"contents_title\">" +  p.TITLE + "</div>"
-			html += "<div class=\"contents_in\">" + p.EXPLAIN  + "</div>"
+			/* html += "<div class=\"contents_in\">" + p.EXPLAIN  + "</div>" */
 	
 		if(p.REGISTER_DATE == null) {
 			html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
@@ -257,7 +257,7 @@ function drawList(list2) {
 		html += "<div pno = \"" + p.POST_NO + "\"class=\"pic\" id=\"draw" + p.POST_NO + "\">";	
 		html += "<div class=\"bg\">"
 		html += "<div class=\"contents_title\">" +  p.TITLE + "</div>"
-		html += "<div class=\"contents_in\">" + p.EXPLAIN  + "</div>"
+		/* html += "<div class=\"contents_in\">" + p.EXPLAIN  + "</div>" */
 
 	if(p.REGISTER_DATE == null) {
 		html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
@@ -282,7 +282,7 @@ function videoList(list3) {
 		html += "<div pno = \"" + p.POST_NO + "\"class=\"pic\" id=\"video" + p.POST_NO + "\">";	
 		html += "<div class=\"bg\">"
 		html += "<div class=\"contents_title\">" +  p.TITLE + "</div>"
-		html += "<div class=\"contents_in\">" + p.EXPLAIN  + "</div>"
+		/* html += "<div class=\"contents_in\">" + p.EXPLAIN  + "</div>" */
 
 	if(p.REGISTER_DATE == null) {
 		html += "<img class=\"contents_heart\" src=\"resources/images/JY/heart3.png\" alt=\"투명하트\" width=\"40px\" height=\"40px\">";
@@ -331,11 +331,11 @@ function videoList(list3) {
 
 	<div class="wrap">
 		<div class="pic_wrap">
-			<div class="img_wrap">
 			<div class="pic_title">사진갤러리</div>
+			<div class="img_wrap">
 				<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="100px" height="100px">
-			<div class="pic_main_wrap"></div>
-			<img src="resources/images/JY/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px"> <br />
+				<div class="pic_main_wrap"></div>
+				<img src="resources/images/JY/right_arrow2.png" id="rightArrow" alt="오른쪽 화살표" width="100px" height="100px"> <br />
 			</div>	
 			<div class="more">
 				<div class="go_pic">더 많은 작품 보러가기 ></div>
