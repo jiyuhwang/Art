@@ -178,19 +178,25 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+
 	<form action="#" id="actionFrom" method="post">
 		<input type="hidden" id="noticeNo" name="noticeNo">
 		<input type="hidden" id="sortO" name="sortO" >
 		<input type="hidden" id="page" name="page" value="1">
 	</form>
+	
 	<c:choose>
+
 		<c:when test="${empty sUserNo}">
 			<c:import url="../JY/header2.jsp"></c:import>
 		</c:when>
+
 		<c:otherwise>
 			<c:import url="../JY/header.jsp"></c:import>
 		</c:otherwise>
+
 	</c:choose>
+	
 	<!-----------------------------------------------------------------header 검색하는 부분  -->
 	<div class="ctts">
 		<span class="gong">공지사항</span>

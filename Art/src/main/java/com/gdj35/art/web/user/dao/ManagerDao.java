@@ -303,6 +303,12 @@ public class ManagerDao implements IManagerDao {
 		return sqlSession.insert("Manager.addMemoHD",params);
 	}
 
+	@Override
+	public int updateMemo(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Manager.updateMemo",params);
+	}
+
 
 	
 }

@@ -82,11 +82,8 @@ public class ManagerController {
 			
 			return mapper.writeValueAsString(modelMap);
 		}catch(Throwable e) {
-			
 			e.printStackTrace();
-			
 		}
-		
 		
 		
 		return mapper.writeValueAsString(modelMap);
@@ -683,6 +680,47 @@ public class ManagerController {
 	}
 	
 	
+	@RequestMapping(value = "/updateMemo",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String updateMemoAjax(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		
+		System.out.println("----------------");	
+		System.out.println(params);
+		System.out.println("----------------");	
+		
+		
+		int cnt = iManagerService.updateMemo(params);
+		
+		List<HashMap<String, String>> list = iManagerService.getDMList(params);
+		System.out.println(cnt);
+		System.out.println(list);
+		modelMap.put("list", list);
+		modelMap.put("msg", "success");
+			
+	
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
@@ -1117,22 +1155,18 @@ public class ManagerController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
-		
 		System.out.println("이거받아야함"+ params);
-		
 		try {
 			int cnt = iManagerService.updateReportMemo(params);
 			List<HashMap<String, String>> list = iManagerService.getReportMemo(params);
 			System.out.println("---------------이거받아야함수정하고나서"+ params);
 			
 			if(cnt > 0) {
-				
 				modelMap.put("list", list);
 				modelMap.put("msg", "success");
 		} else {
 			modelMap.put("msg", "failed");
 			}
-			
 		} catch (Throwable e) {
 			e.printStackTrace();
 			modelMap.put("msg", "error");

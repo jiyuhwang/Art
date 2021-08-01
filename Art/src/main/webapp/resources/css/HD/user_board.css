@@ -10,10 +10,12 @@ min-width: 1330px;
 	background-color: #E0E7E9;
 	
 }
+
 img{
 	width: 15px;
 	height: 15px;
 }
+
 a{ 
 	text-decoration: none; /*기본, 글자 중간에 선이든 뭐든 없음*/
 	color:inherit; /*기본*/
@@ -26,8 +28,8 @@ table{
 	 font-size: 10pt;
 	 width: 1500px;
 	 table-layout: fixed;
-	 
 }
+
 table th{
 	 font-size: 10pt;
 	 border-top: 0.5px solid black;
@@ -35,12 +37,14 @@ table th{
 	 padding: 3px;
 	 height: 30px;
 }
+
 table td{
 	padding : 5px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+
 table tbody tr:hover{
 	cursor: pointer;
 	background-color: #6C7A89
@@ -62,6 +66,7 @@ table th:hover{
 	background-color: RGBA;
 	margin-left: 100px;
 }
+
 .blank2{
 	display: block;
 	vertical-align : top;
@@ -69,6 +74,7 @@ table th:hover{
 	height : 60px;
 	background-color: RGBA;
 }
+
 .bigClass{
 	display: block;
 	vertical-align : top;
@@ -76,6 +82,7 @@ table th:hover{
 	height : 60px;
 	background-color: RGBA;
 }
+
 .bigClassActive{
 	display : inline-block;
 	height: 60px;
@@ -106,6 +113,7 @@ table th:hover{
 	color: white;
 	font-weight: 300;
 }
+
 .bigClass-2{
 	display : inline-block;
 	height: 60px;
@@ -115,7 +123,6 @@ table th:hover{
 	text-align: center;
 	line-height: 60px;
 	border-radius: 3px;
-
 	position: relative;
 	color: white;
 	font-weight: 300;
@@ -140,6 +147,7 @@ table th:hover{
 	cursor: pointer;
 }
 
+
 .main1 { /* 게시글 목록, 댓글목록 아래 빈칸  top에 회색선 준 것*/
 	position: relative;
 	display: block;
@@ -148,6 +156,7 @@ table th:hover{
 	border-top : 2px solid  #cccccc;
 	vertical-align: top;
 }
+
 
 .main1-1 {
 	position: absolute;
@@ -160,15 +169,18 @@ table th:hover{
 	
 }
 
+
 .main1-1>span {
 		vertical-align: middle;
 		margin-left: 10px;
 		font-size:12px;
 }
 
+
 .font-red {
 	color: red;
 }
+
 
 .main2 {/* 회원분류.. 등 검색 분류 있는 곳  */
 	display : inline-block;
@@ -177,14 +189,18 @@ table th:hover{
 	font-size: 15pt;
 }
 
+
 .main2-1 {
 	margin-top: 20px;
 }
+
 
 .date_search {
 	display: inline-block;
 	
 }
+
+
 .main3{/* 저장 삭제 있는 div */
 	width : 100%;
 	height: 30px;
@@ -192,7 +208,6 @@ table th:hover{
 	font-size: 2px;
 	text-align: right;
 	margin-bottom: 10px;
-	
 }
 
 .main3-table {
@@ -200,9 +215,12 @@ table th:hover{
 	overflow: auto;
 }
 
+
 .main3-table::-webkit-scrollbar{
 	display: none;
 }
+
+
 .status{
 	height : 20px;
 	background-color: #6C7A89;
@@ -213,19 +231,25 @@ table th:hover{
 	border-radius: 5px;
 }
 
+
 .pagingWrap{
 	font-size: 15pt;
 	text-align: center;
 	margin-top: 12px;
 }
 
+
 select, input{
 	padding: 5px;/* 이게 무엇인가...??? */
 }
+
+
 label{
 	margin-left: 10px;	
 }
 
+
 #pagingWrap span:hover{
 	cursor: pointer;
 }
+

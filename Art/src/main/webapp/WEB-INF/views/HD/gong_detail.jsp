@@ -667,7 +667,6 @@ function CopyUrl2()
 	
 	
 	
-	<img src="resources/images/JY/left_arrow2.png" id="leftArrow" alt="왼쪽 화살표" width="50px" height="50px">
 	
 	<!-- 글 작가와 본인이 동일할 때 -->	
 	<div class="header">

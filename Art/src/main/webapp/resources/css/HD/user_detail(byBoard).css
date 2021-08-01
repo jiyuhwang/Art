@@ -50,6 +50,13 @@ textarea{
 	height : 100%;
 	background-color: rgba;
 }
+
+.Pmain .blank_cancelPop{
+	width : 600px;
+	height :20px;
+	background-color: rgba;
+	display: inline-block; 
+}
 .Pmain .profile{
 	width : 300px;
 	height : 425px;
@@ -95,6 +102,15 @@ textarea{
 	vertical-align: top;
 	display: inline-block;
 }
+
+.Pmain .closeBtn{
+	display: inline-block;
+    float: right;
+    margin-right: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
 .Pmain .cButtonI{
 	width : 100%;
 	height:100%;
@@ -114,7 +130,6 @@ textarea{
 	display: inline-block; 
 	vertical-align: top;
 	font-size: 30pt;
-	padding-top: 20px;
 }
 .Pmain .writeBoxI{
 	width : 600px;

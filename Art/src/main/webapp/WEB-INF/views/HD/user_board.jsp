@@ -69,7 +69,7 @@ $(document).ready( function () {
 						
 					});
 				
-				//--------------------------------------------------------이메일 폼 누르기
+	//--------------------------------------------------------이메일 폼 누르기
 				
 				$(".PmainM #fileBtn").on("click", function () {
 					console.log("실행 여부");
@@ -133,9 +133,19 @@ $(document).ready( function () {
 		$("#userForm").submit();
 	});
 	
+	$("#resetBtn").on("click", function () {
+		console.log("working");
+		$("input[name='searchTxt']").val("");
+		$("#searchType option:eq(0)").prop("selected",true);
+		$("#searchGbn option:eq(0)").prop("selected",true);
+		$("#startDate").val("");
+		$("#endDate").val("");
+		
+	});
 	
 	
-//-----------------------------------------side 클릭시 변경 script
+	
+	//-----------------------------------------side 클릭시 변경 script
 	var now ='${now}';
 	$('.'+now).attr("id","active");
 	
@@ -199,6 +209,7 @@ $(document).ready( function () {
 	//---------------------------------------업데이트
 	$(".main3-table tbody").on("click", ".update_btn" ,function () {
 		$("#userNo").val($(this).parent().parent().attr("name"));
+		
 		drawUpdatePopup();
 	});
 	
@@ -338,9 +349,12 @@ function drawPopup() {
 			});
 			 $("#insideMiddle2").on("click", function () {
 				if($("#insideMiddle2").attr("class") != 'insideMiddle1'){
-					$(".Pmain table").empty();
-					listDM(res.listM,0);
+					/* $(".Pmain table").empty();
 					$(".topOfBox .topBar").empty();
+					listDM(res.listM,0); */
+					//0은 수정 삭제 없이, 1은 수정 삭제 있이
+					$("#memoWrap").empty();
+					listDM(res.listM,1);
 				}
 			}); 
 		},
@@ -475,6 +489,9 @@ function drawOutList() {
 				html +=	"	  <input class =\"pName\" type =\"text\" placeholder=\"" +user.USER_NICKNAME + "\" readonly=\"readonly\">";
 				html +=	"  </div>";
 				html +=	"  <div class =\"writeBox\" >";
+				html +=	"	  <div class = \"blank_cancelPop\">";
+				html +=	"	  <img class=\"closeBtn\" src=\"resources/images/HD/close.png\">";
+				html +=	"	  </div>";
 				html +=	"	  <div class = \"blank1\">회원상세정보</div>";
 				html +=	"		  <div class = \"smallBox\">";
 				html +=	"			  <div class =\"MsmallBox\">";
@@ -538,7 +555,9 @@ function drawOutList() {
 	//위의 html을 그린 이후의 위의 html기반(id or class)의기능들은 여기서 부터 시작 됨으로 이 안에 적용시켜야한다. 안에 들어가 있어야한다.
 	
 	
-	
+	$(".Pmain .closeBtn").on("click", function () {
+		$(".popupWrap").empty();
+	});
 	
  	  
 }  
@@ -546,7 +565,7 @@ function drawOutList() {
  function drawUpdateDP(user) {
 	var html="";
 				html += "<form action=\"fileUploadAjax\" id=\"fileForm\" method=\"post\" enctype=\"multipart/form-data\"> ";
-				html += 	"<input type=\"file\" name=\"att\" id=\"att\">";
+				html += 	"<input type=\"file\" name=\"att\" id=\"att\" style=\"display:none;\">";
 				html += "</form>";
 				html +=	"  <div class= \"background\" id=\"PbackgroundDP\"></div>";
 				html +=	"  <div class =\"Pmain\" id=\"PmainDP\">";
@@ -573,6 +592,9 @@ function drawOutList() {
 				html += "<input type=\"button\" value=\"수정하기\" class=\"decideBtn\" id=\"decideBtn\" style=\"width: 100px; height : 40px; margin-top:10px;\">";
 				html +=	"  </div>";
 				html +=	"  <div class =\"writeBox\" >";
+				html +=	"	  <div class = \"blank_cancelPop\">";
+				html +=	"	  <img class=\"closeBtn\" src=\"resources/images/HD/close.png\">";
+				html +=	"	  </div>";
 				html +=	"	  <div class = \"blank1\">회원상세정보</div>";
 				html +=	"		  <div class = \"smallBox\">";
 				html +=	"			  <div class =\"MsmallBox\">";
@@ -647,9 +669,14 @@ function drawOutList() {
 	
 	$(".Pmain .cButtonc").css("cursor", "pointer");
 	//위의 html을 그린 이후의 위의 html기반(id or class)의기능들은 여기서 부터 시작 됨으로 이 안에 적용시켜야한다. 안에 들어가 있어야한다.
-	$(".Pmain img").on("click", function () {
+	$(".Pmain .closeBtn").on("click", function () {
+		$(".popupWrap").empty();
+	});
+	
+	$(".Pmain .img").on("click", function () {
 		$("#att").click();
 	});
+	
 	
 	$(".Pmain #att").on("change", function () {
 		$("#fileName").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
@@ -680,6 +707,7 @@ function drawOutList() {
 					return false;
 				}
 		},
+		
 		success : function (res) {
 			if(res.result=="SUCCESS"){
 				// 올라간 파일명 저장 폼에 저장
@@ -735,8 +763,8 @@ function drawOutList() {
 			html +=	"		  <div class =\"searchBox\">";
 			html +=	"			  <select id=\"PsearchGbnDP\">";
 			html +=	"				  <option value=\"0\">선택없음</option>";
-			html +=	"				  <option value=\"1\">제목</option>";
-			html +=	"				  <option value=\"2\">태그</option>";
+			html +=	"				  <option value=\"1\">중요도</option>";
+			html +=	"				  <option value=\"2\">메모내용</option>";
 			html +=	"			  </select>";
 			html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" id=\"PsearchTxtDP\" class=\"searchTxt\">";
 			html +=	"			  <input type=\"button\" value=\"검색\" class=\"btnDP\" id=\"searchBtnDP\">"; 
@@ -823,7 +851,7 @@ function drawOutList() {
 		
 	});
 	
-	//------------------------------------------------------- 메모 수정하기(상세페이지 팝업 --> 메모 수정하기)
+	//------------------------------------------------------- 메모 수정을 위한 데이터를 가져와 팝업창에 뿌려주고 보여준다.
 	$(".Pmain table").on("click","#updateBtnDM", function () {
 		/* console.log("이거 누름");
 		
@@ -907,6 +935,8 @@ function MemoPop(list) {
 				console.log("실행함");
 				$("#memoWrap input:checkbox[id='check_test_box']").prop("checked","true");
 				$("#memoWrap #check_test_box").attr("disabled","true");
+			}else{
+				$("#memoWrap #check_test_box").attr("disabled","true");
 			}
 			$("#memoWrap .last_box .btn").on("click", function () {
 				console.log("취소버튼 실행 ");
@@ -947,7 +977,7 @@ function updateMemoPop(list) {
 				html +="				<div class=\"last_box\">";
 				html +="					<div class=\"last_box_blank\"></div>";
 				html +="					<input type=\"button\" value=\"취소\" class=\"btn\" id=\"cancelBtn\">";
-				html +="					<input type=\"button\" value=\"등록\" class=\"btn\" id=\"addBtn\">";
+				html +="					<input type=\"button\" value=\"수정\" class=\"btn\" id=\"updateBtnDMD\">";
 				html +="				</div>";
 				html +="			</div>";
 				html +="		</div>";
@@ -967,33 +997,42 @@ function updateMemoPop(list) {
 				$("#memoWrap").empty();
 			});
 			
-			 $(".popMemo #addBtn").on("click", function () {
+		
+			
+			$(".text").on("change", function () {
+				$("#contentsForm").val($(".text").val());
+			});
+			$(".date1").on("change", function () {
+				$("#accurDateForm").val($(".date1").val());
+			});
+			
+			$(".popMemo input[type=checkbox]").on("change", function () {
+				console.log($(".popMemo input[type=checkbox]").is(":checked"));
 				if($(".popMemo input[type=checkbox]").is(":checked") == true){
 					$("#importantForm").val("1");
 				}else{
 					$("#importantForm").val("0");
 				}
-				
-				$("#accurDateForm").val($(".date1").val());
-				$("#accurTimeForm").val($(".time").val());
-				$("#contentsForm").val($(".text").val());
+			});
+			
+			$("#userNoMemo").val($("#userNo").val());
+			 $(".popMemo #updateBtnDMD").on("click", function () {
 				
 				var params = $("#memoForm").serialize();
 				
 				$.ajax({
-					url : "saveReportMemo",
+					url : "updateMemo",
 					type : "post",
 					dataType : "json",
 					data : params,
 					success: function (res) {
-						if(res.msg == "success"){
-							$("#memoWrap").empty();						
+							console.log("아작스 성공");
+							$(".topOfBox .topBar").empty();
+							$(".Pmain table").empty();						
 							listDM(res.list,1);
-						} else if(res.msg == "failed"){
-							alert("작성에 실패하였습니다.")
-						} else{
-							alert("작성중 문제가 발생하였습니다.")
-						}
+							$("#contentsForm").val("");
+							$("#accurDateForm").val("");
+							
 					},
 					error : function (request, status, error) {
 						console.log(error);
@@ -1068,27 +1107,34 @@ function addMemoPop() {
 			$("#accurTimeForm").val($(".time").val());
 			$("#contentsForm").val($(".text").val());
 			
-			var params = $("#memoForm").serialize();
-			
-			$.ajax({
-				url : "add_memo",
-				type : "post",
-				dataType : "json",
-				data : params,
-				success: function (res) {
-					if(res.msg == "success"){
-						$("#memoWrap").empty();
-						listDM(res.list,1);
-					} else if(res.msg == "failed"){
-						alert("작성에 실패하였습니다.")
-					} else{
-						alert("작성중 문제가 발생하였습니다.")
+			if($(".text").val().trim() ==""){
+				alert("내용을 입력해주세요");
+			}else if($(".date1").val().trim() ==""){
+				alert("발생일을 입력해주세요.");
+			}else{
+				var params = $("#memoForm").serialize();
+				
+				$.ajax({
+					url : "add_memo",
+					type : "post",
+					dataType : "json",
+					data : params,
+					success: function (res) {
+						if(res.msg == "success"){
+							$(".topOfBox .topBar").empty();
+							$(".Pmain table").empty();		
+							listDM(res.list,1);
+						} else if(res.msg == "failed"){
+							alert("작성에 실패하였습니다.")
+						} else{
+							alert("작성중 문제가 발생하였습니다.")
+						}
+					},
+					error : function (request, status, error) {
+						console.log(error);
 					}
-				},
-				error : function (request, status, error) {
-					console.log(error);
-				}
-			});
+				});
+			}
 		});
 }
 
@@ -1147,7 +1193,7 @@ function addMemoPop() {
 	
 	for(var e of list){
 		html+= "	<tr name=\"" + e.USER_NO  + "\">";
-		html+= "		<td><input type=\"checkbox\"> </td>";
+		html+= "		<td><input type=\"checkbox\" name =\"userNo\" value =\"" + e.USER_NO  + "\"> </td>";
 		html+= "		<td>" + e.RNUM  + "</td>";
 		html+= "		<td>" + e.USER_NO  + "</td>";
 		html+= "		<td>" + e.NAME  + "</td>";
@@ -1290,11 +1336,12 @@ function drawEamilList(list) {
 			     <input type="text" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt }">
 				<div class="date_search">
 					<label>날짜분류</label>
-						<input type="date" name="startDate" id="startDate">
+						<input type="date" name="startDate" id="startDate" value="${param.startDate }">
 						<span> ~ </span>
-						<input type="date" name="endDate" id="endDate">
+						<input type="date" name="endDate" id="endDate" value="${param.endDate }">
 				</div>
 				<input type="button" id="searchBtn" value="검색">
+				<input type="button" id="resetBtn" value="초기화">
 			</div>
 </form>		
 		</div>
@@ -1338,30 +1385,30 @@ function drawEamilList(list) {
 			</thead>
 			<tbody>
 				<c:forEach var="data" items="${list}">
-				<tr name="${data.USER_NO}">
-					<td><input type="checkbox" name ="userNo" value ="${data.USER_NO}"> </td>
-					<td>${data.RNUM}</td>
-					<td>${data.USER_NO}</td>
-					<td>${data.NAME}</td>
-					<td>${data.USER_ID}</td>
-					<td>${data.USER_NICKNAME}</td>
-					<c:choose>
-						<c:when test="${data.SEX eq 0}">
-						<td>남</td>
-						</c:when>
-						<c:when test="${data.SEX eq 1}">
-						<td>여</td>
-						</c:when>
-					</c:choose>
-
-					<td>${data.BIRTHDAY}(만${data.OLD}세)</td>
-					<td>${data.PHONE_NO}</td>
-					<td>${data.MAIL}</td>
-					<td>${data.JOIN_DATE}</td>
-					<td><input type="button" value="수정" class="update_btn"/>
-						<input type="button" value="삭제" class="delete_btn"/>
-					</td>
-				</tr>
+					<tr name="${data.USER_NO}">
+						<td><input type="checkbox" name ="userNo" value ="${data.USER_NO}"> </td>
+						<td>${data.RNUM}</td>
+						<td>${data.USER_NO}</td>
+						<td>${data.NAME}</td>
+						<td>${data.USER_ID}</td>
+						<td>${data.USER_NICKNAME}</td>
+						<c:choose>
+							<c:when test="${data.SEX eq 0}">
+							<td>남</td>
+							</c:when>
+							<c:when test="${data.SEX eq 1}">
+							<td>여</td>
+							</c:when>
+						</c:choose>
+	
+						<td>${data.BIRTHDAY}(만${data.OLD}세)</td>
+						<td>${data.PHONE_NO}</td>
+						<td>${data.MAIL}</td>
+						<td>${data.JOIN_DATE}</td>
+						<td><input type="button" value="수정" class="update_btn"/>
+							<input type="button" value="삭제" class="delete_btn"/>
+						</td>
+					</tr>
 				</c:forEach>
 				
 			</tbody>

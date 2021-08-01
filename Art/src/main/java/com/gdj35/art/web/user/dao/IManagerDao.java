@@ -85,5 +85,7 @@ public interface IManagerDao {
 
 	public int addMemoHD(HashMap<String, String> params)throws Throwable;
 
+	public int updateMemo(HashMap<String, String> params)throws Throwable;
+
 	
 }

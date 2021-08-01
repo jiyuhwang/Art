@@ -22,13 +22,6 @@ $(document).ready(function() {
 	});
 	
 	
-	$('#btnMenu').click(function() {
-		if ($('.side_bar').css('display') == 'none') {
-			$('.side_bar').slideDown();
-		} else {
-			$('.side_bar').slideUp();
-		}
-	});
 	
 	$("#btnCcl").on("click", function () {
 		location.href="gong_board";
@@ -107,39 +100,14 @@ $(document).ready(function() {
 	 <form action=fileUploadAjax id=fileForm method=post enctype=multipart/form-data>;
 		 	<input style="display:none;" type=file name=att id=att>;
 	 </form>;
-	<div class="hdr">
-		<img src="resources/images/JY/menu.png" id="btnMenu" alt="메뉴" width="35px" height="40px">
-		<a href="main"><img src="resources/images/JY/art2.png" id="btnLogo" alt="로고" width="70px" height="40px"></a>
-		<a href="searchPage"><img src="resources/images/JY/look.png" id="btnLook" alt="돋보기" width="40px" height="40px"></a>
-	</div>
-	<div class="side_bar">
-		<div class="pfe">
-			<img class="pfe_img" src="resources/images/JY/짱구1.jpg" alt="짱구1" width="300px"
-				height="300px">
-		</div>
-		<div id="pfeName">짱구</div>
-		<a href="writing"><input type="button" id="btnUod"
-			value="작품등록"></a>
-		<div class="side_bar_menu">
-			<span>--------------</span>
-			<div id="sideBarMenu1">
-				<a href="mygallary">나의 작업실</a>
-			</div>
-			<br />
-			<div id="sideBarMenu2">
-				<a href="gallary">작품 보러가기</a>
-			</div>
-			<br />
-			<div id="sideBarMenu3">
-				<a href="profile">개인정보 수정</a>
-			</div>
-			<br />
-			<div id="sideBarMenu4">
-				<a href="#">공지사항</a>
-			</div>
-		</div>
-		<input type="button" id="btnLot" value="로그아웃">
-	</div>
+	<c:choose>
+		<c:when test="${empty sUserNo}">
+			<c:import url="../JY/header2.jsp"></c:import>
+		</c:when>
+		<c:otherwise>
+			<c:import url="../JY/header.jsp"></c:import>
+		</c:otherwise>
+	</c:choose>
 	<div class="wrap">
 		<!-- <div id="editPage">작품올리기</div> -->
 		<!-- <div id="glySet">작품관 선택</div>
