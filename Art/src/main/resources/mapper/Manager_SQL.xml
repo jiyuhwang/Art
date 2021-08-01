@@ -40,7 +40,15 @@
 					AND PHONE_NO LIKE '%' || #{searchTxt} ||'%'
 		        	</when>
 		        	<when test="searchGbn == 4">
-					AND SEX LIKE '%' || #{searchTxt} ||'%'
+		        		<choose>
+				        	<when test="searchTxt == 1">
+								AND SEX = 1
+				        	</when>
+				        	<when test="searchTxt == 0">
+								AND SEX = 0
+				        	</when>
+		        		</choose>
+			        	
 		        	</when>
 		        	<when test="searchGbn == 5">
 					AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE),BIRTHDAY) / 12) LIKE '%' || #{searchTxt} ||'%'
@@ -117,12 +125,14 @@
 	<select id="getTList" resultType="hashmap" parameterType="hashmap">
 			SELECT *
 			FROM TAG
-			WHERE DEL =1
+			WHERE DEL = 1
+			
 			<if test="searchTxt !='' and searchTxt != null"> 
-			<!-- null 설정 안했을 때 안돌아 갔음 안정성의 영역이다. 값이 jsp에서 넘어올 경우 키 값은 있고 value는 없기 때문에 null로 입력된다. -->
+				<!-- null 설정 안했을 때 안돌아 갔음 안정성의 영역이다. 값이 jsp에서 넘어올 경우 키 값은 있고 value는 없기 때문에 null로 입력된다. -->
 				AND TAG_NAME LIKE '%' || #{searchTxt} || '%'
 			</if>
-			 <choose>
+			
+		 		<choose>
 			        <when test="(startDate != null and startDate !='')and(endDate != null and endDate != '')">
 			        	AND REGISTER_DATE BETWEEN TO_DATE('${startDate}') AND TO_DATE('${endDate}')
 			        </when>
@@ -132,8 +142,7 @@
 			        <when test="(startDate == null and startDate =='')||(endDate != null and endDate != '')">
 			        	AND REGISTER_DATE &lt;= TO_DATE('${endDate}')
 			        </when>
-			        
-		        </choose>
+	       	 	</choose>
 	</select>
 	
 	<insert id="addTag" parameterType="hashmap">
@@ -179,7 +188,15 @@
 					AND PHONE_NO LIKE '%' || #{searchTxt} ||'%'
 		        	</when>
 		        	<when test="searchGbn == 4">
-					AND SEX LIKE '%' || #{searchTxt} ||'%'
+		        		<choose>
+				        	<when test="searchTxt == 1">
+								AND SEX = 1
+				        	</when>
+				        	<when test="searchTxt == 0">
+								AND SEX = 0
+				        	</when>
+		        		</choose>
+			        	
 		        	</when>
 		        	<when test="searchGbn == 5">
 					AND TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE),BIRTHDAY) / 12) LIKE '%' || #{searchTxt} ||'%'
@@ -242,9 +259,7 @@
 		        	AND REGISTER_DATE &lt;= TO_DATE('${endDate}')
 		        </when>
 			</choose>
-			)
-		 WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
-		 <if test="sortO != null and sortO !=''">
+			 <if test="sortO != null and sortO !=''">
 	        	<choose>
 	        		<when test="sortO == 0">
 	        			ORDER BY REGISTER_DATE ASC
@@ -254,6 +269,8 @@
 	        		</when>
 	        	</choose>
 	        </if>
+			)
+		 WHERE RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 	
 	<insert id="addGong" parameterType="hashmap">
@@ -342,6 +359,9 @@
                     ON M.ADMIN_NO = A.ADMIN_NO
 		WHERE M.DEL=1
 		AND M.USER_NO = #{userNo}
+		<if test="searchTxt != null and searchTxt != ''">
+					AND CONTENTS LIKE '%' || #{searchTxt} ||'%'
+	 	</if>
 	</select>
 	
 	<update id="deleteOneRow" parameterType="hashmap">

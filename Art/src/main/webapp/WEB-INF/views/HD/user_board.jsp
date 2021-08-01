@@ -129,8 +129,32 @@ $(document).ready( function () {
 	
 	
 	$("#searchBtn").on("click", function () {
-		$("#page").val(1);
-		$("#userForm").submit();
+		if($("#outUserList").attr("class") =="bigClassActive")	{
+			$("#outUserList").attr("class","bigClassActive");
+			$("#allUserList").attr("class","bigClass-1");
+			$(".main3-table tbody").empty();
+			$("#pagingWrap").empty();
+			drawOutList()
+		}else{
+			$("#page").val(1);
+			if($("#searchGbn").val() == 4){
+				console.log("동작");
+				if($("#searchTxt").val() == "남"){
+				console.log("동작");
+					$("#searchTxt").val("0");
+				}else{
+				console.log("동작");
+					$("#searchTxt").val("1");
+				}
+			}
+			$("#userForm").submit();
+			
+			if($("#searchTxt").val() == 0){
+				$("#searchTxt").val("남");
+			}else if($("#searchTxt").val() == 1){
+				$("#searchTxt").val("여");
+			}
+		}
 	});
 	
 	$("#resetBtn").on("click", function () {
@@ -186,9 +210,9 @@ $(document).ready( function () {
 	//---------------------------------Ajax 상세페이지 그리기, 더블 클릭 상세보기
 	$("tbody").on("dblclick","tr", function () {
 		/* $(".Pmain, .background").show();*/
-		
 		$("#userNo").val($(this).attr("name"));
 		drawPopup();
+		
 	
 	
 
@@ -208,6 +232,7 @@ $(document).ready( function () {
 	
 	//---------------------------------------업데이트
 	$(".main3-table tbody").on("click", ".update_btn" ,function () {
+		$("#PmainDP .topBar").show();
 		$("#userNo").val($(this).parent().parent().attr("name"));
 		
 		drawUpdatePopup();
@@ -307,6 +332,27 @@ $(document).ready( function () {
 		});
 	});
 	
+	$(document).on("click", ".Pmain #searchBtnDP",function () {
+		$("#userNoMemoS").val($("#userNo").val());
+		var params = $(".Pmain #searchForm").serialize();
+		
+		$.ajax({
+			/* url:"user_update", */
+			url:"getMemoList",
+			type:"post",
+			dataType :"json",
+			data:params,
+			success : function (res) {
+					listDM(res.list,1);			
+			},
+			error: function (request, status, error) {
+				console.log(error);
+			}
+	});
+		
+		
+	});
+	
 	
 });
 //document end
@@ -403,8 +449,8 @@ function drawUpdatePopup() {
 		}
 });
 	
-//------------------------------------수정 버튼 클릭하기
 }
+//------------------------------------수정 버튼 클릭하기
 function userUpdate() {
 	
 	var params = $("#updateForm").serialize();
@@ -438,7 +484,8 @@ function delOneRow() {
 		dataType :"json",
 		data:params,
 		success : function (res) {
-			alert("삭제되었습니다.");
+			alert("탈퇴/복구되었습니다.");
+			location.href="user_board";
 		},
 		error: function (request, status, error) {
 			console.log(error);
@@ -554,6 +601,7 @@ function drawOutList() {
 	
 	//위의 html을 그린 이후의 위의 html기반(id or class)의기능들은 여기서 부터 시작 됨으로 이 안에 적용시켜야한다. 안에 들어가 있어야한다.
 	
+	$(".cButtonI").hide();
 	
 	$(".Pmain .closeBtn").on("click", function () {
 		$(".popupWrap").empty();
@@ -573,7 +621,7 @@ function drawOutList() {
 				html +=	"	<div class =\"blank\"></div>";
 				html +=	"  </div>";
 				html += "<form action=\"user_board\" id=\"updateForm\" method=\"psot\">";
-				html += " <input type=\"hidden\" name=\"fileName\" id=\"fileName\" value=\"\">";
+				html += " <input type=\"hidden\" name=\"fileName\" id=\"fileName\" value=\""+ user.PROFILE_IMG_PATH +"\">";
 				html += "<input type=\"hidden\" name=\"userNo\" value=\""+ user.USER_NO +"\">";
 				html +=	"  <div class = \"profile\">";
 				html +=	"  	  <div class =\"pBox\">";
@@ -606,7 +654,7 @@ function drawOutList() {
 				html +=	"				  <div class=\"content_box\" name=\"userNo\" value=\""+ user.USER_NO +"\">" + user.USER_NO + "</div>";
 				html +=	"			  </div>";
 				html +=	"			  <div class =\"MsmallBox\">";
-				html +=	"				  <div class=\"informing\">전화번호</div>";
+				html +=	"				  <div class=\"informing\">*전화번호</div>";
 				html +=	"				  <div class=\"content_box\" ><input type =\"text\" id=\"phone_no\" value=\""+ user.PHONE_NO+ "\" name=\"phon_no\"></div>";
 				html +=	"			  </div>";
 			
@@ -621,13 +669,13 @@ function drawOutList() {
 				html +=	"				  <div class=\"content_box\">" +user.BIRTHDAY + "</div>";
 				html +=	"			  </div>";
 				html +=	"			  <div class =\"MsmallBox\">";
-				html +=	"				  <div class=\"informing\">이메일</div>";
+				html +=	"				  <div class=\"informing\">*이메일</div>";
 				html +=	"				  <div class=\"content_box\"><input type =\"text\" id=\"email\"  value=\""+ user.MAIL +"\" name=\"email\"></div>";
 				html +=	"			  </div>";
 				html +=	"		  </div>";
 				
 				html +=	"		  <div class=\"introduce_box\">";
-				html +=	"			  <div class=\"sogea\"><b>소개</b></div>";
+				html +=	"			  <div class=\"sogea\"><b>*소개</b></div>";
 				html +=	"			  <div class=\"sogea_box\">";
 				html +=	"			  <textarea id=\"sogeaTxt\" name=\"sogeaTxt\" style=\"width:100%;height:100%;overflow:hidden;\" >" +user.INTRODUCE + "</textarea>";
 				html +=	"			  </div>";
@@ -678,8 +726,10 @@ function drawOutList() {
 	});
 	
 	
-	$(".Pmain #att").on("change", function () {
+	$(".popupWrap #att").on("change", function () {
+		console.log("작동중");
 		$("#fileName").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+		$(".img").attr("src","resources/upload/" + $(this).val().substring($(this).val().lastIndexOf("\\")+1));
 		
 	});
 	
@@ -760,16 +810,19 @@ function drawOutList() {
 			html +="	<input type=\"hidden\" id=\"importantForm\" name=\"marking\">";
 			html +="	<input type=\"hidden\" id=\"memoNo\" name=\"mNo\">";
 			html +=" </form>";
+			html +=" <form id=\"searchForm\" method=\"post\" action=\"#\">";
+			html +="	<input type=\"hidden\" id=\"userNoMemoS\" name=\"userNo\">";
 			html +=	"		  <div class =\"searchBox\">";
-			html +=	"			  <select id=\"PsearchGbnDP\">";
+			html +=	"			  <select id=\"PsearchGbnDP\" name=\"searchGbn\">";
 			html +=	"				  <option value=\"0\">선택없음</option>";
 			html +=	"				  <option value=\"1\">중요도</option>";
 			html +=	"				  <option value=\"2\">메모내용</option>";
-			html +=	"			  </select>";
-			html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" id=\"PsearchTxtDP\" class=\"searchTxt\">";
+			html +=	"			  </select>"; 
+			html +=	"			  <input type=\"text\" placeholder=\"검색어를 입력하세요\" style=\"font-size:10pt;\" id=\"PsearchTxtDP\" class=\"searchTxt\" name=\"searchTxt\">";
 			html +=	"			  <input type=\"button\" value=\"검색\" class=\"btnDP\" id=\"searchBtnDP\">"; 
 			html +=	"			  <div class = \"blank2\"></div>";
 			html +=	"			  <input type=\"button\" value=\"작성\" class=\"btnDP\" id=\"addBtnDP\">";
+			html +=" </form>";
 			
 	
 	$(".topOfBox .topBar").html(html);
@@ -793,8 +846,8 @@ function drawOutList() {
 					html += "	</th>"; */
 					html += "	<th> no</th>";
 					html += "	<th> 중요도</th>";
-					html += "	<th> 등록일자</th>";
 					html += "	<th> 발생일자</th>";
+					html += "	<th> 등록일자</th>";
 					if(gbn == 1){
 						html += "	<th> 수정/삭제</th>";
 					}
@@ -998,6 +1051,10 @@ function updateMemoPop(list) {
 			});
 			
 		
+			$("#userNoMemo").val($("#userNo").val());
+			$("#accurDateForm").val(list.ACCUR_DATE);
+			$("#contentsForm").val(list.CONTENTS);
+			$("#importantForm").val(list.MARKING);
 			
 			$(".text").on("change", function () {
 				$("#contentsForm").val($(".text").val());
@@ -1015,7 +1072,6 @@ function updateMemoPop(list) {
 				}
 			});
 			
-			$("#userNoMemo").val($("#userNo").val());
 			 $(".popMemo #updateBtnDMD").on("click", function () {
 				
 				var params = $("#memoForm").serialize();
@@ -1169,7 +1225,7 @@ function addMemoPop() {
 				html +=	"	  <tbody>";
 				
 		for(var d of list){
-				html+= "	<tr>";
+				html+= "	<tr name=\"" + d.POST_NO +"\">";
 				/* html+= "		<td>";
 				html+= "		<input class = \"check\" type=\"checkbox\" id=\"ex_chk\">"; 
 				html+= "		</td>"; */
@@ -1184,6 +1240,14 @@ function addMemoPop() {
 		}                     
 				html +=	"	</tbody>";
 	$(".Pmain table").html(html);
+	
+	$(".Pmain table").on("dblclick","tr", function () {
+		console.log("도니?");
+		$("#postNo").val($(this).attr("name"));
+		$("#pNo").val($(this).attr("name"));
+		$("#userNoForPost").val($("#userNo").val());
+		$("#postForm").submit();
+	});
 	
 }
  function outList(list) {
@@ -1288,7 +1352,13 @@ function drawEamilList(list) {
 </script>
 </head>
 <body>
-<form action="user_board" id="detailForm" method="psot">
+<form action="detail" id="postForm" method="post">
+	<input type="hidden" id="pNo" name="pNo">
+	<input type="hidden" id="postNo" name="postNo">
+	<input type="hidden" id="userNoForPost" name="userNo">
+</form>
+
+<form action="user_board" id="detailForm" method="post">
 	<input type="hidden" id="userNo" name="userNo">
 	<input type="hidden" id="searchGbnDP" name="searchGbnDP">
 	<input type="hidden" id="searchTxtDP" name="searchTxtDP">
@@ -1333,7 +1403,7 @@ function drawEamilList(list) {
 					<option value="4">성별</option>
 					<option value="5">나이</option>
 				</select>
-			     <input type="text" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt }">
+			     <input type="text" id="searchTxt" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt }">
 				<div class="date_search">
 					<label>날짜분류</label>
 						<input type="date" name="startDate" id="startDate" value="${param.startDate }">
