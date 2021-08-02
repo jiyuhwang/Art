@@ -187,7 +187,7 @@ $(document).ready(function(){
 		
 		if(list.length == 0 && $("#page").val() == 1) {
 			html += "<tr>";
-			html += "<td colspan=\"5\">등록된 글이 없습니다.</td>";
+			html += "<td colspan=\"50\">등록된 글이 없습니다.</td>";
 			html += "</tr>";
 		} else {
 			for(var d of list){
@@ -625,7 +625,7 @@ $(document).ready(function(){
 			
 			if(list.length == 0) {
 				html += "<tr>";
-				html += "<td colspan=\"5\">등록된 글이 없습니다.</td>";
+				html += "<td colspan=\"50\">등록된 글이 없습니다.</td>";
 				html += "</tr>";
 			} else {
 			
