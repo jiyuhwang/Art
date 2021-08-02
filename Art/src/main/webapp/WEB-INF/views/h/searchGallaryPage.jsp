@@ -13,6 +13,9 @@
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	$(".srh_cnt").css("display", "none");
+	
 	/* 순서 지켜야 파람값 지정됨. */
 	if("${param.tabFlag}" != "") {
 		$("input[name=tabFlag]").prop("checked", false);
@@ -29,6 +32,7 @@ $(document).ready(function() {
 				alert("검색어가 없습니다.");
 				$(this).focus();
 			} else {
+				$(".srh_cnt").css("display", "block");
 				$("#page").val("1");
  				$("#orderFlag").val("0");
  				$("#searchOldTxt").val($("#searchTxt").val());
