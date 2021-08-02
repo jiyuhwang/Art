@@ -95,6 +95,16 @@
 				$("#updateTagForm").submit();
 			});
 			
+			
+			$("#forbiddenBtn").on("click", function () {
+				if($("#del").val() !="1"){
+					$("#del").val("1");
+					$("#forbiddenBtn").val("금지태그");
+				}else{
+					$("#del").val("0");
+					$("#forbiddenBtn").val("태그");
+				}
+			});
 		
 		});
 		//document ready done

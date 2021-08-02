@@ -73,6 +73,16 @@
 			$("#endDate").val(0);
 		});
 		
+		$("#resetBtn").on("click", function () {
+			console.log("working");
+			$("input[name='searchTxt']").val("");
+			$("#searchType option:eq(0)").prop("selected",true);
+			$("#searchGbn option:eq(0)").prop("selected",true);
+			$("#startDate").val("");
+			$("#endDate").val("");
+			
+		});
+		
 		//-------------------------------------------------- 작성 버튼 클릭시
 		$("#addBtn").on("click", function () {
 			$("#everyForm").attr("action","addGong");
@@ -185,7 +195,7 @@
 				html+= "				<col width=\"2%\"/>";
 				html+= "				<col width=\"5%\"/>";
 				html+= "				<col width=\"5%\"/>";
-				html+= "				<col width=\"20%\"/>";
+				/* html+= "				<col width=\"20%\"/>"; */
 				html+= "				<col width=\"8%\"/>";
 				html+= "				<col width=\"10%\"/>";
 				html+= "				<col width=\"5%\"/>";
@@ -198,7 +208,7 @@
 				html+= "				</th>";
 				html+= "				<th>공지번호</th>";
 				html+= "				<th>제목</th>";
-				html+= "				<th>내용</th>";
+			/* 	html+= "				<th>내용</th>"; */
 				html+= "				<th>관리자번호</th>";
 				html+= "				<th>첨부파일</th>";
 				html+= "				<th>조회수</th>";
@@ -213,7 +223,7 @@
 					html+= "		        </td>";
 					html+= "				<td>" + b.NOTICE_NO + "</td>";
 					html+= "				<td>" + b.TITLE + "</td>";
-					html+= "				<td>" + b.CONTENTS + "</td>";
+					/* html+= "				<td>" + b.CONTENTS + "</td>"; */
 					html+= "				<td>" + b.ADMIN_NO + "</td>";
 					html+= "				<td>" + b.FILE_PATH + "</td>";
 					html+= "				<td>" + b.VIEWS + "</td>";
@@ -334,13 +344,14 @@
 						<option value="2">관리자번호</option>
 						<option value="3">삭제여부</option>
 					</select>
-				     <input type="text" name="searchTxt" id="searchTxt" placeholder="검색어를 입력해주세요.">
+				     <input type="text" name="searchTxt" id="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt }">
 					<div class="date_search">
 						<label>날짜분류</label>
-							<input type="date" name="startDate" id="startDate">
+							<input type="date" name="startDate" id="startDate" value="${param.startDate }">
 							<span> ~ </span>
-							<input type="date" name="endDate" id="endDate">
+							<input type="date" name="endDate" id="endDate" value="${param.endDate }">
 							<input type="button" value="검색" id="searchBtn">
+							<input type="button" value="초기화" id="resetBtn">
 					</div>
 				</form>
 			</div>

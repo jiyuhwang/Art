@@ -18,6 +18,10 @@
 	margin: 0;
 }
 
+.Pmain #PsearchGbnDP{
+	display: none;
+}
+
 
 textarea{
 	width: 100%;
@@ -42,7 +46,6 @@ textarea{
 }
 .Pmain .topBar{
 	width : 100%;
-	heigth
 	background-color: rgba;
 }
 .Pmain .blank{
@@ -310,7 +313,7 @@ textarea{
 .Pmain .blank2{
 	display: inline-block;
 	vertical-align: top;
-	width : 450px;
+	width : 530px;
 	height : 100%;
 	background-color: rgba;
 }

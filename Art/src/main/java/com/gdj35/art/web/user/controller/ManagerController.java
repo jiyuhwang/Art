@@ -247,8 +247,9 @@ public class ManagerController {
 	@RequestMapping(value="/user_board")
 	public ModelAndView user_board(HttpSession session,ModelAndView mav,
 									@RequestParam HashMap<String,String> params) throws Throwable {
-		 
+		System.out.println("---------------");
 		System.out.println(params);
+		System.out.println("---------------");
 		
 		
 		int page=1;
@@ -265,6 +266,7 @@ public class ManagerController {
 		
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		
 		
 		
 		//Main list를 가져온다. 그래서 M으로 지정
@@ -436,7 +438,10 @@ public class ManagerController {
 		
 		try {
 			
+			
 			int cnt = iManagerService.addMemoHD(params); 
+			
+			
 			List<HashMap<String,String>> list = iManagerService.getDMList(params);
 			
 			
@@ -453,6 +458,32 @@ public class ManagerController {
 		
 		
 //		modelMap.put("list", list);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "/getMemoList",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String getMemoListAjax(@RequestParam HashMap<String, String> params) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String,Object>();
+		System.out.println("------------------------");
+		System.out.println("메모 검색 가능하니? >>> " + params);
+		System.out.println("------------------------");
+		
+		try {
+			
+		List<HashMap<String,String>> list = iManagerService.getDMList(params);
+	
+		modelMap.put("list",list); 
+		}catch(Throwable e){
+			e.printStackTrace();
+			modelMap.put("msg","error");
+		}
+		
 		
 		return mapper.writeValueAsString(modelMap);
 	}
@@ -514,6 +545,8 @@ public class ManagerController {
 		
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("sortO","1");
+		
 		
 		
 		//공지사항 게시판을 만들기 위해 값을 가져온다.
