@@ -138,27 +138,19 @@ $(document).ready( function () {
 		}else{
 			$("#page").val(1);
 			if($("#searchGbn").val() == 4){
-				console.log("동작");
 				if($("#searchTxt").val() == "남"){
-				console.log("동작");
 					$("#searchTxt").val("0");
 				}else{
-				console.log("동작");
 					$("#searchTxt").val("1");
 				}
 			}
 			$("#userForm").submit();
 			
-			if($("#searchTxt").val() == 0){
-				$("#searchTxt").val("남");
-			}else if($("#searchTxt").val() == 1){
-				$("#searchTxt").val("여");
-			}
 		}
 	});
 	
+	
 	$("#resetBtn").on("click", function () {
-		console.log("working");
 		$("input[name='searchTxt']").val("");
 		$("#searchType option:eq(0)").prop("selected",true);
 		$("#searchGbn option:eq(0)").prop("selected",true);
@@ -166,7 +158,6 @@ $(document).ready( function () {
 		$("#endDate").val("");
 		
 	});
-	
 	
 	
 	//-----------------------------------------side 클릭시 변경 script
@@ -1416,7 +1407,7 @@ function drawEamilList(list) {
 					<option value="4">성별</option>
 					<option value="5">나이</option>
 				</select>
-			     <input type="text" id="searchTxt" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt }">
+					     <input type="text" id="searchTxt" name="searchTxt" placeholder="검색어를 입력해주세요." value="${param.searchTxt }">
 				<div class="date_search">
 					<label>날짜분류</label>
 						<input type="date" name="startDate" id="startDate" value="${param.startDate }">

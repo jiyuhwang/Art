@@ -387,7 +387,14 @@
 	<select id="getGongCnt" resultType="Integer" parameterType="hashmap">
 		SELECT COUNT(*) AS CNT
 		FROM NOTICE
-		WHERE DEL=1
+		<choose>
+			<when test ="searchGbn == 3">
+				WHERE DEL=0
+			</when>
+			<when test ="searchGbn != 3">
+				WHERE DEL=1
+			</when>
+		</choose>
 		<if test="searchGbn != null and searchTxt != ''">
 		        <choose>
 		        	<when test="searchGbn == 0">
@@ -398,9 +405,6 @@
 		        	</when>
 		        	<when test="searchGbn == 2">
 					AND ADMIN_NO LIKE '%' || #{searchTxt} ||'%'
-		        	</when>
-		        	<when test="searchGbn == 3">
-					AND DEL = 0
 		        	</when>
 		        </choose>
         </if>

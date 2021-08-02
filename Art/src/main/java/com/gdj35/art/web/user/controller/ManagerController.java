@@ -548,6 +548,10 @@ public class ManagerController {
 		params.put("sortO","1");
 		
 		
+		System.out.println("-------------------------------");
+		System.out.println(pb.getEndPcount());
+		System.out.println(pb.getStartPcount());
+		System.out.println("-------------------------------");
 		
 		//공지사항 게시판을 만들기 위해 값을 가져온다.
 		 List<HashMap<String,String>> list = iManagerService.getGList(params);

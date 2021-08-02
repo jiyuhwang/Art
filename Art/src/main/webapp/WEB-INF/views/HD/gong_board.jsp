@@ -69,8 +69,6 @@
 			$("#endDateForm").val($("#endDate").val());
 			$("#page").val(1);
 			drawList();
-			$("#startDate").val(0);
-			$("#endDate").val(0);
 		});
 		
 		$("#resetBtn").on("click", function () {
@@ -97,7 +95,8 @@
 			console.log($(".main3-table [type=checkbox]:checked").val());
 			$(".main3-table [type=checkbox]:checked").each(function (index, item) {
 				arr.push($(item).val());
-			})
+			});
+			
 			$("#noticeNo").val(arr);
 			console.log($("#noticeNo").val());
 			

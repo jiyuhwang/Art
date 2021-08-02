@@ -22,16 +22,16 @@ $(document).ready(function() {
 	});
 	
 	
-	
 	$("#btnCcl").on("click", function () {
 		location.href="gong_board";
 	});
+	
 	
 	$("#btnSave").on("click", function () {
 		console.log("저장하기 버튼 클릭한거");
 		var fileForm = $("#fileForm");
 
-		
+	
 		console.log(fileForm);
 		
 		fileForm.ajaxForm({ 
@@ -119,8 +119,8 @@ $(document).ready(function() {
 		<!-- <div id="glySet">작품관 선택</div>
 		<br /> -->
 		<form action="#" id="goForm" method="method">
-			<input type="hidden" id="noticeNo" name="noticeNo" value=${param.noticeNo }>
-			<input type="hidden" id="changedFileName" name="changedFileName">
+			<input type="hidden" id="noticeNo" name="noticeNo" value="${param.noticeNo }">
+			<input type="hidden" id="changedFileName" name="changedFileName" value="${oneRow.FILE_PATH}">
 			<!-- <div id="title">제목</div> -->
 			<div id="titleInputW"><input id="titleInput" name="titleInput" type="text" value="${oneRow.TITLE }" placeholder="제목을 입력해주세요."></div>
 			<!--첨부 파일  -->
