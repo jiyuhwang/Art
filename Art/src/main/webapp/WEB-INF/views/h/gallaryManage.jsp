@@ -86,24 +86,12 @@ function enterValue(){
 
 }
 $(document).ready(function(){
+
 	
-	
-	if("${param.searchFlag}" != "")
-		$("#searchFlag").val("${param.searchFlag}");
-	
-	if("${param.srhYearFlag}" != "")
-		$("#srhYearFlag").val("${param.srhYearFlag}");
-	
-	if("${param.startFlag}" != "")
-		$("#startFlag").val("${param.startFlag}");
-	
-	if("${param.endFlag}" != "")
-		$("#endFlag").val("${param.endFlag}");
-	
-	$("#page").val(1);
 	
 	//---------------------------------------데이터 가져오기
 	loadPostList();
+	$("#page").val(1);
 	
 	$("#actionForm").on("keypress", "input", function(event){
 		if(event.keyCode == 13){
