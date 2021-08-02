@@ -90,8 +90,8 @@ $(document).ready(function(){
 	
 	
 	//---------------------------------------데이터 가져오기
-	loadPostList();
 	$("#page").val(1);
+	loadPostList();
 	
 	$("#actionForm").on("keypress", "input", function(event){
 		if(event.keyCode == 13){
@@ -881,7 +881,7 @@ $(document).ready(function(){
 				<select name="srhYearFlag" id="srhYearFlag">
 					<option value="0"> 올해작품</option>
 					<option value="1"> 작년작품</option>
-					<option value="" selected="selected"> 전체작품</option>
+					<option value="2" selected="selected"> 전체작품</option>
 				</select>
 				<label>검색분류</label>
 				<select name="searchFlag" id="searchFlag">
