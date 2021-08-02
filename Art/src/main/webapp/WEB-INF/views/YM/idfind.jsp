@@ -201,7 +201,7 @@ $(document).ready(function() {
 				dataType: "json", // 받아올 데이터 형태
 				data: params, // 보낼 데이터(문자열 형태)
 				success: function(res) { // 성공 시 다음 함수 실행
-					/* if(res.resMsg == "success") { */
+					if(res.resMsg == "success") {
 					  alert("이메일 인증번호가 전송되었습니다.")
 				      $("#checkMail").val(""); 
 						console.log(res.list);
@@ -222,11 +222,11 @@ $(document).ready(function() {
 					                
 					  });
 					  
-					/* } else if(res.resMsg == "failed") {
+					 } else if(res.resMsg == "failed") {
 						alert("탈퇴한 회원이거나 일치하는 회원정보가 없습니다.");
 					} else {
 						alert("로딩 중 문제 발생");
-					} */
+					}
 				},
 				error: function(request, status, error) { // 실패 시 다음 함수 실행
 					console.log(error);

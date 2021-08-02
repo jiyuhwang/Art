@@ -123,13 +123,15 @@ a {
 }
 
 .side_bar_menu {
-	position: absolute;
-	top: 230px;
-	left: 70px;
+	/* top: 230px;
+	left: 70px; */
 	text-align: center;
 	border-top: 1px dashed black;
-	margin-top: 20px;
+	margin: 0 auto;
+	margin-top: 240px;
+	width: 200px;
 	padding-top: 30px;
+	height: 200px;
 	font-size: 18pt;
 }
 

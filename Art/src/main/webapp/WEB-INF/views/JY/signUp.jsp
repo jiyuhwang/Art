@@ -112,7 +112,7 @@ $(document).ready(function() {
 	$('.id_wrap').on("propertychange change keyup paste input", function(){
 
 		var userId= $("#idInput").serialize();
-		
+
 		$.ajax({
 			url : "idCheck",
 			type : "post",
@@ -137,7 +137,6 @@ $(document).ready(function() {
 				console.log(error);
 			}
 		})	
-
 	});// function 종료
 	
 	
