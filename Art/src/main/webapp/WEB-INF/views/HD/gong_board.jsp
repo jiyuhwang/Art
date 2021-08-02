@@ -181,11 +181,9 @@
 			error: function (request, status, error) {
 				console.log(error);
 			}
-	});
-		
+		});
 	}
 	
-
 	
 	function list(list, cnt) {
 		var html ="";

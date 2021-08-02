@@ -1241,6 +1241,7 @@ function addMemoPop() {
 				html +=	"	</tbody>";
 	$(".Pmain table").html(html);
 	
+	
 	$(".Pmain table").on("dblclick","tr", function () {
 		console.log("도니?");
 		$("#postNo").val($(this).attr("name"));
@@ -1249,7 +1250,9 @@ function addMemoPop() {
 		$("#postForm").submit();
 	});
 	
+	
 }
+ 
  function outList(list) {
 	var html="";
 	
@@ -1275,10 +1278,15 @@ function addMemoPop() {
 	}
 	
 	$(".main3-table tbody").html(html);
+	
 }
  
+ 
+ 
  function pagingDraw(pb,what) {
-	var html ="";
+	 
+		var html ="";
+		
 		console.log(pb);
 		console.log(what);
 			html += "<span name=\"1\">처음</span>";
@@ -1328,25 +1336,30 @@ function loadEmailList() {
 }
 
 function drawEamilList(list) {
+	
 	var html="";
+	
 	console.log(list);
+	
 	if(list == null){
+		
 		html = "<tr><td style=\"width: 200px;display: inline-block; border: none; margin-left: 120px;\">선택된 회원이 업습니다.</td></tr>";
+	
 	}else{
-	console.log("이거 리스트 ");
-	console.log(list);
-	console.log("----");
-	for(var d of list){
-			html+="		<tr class=\"mail\" name=\"" + d.MAIL + "\">";
-			html+="			<td> " + d.USER_NO + "</td>";
-			html+="			<td> " + d.NAME + "</td>";
-			html+="			<td> " + d.MAIL + "</td>";
-			html+="			<td> " + d.PHONE_NO + "</td>";
-			html+="		</tr>";
-		}
+		
+		for(var d of list){
+				html+="		<tr class=\"mail\" name=\"" + d.MAIL + "\">";
+				html+="			<td> " + d.USER_NO + "</td>";
+				html+="			<td> " + d.NAME + "</td>";
+				html+="			<td> " + d.MAIL + "</td>";
+				html+="			<td> " + d.PHONE_NO + "</td>";
+				html+="		</tr>";
+			}
+		
 	}
 	
 	$(".PmainM tbody").html(html);
+	
 }
 
 </script>
