@@ -509,16 +509,19 @@ public class MemberController {
 		
 		List<HashMap<String, String>> list = iMemberService.idFind(params);
 		modelMap.put("list", list);
+		
+		System.out.println("aaaaaaaaa" + list);
 		/*
 		 * HashMap<String, String> data = iMemberService.idFind(params);
 		 * 
 		 * modelMap.put("data", data);
-		 * 
-		 * if (data != null) { // 사용자 정보가 있음
-		 * 
-		 * modelMap.put("resMsg", "success"); } else { // 사용자 정보가 없음
-		 * modelMap.put("resMsg", "failed"); }
 		 */
+		 if (list.isEmpty()) {
+			 modelMap.put("resMsg", "failed");
+		 } else { // 사용자 정보가 없음
+			 modelMap.put("resMsg", "success");
+		 }
+		 
 
 		return mapper.writeValueAsString(modelMap);
 	}

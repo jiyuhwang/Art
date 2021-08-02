@@ -42,7 +42,7 @@
 .footer1 {
 	font-size: 10pt;
 	color: white;
-	width: 310px;
+	width: 340px;
 	/* position: absolute;
 	top: 60px; */
 	line-height: 150px;

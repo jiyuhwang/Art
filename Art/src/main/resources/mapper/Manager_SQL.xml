@@ -471,7 +471,7 @@
 						AND TO_CHAR(A.REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(A.REGISTER_DATE, 'YYYY') = '20'
+						AND TO_CHAR(A.REGISTER_DATE, 'YYYY') = '2020'
 					</when>
 			</choose>
 		</if>
@@ -568,7 +568,7 @@
 						AND TO_CHAR(REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '20'
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '2020'
 					</when>
 			</choose>
 		</if>
@@ -702,7 +702,7 @@
 						AND TO_CHAR(R.REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(R.REGISTER_DATE, 'YYYY') = '20'
+						AND TO_CHAR(R.REGISTER_DATE, 'YYYY') = '2020'
 					</when>
 			</choose>
 		</if>
@@ -795,7 +795,7 @@
 						AND TO_CHAR(REGISTER_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
 					</when>
 					<when test="srhYearFlag == 1">
-						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '20'
+						AND TO_CHAR(REGISTER_DATE, 'YYYY') = '2020'
 					</when>
 			</choose>
 		</if>
