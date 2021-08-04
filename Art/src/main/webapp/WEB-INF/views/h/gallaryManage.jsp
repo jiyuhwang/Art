@@ -757,9 +757,13 @@ $(document).ready(function(){
 							success: function(result){
 								
 								if(result.msg == "success"){
+									$("#oldMenuTabFlag").val($("#menuTabFlag").val());
+									console.log("이것은 올드: "+$("#oldMenuTabFlag").val());
 									$("#actionForm").attr("action", "gallaryManage");
 									$("#actionForm").submit();
 									alert("정상적으로 작품 수정되었습니다.");
+									$("#page").val($("#oldPage").val());
+									$("#menuTabFlag").val($("#oldMenuTabFlag").val());
 								} else if(result.msg == "failed"){
 									alert("수정에 실패하였습니다.");
 								} else {
@@ -872,8 +876,10 @@ $(document).ready(function(){
 	<input type="hidden" id="postNo" name="postNo"/>
 	<input type="hidden" id="delFlag" name="delFlag" value="-1"/>
 	<input type="hidden" id="page" name="page" value="${page}"/>
+	<input type="hidden" id="oldPage" name="oldPage" value="${param.page}"/>
 	<input type="hidden" id="checkedArr" name="checkedArr"/>
 	<input type="hidden" id="menuTabFlag" name="menuTabFlag" value="0"/>
+	<input type="hidden" id="oldMenuTabFlag" name="oldMenuTabFlag"/>
 	
 		<div class ="search_flag_div">
 			<div class="search_flag">
