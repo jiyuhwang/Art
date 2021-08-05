@@ -270,8 +270,7 @@ function drawReportPostList(list){
 			html +="<td>접수완료</td>";
 		} else if(d.REPORT_STATUS == "3") {
 			html +="<td>처리완료</td>";
-		}
-		
+		}	
 		if(d.REPORT_STATUS == "1") {
 			html += "<td><input type=\"button\" id=\"delete\" class=\"delete\" value=\"삭제하기\"></td>";
 		} else if(d.REPORT_STATUS == "0") {
@@ -283,8 +282,6 @@ function drawReportPostList(list){
 		}
 		html +="</tr>";
 	}	
-	
-	
 	$(".post_wrap tbody").append(html);
 	
 

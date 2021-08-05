@@ -153,8 +153,7 @@ $(document).ready(function() {
 				success: function(res) { // 성공 시 다음 함수 실행
 				    if(res.msg == "success") {
 				    	alert("정상적으로 작품 수정되었습니다.");
-				    	/* location.href="gallary"; */
-				    	history.back();
+				    	history.go(-2);
 				    	
 					} else if(res.msg == "failed") {
 						alert("작품 수정에 실패하였습니다.");
