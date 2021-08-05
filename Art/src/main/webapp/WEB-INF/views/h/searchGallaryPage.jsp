@@ -14,7 +14,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$(".srh_cnt").css("display", "none");
+	$(".srh_cnt").css("visibility", "hidden");
 	
 	/* 순서 지켜야 파람값 지정됨. */
 	if("${param.tabFlag}" != "") {
@@ -32,7 +32,7 @@ $(document).ready(function() {
 				alert("검색어가 없습니다.");
 				$(this).focus();
 			} else {
-				$(".srh_cnt").css("display", "block");
+				$(".srh_cnt").css("visibility", "visible");
 				$("#page").val("1");
  				$("#orderFlag").val("0");
  				$("#searchOldTxt").val($("#searchTxt").val());
